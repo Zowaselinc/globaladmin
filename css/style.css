@@ -131,18 +131,31 @@ p {
 .p-15{
     padding: 11px 12px;
 }
+.p-16 {
+    padding: 16px !important;
+}
 textarea::placeholder{
     font-size: 15px;
     color: var(--bs-secondary);
+    font-family: var(--universal-font) !important;
 }
 input::placeholder{
     column-gap: var(--bs-secondary);
+    font-family: var(--universal-font) !important;
 }
 input{
     font-weight: 300 !important;
     font-size: 14px !important;
     letter-spacing: .05rem;
     border-radius: unset !important;
+    font-family: var(--universal-font) !important;
+}
+label{
+    font-weight: 500 !important;
+    font-size: 15px !important;
+    letter-spacing: .05rem;
+    border-radius: unset !important;
+    font-family: var(--universal-font) !important;
 }
 select {
     font-size: 14px !important;
