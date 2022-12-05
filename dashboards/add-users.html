@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="../assets/font awesome/css/all.css" />
+  <link rel="stylesheet" href="../assets/font awesome/css/fontawesome.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="../assets/bootstrap-5.1.3-dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+
+ 
+</head>
+
+<body>
+  <!------------------------------ Top Nav Bar begins  -------------------------------->
+	<div id="topnav" class="sticky-top shadow"></div>
+
+  <!------------------------------ Top Nav BarEnds  -------------------------------->
+
+	<div class="container-fluid">
+		<div class="row">
+			<nav id="sidebarMenu" class="col-12 col-lg-auto d-lg-block bg-light leftfixedside collapse"></nav>
+			<div class="dash ms-sm-auto ms-0 col py-3 col-12 col-lg-10  rightscrollableside user-height">
+				<div class="main-content row d-flex justify-content-center align-items-center">
+				<!-- Card Header -->
+				<!-- <div class="container-fluid header pb-5 pt-5 pt-md-8  ">
+					<div class="container-fluid">
+						<div class="header-body">
+							<div class="d-flex justify-content-between mb-5 mt-4 align-items-end">
+							<h1 class="fs-3 welcome">Welcome, Spectra</h1>
+							<h5 class="text-secondary">Wallet balance <span class="wallet-bal fs-3 ms-2">$5070.80</span></h5>
+							</div>
+							Card stats
+							<div class="row">
+								<div class="col-12 col-md-6 col-lg-3">
+									<div class="card rounded-3 border-0 card-stats mb-4 mb-xl-0">
+									<div class="card-body pe-1">
+										<h6 class="card-title title text-capitalise text-muted mb-4">
+										Loan issued
+										</h6>
+										<span class="fs-5 fw-bold mb-0 box-2">594,094</span>
+									</div>
+									</div> 
+								</div>
+								<div class="col-12 col-md-6 col-lg-3">
+									<div class="card rounded-3  border-0  card-stats mb-4 mb-xl-0">
+									<div class="card-body pe-1">
+										<h6 class="card-title title  text-capitalise text-muted mb-4">
+										Due loans
+										</h6>
+										<span class="fs-5 fw-bold mb-0 box-4">594,094</span>
+									</div>
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-lg-3">
+									<div class="card rounded-3  border-0  card-stats mb-4 mb-xl-0">
+										<div class="card-body pe-1">
+											<h6 class="card-title title text-capitalise text-muted mb-4">
+											Pending appraisals
+											</h6>
+											<span class="fs-5 fw-bold mb-0 box-3">594,094</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-lg-3 ">
+									<div class="card rounded-3  border-0  card-stats mb-4 mb-xl-0">
+										<div class="card-body pe-1">
+											<h6 class="card-title title text-capitalise text-muted mb-4">
+											Pending collections
+											</h6>
+											<span class="fs-5 fw-bold mb-0 box-5">594,094</span>
+										</div>
+									</div>
+								</div>
+							
+							</div>
+						</div>
+					</div>
+				</div> -->
+					<div class="container-fluid pt-5">
+						<div class="row ps-3 ps-lg-4 pe-4">
+							<div class="col-12 col-lg-12  mb-5 mb-xl-0">
+								<div class="card border-0 rounded-5 shadow-sm">
+									<div class="card-header rounded-5 border-0 p-3 bg-white">
+										<h1 class="text-secondary">Users</h1>
+									</div>
+									<div class="card-body bg-light">
+										<form>
+											  <div>
+													<div class="row d-flex justify-content-center">
+														<div class="col-lg-6 mb-4">
+														  <div class="form-group">
+															<label class="form-control-label mb-2" for="input-username">First Name</label>
+															<input type="text" id="first-name" class="form-control form-control-lg rounded-3 shadow-form border-0"  placeholder="First name" value="first name">
+														  </div>
+														</div>
+						  
+														<div class="col-lg-6 mb-4">
+														  <div class="form-group">
+															<label class="form-control-label mb-2" for="input-last-name">Last Name</label>
+															<input type="text" id=" last-name" class="form-control form-control-lg rounded-3 shadow-form border-0" placeholder="Last Name" value="last Name">
+														  </div>
+														</div>
+						  
+														<div class="col-lg-6 mb-4">
+														  <div class="form-group">
+															<label class="form-control-label mb-2" for="input-last-name">Mobile Number</label>
+															<input type="number" id="mobile-number" class="form-control form-control-lg rounded-3 shadow-form border-0" placeholder="Mobile number" value="mobile number">
+														  </div>
+														</div>
+						  
+														<div class="col-lg-6 mb-4">
+														  <div class="form-group">
+															<label class="form-control-label mb-2" for="input-last-name">Password</label>
+															<input type="password" id="password" class="form-control form-control-lg rounded-3 shadow-form border-0" placeholder="Password" value="password">
+														  </div>
+														</div>
+														<div class="col-lg-6 mb-4">
+															<div class="form-group">
+															  <label class="form-control-label mb-2" for="input-last-name">Company Name</label>
+															  <input type="text" id="company_name" class="form-control form-control-lg rounded-3 shadow-form border-0" placeholder="Enter company name">
+															</div>
+														</div>
+
+														<div class="col-lg-6 mb-4">
+															<div class="form-group">
+																<label class="form-control-label mb-2" for="input-last-name">Company Address</label>
+																<input type="text" id="company_address" class="form-control form-control-lg rounded-3 shadow-form border-0" placeholder="Company Address">
+															</div>
+														</div>
+
+														<div class="col-lg-6 mb-4">
+															<div class="form-group">
+																<label class="form-control-label mb-2" for="input-last-name">RC Number</label>
+																<input type="text" id="rc_number" class="form-control form-control-lg rounded-3 shadow-form border-0" placeholder="RC Number">
+															</div>
+														</div>
+
+														<div class="col-lg-6 mb-4">
+															<div class="form-group">
+																<label class="form-control-label mb-2" for="input-last-name">Company State</label>
+																<input type="text" id="state" class="form-control form-control-lg rounded-3 shadow-form border-0" placeholder="Company State">
+															</div>
+														</div>
+
+														<div class="col-lg-6 mb-4">
+															<div class="form-group">
+																<label class="form-control-label mb-2" for="input-last-name">Company Email</label>
+																<input type="email" id="company_email" class="form-control form-control-lg rounded-3 shadow-form border-0" placeholder="RC Number">
+															</div>
+														</div>
+
+														<div class="col-lg-6 mb-4">
+															<div class="form-group">
+																<label class="form-control-label mb-2" for="input-last-name">Company Phone No.</label>
+																<input type="number" id="company_phone" class="form-control form-control-lg rounded-3 shadow-form border-0" placeholder="Company Phone No.">
+															</div>
+														</div>
+
+
+													</div>
+											  </div>
+											  <div class="col-12 text-end ">
+														<a href="#!" class="btn btn-sm btn success text-white rounded-6 ">Add user</a>
+											  </div>
+										</form>
+									</div>
+
+								</div>
+								
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<script src="../js/plugins/jquery/dist/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+	integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+	crossorigin="anonymous"></script>
+	<script src="../js/script.js"></script>
+	
+	<script>
+		$('#topnav').load("../component/nav-component.html")
+		$('#sidebarMenu').load("../component/component.html")
+	</script>
+</body>
+
+</html>

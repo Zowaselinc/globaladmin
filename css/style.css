@@ -1,0 +1,540 @@
+:root {
+    --mainbgcolor: #fbf3ff;
+    --buttonbg: #008d40;
+    --bs-secondary: #6c757d;
+    --bs-default: #4A4754;
+    --fa-check: #02b502;
+    --bg-danger: #e90f10;
+    --bg-warning: #ffad00;
+    --btn-dashboard: #05b050;
+    --bg-nav: #f1f1f1;
+    --bg-main: #f5f5f5;
+    --bg-sidenav: linear-gradient(180deg, #29333f 0%, #1c2131 100%);
+    --btn-shadow: 0px 1.88889px 3.77778px rgba(44, 39, 56, 0.08),
+      0px 3.77778px 7.55556px rgba(44, 39, 56, 0.08);
+    --universal-font: 'Maven Pro', sans-serif;
+    --alert-success: #DCFCE7;
+    --bg-dot:#22C55E;
+    --bg-blue1:#3498DB;
+    --bg-red1:#CD4647;
+    --bg-yellow1:#FBC52B;
+    --bc-pending:#FAB900;
+    --bg-pending: #FFF8E6;
+    --bg-past:#F9E9E9;
+    --bc-past: #C32021;
+}
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    outline: none;
+    text-decoration: none;
+    transition: 200ms linear;
+    /* font-family: "Maven Pro", sans-serif; */
+    font-family: var(--universal-font);
+}
+
+
+html {
+    /* font-size: 12px; */
+    overflow-x: hidden;
+    scroll-padding-top: 9rem;
+    scroll-behavior: smooth;
+}
+
+.default-color{
+    font-weight: 400;
+    color: var(--bs-default);
+}
+
+.success-color{
+    color: var(--bg-dot);
+}
+
+
+body {
+  font-family: var(--universal-font);
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+li, a, span, div, button{
+    font-size: 14px !important;
+}
+
+a, button {
+  list-style: none;
+  outline: none;
+  border: none;
+  background: transparent;
+  text-decoration: none;
+  font-weight: 300; 
+}
+h1 {
+  font-family: var(--universal-font);
+  font-size: 24px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 700;
+  line-height: 26.4px;
+}
+h2 { 
+    font-family: var(--universal-font);
+    font-size: 25px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 600;
+    line-height: 26.4px;
+
+}
+h3 {
+  font-family: var(--universal-font);
+  font-size: 16px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 700;
+  line-height: 15.4px;
+}
+h6{
+    font-family: var(--universal-font);
+    font-size: 12px;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 15px;
+}
+p {
+  font-family: var(--universal-font);
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.search-bar{
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+.search-bar:focus{
+    outline: none !important;
+    box-shadow: unset !important;
+    border: 1.5px solid var(--bs-secondary) !important
+}
+.srch-icon{
+    top: 14px;
+    left: 45px;
+}
+
+.p-15{
+    padding: 11px 12px;
+}
+textarea::placeholder{
+    font-size: 15px;
+    color: var(--bs-secondary);
+}
+input::placeholder{
+    column-gap: var(--bs-secondary);
+}
+input{
+    font-weight: 300 !important;
+    font-size: 14px !important;
+    letter-spacing: .05rem;
+    border-radius: unset !important;
+}
+select {
+    font-size: 14px !important;
+    border-radius: unset !important;
+  
+}
+.a-class {
+    outline: unset !important;
+    box-shadow: unset !important;
+}
+
+input:focus, select:focus {
+    outline: none !important;
+    box-shadow: unset !important;
+    border: 1.5px solid var(--buttonbg) !important;
+    
+}
+
+button:focus {
+    outline: none !important;
+    box-shadow: unset !important;
+    border: unset !important;
+}
+.btn{
+    border-radius: unset !important;
+}
+.success{
+    background: var(--buttonbg);
+    opacity: 1;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: .05rem;
+}
+button.success:hover,.btn-second:hover, .success:hover{
+    opacity: .9;
+}
+.btn-second{
+    background: var(--bg-secondbtn);
+}
+
+.badge-dot {
+    padding-left: 0;
+    padding-right: 0;
+    background: transparent;
+    font-weight: 400;
+    font-size: 0.875rem;
+    text-transform: none;
+    color: var(--bs-default);
+}
+
+.badge {
+    text-transform: uppercase;
+}
+.mr-4, .mx-4 {
+    margin-right: 1.5rem !important;
+}
+.badge {
+    display: inline-block;
+    padding: 0.35rem 0.375rem;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.375rem;
+}
+
+.badge-dot i {
+    display: inline-block;
+    vertical-align: middle;
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 50%;
+    margin-right: 0.375rem;
+}
+
+.badge-name{
+    text-transform: uppercase;
+    font-size: 11px !important;
+}
+
+.bg-warning {
+    background-color: #fb6340 !important;
+}
+
+
+/* login screens starts */
+.log {
+    min-height: 100vh;
+  }
+  
+  .bg-image {
+
+    background-image: url('../assets/images/Right\ Side.svg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .login-heading {
+    font-weight: 600;
+    font-family: var(--universal-font);
+  }
+  .bg_img {
+    background-image: url('../assets/images/Right\ Side\ \(1\).png');
+    background-size: cover;
+    background-position: center;
+  }
+  .shadow-2 {
+    background-color: white !important;
+    border-radius: 10px !important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+
+  .shadow-dot:hover{
+    background-color: white !important;
+    border-radius: 8px !important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+/* le
+
+  
+ 
+  /* login screens starts end */
+
+
+/* wllet balance  */
+.wallet-bal{
+    color: var(--btn-dashboard);
+    font-weight: 600;
+
+}
+
+/* Welcome */
+.welcome{
+    color: var(--bs-default);
+}
+
+
+/* Log in button style */
+.login {
+    background: var(--btn-dashboard);
+    box-shadow: var(--btn-shadow);
+}
+
+/* Notification bell */
+.fa-bell {
+    font-size: 16px;
+}
+
+/* Top nav bar background colour  */
+.light{
+    background: var(--bg-nav);
+}
+
+.icon-shape {
+    padding: 12px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* border-radius: 50%; */
+}
+.icon {
+    width: 3rem;
+    height: 3rem;
+}
+.icon-shape i, .icon-shape svg {
+    font-size: 1.25rem;
+}
+
+/* Right Side top box bg colour and style */
+.dash{
+    background: var(--bg-main);
+}
+
+.title{
+    font-family: var(--universal-font);
+}
+.box-1{
+    color: var(--bs-default);
+}
+.box-2{
+    color: var(--btn-dashboard);
+}
+.box-3{
+    color: var(--bg-blue1);
+}
+.box-4{
+    color: var(--bg-red1);
+}
+.box-5{
+    color:var(--bg-yellow1);
+}
+.bg-yellow {
+    background: var(--bg-yellow1);
+}
+/* Right side main ends  */
+
+
+/* Side nav begins  */
+.nav-left ul li a{
+    padding: 15px 18px;
+}
+.nav-left ul li a:hover{
+    background: var(--btn-dashboard) !important;   
+    border-radius: 5px;
+    transition: 300ms linear;
+}
+.user-height{
+    height: 100vh;
+}
+
+.leftfixedside{
+    /* position: fixed; */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 48px 0 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    background: var(--bg-sidenav);
+    margin-top: 67px;
+    overflow-y: auto;
+}
+.active{
+    background: var(--btn-dashboard) !important;
+    padding: 15px 18px;
+    border-radius: 5px;
+}
+.spacing-4{
+    letter-spacing: 2px;
+    font-weight: lighter !important;
+    font-family: var(--universal-font) !important;
+    font-size: 13px !important;
+    font-style: normal !important;
+}
+/* Side Nav Ends  */
+
+
+/* table begins here */
+/* table status  */
+/* text and background color for pending status and due status starts */
+.pending{
+    background:var(--bg-pending) ;
+    color: var(--bc-pending);
+}
+.p-dot{
+    background: var(--bc-pending);
+    letter-spacing: 2.5px !important;
+}
+/* text and background color for pending status and due status ends */
+
+/* text and background color for completed and paid status begins */
+.successalert{
+    background: var(--alert-success);
+}
+.dot{
+    background: var(--bg-dot);
+    letter-spacing: 2.5px !important;
+}
+/* text and background color for completed and paid status ends */
+
+.past-due{
+    background:var(--bg-past) ;
+    color: var(--bc-past);
+}
+.past{
+    background: var(--bc-past);
+    letter-spacing: 2.5px !important;
+}
+
+.table{
+    /* border-collapse: collapse !important; */
+    /* border-spacing: 10px 20px !important; */
+    border-top: 1px solid #dee2e6 !important;
+    margin-bottom: 70px;
+    
+}
+
+
+th{
+  background-color: var(--bg-main) !important;
+  font-size: 12px !important;
+  line-height: 16px !important;
+
+}
+
+/* table end here */
+
+/* user form */
+.shadow-form{
+    border-color: rgba(50, 151, 211, 0.25);
+    padding: 12px 18px;
+    box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%);
+    border: 0;
+    transition: box-shadow .15s ease;
+}
+.form-control-label {
+    color: #525f7f;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+.form-control:focus{
+    background-color: white;
+}
+.rounded-5{
+    border-radius: 10px !important;
+}
+.rounded-6{
+    border-radius: 5px !important;
+}
+
+
+
+
+
+/* media screen starts */
+
+@media screen and (min-width: 960px) {
+    .leftfixedside{
+        width: 22%;
+    }
+    
+    .rightscrollableside{
+        width:78%;
+       
+    }
+    .bg_img {
+        background-image: none;
+    }
+
+    .shadow-2 {
+        background-color: none !important;
+        border-radius: unset !important;
+        box-shadow: unset !important;
+      }
+}
+@media screen and (min-width: 1400px) {
+
+
+    .leftfixedside{
+        width: 18%;
+    }
+    
+    .rightscrollableside{
+        width:83%;
+    }
+    /* right side image starts */
+    .bg-image {
+        min-height: 100vh;
+        background-image: url('../assets/images/Right\ Side.svg');
+        background-size: cover;
+        background-position: center;
+        
+      }
+    .login-heading {
+        font-weight: 600;
+        font-family: var(--universal-font);
+        font-size: 50px !important;
+      }
+      /* right side image ends  */
+
+
+      /* side nav for large screens */
+      .nav-left ul li a{
+        padding: 22px 30px;
+    }
+   
+    .active{
+        background: var(--btn-dashboard) !important;
+        padding: 22px 30px !important;
+        border-radius: 5px;
+    }
+    .spacing-4{
+        letter-spacing: 2px;
+        font-weight: 300 !important;
+        font-family: var(--universal-font) !important;
+        font-style: normal !important;
+        font-size: 13px !important;
+    }
+    /* side nave ends here for large screens */
+   
+}
+
+
+
+/* media screeen end here */
+
+
+
+/* --------------------- sweet alert custom button color -------------------- */
+.swal-button {
+    background-color: var(--btn-dashboard) !important;
+    border: 1px solid var(--btn-check) !important;
+  }
