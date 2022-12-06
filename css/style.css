@@ -56,7 +56,7 @@ html {
 
 body {
   font-family: var(--universal-font);
-  font-size: 1rem;
+  /* font-size: 1rem; */
   font-weight: normal;
   line-height: 1.5;
 }
@@ -70,12 +70,13 @@ a, button {
   outline: none;
   border: none;
   background: transparent;
-  text-decoration: none;
+  text-decoration: none !important;
   font-weight: 300; 
+  font-size: 15px !important;
 }
 h1 {
   font-family: var(--universal-font);
-  font-size: 24px;
+  font-size: 24px !important;
   font-style: normal;
   font-variant: normal;
   font-weight: 700;
@@ -173,6 +174,32 @@ input:focus, select:focus {
     border: 1.5px solid var(--buttonbg) !important;
     
 }
+.form-check-input[type="checkbox"] {
+    border-radius: 0.25em !important;
+    
+}
+
+.form-check .form-check-input {
+    float: left;
+    margin-left: -1.5em;
+    
+}
+.form-check-input {
+    width: 1em;
+    height: 1em;
+    margin-top: 0.25em;
+    vertical-align: top;
+    /* background-color: #fff; */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: 1px solid rgba(0,0,0,0.25);
+    appearance: none;
+}
+.page-item.active .page-link, .form-check-input:checked {
+    background-color: #2dbe60;
+    border-color: #2dbe60;
+}
 
 button:focus {
     outline: none !important;
@@ -242,16 +269,119 @@ button.success:hover,.btn-second:hover, .success:hover{
 
 
 /* login screens starts */
-.log {
-    min-height: 100vh;
+
+#main-wrapper {
+    background: #f1f5f6;
+}
+
+.hero-wrap {
+    position: relative;
+}
+
+.hero-wrap .hero-mask {
+    z-index: 1;
+}
+.hero-wrap .hero-mask, .hero-wrap .hero-bg, .hero-wrap .hero-bg-slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.bg-primary {
+    background-color: #2dbe60 !important;
+    /* background: linear-gradient(
+      217deg,
+      rgba(255, 251, 0, 0.055),
+      rgba(208, 255, 0, 0.521) 70.71%
+    ), linear-gradient(127deg, rgba(115, 134, 2, 0.808), rgba(126, 148, 1, 0.74) 70.71%),
+    linear-gradient(336deg, rgba(238, 255, 0, 0.466), rgba(251, 255, 0, 0.089) 70.71%); */
+    
+}
+.opacity-8 {
+    opacity: 0.2;
+}
+
+.hero-wrap .hero-bg.hero-bg-scroll {
+    background-attachment: scroll;
+}
+
+.hero-wrap .hero-bg {
+    z-index: 0;
+    /* background-attachment: fixed; */
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    transition: background-image 300ms ease-in 200ms;
+}
+
+.hero-wrap .hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.text-11, .text-12, .text-13, .text-14, .text-15, .text-16, .text-17, .text-18, .text-19, .text-20, .text-21, .text-22, .text-23, .text-24, .text-25 {
+    line-height: 1.3;
+}
+
+.lh-base {
+    line-height: 1.5 !important;
+    
+}
+
+.text-4 {
+    font-size: 18px !important;
+    font-size: 1.125rem !important;
+}
+
+.logo img {
+    width: 70%;
+    /* margin-top: 20%; */
+  }
+
+  .logo-sm img {
+    width: 70%;
+    /* margin-top: 20%; */
+  }
+
+  .logo-dot img {
+    width: 40%;
+    margin-top: 7%;
+  }
+
+  .text-primary, .btn-light, .btn-outline-light:hover, .btn-link, .link-primary {
+    color: #2dbe60 !important;
+}
+/* .log { */
+    /* min-height: 100vh; */
+  /* } */
+  
+  /* .bg-image { */
+    /* height: 100vh; */
+    /* background-image:
+    linear-gradient(45deg, rgba(255, 225, 0, 0.24) 0%, rgba(225, 255, 255, 0) 100% 100%),
+    url('../assets/images/rightside/zimg1.png'); */
+    /* background: linear-gradient(
+      217deg,
+      rgba(255, 251, 0, 0),
+      rgba(208, 255, 0, 0) 70.71%
+    ), linear-gradient(127deg, rgba(208, 255, 0, 0), rgba(217, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(238, 255, 0, 0.014), rgba(251, 255, 0, 0.116) 70.71%),
+    url('../assets/images/rightside/zimg1.png'); */
+    /* background-image: url('../assets/images/rightside/zimg1.png'); */
+    /* background-size: cover;
+    background-position: center;
+    opacity: 98%; */
+  /* } */
+
+  /* .white-dots img {
+    width: 30%;
+    float: right;
   }
   
-  .bg-image {
-
-    background-image: url('../assets/images/Right\ Side.svg');
-    background-size: cover;
-    background-position: center;
-  }
   
   .login-heading {
     font-weight: 600;
@@ -262,6 +392,7 @@ button.success:hover,.btn-second:hover, .success:hover{
     background-size: cover;
     background-position: center;
   }
+  */
   .shadow-2 {
     background-color: white !important;
     border-radius: 10px !important;
@@ -273,10 +404,10 @@ button.success:hover,.btn-second:hover, .success:hover{
     border-radius: 8px !important;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
-/* le
-
-  
  
+  /* .shadow-5 {
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+  } */
   /* login screens starts end */
 
 
@@ -365,6 +496,18 @@ button.success:hover,.btn-second:hover, .success:hover{
 }
 .user-height{
     height: 100vh;
+}
+
+.bd-links .btnn[aria-expanded="true"]::after {
+    transform: rotate(90deg) !important;
+}
+
+.bd-links .btnn::after {
+    /* width: 1.25em !important; */
+    line-height: 0 !important;
+    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+    transition: transform 0.35s ease !important;
+    transform-origin: 0.5em 50% !important;
 }
 
 .leftfixedside{
@@ -554,14 +697,3 @@ th{
 /* --------------------- sweet alert custom button color ends  -------------------- */
 
 
-.bd-links .btnn[aria-expanded="true"]::after {
-    transform: rotate(90deg) !important;
-}
-
-.bd-links .btnn::after {
-    /* width: 1.25em !important; */
-    line-height: 0 !important;
-    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
-    transition: transform 0.35s ease !important;
-    transform-origin: 0.5em 50% !important;
-}

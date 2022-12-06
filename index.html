@@ -25,63 +25,119 @@
 </head>
 <body>
 
-    <div class="container-fluid ps-md-0 pe-md-0">
-        <div class="row">    
-          <div class="col-md-12 col-lg-7 bg_img">
-            <div class="log d-flex align-items-center py-5 py-xxl-0 px-md-5 mx-xxl-5 ">
-              <div class="container shadow-2">
-                <div class="row">
-                  <div class="col col-md-11 col-lg-8 mx-auto mb-5 mt-md-5 mt-lg-0 mt-xxl-5 pb-xxl-5">
-                    <div class="d-flex justify-content-center align-items-center mb-0 mb-md-5 pt-0">
-                        <img src="./assets/logo/zowasel-logo-grey-614x (1) 1.png" class="mb-5 mb-sm-5 d-block d-lg-none pt-5 pt-md-0" style="width:270px !important;" alt="">
-                    </div>
-                    <h1 class="login-heading mb-4 text-center fs-1 pb-4">Welcome back!</h1>
-                    <div class="text-center d-none my-4 card-header bg-danger text-white" id="error"></div>
-                    <div class="text-center d-none my-4 card-header bg-success text-white" id="success"></div>
-      
-                    <!-- Sign In Form -->
-                    <form>
-                      <div class="mb-3">
-                        <label class="text-secondary mb-1">Email</label>
-                        <input type="email" class="form-control p-16" id="email" placeholder="name@example.com" required >
-                      </div>
-                      <div class="mb-3">
-                        <label class="text-secondary mb-1">Password</label>
-                        <input type="password" class="form-control p-16" id="password" placeholder="Password" required>
-                      </div>
-      
-                      <!-- <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
-                        <label class="form-check-label" for="rememberPasswordCheck">
-                          Remember password
-                        </label>
-                      </div> -->
-      
-                      <div class="d-grid">
-                        <div class="d-grid gap-3 mt-2">
-                            <a class="d-grid">
-                              <!-- <a href="../dashboards/user-stats.html" class="d-grid"> -->
-                              <button onclick="yourButton()" class="btn success mb-3 text-white p-15 fs-5" type="button">Login</button>
-                            </a>
-                        </div>
-                        <div class="text-center">
-                          <!-- <a class="small text-success" href="#">Forgot password?</a> -->
-                        </div>
-                      </div>
-      
-                    </form>
+  <div id="main-wrapper">
+    <div class="container-fluid px-0">
+      <div class="row g-0 min-vh-100">
+        
+                 <!-- Welcome Text small screen
+        ============================================= -->
+        <div class="col-md-6 d-block d-md-none">
+          <div class="hero-wrap d-flex align-items-center h-100">
+            <div class="hero-mask opacity-8 bg-primary"></div>
+            <div class="hero-bg hero-bg-scroll" style="background-image:url('./assets/images/rightside/zimg1.png');"></div>
+            <div class="hero-content mx-auto w-100 h-100 d-flex flex-column">
+              <div class="row g-0">
+                <div class="col-10 col-lg-10 mx-auto d-none">
+                  <div class="logo-dot text-end">
+                    <img src="./assets/images/smalldots.png">
                   </div>
                 </div>
               </div>
+              <div class="row g-0 my-auto">
+                <div class="col-10 col-lg-9 mx-auto text-center">
+                    <a class="logo-sm" href="javascript:void(0)">
+                      <img src="./assets/logo/zowasel-logo-grey-614x (1) 1 copy 2.png" class="mb-4">
+                    </a> 
+             
+                  <!-- <h1 class="text-11 text-white mb-4">Welcome back!</h1> -->
+                  <!-- <p class="text-4 text-white lh-base mb-5">We are glad to see you again! Instant deposits, withdrawals &amp; payouts trusted by millions worldwide.</p> -->
+                </div>
+              </div>
             </div>
-          </div> 
-          <div class="d-none d-lg-flex  col-lg-5 bg-image"></div>
+          </div>
         </div>
+        <!-- Welcome Text End -->
+
+        <!-- Login Form
+        ============================================= -->
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="container my-4">
+            <div class="row g-0">
+              <div class="col-11 col-lg-9 col-xl-8 mx-auto">
+                <h1 class="fw-400 mb-5 fs-1">Welcome Back!</h1>
+                <form id="loginForm" method="post">
+                  <div class="mb-3">
+                    <label for="emailAddress" class="form-label fw-bold text-muted">Email Address</label>
+                    <input type="email" class="form-control p-16 rounded-1 shadow-5" id="email" required="" placeholder="Enter Your Email">
+                  </div>
+                  <div class="mb-3">
+                    <label for="loginPassword" class="form-label fw-bold text-muted">Password</label>
+                    <input type="password" class="form-control p-16 rounded-1 shadow-5" id="password" required="" placeholder="Enter Password">
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-sm">
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="remember-me" name="remember" type="checkbox">
+                        <label class="form-check-label" for="remember-me">Remember Me</label>
+                      </div>
+                    </div>
+                    <div class="col-sm text-end"><a class="btn-link success-color" href="#">Forgot Password ?</a></div>
+                  </div>
+                  <div class="mt-2">
+                      <!-- <a href="../dashboards/user-stats.html" class="d-grid"> -->
+                      <a href="" class="d-grid ">
+                        <button onclick="yourButton()" class="btn-rounded-2 success mb-3 text-white p-15 fs-5 rounded-1" type="button">Login</button>
+                      </a>
+                 </div>
+                </form>
+                <p class="text-3 text-center text-muted">Don't have an account? <a class="btn-link" href="signup.html">Sign Up</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Login Form End --> 
+
+            <!-- Welcome Text big screen
+        ============================================= -->
+        <div class="col-md-6 d-none d-md-block">
+          <div class="hero-wrap d-flex align-items-center h-100">
+            <div class="hero-mask opacity-8 bg-primary"></div>
+            <div class="hero-bg hero-bg-scroll" style="background-image:url('./assets/images/rightside/zimg1.png');"></div>
+            <div class="hero-content mx-auto w-100 h-100 d-flex flex-column">
+              <div class="row g-0 mb-5">
+                <div class="col-10 col-lg-10 mx-auto">
+                  <div class="logo-dot text-end">
+                    <img src="./assets/images/smalldots.png">
+                  </div>
+                </div>
+              </div>
+              <div class="row g-0 text-center mt-5 pt-4">
+                <div class="col-10 col-lg-9 text-center mx-auto">
+                    <a class="logo" href="javascript:void(0)">
+                      <img src="./assets/logo/zowasel-logo-grey-614x (1) 1 copy 2.png" class="mb-4">
+                    </a> 
+             
+                  <!-- <h1 class="text-11 text-white mb-4">Welcome back!</h1> -->
+                  <p class=" text-white lh-base mb-5">Buy and Sell with Ease <br> Empowering Growers from Seed to Market .</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Welcome Text End --> 
+
       </div>
+    </div>
+  </div>
 
 
 
-    <script src="../js/plugins/jquery/dist/jquery.min.js"></script>
+
+
+
+
+
+  <script src="../js/plugins/jquery/dist/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>  
   <script src="./assets/bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
@@ -92,3 +148,48 @@
     
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <form class="">
+  <div class="mb-4">
+    <label class="text-secondary mb-2">Email</label>
+    <input type="email" class="form-control p-16" id="email" placeholder="name@example.com" required >
+  </div>
+  <div class="mb-4">
+    <label class="text-secondary mb-2">Password</label>
+    <input type="password" class="form-control p-16" id="password" placeholder="Password" required>
+  </div>
+
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+    <label class="form-check-label" for="rememberPasswordCheck">
+      Remember password
+    </label>
+  </div>
+
+  <div class="d-grid">
+    <div class="d-grid gap-3 mt-2">
+        <a class="d-grid">
+          <a href="../dashboards/user-stats.html" class="d-grid">
+          <button onclick="yourButton()" class="btn success mb-3 text-white p-15 fs-5" type="button">Login</button>
+        </a>
+    </div>
+    <div class="text-center">
+      <a class="small text-success" href="#">Forgot password?</a>
+    </div>
+  </div>
+
+</form> -->
