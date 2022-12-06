@@ -293,14 +293,14 @@ button.success:hover,.btn-second:hover, .success:hover{
     background-color: #2dbe60 !important;
     /* background: linear-gradient(
       217deg,
-      rgba(255, 251, 0, 0.055),
-      rgba(208, 255, 0, 0.521) 70.71%
-    ), linear-gradient(127deg, rgba(115, 134, 2, 0.808), rgba(126, 148, 1, 0.74) 70.71%),
-    linear-gradient(336deg, rgba(238, 255, 0, 0.466), rgba(251, 255, 0, 0.089) 70.71%); */
-    
+      rgba(255, 251, 0, 0.651),
+      rgba(208, 255, 0, 0.048) 70.71%
+    ), linear-gradient(127deg, rgba(114, 134, 2, 0.534), rgba(126, 148, 1, 0.116) 70.71%),
+    linear-gradient(336deg, rgba(238, 255, 0, 0.466), rgba(251, 255, 0, 0.089) 70.71%);
+      */
 }
 .opacity-8 {
-    opacity: 0.2;
+    opacity: 0.3;
 }
 
 .hero-wrap .hero-bg.hero-bg-scroll {
