@@ -550,4 +550,18 @@ th{
 .swal-button {
     background-color: var(--btn-dashboard) !important;
     border: 1px solid var(--btn-check) !important;
-  }
+}
+/* --------------------- sweet alert custom button color ends  -------------------- */
+
+
+.bd-links .btnn[aria-expanded="true"]::after {
+    transform: rotate(90deg) !important;
+}
+
+.bd-links .btnn::after {
+    /* width: 1.25em !important; */
+    line-height: 0 !important;
+    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+    transition: transform 0.35s ease !important;
+    transform-origin: 0.5em 50% !important;
+}

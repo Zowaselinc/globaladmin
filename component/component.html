@@ -1,162 +1,137 @@
 
 <div>
-        <!-- top menu search and settings with notifications -->
-        
-        <!-- top menu settings and serch bar ends  -->
-    
-        <!-- fff -->
-    
-        <div class="position-sticky  nav-left">
-            <ul class="nav flex-column px-4 mt-1 mt-lg-0">
+    <div class="position-sticky  nav-left">
+        <ul class="nav flex-column px-4 mt-1 mt-lg-0">
 
-                <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                    <a href="javascript:void(0)" class="nav-link align-middle text-white d-flex justify-content-between align-items-center"> 
-                        <div>
-                            <i class="fa fa-desktop"></i>
-                            <span class="ms-1 ps-3 spacing-4">Dashboard</span>
-                        </div>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-    
-                    <div class="collapse" id="dashboard-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-3 spacing-4">
-                        <li><a href="./user-stats.html" class="text-white nav-link" onclick="location.assign('user-stats.html')">User Stats</a></li>
-                        <li><a href="./finance-stats.html" class="text-white nav-link" onclick="location.assign('finance-stats.html')">Fianace Stats</a></li>
-                        </ul>
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
+                <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false"> 
+                    <div>
+                        <i class="fa fa-desktop"></i>
+                        <span class="ms-1 ps-3 spacing-4">Dashboard</span>
                     </div>
-                </li>
+                </a>
 
-                <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" data-bs-toggle="collapse" data-bs-target="#admin-collapse" aria-expanded="false">
-                    <a href="javascript:void(0)" class="nav-link align-middle text-white d-flex justify-content-between align-items-center"> 
-                        <div>
-                            <i class="fa fa-user-tie"></i>
-                            <span class="ms-1 ps-3 spacing-4">Admin</span>
-                        </div>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-    
-                    <div class="collapse" id="admin-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-3 spacing-4">
-                        <li><a href="./admin-role.html" class="text-white nav-link" onclick="location.assign('admin-role.html')">Admin Role</a></li>
-                        <li><a href="./add-administrator.html" class="text-white nav-link" onclick="location.assign('add-administrator.html')">Add Admin</a></li>
-                        <li><a href="./alladministrators.html" class="text-white nav-link" onclick="location.assign('alladministrators.html')">Administrator</a></li>
-                        <li><a href="./accesslog.html" class="text-white nav-link" onclick="location.assign('accesslog.html')">Access Log</a></li>
-                        <li><a href="./errorlog.html" class="text-white nav-link" onclick="location.assign('errorlog.html')">Error Log</a></li>
-                        </ul>
-                    </div>
-                </li>
+                <div class="collapse" id="dashboard-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal small ps-3 spacing-4">
+                    <li><a href="./user-stats.html" class="text-white nav-link" onclick="location.assign('user-stats.html')">User Stats</a></li>
+                    <li><a href="./finance-stats.html" class="text-white nav-link" onclick="location.assign('finance-stats.html')">Fianace Stats</a></li>
+                    </ul>
+                </div>
+            </li>
 
-                <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" data-bs-toggle="collapse" data-bs-target="#users-collapse" aria-expanded="false">
-                    <a href="javascript:void(0)" class="nav-link align-middle text-white d-flex justify-content-between align-items-center"> 
-                        <div>
-                            <i class="fa fa-users"></i>
-                            <span class="ms-1 ps-3 spacing-4">Users</span>
-                        </div>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-    
-                    <div class="collapse" id="users-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-3 spacing-4">
-                        <li><a href="./add-users.html" class="text-white nav-link" onclick="location.assign('add-users.html')">Add Users</a></li>
-                        <li><a href="./allusers.html" class="text-white nav-link" onclick="location.assign('allusers.html')">All Users</a></li>
-                        </ul>
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
+                <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#admin-collapse" aria-expanded="false"> 
+                    <div>
+                        <i class="fa fa-user-tie"></i>
+                        <span class="ms-1 ps-3 spacing-4">Admin</span>
                     </div>
-                </li>
+                </a>
 
-                <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" data-bs-toggle="collapse" data-bs-target="#support-collapse" aria-expanded="false">
-                    <a href="javascript:void(0)" class="nav-link align-middle text-white d-flex justify-content-between align-items-center"> 
-                        <div>
-                            <i class="fa fa-info-circle"></i>
-                            <span class="ms-1 ps-3 spacing-4">Support</span>
-                        </div>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-    
-                    <div class="collapse" id="support-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-3 spacing-4">
-                        <li><a href="./support-ticket.html" class="text-white nav-link" onclick="location.assign('support-ticket.html')">Add Ticket</a></li>
-                        <li><a href="./view-support-ticket.html" class="text-white nav-link" onclick="location.assign('view-support-ticket.html')">Support Ticket</a></li>
-                        </ul>
-                    </div>
-                </li>
+                <div class="collapse" id="admin-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal small ps-3 spacing-4">
+                    <li><a href="./admin-role.html" class="text-white nav-link" onclick="location.assign('admin-role.html')">Admin Role</a></li>
+                    <li><a href="./add-administrator.html" class="text-white nav-link" onclick="location.assign('add-administrator.html')">Add Admin</a></li>
+                    <li><a href="./alladministrators.html" class="text-white nav-link" onclick="location.assign('alladministrators.html')">Administrator</a></li>
+                    <li><a href="./accesslog.html" class="text-white nav-link" onclick="location.assign('accesslog.html')">Access Log</a></li>
+                    <li><a href="./errorlog.html" class="text-white nav-link" onclick="location.assign('errorlog.html')">Error Log</a></li>
+                    </ul>
+                </div>
+            </li>
 
-                <!-- <li class="nav-item mb-2 mb-xxl-2">
-                    <a href="dashboard.html" class="nav-link align-middle text-white rounded-3">
-                    <i class="fa fa-house"></i>
-                    <span class="ms-1 ps-3 spacing-4">Home</span>
-                    </a>
-                </li> -->
-    
-                <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" data-bs-toggle="collapse" data-bs-target="#homed-collapse" aria-expanded="false">
-                    <a href="javascript:void(0)" class="nav-link align-middle text-white d-flex justify-content-between align-items-center"> 
-                        <div>
-                            <i class="fa fa-store"></i>
-                            <span class="ms-1 ps-3 spacing-4">Marketplace</span>
-                        </div>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-    
-                    <div class="collapse" id="homed-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-3 spacing-4">
-                        <li><a href="#" class="text-white nav-link">Input Market</a></li>
-                        <li><a href="#" class="text-white nav-link">Crop Market</a></li>
-                        <li><a href="#" class="text-white nav-link">Logistics</a></li>
-                        </ul>
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
+                <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#users-collapse" aria-expanded="false"> 
+                    <div>
+                        <i class="fa fa-users"></i>
+                        <span class="ms-1 ps-3 spacing-4">Users</span>
                     </div>
-                </li>
-    
-                <li class="btn-toggle nav-item mb-2 mb-xxl-2 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                    <a href="javascript:void(0)" class="nav-link align-middle text-white d-flex justify-content-between align-items-center">
-                        <div>
-                            <i class="fa fa-wallet"></i>
-                            <span class="ms-1 ps-3 spacing-4">Wallet</span>
-                        </div> 
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-    
-                    <div class="collapse" id="home-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-3 spacing-4">
-                        <li><a href="#" class="text-white nav-link">Credit wallet</a></li>
-                        <li><a href="#" class="text-white nav-link">Withdrawal</a></li>
-                        </ul>
+                </a>
+
+                <div class="collapse" id="users-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal small ps-3 spacing-4">
+                    <li><a href="./add-users.html" class="text-white nav-link" onclick="location.assign('add-users.html')">Add Users</a></li>
+                    <li><a href="./allusers.html" class="text-white nav-link" onclick="location.assign('allusers.html')">All Users</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
+                <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#support-collapse" aria-expanded="false"> 
+                    <div>
+                        <i class="fa fa-info-circle"></i>
+                        <span class="ms-1 ps-3 spacing-4">Support</span>
                     </div>
-                </li>
-    
-                <li class="nav-item mb-2 mb-xxl-2">
-                    <a href="#" class="nav-link align-middle text-white">
-                    <i class="far fa-comment-alt"></i>
-                    <span class="ms-1 ps-3 spacing-4">Messages</span>
-                    </a>
-                </li>
-           
-                <!-- <li class="nav-item mb-2 mb-xxl-2">
-                    <a href="#" class="nav-link align-middle text-white">
-                    <i class="fa fa-info-circle"></i>
-                    <span class="ms-1 ps-3 spacing-4">Support</span>
-                    </a>
-                </li> -->
-    
-                <li class="nav-item mb-2 mb-xxl-2">
-                    <a href="#" class="nav-link align-middle text-white">
-                    <i class="fa fa-cogs"></i>
-                    <span class="ms-1 ps-3 spacing-4">Settings</span>
-                    </a>
-                </li>
-    
-                <li class="nav-item mb-2 mb-xxl-2">
-                    <a href="#" class="nav-link align-middle text-white">
-                    <i class="fa fa-user-alt"></i>
-                    <span class="ms-1 ps-3 spacing-4">My account</span>
-                    </a>
-                </li>
-    
-                <li class="nav-item mb-5 mb-xxl-2">
-                    <a href="../index.html" class="nav-link align-middle text-white">
-                    <i class="fa fa-sign-out"></i>
-                    <span class="ms-1 ps-3 spacing-4">Logout</span>
-                    </a>
-                </li>
-    
-            </ul>
-        </div>
+                </a>
+
+                <div class="collapse" id="support-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal small ps-3 spacing-4">
+                    <li><a href="./support-ticket.html" class="text-white nav-link" onclick="location.assign('support-ticket.html')">Add Ticket</a></li>
+                    <li><a href="./view-support-ticket.html" class="text-white nav-link" onclick="location.assign('view-support-ticket.html')">Support Ticket</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
+                <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#marketplace-collapse" aria-expanded="false"> 
+                    <div>
+                        <i class="fa fa-store"></i>
+                        <span class="ms-1 ps-3 spacing-4">Marketplace</span>
+                    </div>
+                </a>
+
+                <div class="collapse" id="marketplace-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal small ps-3 spacing-4">
+                    <li><a href="#" class="text-white nav-link">Input Market</a></li>
+                    <li><a href="#" class="text-white nav-link">Crop Market</a></li>
+                    <li><a href="#" class="text-white nav-link">Logistics</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="btn-toggle nav-item mb-2 mb-xxl-2 collapsed">
+                <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#wallet-collapse" aria-expanded="false">
+                    <div>
+                        <i class="fa fa-wallet"></i>
+                        <span class="ms-1 ps-3 spacing-4">Wallet</span>
+                    </div> 
+                </a>
+
+                <div class="collapse" id="wallet-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal small ps-3 spacing-4">
+                    <li><a href="#" class="text-white nav-link">Credit wallet</a></li>
+                    <li><a href="#" class="text-white nav-link">Withdrawal</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item mb-2 mb-xxl-2">
+                <a href="#" class="nav-link align-middle text-white">
+                <i class="far fa-comment-alt"></i>
+                <span class="ms-1 ps-3 spacing-4">Messages</span>
+                </a>
+            </li>
+
+            <li class="nav-item mb-2 mb-xxl-2">
+                <a href="#" class="nav-link align-middle text-white">
+                <i class="fa fa-cogs"></i>
+                <span class="ms-1 ps-3 spacing-4">Settings</span>
+                </a>
+            </li>
+
+            <li class="nav-item mb-2 mb-xxl-2">
+                <a href="#" class="nav-link align-middle text-white">
+                <i class="fa fa-user-alt"></i>
+                <span class="ms-1 ps-3 spacing-4">My account</span>
+                </a>
+            </li>
+
+            <li class="nav-item mb-5 mb-xxl-2">
+                <a href="../index.html" class="nav-link align-middle text-white">
+                <i class="fa fa-sign-out"></i>
+                <span class="ms-1 ps-3 spacing-4">Logout</span>
+                </a>
+            </li>
+
+
+        </ul>
+    </div>
 </div>
