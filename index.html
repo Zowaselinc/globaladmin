@@ -66,14 +66,24 @@
               <div class="col-11 col-lg-9 col-xl-8 mx-auto">
                 <h1 class="fw-400 mb-5 fs-1">Welcome Back!</h1>
                 <form id="loginForm" method="post">
-                  <div class="mb-3">
+
+                  <div class="mb-3 form-group position-relative">
+                    <div class="icon text-muted pt-5 mt-2 d-flex align-items-center justify-content-center position-absolute">
+                      <span class="fa fa-user"></span> 
+                    </div>   
                     <label for="emailAddress" class="form-label fw-bold text-muted">Email Address</label>
-                    <input type="email" class="form-control p-16 rounded-1 shadow-5" id="email" required="" placeholder="Enter Your Email">
+                    <input type="email" class="form-control p-16 ps-5 rounded-1 shadow-5" id="email" required="" placeholder="Enter Your Email">
                   </div>
-                  <div class="mb-3">
+
+                  <div class="mb-3 eye position-relative">
+                    <div class="icon text-muted pt-5 mt-2 d-flex align-items-center justify-content-center position-absolute">
+                      <span class="fa fa-lock"></span> 
+                    </div>
                     <label for="loginPassword" class="form-label fw-bold text-muted">Password</label>
-                    <input type="password" class="form-control p-16 rounded-1 shadow-5" id="password" required="" placeholder="Enter Password">
+                    <input type="password" class="form-control p-16 ps-5 rounded-1 shadow-5" id="password" required="" placeholder="Enter Password">
+                    <span class="show-pass text-muted" onclick="toggle()"><i class="far fa-eye-slash" id="eyetoggle" onclick="myFunction(this)"></i></span>
                   </div>
+
                   <div class="row mb-3">
                     <div class="col-sm">
                       <div class="form-check form-check-inline">
@@ -83,6 +93,7 @@
                     </div>
                     <div class="col-sm text-end"><a class="btn-link success-color" href="#">Forgot Password ?</a></div>
                   </div>
+
                   <div class="mt-2">
                       <!-- <a href="../dashboards/user-stats.html" class="d-grid"> -->
                       <a href="" class="d-grid ">

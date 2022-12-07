@@ -1,3 +1,25 @@
+// Hide and show password 
+let state = false;
+
+function myFunction(show) {
+  // show.classList.toggle('fa-eye');
+  let eyes = document.getElementById("eyetoggle");
+  eyes.classList.toggle("fa-eye-slash");
+  eyes.classList.toggle("fa-eye");
+}
+
+function toggle() {
+  if (state) {
+    password.setAttribute("type", "password");
+    state = false;
+  } else {
+    password.setAttribute("type", "type");
+    state = true;
+  }
+}
+// Hide and show password End 
+
+
 function yourButton(){
 
     // selecting the input element and get its value 

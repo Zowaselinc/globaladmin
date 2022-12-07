@@ -133,7 +133,7 @@ p {
     padding: 11px 12px;
 }
 .p-16 {
-    padding: 16px !important;
+    height: 50px;
 }
 textarea::placeholder{
     font-size: 15px;
@@ -354,6 +354,13 @@ button.success:hover,.btn-second:hover, .success:hover{
 
   .text-primary, .btn-light, .btn-outline-light:hover, .btn-link, .link-primary {
     color: #2dbe60 !important;
+}
+
+.show-pass {
+    top: 55%;
+    position: absolute;
+    left: 91%;
+    cursor: pointer;
 }
 /* .log { */
     /* min-height: 100vh; */
