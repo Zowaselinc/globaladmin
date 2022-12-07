@@ -32,71 +32,34 @@
 
 	<div class="container-fluid">
 		<div class="row">
+			<!-- Side Nav Starts  -->
 			<nav id="sidebarMenu" class="col-12 col-lg-auto d-lg-block bg-light leftfixedside collapse bd-links"></nav>
+			<!-- Side Nav Ends  -->
 			<div class="dash ms-sm-auto ms-0 col py-3 col-12 col-lg-10  rightscrollableside">
 				<div class="main-content row d-flex justify-content-center align-items-center">
 				<!-- Card Header -->
-				<!-- <div class="container-fluid header pb-5 pt-5 pt-md-8  ">
-					<div class="container-fluid">
-						<div class="header-body">
-							<div class="d-flex justify-content-between mb-5 mt-4 align-items-end">
-							<h1 class="fs-3 welcome">Welcome, Spectra</h1>
-							<h5 class="text-secondary">Wallet balance <span class="wallet-bal fs-3 ms-2">$5070.80</span></h5>
-							</div>
-							Card stats
-							<div class="row">
-								<div class="col-12 col-md-6 col-lg-3">
-									<div class="card rounded-3 border-0 card-stats mb-4 mb-xl-0">
-									<div class="card-body pe-1">
-										<h6 class="card-title title text-capitalise text-muted mb-4">
-										Loan issued
-										</h6>
-										<span class="fs-5 fw-bold mb-0 box-2">594,094</span>
-									</div>
-									</div> 
+					<div class="container-fluid pt-5 pt-md-8  ">
+						<div class="container-fluid">
+							<div class="header-body">
+								<div class="d-flex justify-content-between mb-3 mt-4 align-items-end">
+									<h1 class="fs-5 welcome">Support Ticket</h1>
+									<form class="d-flex" role="search">
+										<input class="form-control rounded-2 me-2" type="search" placeholder="Search" aria-label="Search">
+										<a class="filter" type="submit"> <i class="fa fa-filter"></i>Filter</a>
+									  </form>
+									<!-- <h5 class="text-secondary">Wallet balance <span class="wallet-bal fs-3 ms-2">$5070.80</span></h5> -->
 								</div>
-								<div class="col-12 col-md-6 col-lg-3">
-									<div class="card rounded-3  border-0  card-stats mb-4 mb-xl-0">
-									<div class="card-body pe-1">
-										<h6 class="card-title title  text-capitalise text-muted mb-4">
-										Due loans
-										</h6>
-										<span class="fs-5 fw-bold mb-0 box-4">594,094</span>
-									</div>
-									</div>
-								</div>
-								<div class="col-12 col-md-6 col-lg-3">
-									<div class="card rounded-3  border-0  card-stats mb-4 mb-xl-0">
-										<div class="card-body pe-1">
-											<h6 class="card-title title text-capitalise text-muted mb-4">
-											Pending appraisals
-											</h6>
-											<span class="fs-5 fw-bold mb-0 box-3">594,094</span>
-										</div>
-									</div>
-								</div>
-								<div class="col-12 col-md-6 col-lg-3 ">
-									<div class="card rounded-3  border-0  card-stats mb-4 mb-xl-0">
-										<div class="card-body pe-1">
-											<h6 class="card-title title text-capitalise text-muted mb-4">
-											Pending collections
-											</h6>
-											<span class="fs-5 fw-bold mb-0 box-5">594,094</span>
-										</div>
-									</div>
-								</div>
-							
 							</div>
 						</div>
 					</div>
-				</div> -->
 					
-					<div class="container-fluid pt-5 pb-5">
+					<div class="container-fluid pt-1 pb-2">
 						<div class="row ps-3 ps-lg-4 pe-4">
 							<div class="col-12 col-lg-12  mb-5 mb-xl-0">
 								<div class="card border-0 shadow-sm  rounded-5">
-									<div class=" card-header  rounded-5 border-0 bg-white d-flex justify-content-between align-items-center py-2 px-4">
-										<h3 class="fw-bold welcome mt-2">Support Tickets</h3>
+									<div class=" card-header  rounded-5 border-0 bg-white d-flex justify-content-end align-items-center py-2 px-4">
+										<!-- <h3 class="fw-bold welcome mt-2">Support Tickets</h3> -->
+										<a href="./support-ticket.html" class="btn-rounded btn-sm success text-white">New Ticket</a>
 									</div>
 									<div class="card-body bg-light ">
 										<div class="table-responsive">
@@ -109,34 +72,36 @@
 														<th>SUBJECT</th>
 														<th>DESCRIPTION</th>
 														<th>PRIORITY</th>
-														<th>DATE ADDED</th>
-														<th>TIME ADDED</th>
+														<th>ADMIN ASSIGNED</th>
 														<th>TICKET STATUS</th>
+														<th>CREATED</th>
+														<th>UPDATED</th>
 														<th></th>
 													</tr>
 												</thead>
 												
 												<tbody id="ticketdata">
-													<!-- <tr class="align-items-center">
-														<td style="min-width: 120px;">
+													
+													 <tr class="align-items-center">
+														<td style="min-width: 80px;">
 															1
 														</td>
-														<td style="min-width: 170px;">
+														<td style="min-width: 150px;">
 															10
 														</td>
-														<td style="min-width: 150px;">
+														<td style="min-width: 100px;">
 															1
 														</td>
 														<td style="min-width: 150px;">
 															Farm
 														</td>
 														<td style="min-width: 120px;">
-															Button trigger modal
-															<button type="button" class="btn btn-sm btn-primary rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+															<!-- Button trigger modal -->
+															<button type="button" class="btn btn-sm success text-white rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 																VIEW
 															</button>
 															
-															Modal
+															<!-- Modal -->
 															<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 																<div class="modal-dialog">
 																<div class="modal-content">
@@ -157,30 +122,35 @@
 														<td style="min-width: 150px;">
 															Business
 														</td>
-														<td style="min-width: 120px;">
-															12/11/2022
-														</td>
 														<td style="min-width: 150px;">
-															11:00pm 
+															Market
 														</td>
-														<td>
+														<td style="min-width: 120px;">
 															<span class="badge badge-dot mr-4">
 																<i class="bg-warning"></i> pending
 															</span>
 														</td>
+														<td style="min-width: 150px;">
+															11:00pm 
+														</td>
+
+														<td style="min-width: 150px;">
+															11:00pm 
+														</td>
+														
 														<td class="text-end" style="min-width: 50px;">
 															<div class="dropdown shadow-dot text-center">
 																<a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 																	<i class="fas fa-ellipsis-v"></i>
 																</a>
 																<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-																	<a class="dropdown-item" href="">Edit</a>
+																	<a class="dropdown-item" href="">Update</a>
 																	<a class="dropdown-item" href="">Delete</a>
 																</div>
 															</div>
 														</td>
 														
-													</tr> -->
+													</tr>
 												</tbody>
 												
 											</table>
@@ -190,7 +160,6 @@
 							</div>
 						</div>
 					</div>
-
 					
 				</div>
 			</div>

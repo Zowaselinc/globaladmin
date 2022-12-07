@@ -42,6 +42,7 @@ html {
     overflow-x: hidden;
     scroll-padding-top: 9rem;
     scroll-behavior: smooth;
+    font-family: var(--universal-font) !important;
 }
 
 .default-color{
@@ -55,10 +56,11 @@ html {
 
 
 body {
-  font-family: var(--universal-font);
+  font-family: var(--universal-font) !important;
   /* font-size: 1rem; */
   font-weight: normal;
   line-height: 1.5;
+  height: 100vh;
 }
 
 li, a, span, div, button{
@@ -581,8 +583,7 @@ button.success:hover,.btn-second:hover, .success:hover{
     /* border-collapse: collapse !important; */
     /* border-spacing: 10px 20px !important; */
     border-top: 1px solid #dee2e6 !important;
-    margin-bottom: 70px;
-    
+    margin-bottom: 70px;   
 }
 
 
@@ -618,6 +619,19 @@ th{
     border-radius: 5px !important;
 }
 
+.filter{
+    border: 1px solid #02b502;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    color: #02b502 !important;
+}
+.filter:hover{
+    color: white !important;
+    background:#008d40;
+    border: 1px solid #008d40;
+}
 
 
 
@@ -702,5 +716,4 @@ th{
     border: 1px solid var(--btn-check) !important;
 }
 /* --------------------- sweet alert custom button color ends  -------------------- */
-
 
