@@ -45,11 +45,12 @@ function yourButton(){
         email.focus();
         return false;
     }else {
-        var settings = {
-        "url": "https://zowaseladmin.loclx.io/api/admin/loginAdmin",
+      var settings = {
+        "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/auth/login",
         "method": "POST",
         "timeout": 0,
         "headers": {
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY5ODE5NTQwLCJleHAiOjE2Njk5OTIzNDB9.6nuXTimj8kSSxxq7PvP6cg9vkOuysZPEWjRay9_zXWs",
           "Content-Type": "application/json"
         },
         "data": JSON.stringify({
@@ -57,6 +58,7 @@ function yourButton(){
           "password": password.value
         }),
       };
+      
 
     //  ------- if login is successfull go to admin page -----------//
 

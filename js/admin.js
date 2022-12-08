@@ -249,13 +249,17 @@ const updateAdminRole =()=>{
 
 function fetchAlladmin(){
   var settings = {
-    "url": "https://zowaseladmin.loclx.io/api/admin/fetchallAdmin",
+    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/getall",
     "method": "GET",
     "timeout": 0,
     "headers": {
-      "Authorization": localStorage.getItem('access')
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwMjg0OTY4LCJleHAiOjE2NzA0NTc3Njh9.W2kbuhrC5geTWwCmngBcrcQVjAVa8t2DSv6lYrjPOXo"
     },
   };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 
       $.ajax(settings).done(function (data) {
         //   console.log(data);
@@ -290,10 +294,10 @@ function fetchAlladmin(){
                 rowContent 
                 += `<tr class="align-items-center text-center">
                     <td style="min-width: 50px;">${index}</td>
-                    <td style="min-width: 120px;">${row.firstName}</td>
-                    <td style="min-width: 120px;">${row.lastName}</td>
+                    <td style="min-width: 120px;">${row.first_name}</td>
+                    <td style="min-width: 120px;">${row.last_name}</td>
                     <td style="min-width: 130px;">${row.email}</td>
-                    <td style="min-width: 130px;">${row.mobile}</td>
+                    <td style="min-width: 130px;">${row.phone}</td>
                     <td style="min-width: 130px;">${row.role}</td> 
                     <td style="min-width: 150px; ">
                     <button type="button" class="btn btn-sm btn-primary rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
@@ -318,7 +322,7 @@ function fetchAlladmin(){
                         </div>
                     </div>
                     </td>
-                    <td style="min-width: 150px;">${row.dateCreated}</td>
+                    <td style="min-width: 150px;">${row.created_at}</td>
                     <td style="min-width: 120px;">${status}</td>
                     <td class="text-end" style="min-width: 50px;">
                         <div class="dropdown shadow-dot text-center">
