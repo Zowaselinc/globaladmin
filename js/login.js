@@ -69,8 +69,9 @@ function yourButton(){
             return false;
         }else{
             swal("SUCCESS", response.message, "success");
-            localStorage.setItem('access',"Bearer "+response.access);
+            localStorage.setItem('access',"Bearer "+response.token);
             localStorage.setItem('refresh',response.access);
+            localStorage.setItem('adminkey',response.keyid);
             setTimeout(()=>{
                 location.href="../dashboards/user-stats.html";
             },3000)

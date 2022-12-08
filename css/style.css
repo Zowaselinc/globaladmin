@@ -39,7 +39,7 @@
 
 html {
     /* font-size: 12px; */
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     scroll-padding-top: 9rem;
     scroll-behavior: smooth;
     font-family: var(--universal-font) !important;
@@ -60,7 +60,8 @@ body {
   /* font-size: 1rem; */
   font-weight: normal;
   line-height: 1.5;
-  height: 100vh;
+  display: block;
+  /* height: 100vh; */
 }
 
 li, a, span, div, button{
@@ -594,6 +595,12 @@ th{
 
 }
 
+.th-btn {
+    background-color: var(--btn-dashboard);
+}
+.th-btn:hover{
+    background-color: var(--buttonbg);
+}
 /* table end here */
 
 /* user form */

@@ -2,7 +2,7 @@
 // allows u to make a request
 const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
     const settings = {
-        "url": `https://zowaseladmin.loclx.io/${URL}`,
+        "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/${URL}`,
         "method": METHOD,
         "timeout": 0,
         "headers": {
@@ -24,7 +24,7 @@ const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
 
 function fetchAllroles(){
 
-    var settings = querySetting("api/role/fetchAllroles", "GET", localStorage.getItem('access'));
+    var settings = querySetting("api/admin/roles/getall", "GET", localStorage.getItem('access'));
 
     $.ajax(settings).done(function (data) {
     //   console.log(data);
@@ -43,11 +43,12 @@ function fetchAllroles(){
             rowContent 
             += `<tr class="align-items-center">
                 <td style="min-width: 20px;">${index}</td>
-                <td style="min-width: 120px;">${row.roleName}</td>
-                <td style="min-width: 120px;">${row.roleDescription}</td>
-                <td style="min-width: 120px;">${row.dateCreated}</td>
+                <td style="min-width: 120px;">${row.role_name}</td>
+                <td style="min-width: 120px;">${row.role_description}</td>
+                <td style="min-width: 120px;">${row.created_at}</td>
+                <td style="min-width: 120px;">${row.updated_at}</td>
                 <td style="min-width: 50px;">
-                    <button class="btn btn-sm btn-primary rounded-6 text-end" onclick="editRole('${row.id}', '${row.roleName}', '${row.roleDescription}')">Edit</button>
+                    <button class="btn btn-sm th-btn text-white rounded-6 text-end" onclick="editRole('${row.id}', '${row.role_name}', '${row.role_description}')">Update</button>
                 </td>
                 <td style="min-width: 50px;">
                     <button class="btn btn-sm btn-danger rounded-6" onclick="deleteadminRole('${row.id}')">Delete</button>
@@ -84,11 +85,11 @@ const addRole =()=>{
     }else{
 
         const adminRole = JSON.stringify({
-            "roleName": roleName.value,
-            "roleDescription": roleDescription.value
+            "role_name": roleName.value,
+            "role_description": roleDescription.value
         });
 
-        var settings = querySetting("api/role/createRoles", "POST", localStorage.getItem('access'), adminRole);
+        var settings = querySetting("api/admin/roles/add", "POST", localStorage.getItem('access'), adminRole);
           
           $.ajax(settings).done(function (response) {
             console.log(response);
@@ -117,12 +118,13 @@ const deleteadminRole =(n)=>{
     // swal("", n), ""
 
     var settings = {
-        "url": "https://zowaseladmin.loclx.io/api/role/deleteRolebyid/"+n,
-        "method": "DELETE",
+        "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/roles/delete/"+n,
+        "method": "POST",
         "timeout": 0,
         "headers": {
           "Authorization": localStorage.getItem('access')
-        }
+        },
+        "Content-Type": "application/json",
       };
       
       $.ajax(settings).done(function (response) {
@@ -149,6 +151,8 @@ const editRole = (id, name, description) => {
   window.location.href = "#?roleID="+id;
   const URL = window.location.href;
   const confirmEdit = URL.split("?");
+
+  // console.log(confirmEdit);
   
   if(confirmEdit[1] !== undefined){
     $('#role_name').val(name);
@@ -206,11 +210,11 @@ const updateAdminRole =()=>{
 
       const adminRole = JSON.stringify({
           "id": adminRoleid,
-          "roleName": roleName.value,
-          "roleDescription": roleDescription.value
+          "role_name": roleName.value,
+          "role_description": roleDescription.value
       });
 
-      var settings = querySetting("api/role/updateRolebyid", "POST", localStorage.getItem('access'), adminRole);
+      var settings = querySetting("api/admin/roles/edit", "POST", localStorage.getItem('access'), adminRole);
         
         $.ajax(settings).done(function (response) {
           console.log(response);
@@ -253,8 +257,7 @@ function fetchAlladmin(){
     "method": "GET",
     "timeout": 0,
     "headers": {
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwMjg0OTY4LCJleHAiOjE2NzA0NTc3Njh9.W2kbuhrC5geTWwCmngBcrcQVjAVa8t2DSv6lYrjPOXo"
-    },
+     "Authorization": localStorage.getItem('access')},
   };
   
   $.ajax(settings).done(function (response) {
@@ -277,15 +280,17 @@ function fetchAlladmin(){
               let status;
                if(row.status==0){
                 status = `
-                <span class="badge badge-dot mr-4">
-                  <i class="bg-warning"></i> Inactive
-                </span>
+                  <div class="py-1 pe-3 ps-2 text-center rounded-pill past-due">
+                    <span class="rounded-circle p-1 past  d-inline-block me-3"></span>
+                    <strong class="text-past">IN ACTIVE</strong>
+                  </div>
                 `;
                }else{
                 status = `
-                <span class="badge badge-dot mr-4">
-                  <i class="bg-success"></i> Active
-                </span>
+                <div class="py-1 pe-3 ps-2 text-center rounded-pill successalert">
+												<span class="rounded-circle p-1 dot d-inline-block me-3"></span>
+												<strong class="text-success">ACTIVE</strong>
+									</div>
                 `;
                }
                 
@@ -300,37 +305,39 @@ function fetchAlladmin(){
                     <td style="min-width: 130px;">${row.phone}</td>
                     <td style="min-width: 130px;">${row.role}</td> 
                     <td style="min-width: 150px; ">
-                    <button type="button" class="btn btn-sm btn-primary rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+                    <button type="button" class="btn-sm text-white success rounded-6" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                         VIEW
                     </button>
                     
                     <!-- Modal -->
                     <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Error Description</h5>
+                            <div class="modal-header border-0">
+                            <h6 class="modal-title fw-bold" id="staticBackdropLabel">Error Description</h6>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                            ${row.recoveryPhrase}
+                            ${row.recovery_phrase}
                             </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <div class="modal-footer border-0">
+                            <button type="button" class="btn-sm bg-primary text-white" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                         </div>
                     </div>
                     </td>
-                    <td style="min-width: 150px;">${row.created_at}</td>
+                    
                     <td style="min-width: 120px;">${status}</td>
+                    <td style="min-width: 160px;">${row.created_at}</td>
+                    <td style="min-width: 160px;">${row.updated_at}</td>
                     <td class="text-end" style="min-width: 50px;">
                         <div class="dropdown shadow-dot text-center">
                             <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v"></i>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                <a class="dropdown-item" href="javascript:void(0)" onclick="executeUpdate('${row.id}', '${row.firstName}', '${row.lastName}', '${row.mobile}', '${row.role}')">Edit</a>
+                            <div class="dropdown-menu dropdown-menu-center dropdown-menu-arrow">
+                                <a class="dropdown-item " href="javascript:void(0)" onclick="executeUpdate('${row.id}', '${row.admin_id}', '${row.first_name}', '${row.last_name}', '${row.phone}', '${row.role}')">Update</a>
                                 <a class="dropdown-item" onclick="deleteAdministrator('${row.id}')" href="javascript:void(0)">Delete</a>
                             </div>
                         </div>
@@ -350,12 +357,11 @@ function fetchAlladmin(){
 
 const deleteAdministrator = (id) => {
   var settings = {
-    "url": `https://zowaseladmin.loclx.io/api/admin/deleteAdminbyid/${id}`,
-    "method": "DELETE",
+    "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/delete/${id}`,
+    "method": "POST",
     "timeout": 0,
     "headers": {
-      "Authorization": localStorage.getItem('access')
-    }
+      "Authorization": localStorage.getItem('access')},
   };
   
   $.ajax(settings).done(function (response) {
@@ -374,8 +380,8 @@ const deleteAdministrator = (id) => {
 
 
 /* --------------------------- MAKING UPDATE TO AN ADMINISTRATOR STARTS HERE-------------------------- */
-const executeUpdate = (id, fn, ln, mb, role) => {
-  let updateData = JSON.stringify({"id": id, "firstname": fn, "lastname": ln, "mobile": mb, "role": role});
+const executeUpdate = (id, adm_id, fn, ln, mb, role) => {
+  let updateData = JSON.stringify({"id": id, "adminid":adm_id, "firstname": fn, "lastname": ln, "mobile": mb, "role": role});
   localStorage.setItem('singleadmindata', updateData);
   window.location.href = "update-administrator.html";
 }
@@ -384,12 +390,11 @@ const executeUpdate = (id, fn, ln, mb, role) => {
 /* --------------------------- MAKING THE UPDATES --------------------------- */
 const makeUpdate = () => {
   // selecting the input element and get its value
-  let adminID = JSON.parse(localStorage.getItem('singleadmindata')).id;
+  let adminID = JSON.parse(localStorage.getItem('singleadmindata')).adminid;
   let firstName = document.getElementById("first_name");
   let lastName = document.getElementById("last_name");
   let adminMobile = document.getElementById("mobile_no");
   let adminRole = document.getElementById("role");
-
 
   // Displaying the value 
   if(!firstName.value){
@@ -410,22 +415,23 @@ const makeUpdate = () => {
       return false;
   }else{
 
-      var settings = {
-          "url": "https://zowaseladmin.loclx.io/api/admin/updateAdminbyid",
-          "method": "POST",
-          "timeout": 0,
-          "headers": {
-            "Authorization": localStorage.getItem('access'),
-            "Content-Type": "application/json"
-          },
-          "data": JSON.stringify({
-            "id": adminID,
-            "firstName": firstName.value,
-            "lastName": lastName.value,
-            "mobile": adminMobile.value,
-            "role": adminRole.value,
-          }),
-        };
+    var settings = {
+      "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/editbyadminid",
+      "method": "POST",
+      "timeout": 0,
+      "headers": {
+        "Authorization": localStorage.getItem('access'),
+        "Content-Type": "application/json"
+      },
+
+      "data": JSON.stringify({
+        "admin_id": adminID,
+        "first_name": firstName.value,
+        "last_name": lastName.value,
+        "phone": adminMobile.value,
+        "role": role.value
+      }),
+    };
         
         $.ajax(settings).done(function (response) {
           console.log(response);
@@ -436,14 +442,16 @@ const makeUpdate = () => {
               console.log(response.message);
               swal("SUCCESS",response.message,"success");
               sessionStorage.removeItem('singleadminid')
-              firstName.value="";
-              lastName.value="";
+              first_name.value="";
+              last_name.value="";
               adminMobile.value="";
-              adminRole.value="";
+              role.value="";
+              adminInformation();
 
               setTimeout(() => {
                 window.location.href = 'alladministrators.html';
-              }, 1300)
+                // alert("ewe");
+              }, 3300)
           }
         });
   }
@@ -482,7 +490,7 @@ const addAdmin =()=>{
   let adminPassword = document.getElementById("password");
   let adminMobile = document.getElementById("mobile_no");
   let adminRole = document.getElementById("role");
-  let adminRecovery = document.getElementById("recovery_phase");
+  // let adminRecovery = document.getElementById("recovery_phase");
 
 
 
@@ -511,31 +519,32 @@ const addAdmin =()=>{
       swal("Enter admin role!");
       adminRole.focus();
       return false;
-  }else if(!adminRecovery.value){
-      swal("Enter recovery phase!");
-      adminRecovery.focus();
-      return false;
+  // }else if(!adminRecovery.value){
+  //     swal("Enter recovery phase!");
+  //     adminRecovery.focus();
+  //     return false;
   }else{
 
-      var settings = {
-          "url": "https://zowaseladmin.loclx.io/api/admin/createAdmin",
-          "method": "POST",
-          "timeout": 0,
-          "headers": {
-            "Authorization": localStorage.getItem('access'),
-            "Content-Type": "application/json"
-          },
-          "data": JSON.stringify({
-            "firstName": firstName.value,
-            "lastName": lastName.value,
-            "email": adminMail.value,
-            "password": adminPassword.value,
-            "mobile": adminMobile.value,
-            "role": adminRole.value,
-            "recoveryPhrase": adminRecovery.value,
-            "status": "1"
-          }),
-        };
+    var settings = {
+      "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/add",
+      "method": "POST",
+      "timeout": 0,
+      "headers": {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwNDkzNDcxLCJleHAiOjE2NzA2NjYyNzF9.UNAHu0Uh0Vk-9Gs78VaasxW6xcopfDPFx5v37iEAXP4",
+        "Content-Type": "application/json"
+      },
+      "data": JSON.stringify({
+        "first_name": firstName.value,
+        "last_name": lastName.value,
+        "email": adminMail.value,
+        "password": adminPassword.value,
+        "phone": adminMobile.value,
+        "role": adminRole.value,
+        // "recoveryPhrase": adminRecovery.value,
+        "status": "1"
+      }),
+    };
+    
         
         $.ajax(settings).done(function (response) {
           console.log(response);
@@ -551,8 +560,8 @@ const addAdmin =()=>{
               adminPassword.value="";
               adminMobile.value="";
               adminRole.value="";
-              adminRecovery.value="";
-              // fetchAllroles();
+              // adminRecovery.value="";
+              fetchAllroles();
           }
         });
   }
@@ -562,7 +571,7 @@ const addAdmin =()=>{
 // get all admin roles
 const allRoles = () => {
   var settings = {
-    "url": "https://zowaseladmin.loclx.io/api/role/fetchAllroles",
+    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/roles/getall",
     "method": "GET",
     "timeout": 0,
     "headers": {
@@ -573,7 +582,7 @@ const allRoles = () => {
   $.ajax(settings).done(function (data) {
     let response = data.data;
       for(let i = 0; i < response.length; i++){
-        $('#role').append(`<option value='${response[i].roleName}'>${response[i].roleName}</option>`);
+        $('#role').append(`<option value='${response[i].role_name}'>${response[i].role_name}</option>`);
       }
   });
 }
@@ -688,7 +697,7 @@ function fetchAllErrorlog (){
                   <td style="min-width: 50px;">${index}</td>
                   <td style="min-width: 170px;">${row.errorName}</td>
                   <td style="min-width: 150px;">
-                  <button type="button" class="btn btn-sm btn-primary rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+                  <button type="button" class="btn btn-sm success rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                       VIEW
                   </button>
                   
