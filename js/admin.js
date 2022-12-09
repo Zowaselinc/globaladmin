@@ -1015,3 +1015,64 @@ function fetchAllorders (){
       });
 
 }
+
+
+/* -------------------------------------------------------------------------- */
+/*                            ORDERS DATA ENDS HERE                           */
+/* -------------------------------------------------------------------------- */
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                          COMPANY DATA STARTS HERE                          */
+/* -------------------------------------------------------------------------- */
+
+function fetchAllcompany (){
+
+  var settings = {
+    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/company/getall",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwMjg0OTY4LCJleHAiOjE2NzA0NTc3Njh9.W2kbuhrC5geTWwCmngBcrcQVjAVa8t2DSv6lYrjPOXo"
+    },
+  };
+
+    $.ajax(settings).done(function (data) {
+        console.log(data);
+        //   let response = JSON.parse(data);
+        let response = data;
+        if(response.error==true){
+          $('#companydata').html("<tr>"+response.message+"</tr>");
+        }else{
+          let thedata = (response.data).reverse();
+          let rowContent;
+          $.each(thedata, (index, row) => {
+              
+              index= index+1;
+              rowContent 
+              += `<tr class="align-items-center">
+                  <td style="min-width: 50px;">${index}</td>
+                  <td style="min-width: 170px;">${row.user_id}</td>
+                  <td style="min-width: 150px;">${row.company_name}</td>
+                  <td style="min-width: 150px;">${row.company_address}</td>
+                  <td style="min-width: 150px;">${row.company_phone}</td>
+                  <td style="min-width: 120px;">${row.state}</td>
+                  <td style="min-width: 120px;">${row.rc_number}</td>
+                  <td style="min-width: 120px;">${(row.created_at).split("T")[0]}</td>
+                  <td style="min-width: 120px;">${(row.updated_at).split("T")[0]}</td>
+                  
+                  <!-- <td style="min-width: 50px;">
+                      <button class="btn btn-sm btn-primary rounded-6 text-end">Edit</button>
+                  </td>-->
+                  <!-- <td style="min-width: 50px;">
+                      <button class="btn btn-sm btn-danger rounded-6" type="button" onclick="deleteErrorLog('${row.id}')">Delete</button>
+                  </td> -->	
+                 </tr>`;
+              $('#companydata').html(rowContent);
+            });
+        }
+      });
+
+}
