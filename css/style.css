@@ -606,7 +606,12 @@ button.success:hover,.btn-second:hover, .success:hover{
     border-top: 1px solid #dee2e6 !important;
     margin-bottom: 70px;   
 }
-
+th, td {
+        width: 150px !important;
+        text-align: center;
+        /* border: 1px solid black; */
+        /* padding: 5px; */
+      }
 
 th{
   background-color: var(--bg-main) !important;

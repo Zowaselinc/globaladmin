@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zowasel  View - Orders</title>
+  <title>Zowasel  Withdrwal Request</title>
   <link rel="icon" href="../assets/logo/zowaselICO.png">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
@@ -36,21 +36,31 @@
 			<div class="dash ms-sm-auto ms-0 col py-3 col-12 col-lg-10  rightscrollableside">
 				<div class="main-content row d-flex justify-content-center align-items-center">
 				<!-- Card Header -->
-				 <div class="container-fluid header pb-1 pt-5 pt-md-8  ">
-					<div class="container-fluid">
-						<div class="header-body">
-							<div class="  mb-1 mt-4 d-flex justify-content-between align-items-middle">
-								<h2 class="fs-3 mb-3 welcome">All Orders</h2>
-								<div class="">
-									<a href=""><span class="border border-1 border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-pill text-secondary">Received Orders</span></a>
-									<a href=""><span class="border border-1 border-secondary bg-white ps-4 pe-4 pt-2 pb-2 rounded-pill text-secondary">Purchase Orders</span></a>
+					<div class="container-fluid header pb-1 pt-5 pt-md-8  ">
+						<div class="container-fluid">
+							<div class="header-body">
+
+								<div class=" d-block d-md-none  mb-1 mt-2 row justify-content-between align-items-middle">
+									<h2 class="fs-3 mb-4 welcome">Withdrawal Requests</h2>
+									<div class="mt-3 mb-3 d-flex justify-content-between">
+										<a href=""><span class="border border-1 border-secondary bg-white ps-4 pe-4 pt-2 pb-2 rounded-pill text-secondary border-active">Withdrawals</span></a>
+										<a href=""><span class="border border-1 border-secondary bg-white ps-4 pe-4 pt-2 pb-2 rounded-pill text-secondary">Receipts</span></a>
+									</div>
+								
 								</div>
-							
+
+								<div class="d-none d-md-flex  mb-1 mt-4 d-flex justify-content-between align-items-middle">
+									<h2 class="fs-3 mb-3 welcome">Withdrawal Requests</h2>
+									<div class="">
+										<a href=""><span class="border border-1 border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-pill text-secondary border-active">Withdrawals</span></a>
+										<a href=""><span class="border border-1 border-secondary bg-white ps-4 pe-4 pt-2 pb-2 rounded-pill text-secondary ">Receipts</span></a>
+									</div>
+								
+								</div>
+								<!-- Card stats -->
 							</div>
-							<!-- Card stats -->
 						</div>
 					</div>
-				</div>
 					<div class="container-fluid pt-1 pb-5">
 						<div class="row ps-3 ps-lg-4 pe-4">
 							<div class="col-12 col-lg-12  mb-5 mb-xl-0">
@@ -59,7 +69,7 @@
 										<!-- <h3 class="fw-bold welcome mt-2">Administrators</h3> -->
 										<!-- <a href="./add-administrator.html" class="btn-rounded btn-sm th-btn text-white">Create Admin</a> -->
 										<form class="d-flex" role="search">
-											<input class="form-control rounded-2 me-2" type="search" placeholder="Search Orders" aria-label="Search">
+											<input class="form-control rounded-2 me-2" type="search" placeholder="Search" aria-label="Search">
 											<a class="filter" type="submit"> <i class="fa fa-filter"></i>Filter</a>
 										</form>
 
@@ -73,7 +83,7 @@
 														<th scope="">ORDER</th>
 														<th scope="">BILLER</th>
 														<th scope="">DESCRIPTION</th>
-														<th scope="">AMOUNT</th>
+														<th scope="">AMOUNT PAID</th>
 														<!-- <th scope="">ROLE</th> -->
 														<th scope="">DATE CREATED</th>
 														<th scope="">STATUS</th>
@@ -90,13 +100,13 @@
 												
 											</table>
 											<h3 class="welcome text-center">No Data Available Yet</h3>
-
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>
