@@ -80,7 +80,7 @@ function fetchAllusers (){
                 $('#allusers').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No users registered yet</h3></td></tr>");
             }
         }
-    });
+        });
 
 }
 
@@ -97,3 +97,6 @@ const createUser = () => {
 
 
 /* -------------------------- end of user creation -------------------------- */
+
+
+

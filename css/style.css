@@ -358,6 +358,19 @@ button.success:hover,.btn-second:hover, .success:hover{
   .text-primary, .btn-light, .btn-outline-light:hover, .btn-link, .link-primary {
     color: #2dbe60 !important;
 }
+.border-primary {
+    border-color: var(--bg-dot) !important;
+}
+.border-secondary:hover{
+    background-color: var(--btn-dashboard) !important;
+    color: white !important;
+    border-color: var(--btn-dashboard) !important;
+}
+.border-active{
+    background-color: var(--btn-dashboard) !important;
+    color: white !important;
+    border-color: var(--btn-dashboard) !important;
+}
 
 .show-pass {
     top: 55%;
@@ -579,6 +592,13 @@ button.success:hover,.btn-second:hover, .success:hover{
     background: var(--bc-past);
     letter-spacing: 2.5px !important;
 }
+.fs-10{
+    font-size: 13px !important;
+}
+.fs-9{
+    font-size: 13px !important;
+}
+
 
 .table{
     /* border-collapse: collapse !important; */

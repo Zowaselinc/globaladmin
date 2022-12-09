@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zowasel - Administrators</title>
+  <title>Zowasel - Input - Market</title>
   <link rel="icon" href="../assets/logo/zowaselICO.png">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
@@ -39,12 +39,9 @@
 				 <div class="container-fluid header pb-1 pt-5 pt-md-8  ">
 					<div class="container-fluid">
 						<div class="header-body">
-							<div class="d-flex justify-content-between mb-1 mt-4 align-items-end">
-							<h2 class="fs-3 welcome">Administrators</h2>
-							<form class="d-flex" role="search">
-								<input class="form-control rounded-2 me-2" type="search" placeholder="Search Adminins" aria-label="Search">
-								<a class="filter" type="submit"> <i class="fa fa-filter"></i>Filter</a>
-							  </form>
+							<div class="row  mb-1 mt-4">
+							<h2 class="fs-3 mb-3 welcome">All Inputs</h2>
+							
 							</div>
 							<!-- Card stats -->
 						</div>
@@ -54,9 +51,13 @@
 						<div class="row ps-3 ps-lg-4 pe-4">
 							<div class="col-12 col-lg-12  mb-5 mb-xl-0">
 								<div class="card border-0 shadow-sm  rounded-5">
-									<div class=" card-header  rounded-5 border-0 bg-white d-flex justify-content-end align-items-center py-2 px-4">
+									<div class=" card-header  rounded-5 border-0 bg-white d-flex justify-content-end py-2 px-4">
 										<!-- <h3 class="fw-bold welcome mt-2">Administrators</h3> -->
-										<a href="./add-administrator.html" class="btn-rounded btn-sm th-btn text-white">Create Admin</a>
+										<!-- <a href="./add-administrator.html" class="btn-rounded btn-sm th-btn text-white">Create Admin</a> -->
+										<form class="d-flex" role="search">
+											<input class="form-control rounded-2 me-2" type="search" placeholder="Search Inputs" aria-label="Search">
+											<a class="filter" type="submit"> <i class="fa fa-filter"></i>Filter</a>
+										</form>
 
 									</div>
 									<div class="card-body bg-light ">
@@ -79,49 +80,7 @@
 													</tr>
 												</thead>
 												
-												<tbody id="admindata">
-													<!-- <tr class="align-items-center">
-														<td style="min-width: 20px;">
-															1
-														</td>
-														<td style="min-width: 120px;">
-															Matthew
-														</td>
-														<td style="min-width: 120px;">
-															Schooles
-														</td>
-														<td style="min-width: 130px;">
-															example@mail.com
-														</td>
-														<td style="min-width: 130px;">
-															081 234 5678 
-														</td>
-														<td style="min-width: 130px;">
-															Marketer
-														</td>
-														<td style="min-width: 150px;">
-															Begining
-														</td>
-														<td style="min-width: 150px;">
-															11/11/2022 
-														</td>
-														<td style="min-width: 120px;">
-															<span class="badge badge-dot mr-4">
-																<i class="bg-warning"></i> pending
-															</span>
-														</td>
-														<td class="text-end" style="min-width: 50px;">
-															<div class="dropdown shadow-dot text-center">
-																<a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-																	<i class="fas fa-ellipsis-v"></i>
-																</a>
-																<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-																	<a class="dropdown-item" href="">Edit</a>
-																	<a class="dropdown-item" href="">Delete</a>
-																</div>
-															</div>
-														</td>	
-													</tr> -->
+												<tbody id="inputdata">
 													
 												</tbody>
 												
@@ -153,7 +112,7 @@
 	</script>
 	<script src="../js/admin.js"></script>
 	<script>
-		fetchAlladmin();
+		fetchAllinput();
 	</script>
 </body>
 

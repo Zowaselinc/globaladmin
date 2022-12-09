@@ -48,10 +48,10 @@ function fetchAllroles(){
                 <td style="min-width: 120px;">${row.created_at}</td>
                 <td style="min-width: 120px;">${row.updated_at}</td>
                 <td style="min-width: 50px;">
-                    <button class="btn btn-sm th-btn text-white rounded-6 text-end" onclick="editRole('${row.id}', '${row.role_name}', '${row.role_description}')">Update</button>
+                    <button class="btn btn-sm th-btn fs-9 text-white rounded-6 text-end" onclick="editRole('${row.id}', '${row.role_name}', '${row.role_description}')">Update</button>
                 </td>
                 <td style="min-width: 50px;">
-                    <button class="btn btn-sm btn-danger rounded-6" onclick="deleteadminRole('${row.id}')">Delete</button>
+                    <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deleteadminRole('${row.id}')">Delete</button>
                 </td>	
                </tr>`;
         });
@@ -281,15 +281,15 @@ function fetchAlladmin(){
                if(row.status==0){
                 status = `
                   <div class="py-1 pe-3 ps-2 text-center rounded-pill past-due">
-                    <span class="rounded-circle p-1 past  d-inline-block me-3"></span>
-                    <strong class="text-past">IN ACTIVE</strong>
+                    <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
+                    <strong class="text-past fs-9">IN ACTIVE</strong>
                   </div>
                 `;
                }else{
                 status = `
                 <div class="py-1 pe-3 ps-2 text-center rounded-pill successalert">
-												<span class="rounded-circle p-1 dot d-inline-block me-3"></span>
-												<strong class="text-success">ACTIVE</strong>
+												<span class="rounded-circle p-1 dot d-inline-block me-1"></span>
+												<strong class="text-success fs-9">ACTIVE</strong>
 									</div>
                 `;
                }
@@ -305,7 +305,7 @@ function fetchAlladmin(){
                     <td style="min-width: 130px;">${row.phone}</td>
                     <td style="min-width: 130px;">${row.role}</td> 
                     <td style="min-width: 150px; ">
-                    <button type="button" class="btn-sm text-white success rounded-6" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+                    <button type="button" class="btn-sm text-white th-btn fs-9 rounded-6" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                         VIEW
                     </button>
                     
@@ -314,7 +314,7 @@ function fetchAlladmin(){
                         <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header border-0">
-                            <h6 class="modal-title fw-bold" id="staticBackdropLabel">Error Description</h6>
+                            <h3 class="modal-title fw-bold" id="staticBackdropLabel">Recovery Prase</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -604,33 +604,30 @@ allRoles();
 
 
 /* -------------------------------------------------------------------------- */
-/*                           ACCESS LOG STARTS HERE                           */
+/*                           ACTIVITY LOG STARTS HERE                           */
 /* -------------------------------------------------------------------------- */
 
-function fetcthAllaccess(){
+function fetchAllactivity (){
   var settings = {
-      "url": "https://zowaseladmin.loclx.io/api/access/fetchallAccess",
-      "method": "GET",
-      "timeout": 0,
-      "headers": {
-        "Authorization": localStorage.getItem('access')
-      },
-    };
+    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/activitylog/getall",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwMjg0OTY4LCJleHAiOjE2NzA0NTc3Njh9.W2kbuhrC5geTWwCmngBcrcQVjAVa8t2DSv6lYrjPOXo"
+    },
+  };
     
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-    });
 
     $.ajax(settings).done(function (data) {
-      //   console.log(data);
-        //   let response = JSON.parse(data);
+      console.log(data);
+
         let response = data;
         console.log(response);
         if(response.error==true){
           console.log(response.message);
-          $('#accessdata').html("<tr>"+response.message+"</tr>");
+          $('#activitylog').html("<tr>"+response.message+"</tr>");
         }else{
-          let thedata = (response.data).reverse;
+          let thedata = (response.data).reverse();
           let rowContent;
           $.each(thedata, (index, row) => {
               
@@ -638,27 +635,29 @@ function fetcthAllaccess(){
               rowContent 
               += `<tr class="align-items-center">
                   <td style="min-width: 20px;">${index}</td>
-                  <td style="min-width: 120px;">${row.sections}</td>
-                  <td style="min-width: 120px;">${row.role}</td>
-                  <td style="min-width: 120px;">${row.dateCreated}</td>
+                  <td style="min-width: 120px;">${row.section_accessed}</td>
+                  <td style="min-width: 120px;">${row.page_route}</td>
+                  <td style="min-width: 120px;">${(row.created_at).split("T")[0]}</td>
+                  <td style="min-width: 120px;">${(row.updated_at).split("T")[0]}</td>
+                  <td style="min-width: 50px;">
+                    <button class="btn btn-sm th-btn fs-9 text-white rounded-6 text-end">Update</button>
+                  </td>
+                  <td style="min-width: 50px;">
+                    <button class="btn btn-sm btn-danger fs-9 rounded-6">Delete</button>
+                  </td>
                  
                  </tr>`;
               });
-                $('#accessdata').html(rowContent);
+                $('#activitylog').html(rowContent);
         }
       });
 
 }
 
-{/* <td style="min-width: 50px;">
-<button class="btn btn-sm btn-primary rounded-6 text-end">Edit</button>
-</td>
-<td style="min-width: 50px;">
-<button class="btn btn-sm btn-danger rounded-6">Delete</button>
-</td>	 */}
+
 
 /* -------------------------------------------------------------------------- */
-/*                            ACCESS LOG ENDS HERE                            */
+/*                            ACTIVITY LOG ENDS HERE                            */
 /* -------------------------------------------------------------------------- */
 
 
@@ -697,22 +696,22 @@ function fetchAllErrorlog (){
                   <td style="min-width: 50px;">${index}</td>
                   <td style="min-width: 170px;">${row.errorName}</td>
                   <td style="min-width: 150px;">
-                  <button type="button" class="btn btn-sm success rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+                  <button type="button" class="btn btn-sm th-btn rounded-6 fs-9 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                       VIEW
                   </button>
                   
                   <!-- Modal -->
                   <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                      <div class="modal-dialog">
+                      <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content">
-                          <div class="modal-header">
+                          <div class="modal-header border-0">
                           <h5 class="modal-title" id="staticBackdropLabel">Error Description</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
                           ${row.errorDescription}
                           </div>
-                          <div class="modal-footer">
+                          <div class="modal-footer border-0">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                           </div>
                       </div>
@@ -779,95 +778,95 @@ $.ajax(settings).done(function (response) {
 /* -------------------------------------------------------------------------- */
 function fetchAlltickets (){
   var settings = {
-      "url": "https://zowaseladmin.loclx.io/api/tickets/fetchallTicket",
-      "method": "GET",
-      "timeout": 0,
-      "headers": {
-      "Authorization": localStorage.getItem('access')
-      },
-    };
+    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/ticket/getall",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwMjg0OTY4LCJleHAiOjE2NzA0NTc3Njh9.W2kbuhrC5geTWwCmngBcrcQVjAVa8t2DSv6lYrjPOXo"
+    },
+  };
     
-    
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
 
-    $.ajax(settings).done(function (data) {
-      //   console.log(data);
-        //   let response = JSON.parse(data);
-        let response = data;
-        console.log(response);
-        if(response.error==true){
-          console.log(response.message);
-          $('#ticketdata').html("<tr>"+response.message+"</tr>");
-        }else{
-          let thedata = (response.data).reverse();
+  if(response.error==true){
+      console.log(response.message);
+  }else{
+      let thedata = response.data;
+      if(thedata.length > 0){
           let rowContent
           $.each(thedata, (index, row) => {
 
-            let ticketStatus;
-             if(row.ticketStatus==0){
-              ticketStatus = `
-              <span class="badge badge-dot mr-4">
-                <i class="bg-warning"></i> Inactive
-              </span>
-              `;
-             }else{
-              ticketStatus = `
-              <span class="badge badge-dot mr-4">
-                <i class="bg-success"></i> Active
-              </span>
-              `;
-             }
-              
+              let ticket_status;
+              if(row.ticket_status == 1){
+                ticket_status = 
+                  `<div class="py-1 pe-3 ps-2 text-center rounded-pill successalert">
+                    <span class="rounded-circle p-1 dot d-inline-block me-1"></span>
+                    <strong class="text-success fs-10">ACTIVE</strong>
+                  </div>`;
+              }else{
+                ticket_status = 
+                  `<div class="py-1 pe-3 ps-2 text-center rounded-pill past-due">
+                    <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
+                    <strong class="text-past fs-10">IN ACTIVE</strong>
+                  </div>`;
+              }
+
               index= index+1;
-              rowContent 
-              += `<tr class="align-items-center">
-                  <td style="min-width: 50px;">${index}</td>
-                  <td style="min-width: 170px;">${row.ticketId}</td>
-                  <td style="min-width: 170px;">${row.userId}</td>
-                  <td style="min-width: 170px;">${row.subject}</td>
-                  <td style="min-width: 150px;">
-                  <button type="button" class="btn btn-sm success text-white rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
-                      VIEW
-                  </button>
-                  
-                  <!-- Modal -->
-                  <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                          <h5 class="modal-title" id="staticBackdropLabel">Error Description</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                          ${row.description}
-                          </div>
-                          <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          </div>
+              rowContent += `<tr class="align-items-center">
+              <td style="min-width: 50px;">${index}</td>
+              <td style="min-width: 170px;">${row.ticket_id}</td>
+              <td style="min-width: 170px;">${row.user_id}</td>
+              <td style="min-width: 170px;">${row.subject}</td>
+              <td style="min-width: 150px;">
+              <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+                  VIEW
+              </button>
+              
+              <!-- Modal -->
+              <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                      <div class="modal-header border-0">
+                      <h3 class="modal-title" id="staticBackdropLabel">Ticket Description</h3>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
+                      <div class="modal-body">
+                      ${row.description}
+                      </div>
+                      <div class="modal-footer border-0">
+                      <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
                       </div>
                   </div>
-                  </td>
-                  <td style="min-width: 120px;">${row.priority}</td>
-                  <td style="min-width: 120px;">${row.dateAdded}</td>
-                  <td style="min-width: 120px;">${row.timeAdded}</td>
-                  <td style="min-width: 120px; text-align:center;">${ticketStatus}</td>
-                  <td class="text-end" style="min-width: 50px;">
-                      <div class="dropdown shadow-dot text-center">
-                          <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fas fa-ellipsis-v"></i>
-                          </a>
-                          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                              <a class="dropdown-item" href="">Edit</a>
-                              <a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Delete</a>
-                          </div>
+                  </div>
+              </div>
+              </td>
+              <td style="min-width: 120px;">${row.priority}</td>
+              <td style="min-width: 150px;">${row.admin_assigned}</td>
+              <td style="min-width: 140px; text-align:center;">${ticket_status}</td>
+              <td style="min-width: 140px;">${(row.created_at).split("T")[0]}</td>
+              <td style="min-width: 140px;">${(row.updated_at).split("T")[0]}</td>
+              <td class="text-end" style="min-width: 50px;">
+                  <div class="dropdown shadow-dot text-center">
+                      <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          <a class="dropdown-item" href="">Edit</a>
+                          <a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Delete</a>
                       </div>
-                  </td>
+                  </div>
+              </td>
 
-                 </tr>`;
-              $('#ticketdata').html(rowContent);
-            });
-        }
-      });
+             </tr>`;
+          $('#ticketdata').html(rowContent);
+          });
+      }else{
+          $('#ticketdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No users registered yet</h3></td></tr>");
+      }
+  }
+  });
 
 }
 
