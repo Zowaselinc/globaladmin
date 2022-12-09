@@ -671,13 +671,13 @@ function fetchAllactivity (){
 
 function fetchAllErrorlog (){
   var settings = {
-      "url": "https://zowaseladmin.loclx.io/api/errorlog/fetchallErrorlog",
-      "method": "GET",
-      "timeout": 0,
-      "headers": {
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJpZCI6MjEsImFkbWluSWQiOiJaV1NMQURNMzQzLXlGWm9YLWhocE9MIiwiZmlyc3ROYW1lIjoiSXJvYWJ1Y2hpIiwibGFzdE5hbWUiOiJSdXRoIiwiZW1haWwiOiJkZXZydXRoYW5pQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiRUF4UGhSclYxbzhSSjdKSW9jbFFqUT09IiwibW9iaWxlIjoiMDcwMzAyNjIxNTciLCJyb2xlIjoiQWRtaW4iLCJyZWNvdmVyeVBocmFzZSI6IkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0LCBjb25zZWN0ZXR1ciBhZGlwaXNjaW5nIGVsaXQsIHNlZCBkbyBlaXVzbW9kIHRlbXBvciBpbmNpZGlkdW50IHV0IGxhYm9yZSBldCBkb2xvcmUgbWFnbmEiLCJkYXRlQ3JlYXRlZCI6IjIwMjItMTEtMDQiLCJzdGF0dXMiOjF9XSwiaWF0IjoxNjY4MDA1NTU4fQ._bmDYoaxUgEXlI73E1xIYPcJvgVjEYmKanc7BBpDCfk"
-      },
-    };
+    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/errolog/getall",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwMjg0OTY4LCJleHAiOjE2NzA0NTc3Njh9.W2kbuhrC5geTWwCmngBcrcQVjAVa8t2DSv6lYrjPOXo"
+    },
+  };
 
     $.ajax(settings).done(function (data) {
       //   console.log(data);
@@ -694,9 +694,9 @@ function fetchAllErrorlog (){
               rowContent 
               += `<tr class="align-items-center">
                   <td style="min-width: 50px;">${index}</td>
-                  <td style="min-width: 170px;">${row.errorName}</td>
+                  <td style="min-width: 170px;">${row.error_name}</td>
                   <td style="min-width: 150px;">
-                  <button type="button" class="btn btn-sm th-btn rounded-6 fs-9 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+                  <button type="button" class="btn btn-sm th-btn text-white rounded-6 fs-9 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                       VIEW
                   </button>
                   
@@ -709,19 +709,19 @@ function fetchAllErrorlog (){
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
-                          ${row.errorDescription}
+                          ${row.error_description}
                           </div>
                           <div class="modal-footer border-0">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
                           </div>
                       </div>
                       </div>
                   </div>
                   </td>
-                  <td style="min-width: 120px;">${row.timeOccured}</td>
-                  <td style="min-width: 120px;">${row.dateOccured}</td>
+                  <td style="min-width: 120px;">${(row.created_at).split("T")[1]}</td>
+                  <td style="min-width: 120px;">${(row.created_at).split("T")[0]}</td>
                   <td style="min-width: 150px;">${row.route}</td>
-                  <td style="min-width: 120px;">${row.errorCode}</td>
+                  <td style="min-width: 120px;">${row.error_code}</td>
                   <!-- <td style="min-width: 50px;">
                       <button class="btn btn-sm btn-primary rounded-6 text-end">Edit</button>
                   </td>-->
@@ -962,3 +962,56 @@ $('#createTicket').click(addSupportTickets)
 /* -------------------------------------------------------------------------- */
 /*                               END OF SUPPORT    TICKET                          */
 /* -------------------------------------------------------------------------- */
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                             ORDERS STARTS HERE                             */
+/* -------------------------------------------------------------------------- */
+
+function fetchAllorders (){
+
+  var settings = {
+    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/order/getall",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwMjg0OTY4LCJleHAiOjE2NzA0NTc3Njh9.W2kbuhrC5geTWwCmngBcrcQVjAVa8t2DSv6lYrjPOXo"
+    },
+  };
+
+    $.ajax(settings).done(function (data) {
+        console.log(data);
+        //   let response = JSON.parse(data);
+        let response = data;
+        if(response.error==true){
+          $('#ordersdata').html("<tr>"+response.message+"</tr>");
+        }else{
+          let thedata = (response.data).reverse();
+          let rowContent;
+          $.each(thedata, (index, row) => {
+              
+              index= index+1;
+              rowContent 
+              += `<tr class="align-items-center">
+                  <td style="min-width: 50px;">${index}</td>
+                  <td style="min-width: 170px;">${row.order_id}</td>
+                  <td style="min-width: 150px;">${row.total_product}</td>
+                  <td style="min-width: 120px;">${row.amount}</td>
+                  <td style="min-width: 120px;">${row.action}</td>
+                  <td style="min-width: 120px;">${row.created_at}</td>
+                  <td style="min-width: 120px;">${(row.updated_at).split("T")[0]}</td>
+                  
+                  <!-- <td style="min-width: 50px;">
+                      <button class="btn btn-sm btn-primary rounded-6 text-end">Edit</button>
+                  </td>-->
+                  <!-- <td style="min-width: 50px;">
+                      <button class="btn btn-sm btn-danger rounded-6" type="button" onclick="deleteErrorLog('${row.id}')">Delete</button>
+                  </td> -->	
+                 </tr>`;
+              $('#ordersdata').html(rowContent);
+            });
+        }
+      });
+
+}
