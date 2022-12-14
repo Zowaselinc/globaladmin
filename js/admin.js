@@ -863,7 +863,7 @@ function fetchAlltickets (){
           $('#ticketdata').html(rowContent);
           });
       }else{
-          $('#ticketdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No users registered yet</h3></td></tr>");
+          $('#ticketdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Ticket registered yet</h3></td></tr>");
       }
   }
   });
@@ -1076,3 +1076,119 @@ function fetchAllcompany (){
       });
 
 }
+
+/* -------------------------------------------------------------------------- */
+/*                           Company Data Ends Here                           */
+/* -------------------------------------------------------------------------- */
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                           INPUT DATA STARTS HERE                           */
+/* -------------------------------------------------------------------------- */
+
+function fetchAllinput (){
+  var settings = {
+    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/input/getall",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": localStorage.getItem('access')
+    },
+  };
+    
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+  if(response.error==true){
+      console.log(response.message);
+  }else{
+      let thedata = response.data;
+      if(thedata.length > 0){
+          let rowContent
+          $.each(thedata, (index, row) => {
+
+              let ticket_status;
+              if(row.ticket_status == 1){
+                ticket_status = 
+                  `<div class="py-1 pe-3 ps-2 text-center rounded-pill successalert">
+                    <span class="rounded-circle p-1 dot d-inline-block me-1"></span>
+                    <strong class="text-success fs-10">ACTIVE</strong>
+                  </div>`;
+              }else{
+                ticket_status = 
+                  `<div class="py-1 pe-3 ps-2 text-center rounded-pill past-due">
+                    <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
+                    <strong class="text-past fs-10">IN ACTIVE</strong>
+                  </div>`;
+              }
+
+              index= index+1;
+              rowContent += `<tr class="align-items-center">
+              <td style="min-width: 50px;">${index}</td>
+              <td style="min-width: 170px;">John Doe</td>
+              <td style="min-width: 170px;">${row.category}</td>
+              <td style="min-width: 170px;">${row.sub_category}</td>
+              <td style="min-width: 120px;">${row.packaging}</td>
+              <td style="min-width: 150px;">
+              <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+                  VIEW
+              </button>
+              
+              <!-- Modal -->
+              <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                      <div class="modal-header border-0">
+                      <h3 class="modal-title" id="staticBackdropLabel">Ticket Description</h3>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                      ${row.description}
+                      </div>
+                      <div class="modal-footer border-0">
+                      <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+              </td>
+            
+              <!-- <td style="min-width: 150px;">${row.description}</td>
+              <td style="min-width: 140px; text-align:center;">${ticket_status}</td>
+              <td style="min-width: 140px;">${(row.created_at).split("T")[0]}</td>
+              <td style="min-width: 140px;">${(row.updated_at).split("T")[0]}</td>
+              <td class="text-end" style="min-width: 50px;">
+                  <div class="dropdown shadow-dot text-center">
+                      <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          <a class="dropdown-item" href="">Edit</a>
+                          <a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Delete</a>
+                      </div>
+                  </div>
+              </td> -->
+              <td style="min-width: 50px; cursor:pointer;" class="success-color">View More</td>
+              
+
+             </tr>`;
+          $('#inputdata').html(rowContent);
+          });
+      }else{
+          $('#inputdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Inputs registered yet</h3></td></tr>");
+      }
+  }
+  });
+
+}
+
+/* -------------------------------------------------------------------------- */
+/*                            INPUT DATA ENDS HERE                            */
+/* -------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------- */
+/*                           CROPS DATA STARTS HERE                           */
+/* -------------------------------------------------------------------------- */
