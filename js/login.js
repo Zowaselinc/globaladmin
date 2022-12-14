@@ -50,7 +50,6 @@ function yourButton(){
         "method": "POST",
         "timeout": 0,
         "headers": {
-          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY5ODE5NTQwLCJleHAiOjE2Njk5OTIzNDB9.6nuXTimj8kSSxxq7PvP6cg9vkOuysZPEWjRay9_zXWs",
           "Content-Type": "application/json"
         },
         "data": JSON.stringify({
@@ -70,7 +69,6 @@ function yourButton(){
         }else{
             swal("SUCCESS", response.message, "success");
             localStorage.setItem('access',"Bearer "+response.token);
-            localStorage.setItem('refresh',response.access);
             localStorage.setItem('adminkey',response.keyid);
             setTimeout(()=>{
                 location.href="../dashboards/user-stats.html";

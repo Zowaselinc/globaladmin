@@ -33,7 +33,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<nav id="sidebarMenu" class="col-12 col-lg-auto d-lg-block bg-light leftfixedside collapse bd-links"></nav>
-			<div class="dash ms-sm-auto ms-0 col py-3 col-12 col-lg-10  rightscrollableside">
+			<div class="dash ms-sm-auto ms-0 col col-12 col-lg-10  rightscrollableside">
 				<div class="main-content row d-flex justify-content-center align-items-center">
 				<!-- Card Header -->
 					<div class="container-fluid header pb-1 pt-5 pt-md-8  ">
@@ -101,6 +101,24 @@
 											</table>
 											<!-- <h3 class="welcome text-center">No Data Available Yet</h3> -->
 										</div>
+
+										<!-- Padgination starts  -->
+										
+										<nav aria-label="Page navigation example">
+											<ul class="pagination justify-content-end">
+											  <li class="page-item disabled">
+												<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+											  </li>
+											  <li class="page-item"><a class="page-link text-secondary" href="#">1</a></li>
+											  <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
+											  <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
+											  <li class="page-item">
+												<a class="page-link text-secondary fw-bold" href="#">Next</a>
+											  </li>
+											</ul>
+										  </nav>
+
+										  <!-- Padgination ends  -->
 									</div>
 								</div>
 							</div>
@@ -108,6 +126,10 @@
 					</div>
 					<!-- <h3 class="welcome text-center">No Data Available Yet</h3> -->
 				</div>
+
+				<!-- Footer starts -->
+				<div id="bottomnav"></div>
+				<!-- footer ends  -->
 			</div>
 		</div>
 	</div>
@@ -125,6 +147,7 @@
 	<script>
 		$('#topnav').load("../component/nav-component.html")
 		$('#sidebarMenu').load("../component/component.html")
+		$('#bottomnav').load("../component/footer.html");
 	</script>
 	<script src="../js/admin.js"></script>
 	<script>

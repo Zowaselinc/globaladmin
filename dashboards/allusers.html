@@ -33,107 +33,57 @@
 	<div class="container-fluid">
 		<div class="row">
 		<nav id="sidebarMenu" class="col-12 col-lg-auto d-lg-block bg-light leftfixedside collapse bd-links"></nav>
-		<div class="dash ms-sm-auto ms-0 col py-3 col-12 col-lg-10  rightscrollableside user-height">
+		<div class="dash ms-sm-auto ms-0 col col-12  col-lg-10  rightscrollableside">
 			<div class="main-content row d-flex justify-content-center align-items-center">
-			<!-- Card Header -->
-			<!-- <div class="container-fluid header pb-5 pt-5 pt-md-8  ">
-				<div class="container-fluid">
-					<div class="header-body">
-						<div class="d-flex justify-content-between mb-5 mt-4 align-items-end">
-						<h1 class="fs-3 welcome">Welcome, Spectra</h1>
-						<h5 class="text-secondary">Wallet balance <span class="wallet-bal fs-3 ms-2">$5070.80</span></h5>
-						</div>
-						Card stats
-						<div class="row">
-							<div class="col-12 col-md-6 col-lg-3">
-								<div class="card rounded-3 border-0 card-stats mb-4 mb-xl-0">
-								<div class="card-body pe-1">
-									<h6 class="card-title title text-capitalise text-muted mb-4">
-									Loan issued
-									</h6>
-									<span class="fs-5 fw-bold mb-0 box-2">594,094</span>
+			
+				<div class="container-fluid pt-5 user-height">
+					<div class="row ps-3 ps-lg-4 pe-4">
+						<div class="col-12 col-lg-12  mb-5 mb-xl-0">
+							<div class="card border-0 shadow-sm rounded-5">
+								<div class=" card-header rounded-5 border-0 bg-white d-flex justify-content-between align-items-center py-2 px-4">
+									<h3 class="fw-bold welcome mt-2">All Users</h3>
+									<form class="d-flex" role="search">
+										<input class="form-control rounded me-2 btn-outline" type="search" placeholder="Search User" aria-label="Search">
+										<a class="filter" type="submit"> <i class="fa fa-filter"></i>Filter</a>
+									</form>
+									<!-- <a href=""><p class="text-secondary mt-2">Veiw all Users <i class="fa fa-angle-down ps-2"></i></p></a> -->
 								</div>
-								</div> 
-							</div>
-							<div class="col-12 col-md-6 col-lg-3">
-								<div class="card rounded-3  border-0  card-stats mb-4 mb-xl-0">
-								<div class="card-body pe-1">
-									<h6 class="card-title title  text-capitalise text-muted mb-4">
-									Due loans
-									</h6>
-									<span class="fs-5 fw-bold mb-0 box-4">594,094</span>
-								</div>
-								</div>
-							</div>
-							<div class="col-12 col-md-6 col-lg-3">
-								<div class="card rounded-3  border-0  card-stats mb-4 mb-xl-0">
-									<div class="card-body pe-1">
-										<h6 class="card-title title text-capitalise text-muted mb-4">
-										Pending appraisals
-										</h6>
-										<span class="fs-5 fw-bold mb-0 box-3">594,094</span>
+								<div class="card-body bg-light ">
+									<div class="table-responsive">
+										<table class="table align-middle table table-borderless default-color">
+											<thead class="t-border">
+												<tr class="border-bottom t-border text-uppercase">
+													<th>ID</th>
+													<th>User</th>
+													<th>Email</th>
+													<th>MOBILE NO.</th>
+													<th>Verification Status</th>
+													<th>STATUS</th>
+													<th>DATE CREATED</th>
+													<th>DATE updated</th>
+													<th></th>
+												</tr>
+											</thead>
+											
+											<tbody id="allusers"></tbody>
+											
+										</table>
 									</div>
-								</div>
-							</div>
-							<div class="col-12 col-md-6 col-lg-3 ">
-								<div class="card rounded-3  border-0  card-stats mb-4 mb-xl-0">
-									<div class="card-body pe-1">
-										<h6 class="card-title title text-capitalise text-muted mb-4">
-										Pending collections
-										</h6>
-										<span class="fs-5 fw-bold mb-0 box-5">594,094</span>
-									</div>
-								</div>
-							</div>
-						
-						</div>
-					</div>
-				</div>
-			</div> -->
-			<div class="container-fluid pt-5">
-				<div class="row ps-3 ps-lg-4 pe-4">
-					<div class="col-12 col-lg-12  mb-5 mb-xl-0">
-						<div class="card border-0 shadow-sm rounded-5">
-							<div class=" card-header rounded-5 border-0 bg-white d-flex justify-content-between align-items-center py-2 px-4">
-								<h3 class="fw-bold welcome mt-2">All Users</h3>
-								<form class="d-flex" role="search">
-									<input class="form-control rounded me-2 btn-outline" type="search" placeholder="Search User" aria-label="Search">
-									<a class="filter" type="submit"> <i class="fa fa-filter"></i>Filter</a>
-								</form>
-								<!-- <a href=""><p class="text-secondary mt-2">Veiw all Users <i class="fa fa-angle-down ps-2"></i></p></a> -->
-							</div>
-							<div class="card-body bg-light ">
-								<div class="table-responsive">
-									<table class="table align-middle table table-borderless default-color">
-										<thead class="t-border">
-											<tr class="border-bottom t-border text-uppercase">
-												<th>ID</th>
-												<th>User</th>
-												<th>Email</th>
-												<th>MOBILE NO.</th>
-												<th>Verification Status</th>
-												<th>STATUS</th>
-												<th>DATE CREATED</th>
-												<th>DATE updated</th>
-												<th></th>
-											</tr>
-										</thead>
-										
-										<tbody id="allusers"></tbody>
-										
-									</table>
 								</div>
 							</div>
 						</div>
 					</div>
+
+
+
+
+					
 				</div>
-
-
-
-
-				
 			</div>
-			</div>
+
+			<!-- Footer starts -->
+			<div id="bottomnav"></div>
+			<!-- footer ends  -->
 		</div>
 		</div>
 	</div>
@@ -147,8 +97,9 @@
 	crossorigin="anonymous"></script>
 	
 	<script>
-		$('#topnav').load("../component/nav-component.html")
-		$('#sidebarMenu').load("../component/component.html")
+		$('#topnav').load("../component/nav-component.html");
+		$('#sidebarMenu').load("../component/component.html");
+		$('#bottomnav').load("../component/footer.html");
 	</script>
 
 	<script src="../js/users.js"></script>

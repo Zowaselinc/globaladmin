@@ -33,23 +33,23 @@
 	<div class="container-fluid">
 		<div class="row">
 			<nav id="sidebarMenu" class="col-12 col-lg-auto d-lg-block bg-light leftfixedside collapse bd-links"></nav>
-			<div class="dash ms-sm-auto ms-0 col py-3 col-12 col-lg-10  rightscrollableside">
+			<div class="dash ms-sm-auto ms-0 col col-12 col-lg-10  rightscrollableside">
 				<div class="main-content row d-flex justify-content-center align-items-center">
 				<!-- Card Header -->
-				 <div class="container-fluid header pb-1 pt-5 pt-md-8  ">
-					<div class="container-fluid">
-						<div class="header-body">
-							<div class="d-flex justify-content-between mb-1 mt-4 align-items-end">
-							<h2 class="fs-3 welcome">Administrators</h2>
-							<form class="d-flex" role="search">
-								<input class="form-control rounded-2 me-2" type="search" placeholder="Search Adminins" aria-label="Search">
-								<a class="filter" type="submit"> <i class="fa fa-filter"></i>Filter</a>
-							  </form>
+					<div class="container-fluid header pb-1 pt-5 pt-md-8  ">
+						<div class="container-fluid">
+							<div class="header-body">
+								<div class="d-flex justify-content-between mb-1 mt-4 align-items-end">
+								<h2 class="fs-3 welcome">Administrators</h2>
+								<form class="d-flex" role="search">
+									<input class="form-control rounded-2 me-2" type="search" placeholder="Search Adminins" aria-label="Search">
+									<a class="filter" type="submit"> <i class="fa fa-filter"></i>Filter</a>
+								</form>
+								</div>
+								<!-- Card stats -->
 							</div>
-							<!-- Card stats -->
 						</div>
 					</div>
-				</div>
 					<div class="container-fluid pt-1 pb-5">
 						<div class="row ps-3 ps-lg-4 pe-4">
 							<div class="col-12 col-lg-12  mb-5 mb-xl-0">
@@ -63,7 +63,7 @@
 										<div class="table-responsive table-hover">
 											<table class=" table table-hover table-sm align-middle table-borderless default-color">
 												<thead class="t-border">
-													<tr class="border-bottom t-border text-center">
+													<tr class="border-bottom t-border">
 														<th scope="">ID</th>
 														<th scope="">FIRST NAME</th>
 														<th scope="">LAST NAME</th>
@@ -133,6 +133,9 @@
 						</div>
 					</div>
 				</div>
+				<!-- Footer starts -->
+				<div id="bottomnav"></div>
+				<!-- footer ends  -->
 			</div>
 		</div>
 	</div>
@@ -148,8 +151,9 @@
 	
 	
 	<script>
-		$('#topnav').load("../component/nav-component.html")
-		$('#sidebarMenu').load("../component/component.html")
+		$('#topnav').load("../component/nav-component.html");
+		$('#sidebarMenu').load("../component/component.html");
+		$('#bottomnav').load("../component/footer.html");
 	</script>
 	<script src="../js/admin.js"></script>
 	<script>

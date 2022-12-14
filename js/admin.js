@@ -297,11 +297,11 @@ function fetchAlladmin(){
                 
                 index= index+1;
                 rowContent 
-                += `<tr class="align-items-center text-center">
+                += `<tr class="align-items-center">
                     <td style="min-width: 50px;">${index}</td>
                     <td style="min-width: 120px;">${row.first_name}</td>
                     <td style="min-width: 120px;">${row.last_name}</td>
-                    <td style="min-width: 130px;">${row.email}</td>
+                    <td style="min-width: 130px;" class="success-color">${row.email}</td>
                     <td style="min-width: 130px;">${row.phone}</td>
                     <td style="min-width: 130px;">${row.role}</td> 
                     <td style="min-width: 150px; ">
@@ -530,7 +530,7 @@ const addAdmin =()=>{
       "method": "POST",
       "timeout": 0,
       "headers": {
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwNDkzNDcxLCJleHAiOjE2NzA2NjYyNzF9.UNAHu0Uh0Vk-9Gs78VaasxW6xcopfDPFx5v37iEAXP4",
+        "Authorization": localStorage.getItem('access'),
         "Content-Type": "application/json"
       },
       "data": JSON.stringify({
@@ -613,9 +613,9 @@ function fetchAllactivity (){
     "method": "GET",
     "timeout": 0,
     "headers": {
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwMjg0OTY4LCJleHAiOjE2NzA0NTc3Njh9.W2kbuhrC5geTWwCmngBcrcQVjAVa8t2DSv6lYrjPOXo"
-    },
-  };
+      "Authorization": localStorage.getItem('access')},
+
+    }
     
 
     $.ajax(settings).done(function (data) {
@@ -634,7 +634,7 @@ function fetchAllactivity (){
               index= index+1;
               rowContent 
               += `<tr class="align-items-center">
-                  <td style="min-width: 20px;">${index}</td>
+                  <td style="min-width: 10px;">${index}</td>
                   <td style="min-width: 120px;">${row.section_accessed}</td>
                   <td style="min-width: 120px;">${row.page_route}</td>
                   <td style="min-width: 120px;">${(row.created_at).split("T")[0]}</td>
@@ -642,17 +642,17 @@ function fetchAllactivity (){
                   <td style="min-width: 50px;">
                     <button class="btn btn-sm th-btn fs-9 text-white rounded-6 text-end">Update</button>
                   </td>
-                  <td style="min-width: 50px;">
+                  <!-- <td style="min-width: 50px;">
                     <button class="btn btn-sm btn-danger fs-9 rounded-6">Delete</button>
-                  </td>
+                  </td> -->
                  
                  </tr>`;
               });
                 $('#activitylog').html(rowContent);
         }
       });
+    }
 
-}
 
 
 
@@ -675,7 +675,7 @@ function fetchAllErrorlog (){
     "method": "GET",
     "timeout": 0,
     "headers": {
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwMjg0OTY4LCJleHAiOjE2NzA0NTc3Njh9.W2kbuhrC5geTWwCmngBcrcQVjAVa8t2DSv6lYrjPOXo"
+      "Authorization": localStorage.getItem('access')
     },
   };
 
@@ -782,7 +782,7 @@ function fetchAlltickets (){
     "method": "GET",
     "timeout": 0,
     "headers": {
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwMjg0OTY4LCJleHAiOjE2NzA0NTc3Njh9.W2kbuhrC5geTWwCmngBcrcQVjAVa8t2DSv6lYrjPOXo"
+      "Authorization": localStorage.getItem('access')
     },
   };
     
@@ -976,7 +976,7 @@ function fetchAllorders (){
     "method": "GET",
     "timeout": 0,
     "headers": {
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwMjg0OTY4LCJleHAiOjE2NzA0NTc3Njh9.W2kbuhrC5geTWwCmngBcrcQVjAVa8t2DSv6lYrjPOXo"
+      "Authorization": localStorage.getItem('access')
     },
   };
 
@@ -1035,7 +1035,7 @@ function fetchAllcompany (){
     "method": "GET",
     "timeout": 0,
     "headers": {
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwMjg0OTY4LCJleHAiOjE2NzA0NTc3Njh9.W2kbuhrC5geTWwCmngBcrcQVjAVa8t2DSv6lYrjPOXo"
+      "Authorization": localStorage.getItem('access')
     },
   };
 

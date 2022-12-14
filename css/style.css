@@ -608,7 +608,7 @@ button.success:hover,.btn-second:hover, .success:hover{
 }
 th, td {
         width: 150px !important;
-        text-align: center;
+        /* text-align: center; */
         /* border: 1px solid black; */
         /* padding: 5px; */
       }
@@ -677,7 +677,7 @@ th{
     
     .rightscrollableside{
         width:78%;
-       
+        
     }
     .bg_img {
         background-image: none;
@@ -698,6 +698,7 @@ th{
     
     .rightscrollableside{
         width:83%;
+     
     }
     /* right side image starts */
     .bg-image {
