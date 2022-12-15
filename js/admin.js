@@ -1,3 +1,15 @@
+const splittingDate = (data) => {
+  let date = data.split("T")[0];
+  let t = data.split("T")[1];
+
+  // removing unnessary data from time
+  let time = t.split(".000Z")[0];
+
+  return date+"<br/>"+time;
+}
+
+
+
 // this holds the request headers and bodies
 // allows u to make a request
 const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
@@ -240,11 +252,6 @@ const updateAdminRole =()=>{
 
 
 
-
-
-
-
-
 /* -------------------------------------------------------------------------- */
 /*                         ADMINISTRATORS BEGINS HERE                         */
 /* -------------------------------------------------------------------------- */
@@ -329,8 +336,8 @@ function fetchAlladmin(){
                     </td>
                     
                     <td style="min-width: 120px;">${status}</td>
-                    <td style="min-width: 160px;">${row.created_at}</td>
-                    <td style="min-width: 160px;">${row.updated_at}</td>
+                    <td style="min-width: 160px;">${splittingDate(row.created_at)}</td>
+                    <td style="min-width: 160px;">${splittingDate(row.updated_at)}</td>
                     <td class="text-end" style="min-width: 50px;">
                         <div class="dropdown shadow-dot text-center">
                             <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -718,16 +725,16 @@ function fetchAllErrorlog (){
                       </div>
                   </div>
                   </td>
-                  <td style="min-width: 120px;">${(row.created_at).split("T")[1]}</td>
+                  <td style="min-width: 120px;">${((row.created_at).split("T")[1]).split(".000Z")[0]}</td>
                   <td style="min-width: 120px;">${(row.created_at).split("T")[0]}</td>
-                  <td style="min-width: 150px;">${row.route}</td>
+                  <td style="max-width: 200px !important;">${row.route}</td>
                   <td style="min-width: 120px;">${row.error_code}</td>
                   <!-- <td style="min-width: 50px;">
                       <button class="btn btn-sm btn-primary rounded-6 text-end">Edit</button>
                   </td>-->
-                  <td style="min-width: 50px;">
+                 <!-- <td style="min-width: 50px;">
                       <button class="btn btn-sm btn-danger rounded-6" type="button" onclick="deleteErrorLog('${row.id}')">Delete</button>
-                  </td>	
+                  </td>	-->
                  </tr>`;
               $('#errordata').html(rowContent);
             });
@@ -1141,7 +1148,7 @@ function fetchAllinput (){
                   <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                       <div class="modal-header border-0">
-                      <h3 class="modal-title" id="staticBackdropLabel">Ticket Description</h3>
+                      <h3 class="modal-title" id="staticBackdropLabel">Input Description</h3>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
