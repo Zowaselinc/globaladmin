@@ -8,6 +8,24 @@ const splittingDate = (data) => {
   return date+"<br/>"+time;
 }
 
+/* ---------------------------- Spliting end here --------------------------- */
+
+
+
+
+
+/* ----------------------------- activate loader ---------------------------- */
+const loader = (contentArea = "", colspan="") => {
+  document.querySelector(contentArea).innerHTML = `<tr>
+  <td colspan="${colspan}" class="text-center">
+    <img src="../assets/loader.gif" alt=""/>
+  </td>
+  </tr>`
+}
+/* ---------------------------- loader ends here ---------------------------- */
+
+
+
 
 
 // this holds the request headers and bodies
@@ -35,7 +53,7 @@ const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
 /* -------------------------------------------------------------------------- */
 
 function fetchAllroles(){
-
+    loader('#tbdata', 7)
     var settings = querySetting("api/admin/roles/getall", "GET", localStorage.getItem('access'));
 
     $.ajax(settings).done(function (data) {
@@ -50,24 +68,25 @@ function fetchAllroles(){
         var rowContent;
         let thedata = (response.data).reverse();
         $.each(thedata, (index, row) => {
-            
-            index= index+1;
-            rowContent 
-            += `<tr class="align-items-center">
-                <td style="min-width: 20px;">${index}</td>
-                <td style="min-width: 120px;">${row.role_name}</td>
-                <td style="min-width: 120px;">${row.role_description}</td>
-                <td style="min-width: 120px;">${row.created_at}</td>
-                <td style="min-width: 120px;">${row.updated_at}</td>
-                <td style="min-width: 50px;">
-                    <button class="btn btn-sm th-btn fs-9 text-white rounded-6 text-end" onclick="editRole('${row.id}', '${row.role_name}', '${row.role_description}')">Update</button>
-                </td>
-                <td style="min-width: 50px;">
-                    <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deleteadminRole('${row.id}')">Delete</button>
-                </td>	
+          
+          index= index+1;
+          rowContent 
+          += `<tr class="align-items-center">
+          <td style="min-width: 20px;">${index}</td>
+          <td style="min-width: 120px;">${row.role_name}</td>
+          <td style="min-width: 120px;">${row.role_description}</td>
+          <td style="min-width: 120px;">${row.created_at}</td>
+          <td style="min-width: 120px;">${row.updated_at}</td>
+          <td style="min-width: 50px;">
+          <button class="btn btn-sm th-btn fs-9 text-white rounded-6 text-end" onclick="editRole('${row.id}', '${row.role_name}', '${row.role_description}')">Update</button>
+          </td>
+          <td style="min-width: 50px;">
+          <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deleteadminRole('${row.id}')">Delete</button>
+          </td>	
                </tr>`;
         });
        }
+        // loader('#tbdata')
         $('#tbdata').html(rowContent);
     });
   }
@@ -259,6 +278,7 @@ const updateAdminRole =()=>{
 /* ----------------------- FETCHING ALL ADMINISTRATORS BEGINS HERE ---------------------- */
 
 function fetchAlladmin(){
+  loader('#admindata', 14)
   var settings = {
     "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/getall",
     "method": "GET",
@@ -559,7 +579,7 @@ const addAdmin =()=>{
               console.log(response.message);
               swal("FAILED",response.message,"error");
             }else{
-              // console.log(response.message);
+              console.log(response.message);
               swal("SUCCESS",response.message,"success");
               firstName.value="";
               lastName.value="";
@@ -615,6 +635,9 @@ allRoles();
 /* -------------------------------------------------------------------------- */
 
 function fetchAllactivity (){
+
+  loader('#activitylog', 14)
+
   var settings = {
     "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/activitylog/getall",
     "method": "GET",
@@ -677,6 +700,9 @@ function fetchAllactivity (){
 /* -------------------------------------------------------------------------- */
 
 function fetchAllErrorlog (){
+
+  loader('#errordata', 14)
+
   var settings = {
     "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/errolog/getall",
     "method": "GET",
@@ -784,6 +810,9 @@ $.ajax(settings).done(function (response) {
 /*                                   SUPPORT TICKETS STARTS HERE                                 */
 /* -------------------------------------------------------------------------- */
 function fetchAlltickets (){
+
+  loader('#ticketdata', 14)
+  
   var settings = {
     "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/ticket/getall",
     "method": "GET",
@@ -972,54 +1001,87 @@ $('#createTicket').click(addSupportTickets)
 
 
 
+
 /* -------------------------------------------------------------------------- */
 /*                             ORDERS STARTS HERE                             */
 /* -------------------------------------------------------------------------- */
 
 function fetchAllorders (){
-
   var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/order/getall",
+    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/crop/order/getbyorderid/ZWLORDab9bd6618edb18ba50d593fde8a1c75a",
     "method": "GET",
     "timeout": 0,
     "headers": {
       "Authorization": localStorage.getItem('access')
     },
   };
+    
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
 
-    $.ajax(settings).done(function (data) {
-        console.log(data);
-        //   let response = JSON.parse(data);
-        let response = data;
-        if(response.error==true){
-          $('#ordersdata').html("<tr>"+response.message+"</tr>");
-        }else{
-          let thedata = (response.data).reverse();
-          let rowContent;
+  if(response.error==true){
+      console.log(response.message);
+  }else{
+      let thedata = response.data;
+      if(thedata.length > 0){
+          let rowContent
           $.each(thedata, (index, row) => {
-              
+
               index= index+1;
-              rowContent 
-              += `<tr class="align-items-center">
-                  <td style="min-width: 50px;">${index}</td>
-                  <td style="min-width: 170px;">${row.order_id}</td>
-                  <td style="min-width: 150px;">${row.total_product}</td>
-                  <td style="min-width: 120px;">${row.amount}</td>
-                  <td style="min-width: 120px;">${row.action}</td>
-                  <td style="min-width: 120px;">${row.created_at}</td>
-                  <td style="min-width: 120px;">${(row.updated_at).split("T")[0]}</td>
-                  
-                  <!-- <td style="min-width: 50px;">
-                      <button class="btn btn-sm btn-primary rounded-6 text-end">Edit</button>
-                  </td>-->
-                  <!-- <td style="min-width: 50px;">
-                      <button class="btn btn-sm btn-danger rounded-6" type="button" onclick="deleteErrorLog('${row.id}')">Delete</button>
-                  </td> -->	
-                 </tr>`;
-              $('#ordersdata').html(rowContent);
-            });
-        }
-      });
+              rowContent += `<tr class="align-items-center">
+              <td style="min-width: 50px;">${index}</td>
+              <td style="min-width: 170px;">${row.ticket_id}</td>
+              <td style="min-width: 170px;">${row.user_id}</td>
+              <td style="min-width: 170px;">${row.subject}</td>
+              <td style="min-width: 150px;">
+              <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+                  VIEW
+              </button>
+              
+              <!-- Modal -->
+              <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                      <div class="modal-header border-0">
+                      <h3 class="modal-title" id="staticBackdropLabel">Ticket Description</h3>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                      ${row.description}
+                      </div>
+                      <div class="modal-footer border-0">
+                      <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+              </td>
+              <td style="min-width: 120px;">${row.priority}</td>
+              <td style="min-width: 150px;">${row.admin_assigned}</td>
+              <td style="min-width: 140px; text-align:center;">${ticket_status}</td>
+              <td style="min-width: 140px;">${(row.created_at).split("T")[0]}</td>
+              <td style="min-width: 140px;">${(row.updated_at).split("T")[0]}</td>
+              <td class="text-end" style="min-width: 50px;">
+                  <div class="dropdown shadow-dot text-center">
+                      <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          <a class="dropdown-item" href="">Edit</a>
+                          <a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Delete</a>
+                      </div>
+                  </div>
+              </td>
+
+             </tr>`;
+          $('#ordersdata').html(rowContent);
+          });
+      }else{
+          $('#ordersdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Order registered yet</h3></td></tr>");
+      }
+  }
+  });
 
 }
 
@@ -1095,6 +1157,9 @@ function fetchAllcompany (){
 /* -------------------------------------------------------------------------- */
 
 function fetchAllinput (){
+
+  loader('#inputdata', 14)
+
   var settings = {
     "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/input/getall",
     "method": "GET",
@@ -1177,7 +1242,7 @@ function fetchAllinput (){
                       </div>
                   </div>
               </td> -->
-              <td style="min-width: 50px; cursor:pointer;" class="success-color">View More</td>
+              <td style="min-width: 50px; cursor:pointer;"  ><a href="../dashboards/view-more.html" class="success-color">View More</a></td>
               
 
              </tr>`;
@@ -1198,4 +1263,108 @@ function fetchAllinput (){
 
 /* -------------------------------------------------------------------------- */
 /*                           CROPS DATA STARTS HERE                           */
+/* -------------------------------------------------------------------------- */
+
+function fetchAllcrops (){
+  
+  loader('#cropdata', 10)
+
+  var settings = {
+    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/crop/getall",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": localStorage.getItem('access')
+    },
+  };
+    
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+  if(response.error==true){
+      console.log(response.message);
+  }else{
+      let thedata = response.data;
+      if(thedata.length > 0){
+          let rowContent
+          $.each(thedata, (index, row) => {
+
+              let ticket_status;
+              if(row.ticket_status == 1){
+                ticket_status = 
+                  `<div class="py-1 pe-3 ps-2 text-center rounded-pill successalert">
+                    <span class="rounded-circle p-1 dot d-inline-block me-1"></span>
+                    <strong class="text-success fs-10">ACTIVE</strong>
+                  </div>`;
+              }else{
+                ticket_status = 
+                  `<div class="py-1 pe-3 ps-2 text-center rounded-pill past-due">
+                    <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
+                    <strong class="text-past fs-10">IN ACTIVE</strong>
+                  </div>`;
+              }
+
+              index= index+1;
+              rowContent += `<tr class="align-items-center">
+              <td style="min-width: 50px;">${index}</td>
+              <td style="min-width: 170px;">John Doe</td>
+              <td style="min-width: 170px;">${row.category}</td>
+              <td style="min-width: 170px;">${row.sub_category}</td>
+              <td style="min-width: 120px;">${row.packaging}</td>
+              <td style="min-width: 150px;">
+              <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+                  VIEW
+              </button>
+              
+              <!-- Modal -->
+              <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                      <div class="modal-header border-0">
+                      <h3 class="modal-title" id="staticBackdropLabel">Input Description</h3>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                      ${row.description}
+                      </div>
+                      <div class="modal-footer border-0">
+                      <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+              </td>
+            
+              <!-- <td style="min-width: 150px;">${row.description}</td>
+              <td style="min-width: 140px; text-align:center;">${ticket_status}</td>
+              <td style="min-width: 140px;">${(row.created_at).split("T")[0]}</td>
+              <td style="min-width: 140px;">${(row.updated_at).split("T")[0]}</td>
+              <!-- <td class="text-end" style="min-width: 50px;">
+                  <div class="dropdown shadow-dot text-center">
+                      <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          <a class="dropdown-item" href="">Edit</a>
+                          <a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Delete</a>
+                      </div>
+                  </div>
+              </td> -->
+              <td style="min-width: 50px; cursor:pointer;"  ><a href="../dashboards/view-more.html" class="success-color">View More</a></td>
+              
+
+             </tr>`;
+          $('#cropdata').html(rowContent);
+          });
+      }else{
+          $('#cropdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop registered yet</h3></td></tr>");
+      }
+  }
+  });
+
+}
+
+/* -------------------------------------------------------------------------- */
+/*                             CROP DATA ENDS HERE                            */
 /* -------------------------------------------------------------------------- */
