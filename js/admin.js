@@ -365,7 +365,7 @@ function fetchAlladmin(){
                             </a>
                             <div class="dropdown-menu dropdown-menu-center dropdown-menu-arrow">
                                 <a class="dropdown-item " href="javascript:void(0)" onclick="executeUpdate('${row.id}', '${row.admin_id}', '${row.first_name}', '${row.last_name}', '${row.phone}', '${row.role}')">Update</a>
-                                <a class="dropdown-item" onclick="deleteAdministrator('${row.id}')" href="javascript:void(0)">Delete</a>
+                                <a class="dropdown-item" onclick="deleteAdministrator('${row.admin_id}')" href="javascript:void(0)">Delete</a>
                             </div>
                         </div>
                     </td>		
@@ -384,7 +384,7 @@ function fetchAlladmin(){
 
 const deleteAdministrator = (id) => {
   var settings = {
-    "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/delete/${id}`,
+    "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/deletebyadminid/${id}`,
     "method": "POST",
     "timeout": 0,
     "headers": {
@@ -665,16 +665,13 @@ function fetchAllactivity (){
               rowContent 
               += `<tr class="align-items-center">
                   <td style="min-width: 10px;">${index}</td>
-                  <td style="min-width: 120px;">${row.section_accessed}</td>
-                  <td style="min-width: 120px;">${row.page_route}</td>
+                  <td style="max-width: 170px;">${row.admin_id}</td>
+                  <td style="min-width: 200px;">${row.section_accessed}</td>
+                  <td style="max-width: 120px;">${row.page_route}</td>
+                  <td style="min-width: 120px;">${row.action}</td>
+                  <td style="min-width: 120px;">${row.theadmin.role}</td>
+                  <td style="min-width: 120px;">${row.theadmin.first_name} <br> ${row.theadmin.last_name}</td>
                   <td style="min-width: 120px;">${(row.created_at).split("T")[0]}</td>
-                  <td style="min-width: 120px;">${(row.updated_at).split("T")[0]}</td>
-                  <td style="min-width: 50px;">
-                    <button class="btn btn-sm th-btn fs-9 text-white rounded-6 text-end">Update</button>
-                  </td>
-                  <!-- <td style="min-width: 50px;">
-                    <button class="btn btn-sm btn-danger fs-9 rounded-6">Delete</button>
-                  </td> -->
                  
                  </tr>`;
               });
@@ -839,13 +836,13 @@ function fetchAlltickets (){
                 ticket_status = 
                   `<div class="py-1 pe-3 ps-2 text-center rounded-pill successalert">
                     <span class="rounded-circle p-1 dot d-inline-block me-1"></span>
-                    <strong class="text-success fs-10">ACTIVE</strong>
+                    <strong class="text-success fs-10">OPEN</strong>
                   </div>`;
               }else{
                 ticket_status = 
                   `<div class="py-1 pe-3 ps-2 text-center rounded-pill past-due">
                     <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
-                    <strong class="text-past fs-10">IN ACTIVE</strong>
+                    <strong class="text-past fs-10">CLOSE</strong>
                   </div>`;
               }
 
@@ -889,8 +886,8 @@ function fetchAlltickets (){
                           <i class="fas fa-ellipsis-v"></i>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="">Edit</a>
-                          <a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Delete</a>
+                          <a class="dropdown-item" href="">Respond to</a>
+                          <a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Close</a>
                       </div>
                   </div>
               </td>
