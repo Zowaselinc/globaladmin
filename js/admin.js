@@ -85,9 +85,19 @@ function fetchAllroles(){
           </td>	
                </tr>`;
         });
+        // alert(response.data.length);
+        $('#tbdata').html(rowContent);
+        // Calling the pagination function declared
+        // let totalfetchedrow = thedata.length;
+        // pagination(totalfetchedrow);
+        $(document).ready( function () {
+          $('#allTable').DataTable();
+        });
+        
+
        }
         // loader('#tbdata')
-        $('#tbdata').html(rowContent);
+        // $('#tbdata').html(rowContent);
     });
   }
   
@@ -325,7 +335,7 @@ function fetchAlladmin(){
                 index= index+1;
                 rowContent 
                 += `<tr class="align-items-center">
-                    <td style="min-width: 50px;">${index}</td>
+                    <td style="min-width: 80px;">${index}</td>
                     <td style="min-width: 120px;">${row.first_name}</td>
                     <td style="min-width: 120px;">${row.last_name}</td>
                     <td style="min-width: 130px;" class="success-color">${row.email}</td>
@@ -370,8 +380,19 @@ function fetchAlladmin(){
                         </div>
                     </td>		
                    </tr>`;
-                $('#admindata').html(rowContent);
-              });
+                  });
+                  // alert(response.data.length);
+
+                  $('#admindata').html(rowContent);
+
+                  $(document).ready( function () {
+                    $('#allTable').DataTable();
+                  });
+                  
+                   // Calling the pagination function declared
+                  // let totalfetchedrow = thedata.length;
+                  // pagination(totalfetchedrow);
+                  
           }
         });
 }
@@ -383,24 +404,36 @@ function fetchAlladmin(){
 /* ----------------- DELETING AN ADMINISTRATOR STARTS HERE ----------------- */
 
 const deleteAdministrator = (id) => {
-  var settings = {
-    "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/deletebyadminid/${id}`,
-    "method": "POST",
-    "timeout": 0,
-    "headers": {
-      "Authorization": localStorage.getItem('access')},
-  };
-  
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    if(response.error==true){
-        swal("FAILED", response.message, "error");
-      }else{
-        swal("SUCCESS", response.message, "success");
-        fetchAlladmin();
-      }
-    
+  swal({
+    title: "Are you sure?",
+    text: "Once deleted, you will not be able to recover this file!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      var settings = {
+        "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/deletebyadminid/${id}`,
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+          "Authorization": localStorage.getItem('access')},
+      };
+      
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        if(response.error==true){
+            swal("FAILED", response.message, "error");
+          }else{
+            swal("SUCCESS", response.message, "success");
+            fetchAlladmin();
+          }
+        
+      });
+    }
   });
+
 }
 
 /* ------------------- DELETING AN ADMINISTRATOR ENDS HERE  ------------------ */
@@ -675,7 +708,14 @@ function fetchAllactivity (){
                  
                  </tr>`;
               });
+              
                 $('#activitylog').html(rowContent);
+                // Calling the pagination function declared
+                $(document).ready( function () {
+                  $('#allTable').DataTable();
+                });
+                // let totalfetchedrow = thedata.length;
+                // pagination(totalfetchedrow);
         }
       });
     }
@@ -712,6 +752,7 @@ function fetchAllErrorlog (){
     $.ajax(settings).done(function (data) {
       //   console.log(data);
         //   let response = JSON.parse(data);
+        
         let response = data;
         if(response.error==true){
           $('#errordata').html("<tr>"+response.message+"</tr>");
@@ -752,16 +793,20 @@ function fetchAllErrorlog (){
                   <td style="min-width: 120px;">${(row.created_at).split("T")[0]}</td>
                   <td style="max-width: 200px !important;">${row.route}</td>
                   <td style="min-width: 120px;">${row.error_code}</td>
-                  <!-- <td style="min-width: 50px;">
-                      <button class="btn btn-sm btn-primary rounded-6 text-end">Edit</button>
-                  </td>-->
-                 <!-- <td style="min-width: 50px;">
-                      <button class="btn btn-sm btn-danger rounded-6" type="button" onclick="deleteErrorLog('${row.id}')">Delete</button>
-                  </td>	-->
+                 
                  </tr>`;
-              $('#errordata').html(rowContent);
-            });
-        }
+                });
+                $('#errordata').html(rowContent);
+                // Calling the pagination function declared
+             
+                // let totalfetchedrow = thedata.length;
+                // var data = (totalfetchedrow);
+
+                $(document).ready( function () {
+                  $('#allTable').DataTable();
+                });
+                // pagination(totalfetchedrow);
+              }
       });
 
 }

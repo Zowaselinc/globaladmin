@@ -111,7 +111,7 @@ h3 {
 }
 h6{
     font-family: var(--universal-font);
-    font-size: 12px;
+    font-size: 14px !important;
     font-style: normal;
     font-variant: normal;
     line-height: 15px;
@@ -613,13 +613,15 @@ button.success:hover,.btn-second:hover, .success:hover{
     border-top: 1px solid #dee2e6 !important;
     margin-bottom: 70px;   
 }
-th, td {
-        width: 150px !important;
+td {
+        width: 150px;
         /* text-align: center; */
         /* border: 1px solid black; */
         /* padding: 5px; */
       }
-
+.lineheight-0 {
+  line-height: 0px !important;
+}
 th{
   background-color: var(--bg-main) !important;
   font-size: 12px !important;
@@ -781,7 +783,7 @@ div {
 
 
 /* --------------------- sweet alert custom button color -------------------- */
-.swal-button {
+.swal-button--confirm {
     background-color: var(--btn-dashboard) !important;
     border: 1px solid var(--btn-check) !important;
 }
@@ -789,7 +791,70 @@ div {
 
 
 
-/* Messages Starts here  */
+
+/* -------------------------------------------------------------------------- */
+/*                              Pagination starts                             */
+/* -------------------------------------------------------------------------- */
+.page-number {
+  overflow-y: auto;
+  
+}
+.pagination-container{
+  overflow: hidden;
+  overflow-y: auto;
+}
+.page-number li {
+  border: 1px solid rgba(128, 128, 128, 0.589);
+  padding: 5px 10px;
+  border-radius: 3px;
+  margin-right: 5px;
+  /* color: white; */
+  cursor: pointer;
+  /* overflow-y: auto; */
+
+}
+.page-number li.active {
+  color: white !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                            Pagination new starts                           */
+/* -------------------------------------------------------------------------- */
+  /* .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-50%, -50%);
+  }
+  .button{
+    margin: 50px;
+    border-radius: 50px;
+    background: #02b502;
+    padding: 5px 15px;
+    color: white;
+    transform: scale(2);
+    border: none;
+  } */
+
+
+  .disable{
+    background: #ccc;
+  }
+
+
+/* -------------------------------------------------------------------------- */
+/*                            Pagination Ends here                            */
+/* -------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                             Footer Begins here                             */
+/* -------------------------------------------------------------------------- */
+
 .footer {
     /* border-top: 1px solid rgba(138,150,156,.2); */
     bottom: 0px;
@@ -803,14 +868,18 @@ div {
     /* top: 300px; */
 }
 
-  /* Messages Ends here  */
-
+/* -------------------------------------------------------------------------- */
+/*                              Footer ends here                              */
+/* -------------------------------------------------------------------------- */
  
 
 
 
  
-  
+
+/* -------------------------------------------------------------------------- */
+/*                            Messages Starts here                            */
+/* -------------------------------------------------------------------------- */
   #frame {
     width: 95%;
     height: 100vh;
@@ -1494,3 +1563,8 @@ div {
   #frame .content .message-input .wrap button:focus {
     outline: none;
   }
+
+    
+  /* -------------------------------------------------------------------------- */
+  /*                             Messages Ends here                             */
+  /* -------------------------------------------------------------------------- */
