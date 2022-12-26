@@ -68,7 +68,7 @@ body {
 }
 
 li, a, span, div, button{
-    font-size: 14px !important;
+    font-size: 13px !important;
 }
 
 a, button {
@@ -78,7 +78,7 @@ a, button {
   background: transparent;
   text-decoration: none !important;
   font-weight: 300; 
-  font-size: 15px !important;
+  /* font-size: 15px !important; */
 }
 
 ul, li {
