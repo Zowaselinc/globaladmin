@@ -94,7 +94,7 @@ h1 {
 }
 h2 { 
     font-family: var(--universal-font) !important;
-    font-size: 25px;
+    font-size: 20px;
     font-style: normal;
     font-variant: normal;
     font-weight: 600;
@@ -103,19 +103,22 @@ h2 {
 }
 h3 {
   font-family: var(--universal-font);
-  font-size: 16px;
+  font-size: 15px !important;
   font-style: normal;
   font-variant: normal;
   font-weight: 700;
   line-height: 15.4px;
 }
-h6{
-    font-family: var(--universal-font);
-    font-size: 14px !important;
+h5{
+    font-family: var(--universal-font) !important;
+    font-size: 13px !important;
     font-style: normal;
     font-variant: normal;
     line-height: 15px;
+    letter-spacing: 0.02rem;
+    font-weight: 500;
 }
+
 p {
   font-family: var(--universal-font);
   font-size: 14px;
@@ -385,44 +388,6 @@ button.success:hover,.btn-second:hover, .success:hover{
     left: 91%;
     cursor: pointer;
 }
-/* .log { */
-    /* min-height: 100vh; */
-  /* } */
-  
-  /* .bg-image { */
-    /* height: 100vh; */
-    /* background-image:
-    linear-gradient(45deg, rgba(255, 225, 0, 0.24) 0%, rgba(225, 255, 255, 0) 100% 100%),
-    url('../assets/images/rightside/zimg1.png'); */
-    /* background: linear-gradient(
-      217deg,
-      rgba(255, 251, 0, 0),
-      rgba(208, 255, 0, 0) 70.71%
-    ), linear-gradient(127deg, rgba(208, 255, 0, 0), rgba(217, 255, 0, 0) 70.71%),
-    linear-gradient(336deg, rgba(238, 255, 0, 0.014), rgba(251, 255, 0, 0.116) 70.71%),
-    url('../assets/images/rightside/zimg1.png'); */
-    /* background-image: url('../assets/images/rightside/zimg1.png'); */
-    /* background-size: cover;
-    background-position: center;
-    opacity: 98%; */
-  /* } */
-
-  /* .white-dots img {
-    width: 30%;
-    float: right;
-  }
-  
-  
-  .login-heading {
-    font-weight: 600;
-    font-family: var(--universal-font);
-  }
-  .bg_img {
-    background-image: url('../assets/images/Right\ Side\ \(1\).png');
-    background-size: cover;
-    background-position: center;
-  }
-  */
   .shadow-2 {
     background-color: white !important;
     border-radius: 10px !important;
@@ -435,10 +400,7 @@ button.success:hover,.btn-second:hover, .success:hover{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
  
-  /* .shadow-5 {
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
-  } */
-  /* login screens starts end */
+ 
 
 
 /* wllet balance  */
@@ -446,6 +408,15 @@ button.success:hover,.btn-second:hover, .success:hover{
     color: var(--btn-dashboard);
     font-weight: 600;
 
+}
+
+.conic-gradient {
+background-image: url('../assets/mix\ color/color.png'), url('../assets/mix\ color/black.png');
+background-position:
+     top right , /* this positions the first image */
+     bottom right !important; /*this positions the second image*/
+     background-repeat: no-repeat;
+     background-size: cover;  
 }
 
 /* Welcome */
@@ -587,7 +558,10 @@ button.success:hover,.btn-second:hover, .success:hover{
 }
 .dot{
     background: var(--bg-dot);
-    letter-spacing: 2.5px !important;
+    letter-spacing: 0.05rem !important;
+}
+.dot:hover{
+  background-color: var(--btn-dashboard);
 }
 /* text and background color for completed and paid status ends */
 
@@ -635,6 +609,10 @@ th{
 .th-btn:hover{
     background-color: var(--buttonbg);
 }
+.t-padding tr td {
+  padding: 1rem 1rem !important;
+}
+
 /* table end here */
 
 /* user form */
@@ -685,7 +663,10 @@ div {
     display: block;
 }
 
-
+.change{
+  top:10px;
+  right: 37px;
+}
 
 
 
@@ -818,38 +799,53 @@ div {
 }
 
 /* -------------------------------------------------------------------------- */
-/*                            Pagination new starts                           */
-/* -------------------------------------------------------------------------- */
-  /* .container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: translate(-50%, -50%);
-  }
-  .button{
-    margin: 50px;
-    border-radius: 50px;
-    background: #02b502;
-    padding: 5px 15px;
-    color: white;
-    transform: scale(2);
-    border: none;
-  } */
-
-
-  .disable{
-    background: #ccc;
-  }
-
-
-/* -------------------------------------------------------------------------- */
-/*                            Pagination Ends here                            */
+/*                            Notification Settings Starts                           */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * Simple HTML/CSS switch
+ */
+ .switch {
+  display: inline-block;
+  position: relative;
+  width: 50px;
+  height: 25px;
+  border-radius: 20px !important;
+  background: #dfd9ea;
+  transition: background 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  vertical-align: middle;
+  cursor: pointer;
+}
+.switch::before {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  background: #fafafa;
+  border-radius: 50%;
+  transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1), background 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.switch:active::before {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.28), 0 0 0 20px rgba(128,128,128,0.1);
+}
+input:checked + .switch {
+  background: var(--bg-dot);
+}
+input:checked + .switch::before {
+  left: 27px;
+  background: #fff;
+}
+input:checked + .switch:active::before {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.28), 0 0 0 20px rgba(0,150,136,0.2);
+}
 
 
 
-
+/* -------------------------------------------------------------------------- */
+/*                            Notification Settings Ends here                           */
+/* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /*                             Footer Begins here                             */
@@ -882,7 +878,7 @@ div {
 /* -------------------------------------------------------------------------- */
   #frame {
     width: 95%;
-    height: 100vh;
+    /* height: 100vh; */
     /* min-width: 360px;
     max-width: 1000px;
      */
@@ -900,11 +896,11 @@ div {
     max-width: 340px;
     width: 40%;
     height: 100%;
-    /* background: #2c3e50;
-    color: #f5f5f5;
+    /* background: #2c3e50; */
+    /* color: #f5f5f5; */
     overflow: hidden;
-    position: relative; */
-    right: 16px;
+    position: relative;
+    left: 19px;
   }
   @media screen and (max-width: 735px) {
     #frame #sidepanel {
@@ -1161,8 +1157,8 @@ div {
   }
   #frame #sidepanel #search label {
     position: absolute;
-    top: 126px;
-    left: 310px;
+    top: 80px;
+    left: 305px;
   }
   #frame #sidepanel #search input {
     font-family: var(--universal-font) !important;
@@ -1189,7 +1185,7 @@ div {
     color: #f5f5f5;
   }
   #frame #sidepanel #contacts {
-    height: calc(100% - 177px);
+    height: calc(100% - 231px);
   }
   @media screen and (max-width: 735px) {
     #frame #sidepanel #contacts {
@@ -1202,7 +1198,7 @@ div {
     }
   }
   #frame #sidepanel #contacts.expanded {
-    height: calc(100% - 334px);
+    height: calc(100% - 364px);
   }
   #frame #sidepanel #contacts::-webkit-scrollbar {
     width: 8px;
@@ -1233,7 +1229,7 @@ div {
   #frame #sidepanel #contacts ul {
     overflow-y: auto;
     overflow-x: hidden;
-    height: calc(100vh - 177px);
+    height: calc(100vh - 350px);
   }
   .contact {
     position:rlative;
@@ -1384,7 +1380,7 @@ div {
   #frame .content {
     float: right;
     width: 60%;
-    height: 100%;
+    height: 80vh;
     overflow: hidden;
     position: relative;
     left: 40px;

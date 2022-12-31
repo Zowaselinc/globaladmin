@@ -1,10 +1,12 @@
-// let totalfetchedrow = thedata.length;
-// var data = $(totalfetchedrow)
-                
-                    
-                
-              
-// $('#allTable').DataTable( {
-    
-//     data: 
-// } );
+$(document).ready(function() {
+    $('').DataTable( {
+        scrollY:        300,
+        scrollX:        true,
+        scrollCollapse: true,
+        paging:         true,
+        fixedHeader:           {
+            header: true,
+            footer: true
+        }
+    } );
+} );

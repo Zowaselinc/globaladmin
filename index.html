@@ -65,8 +65,8 @@
             <div class="row g-0">
               <div class="col-11 col-lg-9 col-xl-8 mx-auto">
                 <h1 class="fw-400 mb-5 fs-1">Welcome Back!</h1>
+                
                 <form id="loginForm" method="post">
-
                   <div class="mb-3 form-group position-relative">
                     <div class="icon text-muted pt-5 mt-2 d-flex align-items-center justify-content-center position-absolute">
                       <span class="fa fa-user"></span> 
@@ -97,7 +97,9 @@
                   <div class="mt-2">
                       <!-- <a href="../dashboards/user-stats.html" class="d-grid"> -->
                       <div class="d-grid">
-                        <button onclick="yourButton()" class="cursor-pointer btn-rounded-2 success mb-3 text-white p-15 fs-5 rounded-1" type="button">Login</button>
+                        <button onclick="yourButton()" class="cursor-pointer btn-rounded-2 success mb-3 text-white p-15 fs-5 rounded-1" type="button">
+                          <span id="spinner" class="d-none spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Login</button>
+                        
                       </div>
                  </div>
                 </form>

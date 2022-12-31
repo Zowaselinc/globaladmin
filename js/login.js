@@ -1,4 +1,6 @@
-// Hide and show password 
+/* -------------------------------------------------------------------------- */
+/*                           Hide and show password                         */
+/* -------------------------------------------------------------------------- */
 let state = false;
 
 function myFunction(show) {
@@ -17,20 +19,29 @@ function toggle() {
     state = true;
   }
 }
-// Hide and show password End 
+/* -------------------------------------------------------------------------- */
+/*                         Hide and show password End                       */
+/* -------------------------------------------------------------------------- */
 
+/* -------------------------------------------------------------------------- */
+/*                                Login Loader Begins                         */
+/* -------------------------------------------------------------------------- */
+
+const toggleSpinner = () => {
+  document.querySelector('#spinner').classList.toggle('d-none');
+}
+
+/* -------------------------------------------------------------------------- */
+/*                            LoginLoader ends her                            */
+/* -------------------------------------------------------------------------- */
 
 function yourButton(){
-
+  toggleSpinner();
     // selecting the input element and get its value 
     let email = document.getElementById("email");
     let password = document.getElementById("password");
-    // let errorArea = $('#error');
-    // let successArea = $('#success');
-
-    // Displaying the value
-    // alert(inputVal);
-    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    
+    var mailformat = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
 
     if(!email.value){
         swal("Enter an email address!");
@@ -56,28 +67,35 @@ function yourButton(){
           "email": email.value,
           "password": password.value
         }),
+        // look here
+        // this is where the error is displayed.
+        error: function(e) {
+          toggleSpinner();
+          swal("FAILED", e.responseJSON.message, "error");
+        }
       };
       
 
     //  ------- if login is successfull go to admin page -----------//
 
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        if(response.error==true){
-            swal("FAILED", response.message, "error");
-            return false;
-        }else{
-            swal("SUCCESS", response.message, "success");
-            localStorage.setItem('access',"Bearer "+response.token);
-            localStorage.setItem('adminkey',response.keyid);
-            setTimeout(()=>{
-                location.href="../dashboards/user-stats.html";
-            },3000)
-        }
-      });
-    }
+    $.ajax(settings).done(function (response) {
+      if(response.error){
+        toggleSpinner();
+        swal("FAILED", response.message, "error");
+        return false;
+      }else{
+        toggleSpinner();
+        swal("SUCCESS", response.message, "success");
+          localStorage.setItem('access',"Bearer "+response.token);
+          localStorage.setItem('adminkey',response.keyid);
+          setTimeout(()=>{
+              location.href="../dashboards/user-stats.html";
+          },3000)
+      }
+    });
+  }
    
     
-}
+};
 
 // -------------------------  log in Ends Here ----------------------//

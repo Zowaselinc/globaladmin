@@ -1,3 +1,12 @@
+var loadFile = function (event) {
+  var image = document.getElementById("output");
+  image.src = URL.createObjectURL(event.target.files[0]);
+};
+ 
+
+/* -------------------------------------------------------------------------- */
+/*                               spliting begins                              */
+/* -------------------------------------------------------------------------- */
 const splittingDate = (data) => {
   let date = data.split("T")[0];
   let t = data.split("T")[1];
@@ -74,9 +83,9 @@ function fetchAllroles(){
           += `<tr class="align-items-center">
           <td style="min-width: 20px;">${index}</td>
           <td style="min-width: 120px;">${row.role_name}</td>
-          <td style="min-width: 120px;">${row.role_description}</td>
-          <td style="min-width: 120px;">${row.created_at}</td>
-          <td style="min-width: 120px;">${row.updated_at}</td>
+          <td style="min-width: 135px;">${row.role_description}</td>
+          <td style="min-width: 120px;">${splittingDate(row.created_at)}</td>
+          <td style="min-width: 120px;">${splittingDate(row.updated_at)}</td>
           <td style="min-width: 50px;">
           <button class="btn btn-sm th-btn fs-9 text-white rounded-6 text-end" onclick="editRole('${row.id}', '${row.role_name}', '${row.role_description}')">Update</button>
           </td>
@@ -91,7 +100,16 @@ function fetchAllroles(){
         // let totalfetchedrow = thedata.length;
         // pagination(totalfetchedrow);
         $(document).ready( function () {
-          $('#allTable').DataTable();
+          $('#allTable').DataTable({
+            scrollY: 300,
+            scrollX: true,
+            scrollCollapse: true,
+            paging: true,
+            fixedHeader:{
+                header: true,
+                footer: true
+            }
+          });
         });
         
 
@@ -386,7 +404,17 @@ function fetchAlladmin(){
                   $('#admindata').html(rowContent);
 
                   $(document).ready( function () {
-                    $('#allTable').DataTable();
+                    $('#allTable').DataTable({
+                      scrollY: 300,
+                      scrollX: true,
+                      scrollCollapse: true,
+                      retrieve: true,
+                      paging: true,
+                      fixedHeader:{
+                          header: true,
+                          footer: true
+                      }
+                    });
                   });
                   
                    // Calling the pagination function declared
@@ -712,7 +740,17 @@ function fetchAllactivity (){
                 $('#activitylog').html(rowContent);
                 // Calling the pagination function declared
                 $(document).ready( function () {
-                  $('#allTable').DataTable();
+                  $('#allTable').DataTable({
+                    scrollY: 300,
+                    scrollX: true,
+                    scrollCollapse: true,
+                      paging: true,
+                      "lengthMenu": [[10, 25, 50, -1], [5, 25, 50, "All"]],
+                      fixedHeader:{
+                          header: true,
+                          footer: true
+                      }
+                  });
                 });
                 // let totalfetchedrow = thedata.length;
                 // pagination(totalfetchedrow);
@@ -803,7 +841,17 @@ function fetchAllErrorlog (){
                 // var data = (totalfetchedrow);
 
                 $(document).ready( function () {
-                  $('#allTable').DataTable();
+                  $('#allTable').DataTable({
+                    scrollY: 300,
+                      scrollX: true,
+                      scrollCollapse: true,
+                      retrieve: true,
+                      paging: true,
+                      fixedHeader:{
+                          header: true,
+                          footer: true
+                      }
+                  });
                 });
                 // pagination(totalfetchedrow);
               }
@@ -1045,7 +1093,7 @@ $('#createTicket').click(addSupportTickets)
 
 
 /* -------------------------------------------------------------------------- */
-/*                             ORDERS STARTS HERE                             */
+/*                           Crop  ORDERS STARTS HERE                             */
 /* -------------------------------------------------------------------------- */
 
 function fetchAllorders (){
