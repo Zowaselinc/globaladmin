@@ -137,7 +137,7 @@
             </li>
 
             <li class="nav-item mb-5 mb-xxl-2">
-                <a href="../index.html" class="nav-link align-middle text-white">
+                <a href="javascript:void(0)" class="nav-link align-middle text-white" onclick="logUserOut()">
                 <i class="fa fa-sign-out"></i>
                 <span class="ms-1 ps-3 spacing-4">Logout</span>
                 </a>
@@ -147,3 +147,17 @@
         </ul>
     </div>
 </div>
+
+<script>
+
+    // check for active session
+    if(!localStorage.getItem('access') || localStorage.getItem('access') == '' || localStorage.getItem('access') == null){
+        window.location.href = '../index.html';
+    }
+    
+    const logUserOut = () => {
+        localStorage.clear();
+        window.location.href = '../index.html';
+    }
+
+</script>
