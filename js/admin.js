@@ -37,6 +37,9 @@ const loader = (contentArea = "", colspan="") => {
 
 
 
+
+
+
 // this holds the request headers and bodies
 // allows u to make a request
 const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
@@ -55,6 +58,49 @@ const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
 }
 
 // end //
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                         FETCHING USER STATS BEGINS                         */
+/* -------------------------------------------------------------------------- */
+
+function getUsersStats(){
+// alert(localStorage.getItem('access'));
+  var settings = querySetting("api/admin/users/getstats", "GET", localStorage.getItem('access'));
+
+  $.ajax(settings).done(function (data) {
+    // console.log(data);
+      let response = data;
+    console.log(response);
+    if(response.error==true){
+      console.log(response.message);
+    }else{
+      let count = response.data[0];
+        $('#totalusers').text(count.Totalusers);
+        $('#verifieduser').text(count.VerifiedUsers);
+        $('#activeuser').text(count.ActiveUsers);
+        $('#totalmerchant').text(count.TotalMerchant);
+        $('#totalcorporates').text(count.TotalCorporate);
+     }
+      // loader('#tbdata')
+      // $('#tbdata').html(rowContent);
+  });
+}
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                          FETCHING USER STATS ENDS                          */
+/* -------------------------------------------------------------------------- */
+
 
 
 /* -------------------------------------------------------------------------- */
@@ -300,7 +346,7 @@ const updateAdminRole =()=>{
 
 
 /* -------------------------------------------------------------------------- */
-/*                         ADMINISTRATORS BEGINS HERE                         */
+/*                         FETCHING ADMINISTRATORS BEGINS HERE                         */
 /* -------------------------------------------------------------------------- */
 
 /* ----------------------- FETCHING ALL ADMINISTRATORS BEGINS HERE ---------------------- */
@@ -690,6 +736,112 @@ allRoles();
 
 
 
+
+/* -------------------------------------------------------------------------- */
+/*                       FETCHING ALL USERS BEGINS HERE                       */
+/* -------------------------------------------------------------------------- */
+
+function fetchAllusers (){
+  loader('#allusers', 8)
+
+  var settings = querySetting("api/admin/users/getall", "GET", localStorage.getItem('access'));
+    
+   
+    $.ajax(settings).done(function (data) {
+        let response = data;
+        console.log(response);
+
+      if(response.error==true){
+          console.log(response.message);
+      }else{
+          let thedata = response.data;
+          if(thedata.length > 0){
+              let rowContent
+              $.each(thedata, (index, row) => {
+
+                  let userStatus, verificationStatus;
+                  if(row.user.status == 1){
+                      userStatus = `<span class="text-success">Active</span>`;
+                  }else{
+                      userStatus = `<span class="text-danger">Inactive</span>`;
+                  }
+
+                  if(row.user.is_verified == 0){
+                      verificationStatus = `<span class="text-danger">Not Verified</span>`;
+                  }else{
+                      verificationStatus = `<span class="text-success">Verified</span>`;
+                  }
+
+                  index= index+1;
+                  rowContent += `<tr class="align-items-center">
+                      <td style="min-width: 50px;">${index}</td>
+                      <td style="min-width: 170px;">
+                          <strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
+                          <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
+                      </td>
+                      <td style="min-width: 150px;" class="text-primary">${row.user.email}</td>
+                      <td style="min-width: 120px;">${row.user.phone}</td>
+                      <td style="min-width: 170px;">${verificationStatus}</td>
+                      <td style="min-width: 80px;">${userStatus}</td>
+                      <td style="min-width: 120px;">${(row.created_at).split("T")[0]}</td>
+                      <td style="min-width: 120px;">${(row.updated_at).split("T")[0]}</td>
+                      <!--
+                      <td class="text-end" style="min-width: 50px;">
+                          <div class="dropdown shadow-dot text-center">
+                              <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fas fa-ellipsis-v"></i>
+                              </a>
+                              <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                  <a class="dropdown-item" href="">Edit</a>
+                                  <a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Delete</a>
+                              </div>
+                          </div>
+                      </td> -->
+
+                  </tr>`;
+                  $('#allusers').html(rowContent);
+
+                  $(document).ready( function () {
+                    $('#allTable').DataTable({
+                      scrollY: 300,
+                      scrollX: true,
+                      scrollCollapse: true,
+                      retrieve: true,
+                      paging: true,
+                      fixedHeader:{
+                          header: true,
+                          footer: true
+                      }
+                    });
+                  });
+              });
+          }else{
+              $('#allusers').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No users registered yet</h3></td></tr>");
+          }
+      }
+      });
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                        FETCHING ALL USERS ENDS HERE                        */
+/* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /*                           ACTIVITY LOG STARTS HERE                           */
