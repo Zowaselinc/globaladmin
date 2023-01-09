@@ -1114,14 +1114,14 @@ function fetchAlltickets (){
               index= i+1;
               rowContent += `
               <tr class="align-items-center" >
-									  	<td class="" style="max-width: 20px; font-size: 12px !important;" data-label="Id">${index}</td>
-									  	<td class="" style=" font-size: 12px !important;" data-label="Ticket Id">${row.ticket_id}</td>
-									  	<td class="" style="max-width: 120px; font-size: 12px !important;" data-label="Subject">${row.subject}</td>
-										  <td class="" style="max-width: 100px; font-size: 12px !important;" data-label="Status">${ticket_status}</td> 
-									  	<td class="" style="max-width: 70px; font-size: 12px !important;" data-label="Status"data-label="Priority">${priority}</td>
-									  	<td class="" style="max-width: 100px;font-size: 12px !important;" data-label="Assignee">${row.admin_assigned}</td>
-									 	  <td class="" style="max-width: 100px;" font-size: 12px !important;" data-label="Date Created">${(row.created_at).split("T")[0]}</td>
-									  	<td class="" style="max-width: 30px;">
+									  	<td class="" style="min-width: 20px; font-size: 12px !important;" data-label="Id">${index}</td>
+									  	<td class="" style="min-width:200px; font-size: 12px !important;" data-label="Ticket Id">${row.ticket_id}</td>
+									  	<td class="" style="min-width: 120px; font-size: 12px !important;" data-label="Subject">${row.subject}</td>
+										  <td class="" style="min-width: 100px; font-size: 12px !important;" data-label="Status">${ticket_status}</td> 
+									  	<td class="" style="min-width: 70px; font-size: 12px !important;" data-label="Status"data-label="Priority">${priority}</td>
+									  	<td class="" style="min-width: 100px;font-size: 12px !important;" data-label="Assignee">${row.admin_assigned}</td>
+									 	  <td class="" style="min-width: 100px;" font-size: 12px !important;" data-label="Date Created">${(row.created_at).split("T")[0]}</td>
+									  	<td class="" style="min-width: 30px;">
                       <div class="dropdown shadow-dot text-center" style="font-size: 12px !important;" data-label="">
 												<a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 													<i class="fas fa-ellipsis-v"></i>

@@ -180,7 +180,7 @@ select {
     outline: unset !important;
     box-shadow: unset !important;
     /* width: 10px !important; */
-    background-color: white;
+    /* background-color: white; */
 }
 
 input:focus, select:focus {
@@ -585,6 +585,7 @@ background-position:
 }
 
 
+
 .table{
     /* border-collapse: collapse !important; */
     /* border-spacing: 10px 20px !important; */
@@ -594,8 +595,10 @@ background-position:
 td {
         width: 150px;
         /* text-align: center; */
-        /* border: 1px solid black; */
+        border-bottom: 1px solid rgb(179, 178, 178) !important;
         /* padding: 5px; */
+        /* background-color: #fff; */
+        /* box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1) !important; */
       }
 .lineheight-0 {
   line-height: 0px !important;
