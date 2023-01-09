@@ -595,7 +595,7 @@ background-position:
 td {
         width: 150px;
         /* text-align: center; */
-        border-bottom: 1px solid rgb(179, 178, 178) !important;
+        /* border-bottom: 1px solid rgb(179, 178, 178) !important; */
         /* padding: 5px; */
         /* background-color: #fff; */
         /* box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1) !important; */
