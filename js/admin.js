@@ -82,7 +82,11 @@ function getUsersStats(){
         $('#verifieduser').text(count.VerifiedUsers);
         $('#activeuser').text(count.ActiveUsers);
         $('#totalmerchant').text(count.TotalMerchant);
+        $('#verifiedmerchant').text(count.VerifiedMerchants);
+        $('#activemerchant').text(count.ActiveMerchants);
         $('#totalcorporates').text(count.TotalCorporate);
+        $('#verifiedcorporate').text(count.VerifiedCorporate);
+        $('#activecorporate').text(count.ActiveCorporate);
      }
       // loader('#tbdata')
       // $('#tbdata').html(rowContent);
@@ -793,7 +797,7 @@ function fetchAllusers (){
                               </a>
                               <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                   <a class="dropdown-item" href="">Edit</a>
-                                  <a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Delete</a>
+                                  <a class="dropdown-item" onclick="n ('${row.id}')" href="javascript:void(0)">Delete</a>
                               </div>
                           </div>
                       </td> -->
@@ -1053,7 +1057,7 @@ $.ajax(settings).done(function (response) {
 /* -------------------------------------------------------------------------- */
 function fetchAlltickets (){
 
-  loader('#ticketdata', 14)
+  loader('#ticketdata', 14 )
   
   var settings = {
     "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/ticket/getall",
@@ -1072,78 +1076,90 @@ function fetchAlltickets (){
       console.log(response.message);
   }else{
       let thedata = response.data;
+      let rowContent = "";
+      let index;
+      console.log(thedata, "erfrefre");
       if(thedata.length > 0){
-          let rowContent
-          $.each(thedata, (index, row) => {
-
-              let ticket_status;
+          for (let i = 0; i < thedata.length; i++) {
+            // console.log('Hello World', + i);
+            let ticket_status;
+            let row = thedata[i];
+            console.log(row, "rowwwww");
               if(row.ticket_status == 1){
                 ticket_status = 
-                  `<div class="py-1 pe-3 ps-2 text-center rounded-pill successalert">
-                    <span class="rounded-circle p-1 dot d-inline-block me-1"></span>
-                    <strong class="text-success fs-10">OPEN</strong>
+                  `<div class="py-1 pe-3 ps-2 text-center successalert">
+                  <span class="rounded-circle p-1 dot d-inline-block me-1"></span>
+                  <strong class="text-success" style="font-size: 12px;">OPEN</strong>
                   </div>`;
               }else{
                 ticket_status = 
-                  `<div class="py-1 pe-3 ps-2 text-center rounded-pill past-due">
-                    <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
-                    <strong class="text-past fs-10">CLOSE</strong>
+                  `<div class="py-1 pe-3 ps-2 text-center past-due">
+                    <span class="rounded-circle p-1 past d-inline-block me-1"></span>
+                    <strong class="text-past" style="font-size: 12px;">CLOSED</strong>
                   </div>`;
               }
 
-              index= index+1;
-              rowContent += `<tr class="align-items-center">
-              <td style="min-width: 50px;">${index}</td>
-              <td style="min-width: 170px;">${row.ticket_id}</td>
-              <td style="min-width: 170px;">${row.user_id}</td>
-              <td style="min-width: 170px;">${row.subject}</td>
-              <td style="min-width: 150px;">
-              <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
-                  VIEW
-              </button>
-              
-              <!-- Modal -->
-              <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                      <div class="modal-header border-0">
-                      <h3 class="modal-title" id="staticBackdropLabel">Ticket Description</h3>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                      ${row.description}
-                      </div>
-                      <div class="modal-footer border-0">
-                      <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
-                      </div>
-                  </div>
-                  </div>
-              </div>
-              </td>
-              <td style="min-width: 120px;">${row.priority}</td>
-              <td style="min-width: 150px;">${row.admin_assigned}</td>
-              <td style="min-width: 140px; text-align:center;">${ticket_status}</td>
-              <td style="min-width: 140px;">${(row.created_at).split("T")[0]}</td>
-              <td style="min-width: 140px;">${(row.updated_at).split("T")[0]}</td>
-              <td class="text-end" style="min-width: 50px;">
-                  <div class="dropdown shadow-dot text-center">
-                      <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="">Respond to</a>
-                          <a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Close</a>
-                      </div>
-                  </div>
-              </td>
+              let priority;
+              if(row.priority == 1){
+                priority = `
+									  	<div class=" bg-light px-2 py-1 fw-bold welcome text-center" style="font-size: 12px !important;">High</div>
+               `;
+              }
+              else{
+                priority = `
+									  	<div class="bg-light px-2 py-1 fw-bold welcome text-center" style="font-size: 12px !important;">Low</div>
+               `;
+              }
 
-             </tr>`;
-          $('#ticketdata').html(rowContent);
-          });
+              index= i+1;
+              rowContent += `
+              <tr class="align-items-center" >
+									  	<td class="" style="max-width: 20px; font-size: 12px !important;" data-label="Id">${index}</td>
+									  	<td class="" style=" font-size: 12px !important;" data-label="Ticket Id">${row.ticket_id}</td>
+									  	<td class="" style="max-width: 120px; font-size: 12px !important;" data-label="Subject">${row.subject}</td>
+										  <td class="" style="max-width: 100px; font-size: 12px !important;" data-label="Status">${ticket_status}</td> 
+									  	<td class="" style="max-width: 70px; font-size: 12px !important;" data-label="Status"data-label="Priority">${priority}</td>
+									  	<td class="" style="max-width: 100px;font-size: 12px !important;" data-label="Assignee">${row.admin_assigned}</td>
+									 	  <td class="" style="max-width: 100px;" font-size: 12px !important;" data-label="Date Created">${(row.created_at).split("T")[0]}</td>
+									  	<td class="" style="max-width: 30px;">
+                      <div class="dropdown shadow-dot text-center" style="font-size: 12px !important;" data-label="">
+												<a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													<i class="fas fa-ellipsis-v"></i>
+												</a>
+												<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+													<a class="dropdown-item" href="">Respond to</a>
+													<a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Close</a>
+												</div>
+                        </div>
+										</td>
+									</tr>
+              `;   
+          
+        }
+        
+        $('#ticketdata').html(rowContent);
+        
+        
+          
       }else{
           $('#ticketdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Ticket registered yet</h3></td></tr>");
       }
+
+      $(document).ready( function () {
+        $('#allTable').DataTable({
+          scrollY: 300,
+          scrollX: true,
+          scrollCollapse: true,
+            paging: true,
+            "lengthMenu": [[10, 25, 50, -1], [5, 25, 50, "All"]],
+            fixedHeader:{
+                header: true,
+                footer: true
+            }
+        });
+      });
   }
+  
   });
 
 }
@@ -1180,6 +1196,7 @@ $.ajax(settings).done(function (response) {
 const addSupportTickets =()=>{
 console.log(localStorage.getItem('access'));
 // selecting the input element and get its value
+let ticketUser = document.getElementById("users")
 let ticketSubject = document.getElementById("subject");
 let ticketPriority = document.getElementById("priority");
 let description = document.getElementById("description");
@@ -1198,17 +1215,24 @@ if(!ticketSubject.value){
     swal("Enter description!");
     description.focus();
     return false;
-}else{
+}else if(!users.value){
+  swal("Select User!");
+  description.focus();
+  return false;}
+  else{
 
     const ticketData = JSON.stringify({
+      users: ticketUser.value,
       subject: ticketSubject.value,
       description: description.value,
       priority: ticketPriority.value,
-      "userId": "unknown"
+     
+      "userId": "unknown",
+      
     });
 
     var settings = {
-      "url": "https://zowaseladmin.loclx.io/api/tickets/createTicket",
+      "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/ticket/add",
       "method": "POST",
       "timeout": 0,
       "headers": {
@@ -1226,6 +1250,7 @@ if(!ticketSubject.value){
           }else{
           //   console.log(response.message);
             swal("SUCCESS", response.message, "success");
+            ticketUser.value="";
             ticketSubject.value="";
             ticketPriority.value="";
             description.value="";
@@ -1237,6 +1262,26 @@ if(!ticketSubject.value){
 /* -------------------------- trigger create ticket ------------------------- */
 $('#createTicket').click(addSupportTickets)
 
+
+const allUsers = () => {
+  var settings = {
+    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/users/getall",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": localStorage.getItem('access')
+    },
+  };
+  
+  $.ajax(settings).done(function (data) {
+    let response = data.data;
+      for(let i = 0; i < response.length; i++){
+        $('#users').append(`<option value='${response[i].user.first_name} ${response[i].user.last_name}'>${response[i].user.first_name} ${response[i].user.last_name}</option>`);
+      }
+  });
+}
+
+allUsers();
 /* -------------------------------------------------------------------------- */
 /*                               END OF SUPPORT    TICKET                          */
 /* -------------------------------------------------------------------------- */

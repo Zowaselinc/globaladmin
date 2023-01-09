@@ -179,6 +179,8 @@ select {
 .a-class {
     outline: unset !important;
     box-shadow: unset !important;
+    /* width: 10px !important; */
+    background-color: white;
 }
 
 input:focus, select:focus {
@@ -500,7 +502,7 @@ background-position:
 }
 
 .bd-links .btnn[aria-expanded="true"]::after {
-    transform: rotate(90deg) !important;
+    transform: rotate(270deg) !important;
 }
 
 .bd-links .btnn::after {
@@ -509,6 +511,7 @@ background-position:
     content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
     transition: transform 0.35s ease !important;
     transform-origin: 0.5em 50% !important;
+    transform: rotate(90deg) !important;
 }
 
 .leftfixedside{
@@ -540,6 +543,7 @@ background-position:
 
 
 /* table begins here */
+
 /* table status  */
 /* text and background color for pending status and due status starts */
 .pending{
@@ -613,7 +617,88 @@ th{
   padding: 1rem 1rem !important;
 }
 
-/* table end here */
+ /* -------------------------------------------------------------------------- */
+ /*                               table end here                               */
+ /* -------------------------------------------------------------------------- */
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                              Extra table edit                              */
+/* -------------------------------------------------------------------------- */
+.responsive-table tr {
+  border-radius: 3px;
+  /* padding: 10px 15px; */
+  display: flex;
+  justify-content: space-between !important;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.responsive-table td {
+  width: unset !important;
+}
+.responsive-table .table-header {
+  background-color: #d4d9da;
+  /* font-size: 25px !important; */
+  text-transform: uppercase;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em;
+}
+.responsive-table .table-row {
+  background-color: #fff;
+  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+  /* width: 100%; */
+}
+.responsive-table .col-1 {
+  flex-basis: 5%;
+}
+.responsive-table .col-2 {
+  flex-basis: 10%;
+}
+.responsive-table .col-3 {
+  flex-basis: 15%;
+}
+.responsive-table .col-4 {
+  flex-basis: 17.5%;
+}
+.responsive-table .col-5 {
+  flex-basis: 7.5%;
+}
+.responsive-table .col-5 {
+  flex-basis: 11%;
+}
+
+@media all and (max-width: 767px) {
+  .responsive-table .table-header {
+    display: block;
+ }
+  .responsive-table li {
+    display: block;
+ }
+  .responsive-table .col {
+    flex-basis: 100%;
+ }
+  .responsive-table .col {
+    display: flex;
+    padding: 10px 0;
+ }
+  /* .responsive-table .col:before {
+    color: #6c7a89;
+    padding-right: 10px;
+    content: attr(data-label);
+    flex-basis: 50%;
+    text-align: right;
+ } */
+}
+
+/* -------------------------------------------------------------------------- */
+/*                               EXTRA TABLE END                              */
+/* -------------------------------------------------------------------------- */
+
+
+
+
+
 
 /* user form */
 .shadow-form{
