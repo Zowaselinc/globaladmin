@@ -542,7 +542,9 @@ background-position:
 /* Side Nav Ends  */
 
 
-/* table begins here */
+/* -------------------------------------------------------------------------- */
+/*                              table begins here                             */
+/* -------------------------------------------------------------------------- */
 
 /* table status  */
 /* text and background color for pending status and due status starts */
@@ -599,6 +601,7 @@ td {
         /* padding: 5px; */
         /* background-color: #fff; */
         /* box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1) !important; */
+        
       }
 .lineheight-0 {
   line-height: 0px !important;
@@ -619,6 +622,61 @@ th{
 .t-padding tr td {
   padding: 1rem 1rem !important;
 }
+.table td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.144);
+  
+}
+
+/* tr:hover{
+  outline: none;
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.144);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.144);
+} */
+
+/* table{
+  padding: 0;
+  display: table;
+  position: relative;
+}
+td{
+  display: table-cell;
+}
+td span{
+  display: block;
+  padding: 15px;
+  line-height: 20px;
+}
+tr{
+  display: table-row;
+}
+td:first-child:before{
+  
+  box-sizing: border-box;
+  content: '';
+  position: absolute;
+  left: 2px;
+  right: 5px;
+  display: block;
+  height: 50px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+} */
+.borderlesstable{
+  border-top: 0px !important;
+  
+}
+.borderlesstable td {
+  border: none;
+}
+.boldtableContent{
+  font-weight: 600;
+  font-family: var(--universal-font);
+  margin-bottom: 5px;
+  font-size: 15px !important;
+}
+.tableinfo{
+  font-size: 14px !important;
+  font-weight: 600;
+}
 
  /* -------------------------------------------------------------------------- */
  /*                               table end here                               */
@@ -629,70 +687,18 @@ th{
 /* -------------------------------------------------------------------------- */
 /*                              Extra table edit                              */
 /* -------------------------------------------------------------------------- */
-.responsive-table tr {
-  border-radius: 3px;
-  /* padding: 10px 15px; */
-  display: flex;
-  justify-content: space-between !important;
-  margin-bottom: 10px;
-  width: 100%;
-}
-.responsive-table td {
-  width: unset !important;
-}
-.responsive-table .table-header {
-  background-color: #d4d9da;
-  /* font-size: 25px !important; */
-  text-transform: uppercase;
-  font-weight: 600 !important;
-  letter-spacing: 0.03em;
-}
-.responsive-table .table-row {
-  background-color: #fff;
-  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
-  /* width: 100%; */
-}
-.responsive-table .col-1 {
-  flex-basis: 5%;
-}
-.responsive-table .col-2 {
-  flex-basis: 10%;
-}
-.responsive-table .col-3 {
-  flex-basis: 15%;
-}
-.responsive-table .col-4 {
-  flex-basis: 17.5%;
-}
-.responsive-table .col-5 {
-  flex-basis: 7.5%;
-}
-.responsive-table .col-5 {
-  flex-basis: 11%;
-}
 
-@media all and (max-width: 767px) {
-  .responsive-table .table-header {
-    display: block;
- }
-  .responsive-table li {
-    display: block;
- }
-  .responsive-table .col {
-    flex-basis: 100%;
- }
-  .responsive-table .col {
-    display: flex;
-    padding: 10px 0;
- }
-  /* .responsive-table .col:before {
-    color: #6c7a89;
-    padding-right: 10px;
-    content: attr(data-label);
-    flex-basis: 50%;
-    text-align: right;
- } */
-}
+
+
+.sub-history td {
+  font-family: Maven Pro;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: #4a4754;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.144);
+ 
+} 
 
 /* -------------------------------------------------------------------------- */
 /*                               EXTRA TABLE END                              */
@@ -816,6 +822,12 @@ div {
         padding: 22px 30px;
     }
     */
+    .navbar-nav .nav-link.active{
+      background: var(--btn-dashboard) !important;
+        padding: 22px 30px !important;
+        border-radius: 5px;
+    }
+
     .active{
         background: var(--btn-dashboard) !important;
         padding: 22px 30px !important;
@@ -965,8 +977,8 @@ input:checked + .switch:active::before {
 /*                            Messages Starts here                            */
 /* -------------------------------------------------------------------------- */
   #frame {
-    width: 95%;
-    /* height: 100vh; */
+    width: 100%;
+    height: auto;
     /* min-width: 360px;
     max-width: 1000px;
      */
@@ -988,7 +1000,7 @@ input:checked + .switch:active::before {
     /* color: #f5f5f5; */
     overflow: hidden;
     position: relative;
-    left: 19px;
+    left: -25px;
   }
   @media screen and (max-width: 735px) {
     #frame #sidepanel {

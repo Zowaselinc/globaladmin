@@ -37,7 +37,7 @@
 				<div class="main-content row d-flex justify-content-center align-items-center">
 				<!-- Card Header -->
 				 <div class="container-fluid header pb-1 pt-5 pt-md-8  ">
-					<div class="container-fluid">
+					<div class="container">
 						<div class="header-body">
 							<div class="row  mb-1 mt-4">
 							<h2 class="fs-3 mb-3 welcome">All Inputs</h2>
@@ -48,7 +48,7 @@
 					</div>
 				</div>
 					<div class="container-fluid pt-1 pb-5">
-						<div class="row ps-3 ps-lg-4 pe-4">
+						<div class="container">
 							<div class="col-12 col-lg-12  mb-5 mb-xl-0">
 								<div class="card border-0 shadow-sm  rounded-5">
 									<div class=" card-header  rounded-5 border-0 bg-white d-flex justify-content-end py-2 px-4">
@@ -56,7 +56,7 @@
 										<!-- <a href="./add-administrator.html" class="btn-rounded btn-sm th-btn text-white">Create Admin</a> -->
 										<form class="d-flex" role="search">
 											<input class="form-control rounded-2 me-2" type="search" placeholder="Search Inputs" aria-label="Search">
-											<a class="filter" type="submit"> <i class="fa fa-filter"></i>Filter</a>
+											<!-- <a class="filter" type="submit"> <i class="fa fa-filter"></i>Filter</a> -->
 										</form>
 
 									</div>
@@ -70,7 +70,7 @@
 														<th scope=""style="min-width: 150px;">CATEGORY</th>
 														<th scope=""style="min-width: 150px;">SUB CATEGORY</th>
 														<th scope=""style="min-width: 150px;">PACKAGING</th>
-														<th scope=""style="min-width: 150px;">DESCRIPTION</th>
+														<!-- <th scope=""style="min-width: 150px;">DESCRIPTION</th> -->
 														<!-- <th scope=""style="min-width: 150px;">CURRENCY</th>
 														<th scope=""style="min-width: 150px;">USAGE INSTRUCTION</th>
 														<th scope=""style="min-width: 150px;">VIDEO</th>
@@ -88,11 +88,43 @@
 												</thead>
 												
 												<tbody id="inputdata">
+													<tr class="align-items-center">
+														<td style="min-width: 50px;">1</td>
+														<td style="min-width: 170px;">John Doe</td>
+														<td style="min-width: 170px;">Chemicals</td>
+														<td style="min-width: 170px;">Insecticide</td>
+														<td style="min-width: 120px;">Plastic</td>
+														<!-- <td style="min-width: 150px;">
+															<button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+																VIEW
+															</button>
+															
+															Modal
+															<div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+																<div class="modal-dialog modal-dialog-centered">
+																<div class="modal-content">
+																	<div class="modal-header border-0">
+																	<h3 class="modal-title" id="staticBackdropLabel">Input Description</h3>
+																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																	</div>
+																	<div class="modal-body">
+																	Row
+																	</div>
+																	<div class="modal-footer border-0">
+																	<button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
+																	</div>
+																</div>
+																</div>
+															</div>
+														</td> -->
+														<td style="min-width: 50px; cursor:pointer;"  ><a href="../dashboards/view-more.html" class="success-color">View More</a></td>
+														
+										  
+													</tr>
 													
 												</tbody>
 												
 											</table>
-											<!-- <h3 class="welcome text-center">No Inputs Available Yet</h3> -->
 										</div>
 									</div>
 								</div>

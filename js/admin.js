@@ -1,8 +1,16 @@
+
+/* -------------------------------------------------------------------------- */
+/*                          load profile image begins                         */
+/* -------------------------------------------------------------------------- */
 var loadFile = function (event) {
   var image = document.getElementById("output");
   image.src = URL.createObjectURL(event.target.files[0]);
 };
- 
+  /* -------------------------------------------------------------------------- */
+  /*                           load profile image ends                          */
+  /* -------------------------------------------------------------------------- */
+
+
 
 /* -------------------------------------------------------------------------- */
 /*                               spliting begins                              */
@@ -131,18 +139,20 @@ function fetchAllroles(){
           index= index+1;
           rowContent 
           += `<tr class="align-items-center">
-          <td style="min-width: 20px;">${index}</td>
-          <td style="min-width: 120px;">${row.role_name}</td>
-          <td style="min-width: 135px;">${row.role_description}</td>
-          <td style="min-width: 120px;">${splittingDate(row.created_at)}</td>
-          <td style="min-width: 120px;">${splittingDate(row.updated_at)}</td>
+          <td style="min-width: 10px !important;"><span>${index}</span></td>
+          <td style="min-width: 100px !important;"><span>${row.role_name}</span></td>
+          <td style="min-width: 130px !important;"><span>${row.role_description}</span></td>
+          <td style="min-width: 100px !important;"><span>${splittingDate(row.created_at)}</span></td>
+          <td style="min-width: 100px;"><span>${splittingDate(row.updated_at)}</span></td>
           <td style="min-width: 50px;">
-          <button class="btn btn-sm th-btn fs-9 text-white rounded-6 text-end" onclick="editRole('${row.id}', '${row.role_name}', '${row.role_description}')">Update</button>
+          <button class="cursor-pointer btn btn-sm th-btn fs-9 text-white rounded-6 text-end" onclick="editRole('${row.id}', '${row.role_name}', '${row.role_description}')">Update</button>
+          
           </td>
-          <td style="min-width: 50px;">
+          <td style="min-width: 50px;"><span>
           <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deleteadminRole('${row.id}')">Delete</button>
+          </span>
           </td>	
-               </tr>`;
+              </tr>`;
         });
         // alert(response.data.length);
         $('#tbdata').html(rowContent);
@@ -154,6 +164,7 @@ function fetchAllroles(){
             scrollY: 300,
             scrollX: true,
             scrollCollapse: true,
+            retrieve: true,
             paging: true,
             fixedHeader:{
                 header: true,
@@ -210,6 +221,10 @@ const addRole =()=>{
                 swal("SUCCESS", response.message, "success");
                 roleName.value="";
                 roleDescription.value="";
+                window.location.href = "admin-role.html";
+                setTimeout(() => {
+                  cancelRequest();
+                }, 2000)
                 fetchAllroles();
               }
           });
@@ -225,6 +240,15 @@ const addRole =()=>{
 
 const deleteadminRole =(n)=>{
     // swal("", n), ""
+    swal({
+      title: "Are you sure you want to delete this role?",
+      text: "Once deleted, you will not be able to recover this file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
 
     var settings = {
         "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/roles/delete/"+n,
@@ -248,7 +272,8 @@ const deleteadminRole =(n)=>{
           }
         
       });
-      
+    }
+  });
 }
 
 /* -------------------- DELETING ADMINISTRATIVE ROLE ENDS ------------------- */
@@ -256,33 +281,43 @@ const deleteadminRole =(n)=>{
 /* ------------------------------- EDITING ADMINISTRATIVE ROLE BEGINS ------------------------------- */
 
 const editRole = (id, name, description) => {
-  sessionStorage.setItem('roleID', id);
-  window.location.href = "#?roleID="+id;
-  const URL = window.location.href;
-  const confirmEdit = URL.split("?");
+  sessionStorage.setItem('roleData', JSON.stringify({id:id, name:name, description:description}));
+  // window.location.href = "#?roleID="+id;
+  // const URL = window.location.href;
+  // const confirmEdit = URL.split("?");
 
-  // console.log(confirmEdit);
   
-  if(confirmEdit[1] !== undefined){
-    $('#role_name').val(name);
-    $('#role_description').val(description);
 
-    window.location.href = "#role-section";
+  // // console.log(confirmEdit);
+  
+  // if(confirmEdit[1] !== undefined){
+  //   $('#role_name').val(name);
+  //   $('#role_description').val(description);
 
-    if((window.location.href).split('#')[1] == 'role-section'){
-      document.querySelector('#editBtn').classList.remove('d-none');
-      document.querySelector('#addBtn').classList.add('d-none');
-      document.querySelector('#cancelBtn').classList.remove('d-none');
+    window.location.href = "update-role.html";
 
-    }
-  }
+  //   if((window.location.href).split('#')[1] == 'role-section'){
+  //     document.querySelector('#editBtn').classList.remove('d-none');
+  //     document.querySelector('#addBtn').classList.add('d-none');
+  //     document.querySelector('#cancelBtn').classList.remove('d-none');
+
+  //   }
+  // }
 }
 
+const checkr = () => {
+  
+  let data = JSON.parse(sessionStorage.getItem('roleData'));
+   if(data !== undefined || data !== null || data !== ''){
+    $('#role_name').val(data.name);
+    $('#role_description').val(data.description);
+  }
+}
 
 /* --------------------------- cancel edit request -------------------------- */
 const cancelRequest = () => {
   sessionStorage.removeItem('roleID');
-  window.location.href = "#";
+  window.location.href = "admin-role.html ";
 
   // clears the inputs
   $('#role_name').val("");
@@ -291,7 +326,7 @@ const cancelRequest = () => {
   // hides the update and cancel btn while displaying the add role btn
   if((window.location.href).split('#')[1] !== 'role-section'){
     document.querySelector('#editBtn').classList.toggle('d-none');
-      document.querySelector('#addBtn').classList.toggle('d-none');
+      // document.querySelector('#addBtn').classList.toggle('d-none');
       document.querySelector('#cancelBtn').classList.toggle('d-none');
   }
 }
@@ -299,7 +334,7 @@ const cancelRequest = () => {
 
 
 const updateAdminRole =()=>{
-  let adminRoleid = sessionStorage.getItem('roleID');
+  let adminRoleid = JSON.parse(sessionStorage.getItem('roleData')).id;
   // console.log(localStorage.getItem('access'));
   // selecting the input element and get its value
   let roleName = document.getElementById("role_name");
@@ -331,9 +366,12 @@ const updateAdminRole =()=>{
               console.log(response.message);
               swal("FAILED", response.message, "error");
             }else{
+
               console.log(response.message);
               swal("SUCCESS", response.message, "success");
-              cancelRequest();
+              setTimeout(() => {
+                cancelRequest();
+              }, 2000)
               fetchAllroles();
             }
         });
@@ -403,13 +441,13 @@ function fetchAlladmin(){
                 index= index+1;
                 rowContent 
                 += `<tr class="align-items-center">
-                    <td style="min-width: 80px;">${index}</td>
-                    <td style="min-width: 120px;">${row.first_name}</td>
-                    <td style="min-width: 120px;">${row.last_name}</td>
-                    <td style="min-width: 130px;" class="success-color">${row.email}</td>
-                    <td style="min-width: 130px;">${row.phone}</td>
-                    <td style="min-width: 130px;">${row.role}</td> 
-                    <td style="min-width: 150px; ">
+                    <td  style="min-width: 80px;"><span>${index}</span></td>
+                    <td style="min-width: 120px;"><span>${row.first_name}</span></td>
+                    <td style="min-width: 120px;"><span>${row.last_name}</span></td>
+                    <td style="min-width: 130px;" class="success-color"><span>${row.email}</span></td>
+                    <td style="min-width: 130px;"><span>${row.phone}</span></td>
+                    <td style="min-width: 130px;"><span>${row.role}</span></td> 
+                    <td style="min-width: 150px; "><span>
                     <button type="button" class="btn-sm text-white th-btn fs-9 rounded-6" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                         VIEW
                     </button>
@@ -430,13 +468,13 @@ function fetchAlladmin(){
                             </div>
                         </div>
                         </div>
-                    </div>
+                    </div></span>
                     </td>
                     
                     <td style="min-width: 120px;">${status}</td>
-                    <td style="min-width: 160px;">${splittingDate(row.created_at)}</td>
-                    <td style="min-width: 160px;">${splittingDate(row.updated_at)}</td>
-                    <td class="text-end" style="min-width: 50px;">
+                    <td style="min-width: 160px;"><span>${splittingDate(row.created_at)}</span></td>
+                    <td style="min-width: 160px;"><span>${splittingDate(row.updated_at)}</span></td>
+                    <td class="text-end" style="min-width: 50px;"><span>
                         <div class="dropdown shadow-dot text-center">
                             <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v"></i>
@@ -445,7 +483,7 @@ function fetchAlladmin(){
                                 <a class="dropdown-item " href="javascript:void(0)" onclick="executeUpdate('${row.id}', '${row.admin_id}', '${row.first_name}', '${row.last_name}', '${row.phone}', '${row.role}')">Update</a>
                                 <a class="dropdown-item" onclick="deleteAdministrator('${row.admin_id}')" href="javascript:void(0)">Delete</a>
                             </div>
-                        </div>
+                        </div></span>
                     </td>		
                    </tr>`;
                   });
@@ -672,17 +710,15 @@ const addAdmin =()=>{
         "Content-Type": "application/json"
       },
       "data": JSON.stringify({
-        "first_name": firstName.value,
-        "last_name": lastName.value,
-        "email": adminMail.value,
-        "password": adminPassword.value,
-        "phone": adminMobile.value,
-        "role": adminRole.value,
-        // "recoveryPhrase": adminRecovery.value,
-        "status": "1"
+        "first_name": firstName.value.trim(),
+        "last_name": lastName.value.trim(),
+        "email": adminMail.value.trim(),
+        "password": adminPassword.value.trim(),
+        "phone": adminMobile.value.trim(),
+        "role": adminRole.value.trim(),
       }),
     };
-    
+    // console.log(settings.data)
         
         $.ajax(settings).done(function (response) {
           console.log(response);
@@ -698,7 +734,6 @@ const addAdmin =()=>{
               adminPassword.value="";
               adminMobile.value="";
               adminRole.value="";
-              // adminRecovery.value="";
               fetchAllroles();
           }
         });
@@ -778,7 +813,7 @@ function fetchAllusers (){
 
                   index= index+1;
                   rowContent += `<tr class="align-items-center">
-                      <td style="min-width: 50px;">${index}</td>
+                      <td style="min-width: 50px;"><span>${index}</span></td>
                       <td style="min-width: 170px;">
                           <strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
                           <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
@@ -869,7 +904,7 @@ function fetchAllactivity (){
       console.log(data);
 
         let response = data;
-        console.log(response);
+        // console.log(response);
         if(response.error==true){
           console.log(response.message);
           $('#activitylog').html("<tr>"+response.message+"</tr>");
@@ -877,14 +912,16 @@ function fetchAllactivity (){
           let thedata = (response.data).reverse();
           let rowContent;
           $.each(thedata, (index, row) => {
-              
-              index= index+1;
-              rowContent 
+            index= index+1;
+            
+            // let theadmindata = JSON.stringify(row.theadmin);
+            // console.log(JSON.stringify(row.theadmin))
+            rowContent 
               += `<tr class="align-items-center">
-                  <td style="min-width: 10px;">${index}</td>
+              <td style="min-width: 10px;">${index}</td>
+              $.<td style="max-width: 120px;">${row.page_route}</td>
                   <td style="max-width: 170px;">${row.admin_id}</td>
                   <td style="min-width: 200px;">${row.section_accessed}</td>
-                  <td style="max-width: 120px;">${row.page_route}</td>
                   <td style="min-width: 120px;">${row.action}</td>
                   <td style="min-width: 120px;">${row.theadmin.role}</td>
                   <td style="min-width: 120px;">${row.theadmin.first_name} <br> ${row.theadmin.last_name}</td>
@@ -900,6 +937,7 @@ function fetchAllactivity (){
                     scrollY: 300,
                     scrollX: true,
                     scrollCollapse: true,
+                    retrieve: true,
                       paging: true,
                       "lengthMenu": [[10, 25, 50, -1], [5, 25, 50, "All"]],
                       fixedHeader:{
@@ -1084,7 +1122,7 @@ function fetchAlltickets (){
             // console.log('Hello World', + i);
             let ticket_status;
             let row = thedata[i];
-            console.log(row, "rowwwww");
+            // console.log(row, "rowwwww");
               if(row.ticket_status == 1){
                 ticket_status = 
                   `<div class="py-1 pe-3 ps-2 text-center successalert">
@@ -1114,20 +1152,20 @@ function fetchAlltickets (){
               index= i+1;
               rowContent += `
               <tr class="align-items-center" >
-									  	<td class="" style="min-width: 20px; font-size: 12px !important;" data-label="Id">${index}</td>
-									  	<td class="" style="min-width:200px; font-size: 12px !important;" data-label="Ticket Id">${row.ticket_id}</td>
+									  	<td class="" style="min-width: 20px; font-size: 12px !important;" data-label="Id"><span>${index}</span></td>
+									  	<td class="" style="max-width:150px !important; font-size: 12px !important;" data-label="Ticket Id">${row.ticket_id}</td>
 									  	<td class="" style="min-width: 120px; font-size: 12px !important;" data-label="Subject">${row.subject}</td>
-										  <td class="" style="min-width: 100px; font-size: 12px !important;" data-label="Status">${ticket_status}</td> 
+										  <td class="" style="min-width: 80px; font-size: 12px !important;" data-label="Status">${ticket_status}</td> 
 									  	<td class="" style="min-width: 70px; font-size: 12px !important;" data-label="Status"data-label="Priority">${priority}</td>
-									  	<td class="" style="min-width: 100px;font-size: 12px !important;" data-label="Assignee">${row.admin_assigned}</td>
-									 	  <td class="" style="min-width: 100px;" font-size: 12px !important;" data-label="Date Created">${(row.created_at).split("T")[0]}</td>
-									  	<td class="" style="min-width: 30px;">
+									  	<td class="" style="min-width: 80px;font-size: 12px !important;" data-label="Assignee">${row.admin_assigned}</td>
+									 	  <td class="" style="min-width: 80px;" font-size: 12px !important;" data-label="Date Created">${(row.created_at).split("T")[0]}</td>
+									  	<td class="" style="min-width: 20px;">
                       <div class="dropdown shadow-dot text-center" style="font-size: 12px !important;" data-label="">
 												<a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 													<i class="fas fa-ellipsis-v"></i>
 												</a>
 												<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-													<a class="dropdown-item" href="">Respond to</a>
+													<a class="dropdown-item" href="../dashboards/respond-ticket.html">Respond to</a>
 													<a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Close</a>
 												</div>
                         </div>
@@ -1281,7 +1319,7 @@ const allUsers = () => {
   });
 }
 
-allUsers();
+// allUsers();
 /* -------------------------------------------------------------------------- */
 /*                               END OF SUPPORT    TICKET                          */
 /* -------------------------------------------------------------------------- */
@@ -1298,7 +1336,7 @@ function fetchAllorders (){
     "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/crop/order/getbyorderid/ZWLORDab9bd6618edb18ba50d593fde8a1c75a",
     "method": "GET",
     "timeout": 0,
-    "headers": {
+    "headers": {  
       "Authorization": localStorage.getItem('access')
     },
   };
@@ -1445,16 +1483,16 @@ function fetchAllcompany (){
 
 function fetchAllinput (){
 
-  loader('#inputdata', 14)
+  // loader('#inputdata', 14)
 
-  var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/input/getall",
-    "method": "GET",
-    "timeout": 0,
-    "headers": {
-      "Authorization": localStorage.getItem('access')
-    },
-  };
+  // var settings = {
+  //   "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/input/getall",
+  //   "method": "GET",
+  //   "timeout": 0,
+  //   "headers": {
+  //     "Authorization": localStorage.getItem('access')
+  //   },
+  // };
     
   $.ajax(settings).done(function (data) {
     let response = data;

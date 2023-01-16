@@ -38,58 +38,9 @@
 			<div class="dash ms-sm-auto ms-0 col col-12 col-lg-10  rightscrollableside">
 				<div class="main-content row d-flex justify-content-center align-items-center">
 				<!-- Card Header -->
-					<div class="container-fluid header pb-1 pt-md-8  ">
-						<div class="container-fluid">
-							<div class="header-body">
-								<div class="d-flex justify-content-between mb-0 mt-4 align-items-end">
-								<h1  class="welcome">Admin Role</h1>
-								<!-- <h5 class="text-secondary">Wallet balance <span class="wallet-bal fs-3 ms-2">$5070.80</span></h5> -->
-								</div>
-								
-							</div>
-						</div>
-					</div>
-					<div class="container-fluid pt-1 pb-5" id="role-section">
-						<div class="row ps-3 ps-lg-4 pe-4">
-							<div class="col-12 col-lg-12  mb-5 mb-xl-0">
-								<div class="card border-0 rounded-5 shadow-sm">
-									<div class="card-header rounded-5 border-0 p-3 bg-white">
-										<!-- <h3 class="text-secondary">Admin Role</h3> -->
-										
-									</div>
-									<div class="card-body bg-light">
-										<form>
-											  <div>
-													<div class="row d-flex justify-content-center">
-														<div class="col-lg-12 mb-4">
-														  <div class="form-group">
-															<label class="form-control-label mb-2" for="input-username">Role Name</label>
-															<input type="text" id="role_name" class="form-control form-control-lg rounded-3 shadow-form border-0"  placeholder="Enter role name" value="">
-														  </div>
-														</div>
-						  
-														<div class="col-lg-12 mb-4">
-														  <div class="form-group">
-															<label class="form-control-label mb-2" for="input-last-name">Description</label>
-															<textarea rows="4" id="role_description" class="form-control form-control-lg rounded-3 shadow-form border-o" placeholder="Role description"></textarea>
-														  </div>
-														</div>	
-													</div>
-											  </div>
-											  <div class="col-12 text-end">
-													<a href="javascript:void(0)" class="btn th-btn fs-9 text-white rounded-6" onclick="https://admin.growsel.comRole()" id="addBtn">Add Role</a>
-													<a href="javascript:void(0)" class="btn th-btn fs-9 text-white rounded-6 d-none" onclick="updateAdminRole()" id="editBtn">Update Role</a>
-													<a href="javascript:void(0)" class="btn btn-danger fs-9 text-white rounded-6 d-none" onclick="cancelRequest()" id="cancelBtn">Cancel Update</a>
-											  </div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="container-fluid pb-3">
-						<div class="row ps-3 ps-lg-4 pe-4">
+					
+					<div class="container-fluid mt-3">
+						<div class="container">
 							<div class="d-flex justify-content-between align-items-center mb-2">
 								<h1 class="fw-bold welcome mt-2">Roles</h1>
 								
@@ -107,7 +58,7 @@
 									</div>
 									<div class="card-body bg-white ">
 										<div class="table-responsive-lg">
-											<table class="table table-hover align-middle table-borderless default-color" id="allTable">
+											<table class="table align-middle table-hover table-borderless default-color" id="allTable">
 												<thead class="t-border">
 													<tr class="border-bottom t-border">
 														<th>ID</th>
