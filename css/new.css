@@ -1,5 +1,6 @@
+
 .selectMultiple {
-	width: 50%;
+	width: 100%;
 	position: relative;
 }
 .selectMultiple select {
@@ -14,17 +15,15 @@
 	font-size: 14px;
 	min-height: 44px;
 	-webkit-box-shadow: 0 4px 16px 0 rgba(22, 42, 90, 0.12);
-	box-shadow: 0 4px 16px 0 rgba(22, 42, 90, 0.12);
+	/* box-shadow: 0 4px 16px 0 rgba(22, 42, 90, 0.12); */
+	box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%);
 	-webkit-transition: -webkit-box-shadow 0.3s ease;
 	transition: -webkit-box-shadow 0.3s ease;
 	-o-transition: box-shadow 0.3s ease;
 	transition: box-shadow 0.3s ease;
 	transition: box-shadow 0.3s ease, -webkit-box-shadow 0.3s ease;
 }
-.selectMultiple > div:hover {
-	-webkit-box-shadow: 0 4px 24px -1px rgba(22, 42, 90, 0.16);
-	box-shadow: 0 4px 24px -1px rgba(22, 42, 90, 0.16);
-}
+
 .selectMultiple > div .arrow {
 	right: 1px;
 	top: 0;
@@ -59,6 +58,7 @@
 	transform: rotate(130deg);
 }
 .selectMultiple > div span {
+	width: 100%;
 	color: #99a3ba;
 	display: block;
 	position: absolute;
@@ -121,7 +121,7 @@
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	background: #f16821;
+	background: #05b050;
 	border-radius: 1px;
 }
 .selectMultiple > div a i:before {
@@ -204,15 +204,23 @@
 	transition: opacity 0.5s ease 0s;
 }
 .selectMultiple > ul {
-	margin: 0;
+	/* display: none; */
+	width: 100%;
+	margin-bottom: 0px;
 	padding: 0;
 	list-style: none;
 	font-size: 16px;
 	z-index: 1;
-	position: absolute;
-	top: 100%;
+	/* position: absolute; */
+	bottom: 100%;
+	/* top: 100%; */
 	left: 0;
 	right: 0;
+	position: absolute;
+    max-height: 200px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    will-change: scroll-position;
 	visibility: hidden;
 	opacity: 0;
 	border-radius: 8px;
@@ -231,6 +239,10 @@
 	transition: all 0.4s ease, transform 0.4s cubic-bezier(0.87, -0.41, 0.19, 1.44), filter 0.3s ease 0.2s,
 		-webkit-transform 0.4s cubic-bezier(0.87, -0.41, 0.19, 1.44), -webkit-filter 0.3s ease 0.2s;
 }
+
+
+
+
 .selectMultiple > ul li {
 	color: #000;
 	background: #fff;
@@ -247,18 +259,22 @@
 }
 .selectMultiple > ul li:first-child {
 	border-radius: 8px 8px 0 0;
+	/* border: 1px solid grey; */
 }
 .selectMultiple > ul li:first-child:last-child {
 	border-radius: 8px;
+	/* border: 1px solid grey; */
 }
 .selectMultiple > ul li:last-child {
 	border-radius: 0 0 8px 8px;
+	/* border: 1px solid grey; */
 }
 .selectMultiple > ul li:last-child:first-child {
 	border-radius: 8px;
+	/* border: 1px solid grey; */
 }
 .selectMultiple > ul li:hover {
-	background: #f16821;
+	background: #05b050;
 	color: #fff;
 }
 .selectMultiple > ul li:after {

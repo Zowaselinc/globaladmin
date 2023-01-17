@@ -80,29 +80,28 @@
 														<div class="col-lg-12 mb-4">
 															<div class="form-group">
 																<label class="form-control-label mb-2" for="input-username">Section Access</label>
-																<select multiple data-placeholder="Click to Assign Section" data-bs-toggle="collapse" aria-expanded="false">
+																<select multiple data-placeholder="Click to Assign Section" class="select-store"  aria-expanded="false">
 																	<!-- <option selected>Framer X</option> -->
-																	<option>Admin</option>
-																	<option>Users</option>
-																	<option>Roles</option>
-																	<option>Support</option>
-																	<option>Marketplace</option>
-																	<option>Wordpress</option>
-																	<option>Wallet</option>
-																	<option>Company</option>
-																	<option>Messages</option>
-																	<option>Settings</option>
+																	<option value="dashbords">Dashbord</option>
+																	<option value="administrators">Admin</option>
+																	<option value="users">Users</option>
+																	<option value="roles">Roles</option>
+																	<option value="supports">Support</option>
+																	<option value="marketplace">Marketplace</option>
+																	<option value="wallet">Wallet</option>
+																	<option value="company">Company</option>
+																	<option value="messages">Messages</option>
+																	<option value="settings">Settings</option>
 																</select>
 															  </div>
 														</div>
-
-														
 													</div>
 											  </div>
-											  <div class="col-12 text-end" onclick="addRole()">
+
+											  <div class="text-end" onclick="addRole()">
 													<a href="javascript:void(0)" class="btn th-btn fs-9 text-white rounded-6" onclick="https://admin.growsel.comRole()" id="addBtn">Add Role</a>
-											
 											  </div>
+
 										</form>
 									</div>
 								</div>
@@ -144,6 +143,39 @@
 
 	<script src="../js/admin.js"></script>
 	<script src="../js/main.js"></script>
+
+	<script>
+		if (!window.Selectize.prototype.positionDropdownOriginal) {
+    window.Selectize.prototype.positionDropdownOriginal = window.Selectize.prototype.positionDropdown;
+    window.Selectize.prototype.positionDropdown = function () {
+        isInViewPort = this.isInViewport();
+        
+        if (isInViewPort) {
+            window.Selectize.prototype.positionDropdownOriginal.apply(this, arguments);
+        }
+        else 
+        {  
+            let $control = this.$control;
+            let offset = this.settings.dropdownParent === 'body' ? $control.offset() : $control.position();
+
+            this.$dropdown.css({
+                width: $control.outerWidth(),
+                top: offset.top - this.$dropdown.outerHeight(),
+                left: offset.left
+            });
+        }
+    };
+}    
+
+    window.Selectize.prototype.isInViewport = function(el) {
+        let elementTop = this.$control.offset().top;
+        let elementBottom = elementTop + this.$dropdown.outerHeight();
+
+        let viewportTop = $(window).scrollTop();
+        let viewportBottom = viewportTop + $(window).height()-$(".footer").height();
+        return elementBottom<=viewportBottom;
+    }
+	</script>
 	
 
 

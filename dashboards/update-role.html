@@ -22,6 +22,7 @@
   <link rel="stylesheet" type="text/css" href="../assets/DataTables/datatables.min.css"/>
   <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.3.1/css/fixedHeader.dataTables.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
   <link rel="stylesheet" href="../css/style.css" />
 
  
@@ -51,7 +52,7 @@
 						</div>
 					</div>
 					<div class="container-fluid pt-1" id="role-section">
-						<div class="container">
+						<div class="container gx-0 gx-md-2 pe-2 pe-md-0">
 							<div class="col-12 col-lg-12  mb-5 mb-xl-0">
 								<div class="card border-0 rounded-5 shadow-sm">
 									<div class="card-header rounded-5 border-0 p-3 bg-white">
@@ -68,38 +69,40 @@
 															<input type="text" id="role_name" class="form-control form-control-lg rounded-3 shadow-form border-0"  placeholder="Enter role name" value="">
 														  </div>
 														</div>
-						  
+
 														<div class="col-lg-12 mb-4">
 														  <div class="form-group">
 															<label class="form-control-label mb-2" for="input-last-name">Description</label>
-															<textarea rows="4" id="role_description" class="form-control form-control-lg rounded-3 shadow-form border-o" placeholder="Role description"></textarea>
+															<textarea rows="4" id="role_description" class="roleText form-control rounded-3 shadow-form border-o" placeholder="Role description"></textarea>
 														  </div>
 														</div>	
 
-														<div class="col-lg-12 mb-4">
-															<div class="form-group">
-																<label class="form-control-label mb-2" for="input-username">Section Access</label>
-																<select class="js-select2 form-control form-select form-control-lg rounded-3 shadow-form border-0" multiple="multiple">
-																	<option value="O1" data-badge="">Dashboard</option>
-																	<option value="O2" data-badge="">Admin</option>
-																	<option value="O3" data-badge="">Users</option>
-																	<option value="O4" data-badge="">Roles</option>
-																	<option value="O5" data-badge="">Support</option>
-																	<option value="O6" data-badge="">Marketplace</option>
-																	<option value="O7" data-badge="">Wallet</option>
-																	<option value="O8" data-badge="">Company</option>
-																	<option value="O9" data-badge="">Messages</option>
-																	<option value="O10" data-badge="">Settings</option>
+														<div class="col-lg-12 mb-5">
+															<div class="form-group it">
+																<label class="form-control-label mb-2" for="section-access">Section Access</label>
+																<select id="choices-multiple-remove-button" placeholder="Select sections to grant access" class=" mult-select-tag" multiple>
+																	<option value="dashbords">Dashbord</option>
+																	<option value="administrators">Admin</option>
+																	<option value="users">Users</option>
+																	<option value="roles">Roles</option>
+																	<option value="supports">Support</option>
+																	<option value="marketplace">Marketplace</option>
+																	<option value="wallet">Wallet</option>
+																	<option value="company">Company</option>
+																	<option value="messages">Messages</option>
+																	<option value="settings">Settings</option>
 																</select>
-															  </div>
+															</div>
 														</div>
+
 													</div>
 											  </div>
-											  <div class="col-12 text-end">
+											  <div class="col-12 text-end mb-3">
 													<!-- <a href="javascript:void(0)" class="btn th-btn fs-9 text-white rounded-6" onclick="https://admin.growsel.comRole()" id="addBtn">Add Role</a> -->
-													<a href="javascript:void(0)" class="btn th-btn fs-9 text-white rounded-6" onclick="updateAdminRole()" id="editBtn">Update Role</a>
-													<a href="javascript:void(0)" class="btn btn-danger fs-9 text-white rounded-6" onclick="cancelRequest()" id="cancelBtn">Cancel Update</a>
+													<a href="#" class="btn th-btn fs-9 text-white rounded-6" onclick="updateAdminRole()" id="editBtn">Update Role</a>
+													<a href="#" class="btn btn-danger fs-9 text-white rounded-6" onclick="cancelRequest()" id="cancelBtn">Cancel Update</a>
 											  </div>
+										
 										</form>
 									</div>
 								</div>
@@ -119,6 +122,8 @@
 
 
 	<!-- <script src="../js/plugins/jquery/dist/jquery.min.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
     integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
@@ -141,47 +146,26 @@
 
 	<script src="../js/admin.js"></script>
 	<!-- <script src="../js/table.js"></script> -->
-
 	<script>
-		
-		/* -------------------------------------------------------------------------- */
-			(function($) {
+		checkr();
 
-			"use strict";
+		$(document).ready(function(){
 
-
-			$(".js-select2").select2({
-					closeOnSelect : false,
-					placeholder : "Click to select an option",
-					allowHtml: true,
-					allowClear: true,
-					tags: true // создает новые опции на лету
-				});
-
-			$('.icons_select2').select2({
-				width: "100%",
-				templateSelection: iformat,
-				templateResult: iformat,
-				allowHtml: true,
-				placeholder: "Click to select an option",
-				dropdownParent: $( '.select-icon' ),//обавили класс
-				allowClear: true,
-				multiple: false
+			var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+			removeItemButton: true,
+			maxItemCount:12,
+			searchResultLimit:11,
+			renderChoiceLimit:11
 			});
 
+			});
 
-			function iformat(icon, badge,) {
-				var originalOption = icon.element;
-				var originalOptionBadge = $(originalOption).data('badge');
-			
-				return $('<span><i class="fa ' + $(originalOption).data('icon') + '"></i> ' + icon.text + '<span class="badge">' + originalOptionBadge + '</span></span>');
-			}
-
-			})(jQuery);
-
-
-			checkr()
 	</script>
+	
+	
+
+	
+	
 
 </body>
 
