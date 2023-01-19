@@ -487,6 +487,9 @@ background-position:
 }
 
 /* Top nav bar background colour  */
+.navbar > .container-fluid {
+  flex-wrap: nowrap !important;
+}
 .light{
     background: var(--bg-nav);
 }

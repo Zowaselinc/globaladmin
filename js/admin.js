@@ -104,11 +104,6 @@ function getUsersStats(){
 
 
 
-
-
-
-
-
 /* -------------------------------------------------------------------------- */
 /*                          FETCHING USER STATS ENDS                          */
 /* -------------------------------------------------------------------------- */
@@ -166,6 +161,7 @@ function fetchAllroles(){
             scrollCollapse: true,
             retrieve: true,
             paging: true,
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
             fixedHeader:{
                 header: true,
                 footer: true
@@ -480,7 +476,7 @@ function fetchAlladmin(){
                                 <i class="fas fa-ellipsis-v"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-center dropdown-menu-arrow">
-                                <a class="dropdown-item " href="javascript:void(0)" onclick="executeUpdate('${row.id}', '${row.admin_id}', '${row.first_name}', '${row.last_name}', '${row.phone}', '${row.role}')">Update</a>
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="executeUpdate('${row.id}', '${row.admin_id}', '${row.first_name}', '${row.last_name}', '${row.phone}', '${row.role}')">Update</a>
                                 <a class="dropdown-item" onclick="deleteAdministrator('${row.admin_id}')" href="javascript:void(0)">Delete</a>
                             </div>
                         </div></span>
@@ -498,6 +494,7 @@ function fetchAlladmin(){
                       scrollCollapse: true,
                       retrieve: true,
                       paging: true,
+                      "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
                       fixedHeader:{
                           header: true,
                           footer: true
@@ -774,8 +771,6 @@ allRoles();
 
 
 
-
-
 /* -------------------------------------------------------------------------- */
 /*                       FETCHING ALL USERS BEGINS HERE                       */
 /* -------------------------------------------------------------------------- */
@@ -847,6 +842,7 @@ function fetchAllusers (){
                       scrollCollapse: true,
                       retrieve: true,
                       paging: true,
+                      "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
                       fixedHeader:{
                           header: true,
                           footer: true
@@ -863,24 +859,13 @@ function fetchAllusers (){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* -------------------------------------------------------------------------- */
 /*                        FETCHING ALL USERS ENDS HERE                        */
 /* -------------------------------------------------------------------------- */
+
+
+
+
 
 /* -------------------------------------------------------------------------- */
 /*                           ACTIVITY LOG STARTS HERE                           */
@@ -939,7 +924,7 @@ function fetchAllactivity (){
                     scrollCollapse: true,
                     retrieve: true,
                       paging: true,
-                      "lengthMenu": [[10, 25, 50, -1], [5, 25, 50, "All"]],
+                      "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
                       fixedHeader:{
                           header: true,
                           footer: true
@@ -951,7 +936,6 @@ function fetchAllactivity (){
         }
       });
     }
-
 
 
 
@@ -1041,6 +1025,7 @@ function fetchAllErrorlog (){
                       scrollCollapse: true,
                       retrieve: true,
                       paging: true,
+                      "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
                       fixedHeader:{
                           header: true,
                           footer: true
@@ -1088,8 +1073,6 @@ $.ajax(settings).done(function (response) {
 
 
 
-
-
 /* -------------------------------------------------------------------------- */
 /*                                   SUPPORT TICKETS STARTS HERE                                 */
 /* -------------------------------------------------------------------------- */
@@ -1097,14 +1080,7 @@ function fetchAlltickets (){
 
   loader('#ticketdata', 14 )
   
-  var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/ticket/getall",
-    "method": "GET",
-    "timeout": 0,
-    "headers": {
-      "Authorization": localStorage.getItem('access')
-    },
-  };
+  var settings = querySetting("api/admin/ticket/getall", "GET", localStorage.getItem('access'));
     
   $.ajax(settings).done(function (data) {
     let response = data;
@@ -1189,7 +1165,7 @@ function fetchAlltickets (){
           scrollX: true,
           scrollCollapse: true,
             paging: true,
-            "lengthMenu": [[10, 25, 50, -1], [5, 25, 50, "All"]],
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
             fixedHeader:{
                 header: true,
                 footer: true
@@ -1327,19 +1303,14 @@ const allUsers = () => {
 
 
 
+
 /* -------------------------------------------------------------------------- */
 /*                           Crop  ORDERS STARTS HERE                             */
 /* -------------------------------------------------------------------------- */
 
 function fetchAllorders (){
-  var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/crop/order/getbyorderid/ZWLORDab9bd6618edb18ba50d593fde8a1c75a",
-    "method": "GET",
-    "timeout": 0,
-    "headers": {  
-      "Authorization": localStorage.getItem('access')
-    },
-  };
+
+  var settings = querySetting("api/admin/order/ORDA2B44991D42DB8E8", "GET", localStorage.getItem('access'));
     
   $.ajax(settings).done(function (data) {
     let response = data;
@@ -1348,8 +1319,14 @@ function fetchAllorders (){
   if(response.error==true){
       console.log(response.message);
   }else{
-      let thedata = response.data;
-      if(thedata.length > 0){
+        console.log(response.data)
+        let thedata = response.data;
+        thedata = thedata.rows
+
+        if(thedata.length > 0){
+          console.log(length);
+         
+
           let rowContent
           $.each(thedata, (index, row) => {
 
@@ -1384,7 +1361,7 @@ function fetchAllorders (){
               </td>
               <td style="min-width: 120px;">${row.priority}</td>
               <td style="min-width: 150px;">${row.admin_assigned}</td>
-              <td style="min-width: 140px; text-align:center;">${ticket_status}</td>
+              
               <td style="min-width: 140px;">${(row.created_at).split("T")[0]}</td>
               <td style="min-width: 140px;">${(row.updated_at).split("T")[0]}</td>
               <td class="text-end" style="min-width: 50px;">
@@ -1443,7 +1420,7 @@ function fetchAllcompany (){
           let thedata = (response.data).reverse();
           let rowContent;
           $.each(thedata, (index, row) => {
-              
+              console.log(response.data)
               index= index+1;
               rowContent 
               += `<tr class="align-items-center">
@@ -1474,6 +1451,7 @@ function fetchAllcompany (){
 /* -------------------------------------------------------------------------- */
 /*                           Company Data Ends Here                           */
 /* -------------------------------------------------------------------------- */
+
 
 
 
@@ -1586,22 +1564,17 @@ function fetchAllinput (){
 /* -------------------------------------------------------------------------- */
 
 
+
+
 /* -------------------------------------------------------------------------- */
 /*                           CROPS DATA STARTS HERE                           */
 /* -------------------------------------------------------------------------- */
 
-function fetchAllcrops (){
+function cropsWanted (){
   
   loader('#cropdata', 10)
 
-  var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/crop/getall",
-    "method": "GET",
-    "timeout": 0,
-    "headers": {
-      "Authorization": localStorage.getItem('access')
-    },
-  };
+  var settings = querySetting("api/admin/crop/getbycropwanted", "GET", localStorage.getItem('access'));
     
   $.ajax(settings).done(function (data) {
     let response = data;
@@ -1609,35 +1582,43 @@ function fetchAllcrops (){
 
   if(response.error==true){
       console.log(response.message);
+     
   }else{
+      console.log(response.data)
       let thedata = response.data;
+      thedata = thedata.rows
+
       if(thedata.length > 0){
           let rowContent
           $.each(thedata, (index, row) => {
-
-              let ticket_status;
-              if(row.ticket_status == 1){
-                ticket_status = 
-                  `<div class="py-1 pe-3 ps-2 text-center rounded-pill successalert">
-                    <span class="rounded-circle p-1 dot d-inline-block me-1"></span>
-                    <strong class="text-success fs-10">ACTIVE</strong>
+          
+              let crop_status;
+              if(row.user.status == 1){
+                crop_status = 
+                  `<div class="py-1 text-center rounded-pill successalert">
+                    <span class="rounded-circle p-1 dot d-inline-block"></span>
+                    <strong class="text-success" style="font-size:12px;">ACTIVE</strong>
                   </div>`;
               }else{
-                ticket_status = 
-                  `<div class="py-1 pe-3 ps-2 text-center rounded-pill past-due">
+                crop_status = 
+                  `<div class="py-1 text-center rounded-pill past-due">
                     <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
-                    <strong class="text-past fs-10">IN ACTIVE</strong>
+                    <strong class="text-past"  style="font-size:12px;">IN ACTIVE</strong>
                   </div>`;
               }
-
+              
               index= index+1;
-              rowContent += `<tr class="align-items-center">
+              rowContent += `
+              <tr class="align-items-center">
               <td style="min-width: 50px;">${index}</td>
-              <td style="min-width: 170px;">John Doe</td>
-              <td style="min-width: 170px;">${row.category}</td>
-              <td style="min-width: 170px;">${row.sub_category}</td>
-              <td style="min-width: 120px;">${row.packaging}</td>
-              <td style="min-width: 150px;">
+              <td style="min-width: 100px;"><strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
+                <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
+              </td>
+              <td style="min-width: 70px;" class="text-primary">${row.user.email}</td>
+              <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.type}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.title}</small> </td>
+              <td style="min-width: 100px; text-align:center;">${crop_status}</td>
+              <td style="min-width: 200px;">${row.description}</td>
+              <td style="min-width: 50px;">
               <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                   VIEW
               </button>
@@ -1647,11 +1628,161 @@ function fetchAllcrops (){
                   <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                       <div class="modal-header border-0">
-                      <h3 class="modal-title" id="staticBackdropLabel">Input Description</h3>
+                      <h3 class="modal-title">Crop Specification</h3>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                      ${row.description}
+
+                      <div class="offer-right">
+                                    <div class="offered">
+                                        <!---->
+                                        <div class="color">
+                                            <h3>Wanted</h3>
+                                            <hr/>
+
+                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                              <div class="each-item col-4">
+                                                  <h3>Acid Ash</h3>
+                                                  <h6>${row.specification.acid_ash}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                  <h3>Broken Grains</h3>
+                                                  <h6>${row.specification.broken_grains}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                <h3>Color</h3>
+                                                <h6>${row.specification.color}</h6>
+                                              </div>
+                                            </div>
+
+                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                              <div class="each-item col-4">
+                                                  <h3>Curcumin Content</h3>
+                                                  <h6>${row.specification.curcumin_content}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                  <h3>Dead Insect</h3>
+                                                  <h6>${row.specification.dead_insect}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                <h3>DK</h3>
+                                                <h6>${row.specification.dk}</h6>
+                                              </div>
+                                            </div>
+
+                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                              <div class="each-item col-4">
+                                                  <h3>Drying Process</h3>
+                                                  <h6>${row.specification.drying_process}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                  <h3>Extraneous</h3>
+                                                  <h6>${row.specification.extraneous}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                <h3>Foreign Matter</h3>
+                                                <h6>${row.specification.foreign_matter}</h6>
+                                              </div>
+                                            </div>
+
+                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                              <div class="each-item col-4">
+                                                  <h3>Grain Size</h3>
+                                                  <h6>${row.specification.grain_size}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                  <h3>Hardness</h3>
+                                                  <h6>${row.specification.hardness}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                <h3>Hectoliter</h3>
+                                                <h6>${row.specification.hectoliter}</h6>
+                                              </div>
+                                            </div>
+
+                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                              <div class="each-item col-4">
+                                                  <h3>Infestation</h3>
+                                                  <h6>${row.specification.infestation}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                  <h3>Mammalian</h3>
+                                                  <h6>${row.specification.mammalian}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                <h3>Model Type</h3>
+                                                <h6>${row.specification.model_type}</h6>
+                                              </div>
+                                            </div>
+
+                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                              <div class="each-item col-4">
+                                                  <h3>Moisture</h3>
+                                                  <h6>${row.specification.moisture}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                  <h3>Mold</h3>
+                                                  <h6>${row.specification.mold}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                <h3>OIl Content</h3>
+                                                <h6>${row.specification.oil_content}</h6>
+                                              </div>
+                                            </div>
+
+                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                              <div class="each-item col-4">
+                                                  <h3>Price</h3>
+                                                  <h6>${row.specification.price}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                  <h3>Quantity</h3>
+                                                  <h6>${row.specification.qty}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                <h3>Rotten Shriveled</h3>
+                                                <h6>${row.specification.rotten_shriveled}</h6>
+                                              </div>
+                                            </div>
+
+                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                              <div class="each-item col-4">
+                                                  <h3>Splits</h3>
+                                                  <h6>${row.specification.splits}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                  <h3>Test Weight</h3>
+                                                  <h6>${row.specification.test_weight}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                <h3>Total Defects</h3>
+                                                <h6>${row.specification.total_defects}</h6>
+                                              </div>
+                                            </div>
+
+                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                              <div class="each-item col-4">
+                                                  <h3>Unit</h3>
+                                                  <h6>${row.specification.unit}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                  <h3>Volatile</h3>
+                                                  <h6>${row.specification.volatile}</h6>
+                                              </div>
+                                              <div class="each-item col-4">
+                                                <h3>Weevil</h3>
+                                                <h6>${row.specification.weevil}</h6>
+                                              </div>
+                                            </div>
+
+                                            
+                                            
+                                        </div>
+                                        <!---->
+                                    </div>
+                                </div>
+
+                      
                       </div>
                       <div class="modal-footer border-0">
                       <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
@@ -1661,34 +1792,654 @@ function fetchAllcrops (){
               </div>
               </td>
             
-              <!-- <td style="min-width: 150px;">${row.description}</td>
-              <td style="min-width: 140px; text-align:center;">${ticket_status}</td>
-              <td style="min-width: 140px;">${(row.created_at).split("T")[0]}</td>
-              <td style="min-width: 140px;">${(row.updated_at).split("T")[0]}</td>
-              <!-- <td class="text-end" style="min-width: 50px;">
-                  <div class="dropdown shadow-dot text-center">
-                      <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="">Edit</a>
-                          <a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Delete</a>
-                      </div>
-                  </div>
-              </td> -->
-              <td style="min-width: 50px; cursor:pointer;"  ><a href="../dashboards/view-more.html" class="success-color">View More</a></td>
+            
+              <td style="min-width: 50px; cursor:pointer;">
+                <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')">View More</a>
+              </td>
               
 
-             </tr>`;
-          $('#cropdata').html(rowContent);
-          });
+            </tr>
+              `;
+            });
+            $('#cropdata').html(rowContent);
+            $(document).ready( function () {
+              $('#allTable').DataTable({
+                scrollY: 300,
+                scrollX: true,
+                scrollCollapse: true,
+                retrieve: true,
+                paging: true,
+                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+                fixedHeader:{
+                    header: true,
+                    footer: true
+                }
+              });
+            });
       }else{
           $('#cropdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop registered yet</h3></td></tr>");
       }
   }
   });
 
+};
+
+
+/* -------------------------------------------------------------------------- */
+/*                          view more details begins                          */
+/* -------------------------------------------------------------------------- */
+
+const viewMoreCrop = (id) => {
+  // alert(id);
+  // let cropId = JSON.stringify({"id": id});
+  localStorage.setItem('singlecropdata', id);
+  window.location.href = "view-more-crop.html";
 }
+
+
+const viewMore  =() => {
+  
+  
+    var settings = querySetting("api/admin/crop/getbyid/"+localStorage.getItem('singlecropdata'), "GET", localStorage.getItem('access'));
+    
+  
+    $.ajax(settings).done(function (data) {
+      console.log(data);
+        let response = data;
+      console.log(response);
+      if(response.error==true){
+        console.log(response.message);
+      }else{
+        let negotiate;
+              if(response.data.is_negotiable == 1){
+                negotiate = 
+                  `YES`;
+              }else{
+                negotiate = 
+                  `NO`;
+              }
+        console.log(response.data.crop_request[0]);
+        let count = response.data.crop_request[0];
+          $('#croptype').text(response.data.type);
+          $('#user_id').text(response.data.user_id);
+          $('#application').text(response.data.application);
+          $('#firstName').text(response.data.user.first_name);
+          $('#lastName').text(response.data.user.last_name);
+          $('#lastName').text(response.data.user.last_name);
+          $('#description').text(response.data.description);
+          $('#cropTitle').text(response.data.title);
+          $('#vidfed').text(response.data.video);
+          $('#package').text(response.data.packaging);
+          $('#currency').text(response.data.currency);
+          $('#negotiate').text(negotiate);
+          
+          // specification
+          $('#price').text(response.data.specification.price);
+          $('#quantity').text(response.data.specification.qty);
+          $('#grainSize').text(response.data.specification.grain_size);
+          $('#hardness').text(response.data.specification.hardness);
+          $('#acid').text(response.data.specification.acid_ash);
+          $('#color').text(response.data.specification.color);
+          $('#curcumin_content').text(response.data.specification.curcumin_content);
+          $('#rotten_shriveled').text(response.data.specification.rotten_shriveled);
+          $('#infestation').text(response.data.specification.infestation);
+          $('#splits').text(response.data.specification.splits);
+          $('#insect').text(response.data.specification.dead_insect);
+          $('#mammalian').text(response.data.specification.mammalian);
+          $('#testweight').text(response.data.specification.test_weight);
+          $('#modeltype').text(response.data.specification.model_type);
+          $('#defects').text(response.data.specification.total_defects);
+          $('#dk').text(response.data.specification.dk);
+          $('#moist').text(response.data.specification.moisture);
+          $('#dock').text(response.data.specification.dockage);
+          $('#mold').text(response.data.specification.mold);
+          $('#unit').text(response.data.specification.unit);
+          $('#drying').text(response.data.specification.drying_process);
+          $('#oil').text(response.data.specification.oil_content);
+          $('#extranous').text(response.data.specification.extraneous);
+          $('#Volatile').text(response.data.specification.volatile);
+          $('#weevil').text(response.data.specification.weevil);
+          $('#drying').text(response.data.specification.drying_process);
+          // crop request 
+          $('#country').text(count.country);
+          $('#address').text(count.address);
+          $('#zipCode').text(count.zip);
+          $('#cropId').text(count.crop_id);
+          $('#lastUpdate').text(count.updated_at);
+          $('#state').text(count.state);
+          $('#deliveryMethod').text(count.delivery_method);
+          $('#deliveryWindow').text(count.delivery_window);
+          $('#deliveryDate').text(count.delivery_date);
+          // crop request end
+
+          
+       }
+        // loader('#tbdata')
+        // $('#tbdata').html(rowContent);
+    });
+  }
+
+
+
+
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                             Crop offered begins                            */
+  /* -------------------------------------------------------------------------- */
+  function cropsOffered (){
+  
+    loader('#cropofferdata', 10)
+  
+    var settings = querySetting("api/admin/crop/getbycropoffer", "GET", localStorage.getItem('access'));
+      
+    $.ajax(settings).done(function (data) {
+      let response = data;
+      console.log(response);
+  
+    if(response.error==true){
+        console.log(response.message);
+       
+    }else{
+        console.log(response.data)
+        let thedata = response.data;
+        thedata = thedata.rows
+        if(thedata.length > 0){
+            let rowContent
+            $.each(thedata, (index, row) => {
+            
+                let crop_status;
+                if(row.user.status == 1){
+                  crop_status = 
+                    `<div class="py-1 text-center rounded-pill successalert">
+                      <span class="rounded-circle p-1 dot d-inline-block"></span>
+                      <strong class="text-success" style="font-size:12px;">ACTIVE</strong>
+                    </div>`;
+                }else{
+                  crop_status = 
+                    `<div class="py-1 text-center rounded-pill past-due">
+                      <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
+                      <strong class="text-past"  style="font-size:12px;">IN ACTIVE</strong>
+                    </div>`;
+                }
+                
+                index= index+1;
+                rowContent += `
+                <tr class="align-items-center">
+                <td style="min-width: 50px;">${index}</td>
+                <td style="min-width: 120px;"><strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
+                  <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
+                </td>
+                <td style="min-width: 100px;" class="text-primary">${row.user.email}</td>
+                <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.type}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.title}</small> </td>
+                <td style="min-width: 100px; text-align:center;">${crop_status}</td>
+                <td style="min-width: 200px;">${row.description}</td>
+                <td style="min-width: 50px;">
+                <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+                    VIEW
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header border-0">
+                        <h3 class="modal-title">Crop Specification</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+  
+                        <div class="offer-right">
+                                      <div class="offered">
+                                          <!---->
+                                          <div class="color">
+                                              <h3>Wanted</h3>
+                                              <hr/>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Acid Ash</h3>
+                                                    <h6>${row.specification.acid_ash}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Broken Grains</h3>
+                                                    <h6>${row.specification.broken_grains}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>Color</h3>
+                                                  <h6>${row.specification.color}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Curcumin Content</h3>
+                                                    <h6>${row.specification.curcumin_content}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Dead Insect</h3>
+                                                    <h6>${row.specification.dead_insect}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>DK</h3>
+                                                  <h6>${row.specification.dk}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Drying Process</h3>
+                                                    <h6>${row.specification.drying_process}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Extraneous</h3>
+                                                    <h6>${row.specification.extraneous}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>Foreign Matter</h3>
+                                                  <h6>${row.specification.foreign_matter}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Grain Size</h3>
+                                                    <h6>${row.specification.grain_size}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Hardness</h3>
+                                                    <h6>${row.specification.hardness}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>Hectoliter</h3>
+                                                  <h6>${row.specification.hectoliter}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Infestation</h3>
+                                                    <h6>${row.specification.infestation}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Mammalian</h3>
+                                                    <h6>${row.specification.mammalian}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>Model Type</h3>
+                                                  <h6>${row.specification.model_type}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Moisture</h3>
+                                                    <h6>${row.specification.moisture}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Mold</h3>
+                                                    <h6>${row.specification.mold}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>OIl Content</h3>
+                                                  <h6>${row.specification.oil_content}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Price</h3>
+                                                    <h6>${row.specification.price}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Quantity</h3>
+                                                    <h6>${row.specification.qty}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>Rotten Shriveled</h3>
+                                                  <h6>${row.specification.rotten_shriveled}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Splits</h3>
+                                                    <h6>${row.specification.splits}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Test Weight</h3>
+                                                    <h6>${row.specification.test_weight}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>Total Defects</h3>
+                                                  <h6>${row.specification.total_defects}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Unit</h3>
+                                                    <h6>${row.specification.unit}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Volatile</h3>
+                                                    <h6>${row.specification.volatile}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>Weevil</h3>
+                                                  <h6>${row.specification.weevil}</h6>
+                                                </div>
+                                              </div>
+  
+                                              
+                                              
+                                          </div>
+                                          <!---->
+                                      </div>
+                                  </div>
+  
+                        
+                        </div>
+                        <div class="modal-footer border-0">
+                        <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </td>
+              
+              
+                <td style="min-width: 50px; cursor:pointer;">
+                  <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')">View More</a>
+                </td>
+                
+  
+              </tr>
+                `;
+              });
+              $('#cropofferdata').html(rowContent);
+              $(document).ready( function () {
+                $('#allTable').DataTable({
+                  scrollY: 300,
+                  scrollX: true,
+                  scrollCollapse: true,
+                  retrieve: true,
+                  paging: true,
+                  "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+                  fixedHeader:{
+                      header: true,
+                      footer: true
+                  }
+                });
+              });
+        }else{
+            $('#cropofferdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop registered yet</h3></td></tr>");
+        }
+    }
+    });
+  
+  };
+
+  /* -------------------------------------------------------------------------- */
+  /*                               Crop Offers end                              */
+  /* -------------------------------------------------------------------------- */
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                             Crop Auction begins                            */
+  /* -------------------------------------------------------------------------- */
+function cropsAuctioned (){
+  
+    loader('#cropauctiondata', 10)
+  
+    var settings = querySetting("api/admin/crop/getbycropauction", "GET", localStorage.getItem('access'));
+      
+    $.ajax(settings).done(function (data) {
+      let response = data;
+      console.log(response);
+  
+    if(response.error==true){
+        console.log(response.message);
+       
+    }else{
+        console.log(response.data)
+        let thedata = response.data;
+        thedata = thedata.rows
+        if(thedata.length > 0){
+            let rowContent
+            $.each(thedata, (index, row) => {
+            
+                let crop_status;
+                if(row.user.status == 1){
+                  crop_status = 
+                    `<div class="py-1 text-center rounded-pill successalert">
+                      <span class="rounded-circle p-1 dot d-inline-block"></span>
+                      <strong class="text-success" style="font-size:12px;">ACTIVE</strong>
+                    </div>`;
+                }else{
+                  crop_status = 
+                    `<div class="py-1 text-center rounded-pill past-due">
+                      <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
+                      <strong class="text-past"  style="font-size:12px;">IN ACTIVE</strong>
+                    </div>`;
+                }
+                
+                index= index+1;
+                rowContent += `
+                <tr class="align-items-center">
+                <td style="min-width: 50px;">${index}</td>
+                <td style="min-width: 120px;"><strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
+                  <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
+                </td>
+                <td style="min-width: 100px;" class="text-primary">${row.user.email}</td>
+                <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.type}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.title}</small> </td>
+                <td style="min-width: 100px; text-align:center;">${crop_status}</td>
+                <td style="min-width: 200px;">${row.description}</td>
+                <td style="min-width: 50px;">
+                <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+                    VIEW
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header border-0">
+                        <h3 class="modal-title">Crop Specification</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+  
+                        <div class="offer-right">
+                                      <div class="offered">
+                                          <!---->
+                                          <div class="color">
+                                              <h3>Wanted</h3>
+                                              <hr/>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Acid Ash</h3>
+                                                    <h6>${row.specification.acid_ash}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Broken Grains</h3>
+                                                    <h6>${row.specification.broken_grains}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>Color</h3>
+                                                  <h6>${row.specification.color}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Curcumin Content</h3>
+                                                    <h6>${row.specification.curcumin_content}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Dead Insect</h3>
+                                                    <h6>${row.specification.dead_insect}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>DK</h3>
+                                                  <h6>${row.specification.dk}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Drying Process</h3>
+                                                    <h6>${row.specification.drying_process}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Extraneous</h3>
+                                                    <h6>${row.specification.extraneous}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>Foreign Matter</h3>
+                                                  <h6>${row.specification.foreign_matter}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Grain Size</h3>
+                                                    <h6>${row.specification.grain_size}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Hardness</h3>
+                                                    <h6>${row.specification.hardness}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>Hectoliter</h3>
+                                                  <h6>${row.specification.hectoliter}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Infestation</h3>
+                                                    <h6>${row.specification.infestation}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Mammalian</h3>
+                                                    <h6>${row.specification.mammalian}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>Model Type</h3>
+                                                  <h6>${row.specification.model_type}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Moisture</h3>
+                                                    <h6>${row.specification.moisture}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Mold</h3>
+                                                    <h6>${row.specification.mold}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>OIl Content</h3>
+                                                  <h6>${row.specification.oil_content}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Price</h3>
+                                                    <h6>${row.specification.price}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Quantity</h3>
+                                                    <h6>${row.specification.qty}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>Rotten Shriveled</h3>
+                                                  <h6>${row.specification.rotten_shriveled}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Splits</h3>
+                                                    <h6>${row.specification.splits}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Test Weight</h3>
+                                                    <h6>${row.specification.test_weight}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>Total Defects</h3>
+                                                  <h6>${row.specification.total_defects}</h6>
+                                                </div>
+                                              </div>
+  
+                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
+                                                <div class="each-item col-4">
+                                                    <h3>Unit</h3>
+                                                    <h6>${row.specification.unit}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                    <h3>Volatile</h3>
+                                                    <h6>${row.specification.volatile}</h6>
+                                                </div>
+                                                <div class="each-item col-4">
+                                                  <h3>Weevil</h3>
+                                                  <h6>${row.specification.weevil}</h6>
+                                                </div>
+                                              </div>
+  
+                                              
+                                              
+                                          </div>
+                                          <!---->
+                                      </div>
+                                  </div>
+  
+                        
+                        </div>
+                        <div class="modal-footer border-0">
+                        <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </td>
+              
+              
+                <td style="min-width: 50px; cursor:pointer;">
+                  <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')">View More</a>
+                </td>
+                
+  
+              </tr>
+                `;
+              });
+              $('#cropauctiondata').html(rowContent);
+              $(document).ready( function () {
+                $('#allTable').DataTable({
+                  scrollY: 300,
+                  scrollX: true,
+                  scrollCollapse: true,
+                  retrieve: true,
+                  paging: true,
+                  "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+                  fixedHeader:{
+                      header: true,
+                      footer: true
+                  }
+                });
+              });
+        }else{
+            $('#cropauctiondata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop registered yet</h3></td></tr>");
+        }
+    }
+    });
+  
+  };
 
 /* -------------------------------------------------------------------------- */
 /*                             CROP DATA ENDS HERE                            */

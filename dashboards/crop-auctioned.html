@@ -39,22 +39,22 @@
 				<div class="main-content row d-flex justify-content-center align-items-center">
 					<!-- Card Header -->
 					<div class="container-fluid header mb-2 mt-1 pt-md-8  ">
-						<div class="container gx-0 gx-md-2 gx-lg-4">
+						<div class="container">
 							<div class="header-body">
 								<div class="d-block d-md-flex justify-content-md-between  mb-1 mt-4">
 									<h2 class="fs-3 mb-3 welcome">All Crops</h2>
-									<div class="d-block d-md-flex">
-										<a href="#"><span class="border border-active border-secondary bg-white ps-3 pe-3 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Wanted</span></a>
+									<div>
+										<a href="./crops.html"><span class="border border-secondary bg-white ps-3 pe-3 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Wanted</span></a>
 										<a href="./crop-offered.html"><span class="border border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Offerd</span></a>
-										<a href="./crop-auctioned.html"><span class="border border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Auctioned</span></a>
+										<a href="#"><span class="border  border-active border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Auctioned</span></a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="container-fluid">
-						<div class="container gx-0 mt-2 mt-md-0 pe-2 pe-0 gx-md-2 gx-lg-4">
-							<div class="col-12 col-lg-12  mb-5 mb-xl-0 ">
+						<div class="container">
+							<div class="col-12 col-lg-12  mb-5 mb-xl-0">
 								<div class="card border-0 shadow-sm  rounded-5">
 									<div class=" card-header  rounded-5 border-0 bg-white d-flex justify-content-end py-2 px-4">
 										
@@ -62,12 +62,12 @@
 									</div>
 									<div class="card-body bg-white">
 										<div class="table-responsive table-hover">
-											<table id="allTable" class=" table table-hover table-lg align-middle table-borderless default-color">
+											<table id="allTable" class="table table-hover table-lg align-middle table-borderless default-color">
 												<thead class="t-border">
 													<tr class="border-bottom t-border">
 														<th scope="" style="min-width: 50px;">ID</th>
-														<th scope=""style="min-width: 170px;">USER</th>
-														<th scope=""style="min-width: 70px;">EMAIL</th>
+														<th scope=""style="min-width: 120px;">USER</th>
+														<th scope=""style="min-width: 130px;">EMAIL</th>
 														<th scope=""style="min-width: 100px;">CATEGORY</th>
 														<th scope=""style="min-width: 100px;">STATUS</th>
 														<th scope=""style="min-width: 200px;">DESCRIPTION</th>
@@ -77,7 +77,7 @@
 													</tr>
 												</thead>
 												
-												<tbody id="cropdata">
+												<tbody id="cropauctiondata">
 													
 												</tbody>
 												
@@ -112,16 +112,15 @@
 	<script type="text/javascript" src="../assets/DataTables/datatables.min.js"></script>
 	
 	
+	
 	<script>
 		$('#topnav').load("../component/nav-component.html")
 		$('#sidebarMenu').load("../component/component.html")
 		$('#bottomnav').load("../component/footer.html");
 	</script>
-
 	<script src="../js/admin.js"></script>
-
 	<script>
-		cropsWanted();
+		cropsAuctioned();
 	</script>
 </body>
 
