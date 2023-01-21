@@ -204,13 +204,232 @@ input:focus, select:focus {
     margin-left: -1.5em;
   }
 
+  /* -------------------------------------------------------------------------- */
+  /*                           Negotiation Background                           */
+  /* -------------------------------------------------------------------------- */
+  .nego-bg{
+    background-image: url(../assets/potato/potatodispla.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 65vh;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%) !important;
+  }
+
+  .nego-dp1{
+    background-image: url(../assets/potato/potato1.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 25vh;
+    border-radius: 3px;
+    margin-right: 8px;
+    box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%) !important;
+  }
+  .nego-dp2{
+    background-image: url(../assets/potato/potato5.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 25vh;
+    border-radius: 3px;
+    margin-right: 8px;
+    box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%) !important;
+  }
+  .nego-dp3{
+    background-image: url(../assets/potato/potato7.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 25vh;
+    border-radius: 3px;
+    margin-right: 8px;
+    box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%) !important;
+  }
+  .nego-dp4{
+    background-image: url(../assets/potato/potatodispla.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 25vh;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%) !important;
+  }
+  .nego-top{
+    background: var(--bg-sidenav);
+  }
+
+  /* negotiation chat */
+  #offer-form{
+    display: none;
+    width: 98%;
+    height: 97vh;
+    border: 1px solid rgba(48,189,110,.4);
+    position: fixed;
+    background-color: #fff;
+    padding: 5px;
+    margin: 5px;
+    /* bottom: 20px; */
+    top: 5px;
+    left: 0px;
+    right: 0px;
+    z-index: 100000;
+  }
+
+  #offer-form .close-form {
+    position: absolute;
+    right: 3px;
+    background-color: #696671;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    align-items: center;
+  }
+
+  #offer-form .main-form {
+    margin-top: 50px;
+    height: 90%;
+    overflow-y: scroll;
+  }
+
+  #offer-form .form-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* gap: 12px; */
+  }
+
+  #offer-form .got-it {
+    width: 38%;
+  }
+  #offer-form .form-group {
+    margin-bottom: 0!important;
+  }
+  #offer-form label {
+    font-style: Medium;
+    font-size: 16px;
+    /* color: #b5b4b9; */
+  }
+  #offer-form .quantity {
+    display: flex;
+    width: 100%;
+  }
+  #offer-form .quantity select {
+    width: 50%!important;
+  }
+  #offer-form select {
+    box-shadow: none;
+    border-radius: 0;
+    background: #fbfdff;
+    font-size: 15px;
+    /* color: #445461; */
+    font-weight: 400;
+  }
+  #offer-form input {
+    font-size: 14;
+    /* color: #696671; */
+  }
+
+  .chat-image {
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .chat-image img {
+    width: 40%;
+  }
+  .thechatside{
+    display: none;
+    height: 87vh;
+    overflow: auto;
+    padding-bottom: 40px;
+  }
+
+  .offer-right {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .offered {
+    width: 50%;
+    gap: 10px;
+    border-radius: 4px;
+  }
+  .offered .colored {
+    background: #f9e9e9;
+    padding: 16px;
+    gap: 10px;
+  }
+  .offered h3 {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 147%;
+    color: #4a4754;
+    margin-bottom: 0;
+  }
+  .offered hr {
+    color: #fff;
+    height: 3px;
+  }
+  .offered .each-item {
+    display: flex;
+    justify-content: space-between;
+  }
+  .offered h3 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 147%;
+    color: #4a4754;
+    margin-bottom: 0;
+  }
+  .offered .each-item p {
+    font-family: Maven Pro;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 147%;
+    color: #4a4754;
+    font-weight: 400;
+  }
+  .offered .each-item h4 {
+    font-weight: 700;
+  }
+  .offered .each-item h4 {
+    font-style: normal;
+    font-size: 14px;
+    line-height: 147%;
+    color: #4a4754;
+  }
+  .offered button {
+    width: 100%;
+    height: 30px;
+    background: #696671;
+    color: #fff;
+    border: none;
+    margin-bottom: 45px;
+    font-size: 14px;
+  }
+  /* negotiation chat ends  */
+
 
 
   /* multi selector  */
 
 .choices__list--dropdown{
     border: none;
-  box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%) !important;
+    box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%) !important;
 
 }
 .choices__list--dropdown .choices__item:hover{
@@ -472,6 +691,7 @@ background-position:
 /* Welcome */
 .welcome{
     color: var(--bs-default);
+    font-family: var(--universal-font);
 }
 
 
@@ -578,6 +798,7 @@ background-position:
     margin-top: 67px;
     overflow-y: auto;
 }
+
 .active{
     background: var(--btn-dashboard) !important;
     padding: 15px 18px;
@@ -644,11 +865,12 @@ background-position:
     /* border-spacing: 10px 20px !important; */
     border-top: 1px solid #dee2e6 !important;
     margin-bottom: 70px;   
+    font-family: var(--universal-font);
 }
 td {
-        width: 150px;
+        /* width: 150px; */
         /* text-align: center; */
-        /* border-bottom: 1px solid rgb(179, 178, 178) !important; */
+        border-bottom: 1px solid rgb(179, 178, 178) !important;
         /* padding: 5px; */
         /* background-color: #fff; */
         /* box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1) !important; */
@@ -724,9 +946,19 @@ td:first-child:before{
   margin-bottom: 5px;
   font-size: 15px !important;
 }
+.boldtableContent-sm{
+  font-weight: 600;
+  font-family: var(--universal-font);
+  margin-bottom: 5px;
+  font-size: 13px !important;
+}
 .tableinfo{
   font-size: 14px !important;
   font-weight: 600;
+}
+.tablenego {
+  font-size: 14px !important;
+ letter-spacing: 0.2px;
 }
 
  /* -------------------------------------------------------------------------- */

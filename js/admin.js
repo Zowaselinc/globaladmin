@@ -945,9 +945,6 @@ function fetchAllactivity (){
 
 
 
-
-
-
 /* -------------------------------------------------------------------------- */
 /*                            ERROR LOG STARTS HERE                           */
 /* -------------------------------------------------------------------------- */
@@ -1068,7 +1065,6 @@ $.ajax(settings).done(function (response) {
 /* -------------------------------------------------------------------------- */
 /*                            ERROR LOGS ENDS HERE                            */
 /* -------------------------------------------------------------------------- */
-
 
 
 
@@ -1302,8 +1298,6 @@ const allUsers = () => {
 
 
 
-
-
 /* -------------------------------------------------------------------------- */
 /*                           Crop  ORDERS STARTS HERE                             */
 /* -------------------------------------------------------------------------- */
@@ -1453,6 +1447,181 @@ function fetchAllcompany (){
 /* -------------------------------------------------------------------------- */
 
 
+/* -------------------------------------------------------------------------- */
+/*                     Fetching all categories data start                     */
+/* -------------------------------------------------------------------------- */
+function fetchAllCategory (){
+  
+  loader('#categorydata', 10)
+
+  var settings = querySetting("api/admin/category/crop/getall", "GET", localStorage.getItem('access'));
+    
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+  if(response.error==true){
+      console.log(response.message);
+     
+  }else{
+      console.log(response.data)
+      let thedata = response.data;
+     
+      console.log(thedata)
+
+      if(thedata.length > 0){
+          let rowContent
+          $.each(thedata, (index, row) => {
+          
+             
+              // console.log(row.category.type)
+              index= index+1;
+              rowContent += `
+                <tr class="align-middle text-start">
+                    <td style="min-width: 50px;">${index}</td>
+                    <td style="min-width: 100px;" class="text-capitalize">${row.type}</td>
+                    <td style="min-width: 100px;">${row.name}</td>
+                    <td style="min-width: 50px;">
+                      <a href="javascript:void(0)" onclick="viewSubCategory('${row.id}','${row.name}')">
+                        <span class="text-primary">
+                          <i class="fa fa-eye"></i> View
+                        </span>
+                      </a>
+                    </td>
+                    <td style="min-width: 120px;">${splittingDate(row.created_at)}</td>
+                    <td style="min-width: 120px;">${splittingDate(row.updated_at)}</td>
+                   
+                    <td style="max-width: 50px;">
+                      <span>
+                        <!-- <button class="btn btn-sm th-btn text-white fs-9 rounded-6" onclick="editcategory('')">Edit</button> -->
+                        <a href="" onclick="editcategory('')"><i class="text-primary fa fa-pencil"></i></a>
+                      </span>
+                    </td>
+                    <td style="max-width: 50px;">
+                      <span>
+                        <!-- <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deletecategory('${row.id}')">Delete</button> -->
+                        <a href="" onclick="deletecategory('${row.id}')"><i class="text-danger fa fa-trash"></i></a>
+                      </span>
+                    </td>
+								</tr>
+              `;
+            });
+            $('#categorydata').html(rowContent);
+            $(document).ready( function () {
+              $('#allTable').DataTable({
+                scrollY: 300,
+                scrollX: true,
+                scrollCollapse: true,
+                retrieve: true,
+                paging: true,
+                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+                fixedHeader:{
+                    header: true,
+                    footer: true
+                }
+              });
+            });
+      }else{
+          $('#categorydata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Category Added Yet</h3></td></tr>");
+      }
+  }
+  });
+
+};
+
+/* -------------------------------------------------------------------------- */
+/*                  Viewing individual category subcategories                 */
+/* -------------------------------------------------------------------------- */
+const viewSubCategory = (id, name) => {
+  // alert(id);
+  // let cropId = JSON.stringify({"id": id});
+  localStorage.setItem('singlecategoryid', JSON.stringify({"id":id,"name":name}));
+  window.location.href = "sub-category.html";
+}
+
+
+const fetchAllSubCategories  =() => {
+  loader('#subcategorydata', 10)
+  let catData = JSON.parse(localStorage.getItem('singlecategoryid'));
+  let catid = catData.id;
+
+  let catname = catData.name;
+
+  $('#subName').text(catname);
+  var settings = querySetting("api/admin/subcategory/getbycategory/"+catid, "GET", localStorage.getItem('access'));
+  
+
+  $.ajax(settings).done(function (data) {
+    console.log(data);
+      let response = data;
+    console.log(response);
+    if(response.error==true){
+      console.log(response.message);
+    }else{
+      console.log(response.data)
+      let thedata = response.data;
+     
+      console.log(thedata)
+
+      if(thedata.length > 0){
+          let rowContent
+          $.each(thedata, (index, row) => {
+              index= index+1;
+              rowContent += 
+              // console.log(row.category_id);
+              // let count = response.data.crop_request[0];
+              // $('#subName').text(row.category_id);
+              `
+                <tr class="align-middle">
+                    <td style="min-width: 50px;">${index}</td>
+                    <td style="min-width: 100px;">${row.name}</td>
+                    <td style="min-width: 100px;">${splittingDate(row.created_at)}</td>
+                    <td style="min-width: 100px;">${splittingDate(row.updated_at)}</td>
+                    
+                    <td style="max-width: 50px;">
+                      <span>
+                        <!-- <button class="btn btn-sm th-btn text-white fs-9 rounded-6" onclick="editcategory('')">Edit</button> -->
+                        <a href="" onclick="editcategory('')"><i class="text-primary fa fa-pencil"></i></a>
+                      </span>
+                    </td>
+                    <td style="max-width: 50px;">
+                      <span>
+                        <!-- <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deletecategory('${row.id}')">Delete</button> -->
+                        <a href="" onclick="deletecategory('${row.id}')"><i class="text-danger fa fa-trash"></i></a>
+                      </span>
+                    </td>
+								</tr>
+              `;
+            });
+            $('#subcategorydata').html(rowContent);
+            $(document).ready( function () {
+              $('#allTable').DataTable({
+                scrollY: 300,
+                scrollX: true,
+                scrollCollapse: true,
+                retrieve: true,
+                paging: true,
+                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+                fixedHeader:{
+                    header: true,
+                    footer: true
+                }
+              });
+            });
+      }else{
+          $('#subcategorydata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Category Added Yet</h3></td></tr>");
+      }
+  }
+      // loader('#tbdata')
+      // $('#tbdata').html(rowContent);
+  });
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                    Fetching All Categories ends here                   */
+/* -------------------------------------------------------------------------- */
 
 
 /* -------------------------------------------------------------------------- */
@@ -1606,7 +1775,7 @@ function cropsWanted (){
                     <strong class="text-past"  style="font-size:12px;">IN ACTIVE</strong>
                   </div>`;
               }
-              
+              // console.log(row.category.type)
               index= index+1;
               rowContent += `
               <tr class="align-items-center">
@@ -1615,7 +1784,7 @@ function cropsWanted (){
                 <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
               </td>
               <td style="min-width: 70px;" class="text-primary">${row.user.email}</td>
-              <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.type}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.title}</small> </td>
+              <td style="min-width: 100px;"><small class="text-primary fw-bold text-uppercase">${row.title}</small> </td>
               <td style="min-width: 100px; text-align:center;">${crop_status}</td>
               <td style="min-width: 200px;">${row.description}</td>
               <td style="min-width: 50px;">
@@ -1633,143 +1802,143 @@ function cropsWanted (){
                       </div>
                       <div class="modal-body">
 
-                      <div class="offer-right">
-                                    <div class="offered">
+                      <div class="">
+                                    <div class="">
                                         <!---->
-                                        <div class="color">
+                                        <div class="">
                                             <h3>Wanted</h3>
                                             <hr/>
 
                                             <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Acid Ash</h3>
                                                   <h6>${row.specification.acid_ash}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Broken Grains</h3>
                                                   <h6>${row.specification.broken_grains}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                 <h3>Color</h3>
                                                 <h6>${row.specification.color}</h6>
                                               </div>
                                             </div>
 
                                             <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Curcumin Content</h3>
                                                   <h6>${row.specification.curcumin_content}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Dead Insect</h3>
                                                   <h6>${row.specification.dead_insect}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                 <h3>DK</h3>
                                                 <h6>${row.specification.dk}</h6>
                                               </div>
                                             </div>
 
                                             <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Drying Process</h3>
                                                   <h6>${row.specification.drying_process}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Extraneous</h3>
                                                   <h6>${row.specification.extraneous}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                 <h3>Foreign Matter</h3>
                                                 <h6>${row.specification.foreign_matter}</h6>
                                               </div>
                                             </div>
 
                                             <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Grain Size</h3>
                                                   <h6>${row.specification.grain_size}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Hardness</h3>
                                                   <h6>${row.specification.hardness}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                 <h3>Hectoliter</h3>
                                                 <h6>${row.specification.hectoliter}</h6>
                                               </div>
                                             </div>
 
                                             <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Infestation</h3>
                                                   <h6>${row.specification.infestation}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Mammalian</h3>
                                                   <h6>${row.specification.mammalian}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                 <h3>Model Type</h3>
                                                 <h6>${row.specification.model_type}</h6>
                                               </div>
                                             </div>
 
                                             <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Moisture</h3>
                                                   <h6>${row.specification.moisture}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Mold</h3>
                                                   <h6>${row.specification.mold}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                 <h3>OIl Content</h3>
                                                 <h6>${row.specification.oil_content}</h6>
                                               </div>
                                             </div>
 
                                             <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Price</h3>
                                                   <h6>${row.specification.price}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Quantity</h3>
                                                   <h6>${row.specification.qty}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                 <h3>Rotten Shriveled</h3>
                                                 <h6>${row.specification.rotten_shriveled}</h6>
                                               </div>
                                             </div>
 
                                             <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Splits</h3>
                                                   <h6>${row.specification.splits}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Test Weight</h3>
                                                   <h6>${row.specification.test_weight}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                 <h3>Total Defects</h3>
                                                 <h6>${row.specification.total_defects}</h6>
                                               </div>
                                             </div>
 
                                             <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Unit</h3>
                                                   <h6>${row.specification.unit}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                   <h3>Volatile</h3>
                                                   <h6>${row.specification.volatile}</h6>
                                               </div>
-                                              <div class="each-item col-4">
+                                              <div class="col-4">
                                                 <h3>Weevil</h3>
                                                 <h6>${row.specification.weevil}</h6>
                                               </div>
@@ -1989,143 +2158,143 @@ const viewMore  =() => {
                         </div>
                         <div class="modal-body">
   
-                        <div class="offer-right">
-                                      <div class="offered">
+                        <div class="">
+                                      <div class="">
                                           <!---->
-                                          <div class="color">
+                                          <div class="">
                                               <h3>Wanted</h3>
                                               <hr/>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Acid Ash</h3>
                                                     <h6>${row.specification.acid_ash}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Broken Grains</h3>
                                                     <h6>${row.specification.broken_grains}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>Color</h3>
                                                   <h6>${row.specification.color}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Curcumin Content</h3>
                                                     <h6>${row.specification.curcumin_content}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Dead Insect</h3>
                                                     <h6>${row.specification.dead_insect}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>DK</h3>
                                                   <h6>${row.specification.dk}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Drying Process</h3>
                                                     <h6>${row.specification.drying_process}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Extraneous</h3>
                                                     <h6>${row.specification.extraneous}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>Foreign Matter</h3>
                                                   <h6>${row.specification.foreign_matter}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Grain Size</h3>
                                                     <h6>${row.specification.grain_size}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Hardness</h3>
                                                     <h6>${row.specification.hardness}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>Hectoliter</h3>
                                                   <h6>${row.specification.hectoliter}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Infestation</h3>
                                                     <h6>${row.specification.infestation}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Mammalian</h3>
                                                     <h6>${row.specification.mammalian}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>Model Type</h3>
                                                   <h6>${row.specification.model_type}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Moisture</h3>
                                                     <h6>${row.specification.moisture}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Mold</h3>
                                                     <h6>${row.specification.mold}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>OIl Content</h3>
                                                   <h6>${row.specification.oil_content}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Price</h3>
                                                     <h6>${row.specification.price}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Quantity</h3>
                                                     <h6>${row.specification.qty}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>Rotten Shriveled</h3>
                                                   <h6>${row.specification.rotten_shriveled}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Splits</h3>
                                                     <h6>${row.specification.splits}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Test Weight</h3>
                                                     <h6>${row.specification.test_weight}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>Total Defects</h3>
                                                   <h6>${row.specification.total_defects}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Unit</h3>
                                                     <h6>${row.specification.unit}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Volatile</h3>
                                                     <h6>${row.specification.volatile}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>Weevil</h3>
                                                   <h6>${row.specification.weevil}</h6>
                                                 </div>
@@ -2250,143 +2419,143 @@ function cropsAuctioned (){
                         </div>
                         <div class="modal-body">
   
-                        <div class="offer-right">
-                                      <div class="offered">
+                        <div class="">
+                                      <div class="">
                                           <!---->
-                                          <div class="color">
+                                          <div class="">
                                               <h3>Wanted</h3>
                                               <hr/>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Acid Ash</h3>
                                                     <h6>${row.specification.acid_ash}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Broken Grains</h3>
                                                     <h6>${row.specification.broken_grains}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>Color</h3>
                                                   <h6>${row.specification.color}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Curcumin Content</h3>
                                                     <h6>${row.specification.curcumin_content}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Dead Insect</h3>
                                                     <h6>${row.specification.dead_insect}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>DK</h3>
                                                   <h6>${row.specification.dk}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Drying Process</h3>
                                                     <h6>${row.specification.drying_process}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Extraneous</h3>
                                                     <h6>${row.specification.extraneous}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>Foreign Matter</h3>
                                                   <h6>${row.specification.foreign_matter}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Grain Size</h3>
                                                     <h6>${row.specification.grain_size}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Hardness</h3>
                                                     <h6>${row.specification.hardness}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>Hectoliter</h3>
                                                   <h6>${row.specification.hectoliter}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Infestation</h3>
                                                     <h6>${row.specification.infestation}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Mammalian</h3>
                                                     <h6>${row.specification.mammalian}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>Model Type</h3>
                                                   <h6>${row.specification.model_type}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Moisture</h3>
                                                     <h6>${row.specification.moisture}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Mold</h3>
                                                     <h6>${row.specification.mold}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>OIl Content</h3>
                                                   <h6>${row.specification.oil_content}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Price</h3>
                                                     <h6>${row.specification.price}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Quantity</h3>
                                                     <h6>${row.specification.qty}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>Rotten Shriveled</h3>
                                                   <h6>${row.specification.rotten_shriveled}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Splits</h3>
                                                     <h6>${row.specification.splits}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Test Weight</h3>
                                                     <h6>${row.specification.test_weight}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>Total Defects</h3>
                                                   <h6>${row.specification.total_defects}</h6>
                                                 </div>
                                               </div>
   
                                               <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Unit</h3>
                                                     <h6>${row.specification.unit}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                     <h3>Volatile</h3>
                                                     <h6>${row.specification.volatile}</h6>
                                                 </div>
-                                                <div class="each-item col-4">
+                                                <div class="col-4">
                                                   <h3>Weevil</h3>
                                                   <h6>${row.specification.weevil}</h6>
                                                 </div>

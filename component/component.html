@@ -2,7 +2,7 @@
 <div>
     <div class="position-sticky  nav-left ">
         <ul class="nav flex-column px-4 mt-1 mt-lg-0"> 
-
+            <!-- Dashboard  -->
             <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
                 <a href="javascript:void(0)"  onclick="clicked()" class="btnn nav-link text-white d-flex justify-content-between align-items-center hi" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false"> 
                     <div>
@@ -18,7 +18,7 @@
                     </ul>
                 </div>
             </li>
-
+            <!-- Admin  -->
             <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#admin-collapse" aria-expanded="false"> 
                     <div>
@@ -35,7 +35,7 @@
                     </ul>
                 </div>
             </li>
-
+            <!-- Users  -->
             <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#users-collapse" aria-expanded="false"> 
                     <div>
@@ -51,7 +51,7 @@
                     </ul>
                 </div>
             </li>
-
+            <!-- Roles  -->
             <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#roles-collapse" aria-expanded="false"> 
                     <div>
@@ -67,7 +67,30 @@
                     </ul>
                 </div>
             </li>
+            <!-- Marketplace  -->
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
+                <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#marketplace-collapse" aria-expanded="false"> 
+                    <div>
+                        <i class="fa fa-store"></i>
+                        <span class="ms-1 ps-3 spacing-4">Marketplace</span>
+                    </div>
+                </a>
 
+                <div class="collapse" id="marketplace-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
+                    <li><a href="../dashboards/category.html" class="text-white nav-link spacing-4 ps-5 ms-1">Categories</a></li>
+                    <li><a href="../dashboards/input-market.html" class="text-white nav-link spacing-4 ps-5 ms-1">All Input</a></li>
+                    <li><a href="../dashboards/crops.html" class="text-white nav-link spacing-4 ps-5 ms-1">All Crop</a></li>
+                    <li><a href="../dashboards/view-orders.html" class="text-white nav-link spacing-4 ps-5 ms-1">Orders</a></li>
+                    <li><a href="../dashboards/transaction.html" class="text-white nav-link spacing-4 ps-5 ms-1">Market Transactions</a></li>
+                    <li><a href="../dashboards/negotiation.html" class="text-white nav-link spacing-4 ps-5 ms-1">View Negotiation</a></li>
+                    <li><a href="../dashboards/purchase-order.html" class="text-white nav-link spacing-4 ps-5 ms-1">Purchase Orders</a></li>
+                    <li><a href="../dashboards/good-receipt.html" class="text-white nav-link spacing-4 ps-5 ms-1">Good Receipt Note</a></li>
+                    <li><a href="../dashboards/withdrawal-request.html" class="text-white nav-link spacing-4 ps-5 ms-1">Withdrawal Request</a></li>
+                    </ul>
+                </div>
+            </li>
+            <!-- Support  -->
             <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#support-collapse" aria-expanded="false"> 
                     <div>
@@ -83,29 +106,7 @@
                     </ul>
                 </div>
             </li>
-
-            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
-                <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#marketplace-collapse" aria-expanded="false"> 
-                    <div>
-                        <i class="fa fa-store"></i>
-                        <span class="ms-1 ps-3 spacing-4">Marketplace</span>
-                    </div>
-                </a>
-
-                <div class="collapse" id="marketplace-collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
-                    <li><a href="../dashboards/input-market.html" class="text-white nav-link spacing-4 ps-5 ms-1">All Input</a></li>
-                    <li><a href="../dashboards/crops.html" class="text-white nav-link spacing-4 ps-5 ms-1">All Crop</a></li>
-                    <li><a href="../dashboards/view-orders.html" class="text-white nav-link spacing-4 ps-5 ms-1">Orders</a></li>
-                    <li><a href="../dashboards/transaction.html" class="text-white nav-link spacing-4 ps-5 ms-1">Market Transactions</a></li>
-                    <li><a href="../dashboards/negotiation.html" class="text-white nav-link spacing-4 ps-5 ms-1">View Negotiation</a></li>
-                    <li><a href="../dashboards/purchase-order.html" class="text-white nav-link spacing-4 ps-5 ms-1">Purchase Orders</a></li>
-                    <li><a href="../dashboards/good-receipt.html" class="text-white nav-link spacing-4 ps-5 ms-1">Good Receipt Note</a></li>
-                    <li><a href="../dashboards/withdrawal-request.html" class="text-white nav-link spacing-4 ps-5 ms-1">Withdrawal Request</a></li>
-                    </ul>
-                </div>
-            </li>
-            
+            <!-- Wallet  -->
             <li class="btn-toggle nav-item mb-2 mb-xxl-2 collapsed">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#wallet-collapse" aria-expanded="false">
                     <div>
@@ -121,29 +122,28 @@
                     </ul>
                 </div>
             </li>
-
+            <!-- Company  -->
             <li class="nav-item mb-2 mb-xxl-2">
                 <a href="../dashboards/company.html" class="nav-link align-middle text-white">
                 <i class="far fa-building"></i>
                 <span class="ms-1 ps-3 spacing-4">Company</span>
                 </a>
             </li>
-
+            <!-- Messages  -->
             <li class="nav-item mb-2 mb-xxl-2">
                 <a href="../dashboards/chat.html" class="nav-link align-middle text-white">
                 <i class="far fa-comment-alt"></i>
                 <span class="ms-1 ps-3 spacing-4">Messages</span>
                 </a>
             </li>
-
+            <!-- Settings  -->
             <li class="nav-item mb-2 mb-xxl-2">
                 <a href="../dashboards/settings.html" class="nav-link align-middle text-white">
                 <i class="fa fa-cogs"></i>
                 <span class="ms-1 ps-3 spacing-4">Settings</span>
                 </a>
             </li>
-
-
+            <!-- Logout  -->
             <li class="nav-item mb-5 mb-xxl-2">
                 <a href="javascript:void(0)" class="nav-link align-middle text-white" onclick="logUserOut()">
                 <i class="fa fa-sign-out"></i>
