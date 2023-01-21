@@ -133,7 +133,7 @@ function fetchAllroles(){
           
           index= index+1;
           rowContent 
-          += `<tr class="align-items-center">
+          += `<tr class="align-items-">
           <td style="min-width: 10px !important;"><span>${index}</span></td>
           <td style="min-width: 100px !important;"><span>${row.role_name}</span></td>
           <td style="min-width: 130px !important;"><span>${row.role_description}</span></td>
