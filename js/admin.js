@@ -133,7 +133,7 @@ function fetchAllroles(){
           
           index= index+1;
           rowContent 
-          += `<tr class="align-items-">
+          += `<tr class="align-items-center">
           <td style="min-width: 10px !important;"><span>${index}</span></td>
           <td style="min-width: 100px !important;"><span>${row.role_name}</span></td>
           <td style="min-width: 130px !important;"><span>${row.role_description}</span></td>
@@ -1624,22 +1624,146 @@ const fetchAllSubCategories  =() => {
 /* -------------------------------------------------------------------------- */
 
 
+
+/* -------------------------------------------------------------------------- */
+/*                             Fetching all Colors  start                           */
+/* -------------------------------------------------------------------------- */
+function fetchAllcolors (){
+  
+  loader('#colordata', 10)
+
+  var settings = querySetting("api/admin/colour/getall", "GET", localStorage.getItem('access'));
+    
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+  if(response.error==true){
+      console.log(response.message);
+     
+  }else{
+      console.log(response.data)
+      let thedata = response.data;
+     
+      console.log(thedata)
+
+      if(thedata.length > 0){
+          let rowContent
+          $.each(thedata, (index, row) => {
+          
+             
+              // console.log(row.category.type)
+              index= index+1;
+              rowContent += `
+                <tr class="align-middle text-start">
+                    <td style="min-width: 50px;">${index}</td>
+                    <td style="min-width: 100px;">${row.name}</td>
+                    <td style="min-width: 120px;">${splittingDate(row.created_at)}</td>
+                    <td style="min-width: 120px;">${splittingDate(row.updated_at)}</td>
+                   
+                    <td style="max-width: 50px;">
+                      <span>
+                        <!-- <button class="btn btn-sm th-btn text-white fs-9 rounded-6" onclick="editcategory('')">Edit</button> -->
+                        <a href="" onclick="editcategory('')"><i class="text-primary fa fa-pencil"></i></a>
+                      </span>
+                    </td>
+                    <td style="max-width: 50px;">
+                      <span>
+                        <!-- <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deletecategory('${row.id}')">Delete</button> -->
+                        <a href="" onclick="deletecategory('${row.id}')"><i class="text-danger fa fa-trash"></i></a>
+                      </span>
+                    </td>
+								</tr>
+              `;
+            });
+            $('#colordata').html(rowContent);
+            $(document).ready( function () {
+              $('#allTable').DataTable({
+                scrollY: 300,
+                scrollX: true,
+                scrollCollapse: true,
+                retrieve: true,
+                paging: true,
+                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+                fixedHeader:{
+                    header: true,
+                    footer: true
+                }
+              });
+            });
+      }else{
+          $('#colordata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Category Added Yet</h3></td></tr>");
+      }
+  }
+  });
+
+};
+
+//----------------------------------- Adding color start--------------------------------//
+const addColor =()=>{
+  // console.log(localStorage.getItem('access'));
+  // selecting the input element and get its value
+  let colorName = document.getElementById("color_name");
+
+
+  // Displaying the value 
+
+  if(!colorName.value){
+      swal("Enter Color Name!");
+      colorName.focus();
+      return false;
+  }else{
+
+      const colorAdd = JSON.stringify({
+          "color_name": colorName.value,
+          
+        
+      });
+
+      var settings = querySetting("api/admin/colour/add", "POST", localStorage.getItem('access'), colorAdd);
+        
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if(response.error==true){
+              console.log(response.message);
+              swal("FAILED", response.message, "error");
+            }else{
+              console.log(response.message);
+              swal("SUCCESS", response.message, "success");
+            
+              colorName.value="";
+              
+              window.location.href = "color-setup.html";
+              setTimeout(() => {
+                cancelRequest();
+              }, 2000)
+              fetchAllcolors();
+            }
+        });
+  }
+};
+/* -------------------------------------------------------------------------- */
+/*                           Fetching all color end                           */
+/* -------------------------------------------------------------------------- */
+
+
+
 /* -------------------------------------------------------------------------- */
 /*                           INPUT DATA STARTS HERE                           */
 /* -------------------------------------------------------------------------- */
 
 function fetchAllinput (){
 
-  // loader('#inputdata', 14)
+  loader('#inputdata', 14)
 
-  // var settings = {
-  //   "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/input/getall",
-  //   "method": "GET",
-  //   "timeout": 0,
-  //   "headers": {
-  //     "Authorization": localStorage.getItem('access')
-  //   },
-  // };
+  var settings = {
+    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/input/getall",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": localStorage.getItem('access')
+    },
+  };
     
   $.ajax(settings).done(function (data) {
     let response = data;
@@ -1671,9 +1795,9 @@ function fetchAllinput (){
               index= index+1;
               rowContent += `<tr class="align-items-center">
               <td style="min-width: 50px;">${index}</td>
-              <td style="min-width: 170px;">John Doe</td>
-              <td style="min-width: 170px;">${row.category}</td>
-              <td style="min-width: 170px;">${row.sub_category}</td>
+              <td style="min-width: 170px;">${row.user_id}</td>
+              <td style="min-width: 170px;">${row.category_id}</td>
+              <td style="min-width: 170px;">${row.subcategory_id}</td>
               <td style="min-width: 120px;">${row.packaging}</td>
               <td style="min-width: 150px;">
               <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
@@ -1731,8 +1855,6 @@ function fetchAllinput (){
 /* -------------------------------------------------------------------------- */
 /*                            INPUT DATA ENDS HERE                            */
 /* -------------------------------------------------------------------------- */
-
-
 
 
 /* -------------------------------------------------------------------------- */
