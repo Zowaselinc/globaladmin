@@ -1440,10 +1440,9 @@ function fetchAllnegotiation (){
                       <div class="modal-body">
                           <form>
                             <label class="pt-1 pb-1 welcome text-secondary">Select Admin</label>
-                            <select class="form-control form-control-lg form-select rounded-2 shadow-form" type="text" id="Alladmin">
+                            <select class="form-control form-control-lg form-select rounded-2 shadow-form" type="text" onclick="allAdmin()" id="Alladmin">
                               <option value="" disabled selected>Select Admin</option>
-                              <option value="">Bigwa Suben</option>
-                              <option value="">Iroabuchi Ruth</option>
+                              
                             </select>
                             <br>
                             <div class="text-end">
@@ -1489,7 +1488,7 @@ function fetchAllnegotiation (){
               });
             });
       }else{
-          $('#negotiationdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Order registered yet</h3></td></tr>");
+          $('#negotiationdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Negotiation</h3></td></tr>");
       }
   }
   });
@@ -1504,7 +1503,7 @@ const allAdmin = () => {
   $.ajax(settings).done(function (data) {
     let response = data.data;
       for(let i = 0; i < response.length; i++){
-        $('#Alladmin').append(`<option value='${response[i].first_name} ${response[i].last_name}'>${response[i].first_name} ${response[i].last_name}</option>`);
+        $('#Alladmin').append(`<option value='${response[i].first_name} ${response[i].last_name}'> ${response[i].first_name} ${response[i].last_name}</option>`);
       }
   });
 }
