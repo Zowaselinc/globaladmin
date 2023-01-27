@@ -45,55 +45,66 @@
 					<div class="container">
 						<div class="row align-items-center">
 							<div class="mt-3">
-							    <!-- <div class="mt-4 mb-4">
-								  	<div class="mb-5">
-									   <h1 class="text-center welcome">Categories</h1>
-									   <hr class="w-25 mx-auto">
-								    </div>
-							    </div> -->
+							  
 								<div class="row gx-5 ">
-									<div class="">
+									<div class="mt-3">
 										<div class="d-block d-md-flex justify-content-between">
-											<h2 class="welcome mb-3">Add Categories</h2>
+											<h2 class="welcome mb-3">Add categories for crop</h2>
 											<div class="d-block d-md-flex">
-												<a href="javascript:void(0)"><span class="border border-active border-secondary bg-white ps-3 pe-3 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Categoories</span></a>
+												<a href="javascript:void(0)"><span class="border border-active border-secondary bg-white ps-3 pe-3 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Crop Categories</span></a>
 												<a href="./color-setup.html"><span class="border border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Setup</span></a>
 											</div>
 										</div>
-										<form class="form-control bg-light mx-auto border-0 shadow-sm rounded-3 py-4 mb-5" action="" method="post">
-											<label class="pt-1 pb-1 welcome text-secondary">Select Type</label>
-											<select class="form-control form-select form-control-lg rounded-3 shadow-form border-0" id="type">
-												<option class="welcome text-secondary" disabled selected>Select type </option>
-												<option value="crop">Crop</option>
-												<option value="input">Input</option>
-											</select><br>
-											<label class="pt-1 pb-1 welcome text-secondary">Enter a category</label>
-											<input class="form-control rounded-2 shadow-form" type="text" id="category" placeholder="Enter a category">
-											<br>
-											<div class="text-end" onclick="addcategory()">
-												<a href="#!" class="btn  th-btn fs-9 text-white rounded-6 ">Add a category</a>
-												<a href="#" class="btn th-btn fs-9 text-white rounded-6 d-none" onclick="updatecategory()" id="editBtn">Update Category</a>
-												<a href="#" class="btn btn-danger fs-9 text-white rounded-6 d-none" onclick="cancelRequest()" id="cancelBtn">Cancel Update</a>
-										  	</div>
-					
-											<div class="error d-none pt-2"></div><div class="pt-2 d-none success"></div>
-										</form>
+
+										<!-- <button type="button" id="formButton" class="btn btn-md th-btn text-white mb-3" style="border-radius: 5px !important;">Create a Category</button> -->
+
+
+										<div id="category-section">
+											<form id="form1" class="form-control bg-light mx-auto border-0 shadow-sm rounded-3 py-4 mb-5"  action="" method="post">
+												<label class="pt-1 pb-1 welcome text-secondary">Type</label>
+												<select class="form-control form-control-lg form-select rounded-2 shadow-form" type="text" id="category_type">
+													<option value="" disabled selected>Select type</option>
+													<option value="crop">Crop</option>
+													<option value="input">Input</option>
+												</select>
+	
+												<br>
+												<label class="pt-1 pb-1 welcome text-secondary">Enter a category</label>
+												<input class="form-control rounded-2 shadow-form" type="text" id="category_name" placeholder="Enter a category" required>
+												<br>
+												<div class="text-end">
+													<a href="javascript:void(0)" class="btn  th-btn fs-9 text-white rounded-6" onclick="addcategory()"  id="addBtn"> Add a category</a>
+													<a href="javascript:void(0)" class="btn th-btn fs-9 text-white rounded-6 d-none" onclick="updateCategory()" id="editBtn">Update Category</a>
+													<a href="javascript:void(0)" class="btn btn-danger fs-9 text-white rounded-6 d-none" onclick="cancelCategory()" id="cancelBtn">Cancel Update</a>
+												</div>
+						
+												<div class="error d-none pt-2"></div><div class="pt-2 d-none success"></div>
+											</form>
+										</div>
 										
-										<h2  class="welcome">Categories</h2>
+										<div class="d-block d-md-flex justify-content-between">
+											<h2  class="welcome">Categories</h2>
+											<div class="d-block d-md-flex">
+												<a href="javascript:void(0)" id="crop" onclick="fetchAllCategory()"><span class="border border-secondary bg-white ps-3 pe-3 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Crop</span></a>
+												<a href="javascript:void(0)" onclick="fetchAllInputCategory()"><span class="border border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Input</span></a>
+											</div>
+										</div>
+										<br>
 										
 										<div class="bg-white pt-4 px-3 rounded-2 shadow-sm">
+											
 											<div class="table-responsive default-color table-hover">
 												<table id="allTable" class="table table-borderless table-hover" cellspacing="0" width="100%">
 													<thead>
 														<tr>
 															<th style="min-width: 50px;">ID</th>
-															<th style="min-width: 100px;">Category Type</th>
-															<th style="min-width: 100px;">Category</th>
-															<th style="min-width: 50px;">View</th>
-															<th style="min-width: 120px;">Created at</th>
-															<th style="min-width: 120px;">Updated at</th>
-															<th style="max-width: 50px;"></th>
-															<th style="max-width: 50px;"></th>
+															<th style="min-width: 100px;">CATEGORY TYPE</th>
+															<th style="min-width: 100px;">CATEGORY</th>
+															<th style="min-width: 50px;">VIEW</th>
+															<th style="min-width: 120px;">CREATED AT</th>
+															<th style="min-width: 120px;">UPDATED AT</th>
+															<th style="max-width: 100px;">ACTION</th>
+															<!-- <th style="max-width: 50px;"></th> -->
 														</tr>
 													</thead>
 													<tbody id="categorydata">
@@ -139,11 +150,21 @@
 	<script src="../js/admin.js"></script>
 	<script>
 		fetchAllCategory();
+		// $(document).ready(function(){
+   		// 	 $("#crop").trigger("click");
+		// });
 	</script>
 
 	<script>
 		$("html, body").animate({ scrollTop: $(document).height() }, "slow");
 	</script>
+	<!-- <script>
+		$(document).ready(function(){
+			$("#formButton").click(function(){
+				$("#form1").toggle();
+			});
+		});
+	</script> -->
 	
 </body>
 

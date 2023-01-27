@@ -54,30 +54,29 @@
 								<div class="row gx-5 ">
 									<div class="">
 										<div class="mb-4">
-											<h2 class="welcome">Category Name : <span class="text-secondary fs-4" id="subName">Grain</span></h2>
+											<h2 class="welcome">CATEGORY NAME: <span class="text-secondary fs-4" id="subName"></span></h2>
 										</div>
-										<div class="d-block d-md-flex justify-content-between">
-											<h2 class="welcome mb-3">Add Sub-Categories</h2>
-											<a href="./category.html"><h6 class="text-primary">View Category</h6></a>
+										<div class="d-block d-md-flex justify-content-between mb-3">
+											<h2 class="welcome">Add Sub-Categories</h2>
+											<a href="./category.html" class="btn th-btn text-white" style="border-radius: 3px !important;"> View Category</a>
 										</div>
-										<form class="form-control bg-light mx-auto border-0 shadow-sm rounded-3 py-4 mb-5" action="" method="post">
-											<label class="pt-1 pb-1 welcome text-secondary">Select Category</label>
-											<select class="form-control form-select form-control-lg rounded-3 shadow-form border-0" id="type">
-												<option class="welcome text-secondary" disabled selected>Select Category</option>
-												<option value="crop">Grain</option>
-												<option value="input">Fertilizer</option>
-											</select><br>
-											<label class="pt-1 pb-1 welcome text-secondary">Enter a Sub-category</label>
-											<input class="form-control rounded-2 shadow-form" type="text" id="category" placeholder="Enter a sub-category">
-											<br>
-											<div class="text-end" onclick="addsubcategory()">
-												<a href="#!" class="btn  th-btn fs-9 text-white rounded-6 ">Add Sub-category</a>
-												<a href="#" class="btn th-btn fs-9 text-white rounded-6 d-none" onclick="updatesubcategory()" id="editBtn">Update Sub-Category</a>
-												<a href="#" class="btn btn-danger fs-9 text-white rounded-6 d-none" onclick="cancelRequest()" id="cancelBtn">Cancel Update</a>
-										  	</div>
-					
-											<div class="error d-none pt-2"></div><div class="pt-2 d-none success"></div>
-										</form>
+
+										<div id="Subcategory-section">
+											<form class="form-control bg-light mx-auto border-0 shadow-sm rounded-3 py-4 mb-5" action="" method="post">
+												<label class="pt-1 pb-1 welcome text-secondary">Category</label>
+												<span id="Subname" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome text-muted fs-6"></span>
+												<br>
+												<label class="pt-1 pb-1 welcome text-secondary">Enter a Sub-category</label>
+												<input class="form-control rounded-2 shadow-form" type="text" id="subCategory_name" placeholder="Enter a sub-category">
+												<br>
+												<div class="text-end">
+													<a href="#!" class="btn  th-btn fs-9 text-white rounded-6" onclick="addSubCategory()" id="addBtn"> Add Sub-category</a>
+													<a href="#" class="btn th-btn fs-9 text-white rounded-6 d-none" onclick="updateSubCategory()" id="editBtn">Update Sub-Category</a>
+													<a href="#" class="btn btn-danger fs-9 text-white rounded-6 d-none" onclick="cancelSubCategory()" id="cancelBtn">Cancel Update</a>
+												</div>
+											</form>
+										</div>
+
 										<br>
 										<h2 class="welcome mt-4">Sub-Categories</h2>
 										
@@ -87,11 +86,11 @@
 													<thead>
 														<tr>
 															<th style="min-width: 50px;">ID</th>
-															<th style="min-width: 100px;">Sub-category</th>
-															<th style="min-width: 100px;">Created At</th>
-															<th style="min-width: 100px;">Updated At</th>
-															<th style="max-width: 50px;"></th>
-															<th style="max-width: 50px;"></th>
+															<th style="min-width: 100px;">SUB-CATEGORY</th>
+															<th style="min-width: 100px;">CREATED AT</th>
+															<th style="min-width: 100px;">UPDATED AT</th>
+															<th style="max-width: 100px;">ACTION</th>
+															<!-- <th style="max-width: 50px;"></th> -->
 														</tr>
 													</thead>
 													<tbody id="subcategorydata">
@@ -134,6 +133,11 @@
 	</script>
 
 	<script src="../js/admin.js"></script>
+
+	<script>
+		$("html, body").animate({ scrollTop: $(document).height() }, "slow");
+	</script>
+	
 	<script>
 		fetchAllSubCategories();
 	</script>

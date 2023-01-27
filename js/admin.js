@@ -1387,7 +1387,133 @@ function fetchAllorders (){
 /* -------------------------------------------------------------------------- */
 
 
+/* -------------------------------------------------------------------------- */
+/*                            FETCH ALL NEGOTIATION                           */
+/* -------------------------------------------------------------------------- */
+function fetchAllnegotiation (){
 
+  loader('#negotiationdata', 10)
+
+  var settings = querySetting("api/admin/crop/negotiation/getallNegotiations", "GET", localStorage.getItem('access'));
+    
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+  if(response.error==true){
+      console.log(response.message);
+     
+  }else{
+      console.log(response.data)
+
+      let thedata = response.data;
+     
+      console.log(thedata)
+
+      if(thedata.length > 0){
+          let rowContent
+          $.each(thedata, (index, row) => {
+
+              index= index+1;
+              rowContent += `<tr class="align-items-center">
+              <td style="min-width: 50px;">${index}</td>
+              <td style="min-width: 100px;"> <strong class="welcome">${row.sender_id}</strong><br/>
+                <small class="text-primary fw-bold text-uppercase">${row.type}</small> 
+              </td>
+              <td style="min-width: 100px;">${row.receiver_id}</td>
+              <td style="min-width: 120px;">${splittingDate(row.created_at)}</td>
+              <td style="min-width: 120px;">${splittingDate(row.updated_at)}</td>
+             
+              <td style="min-width: 50px;">
+              <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+                  Asign Admin
+              </button>
+              
+              <!-- Modal -->
+              <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                      <div class="modal-header border-0">
+                      <h3 class="modal-title" id="staticBackdropLabel">Select Admin to Negotiate</h3>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          <form>
+                            <label class="pt-1 pb-1 welcome text-secondary">Select Admin</label>
+                            <select class="form-control form-control-lg form-select rounded-2 shadow-form" type="text" id="Alladmin">
+                              <option value="" disabled selected>Select Admin</option>
+                              <option value="">Bigwa Suben</option>
+                              <option value="">Iroabuchi Ruth</option>
+                            </select>
+                            <br>
+                            <div class="text-end">
+                              <a href="javascript:void(0)" class="btn  th-btn fs-9 text-white rounded-6" onclick="asignAdmin()"> Asign Admin</a>
+                           
+                            </div>
+                          </form>
+                      </div>
+                     <!-- <div class="modal-footer border-0">
+                      <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
+                      </div> -->
+                  </div>
+                  </div>
+              </div>
+              </td>
+             <!-- <td class="text-end" style="min-width: 50px;">
+                  <div class="dropdown shadow-dot text-center">
+                      <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          <a href="javascript:void(0)" class="dropdown-item" href="">Asign Admin</a>
+                          <a href="javascript:void(0)" class="dropdown-item" onclick="deleteSupportTicket('${row.id}')">View</a>
+                      </div>
+                  </div>
+              </td> -->
+
+             </tr>`;
+            });
+            $('#negotiationdata').html(rowContent);
+            $(document).ready( function () {
+              $('#allTable').DataTable({
+                scrollY: 300,
+                scrollX: true,
+                scrollCollapse: true,
+                retrieve: true,
+                paging: true,
+                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+                fixedHeader:{
+                    header: true,
+                    footer: true
+                }
+              });
+            });
+      }else{
+          $('#negotiationdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Order registered yet</h3></td></tr>");
+      }
+  }
+  });
+
+}
+
+// -------------- Collecting the Admin ------------------------//
+const allAdmin = () => {
+  var settings = querySetting("api/admin/getall", "GET", localStorage.getItem('access'));
+    
+  
+  $.ajax(settings).done(function (data) {
+    let response = data.data;
+      for(let i = 0; i < response.length; i++){
+        $('#Alladmin').append(`<option value='${response[i].first_name} ${response[i].last_name}'>${response[i].first_name} ${response[i].last_name}</option>`);
+      }
+  });
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                            NEGOTIATION ENDS HERE                           */
+/* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /*                          COMPANY DATA STARTS HERE                          */
@@ -1448,7 +1574,7 @@ function fetchAllcompany (){
 
 
 /* -------------------------------------------------------------------------- */
-/*                     Fetching all categories data start                     */
+/*                     Fetching all crop categories data start                     */
 /* -------------------------------------------------------------------------- */
 function fetchAllCategory (){
   
@@ -1465,6 +1591,7 @@ function fetchAllCategory (){
      
   }else{
       console.log(response.data)
+
       let thedata = response.data;
      
       console.log(thedata)
@@ -1491,18 +1618,13 @@ function fetchAllCategory (){
                     <td style="min-width: 120px;">${splittingDate(row.created_at)}</td>
                     <td style="min-width: 120px;">${splittingDate(row.updated_at)}</td>
                    
-                    <td style="max-width: 50px;">
+                    <td class="" style="max-width: 100px;">
                       <span>
-                        <!-- <button class="btn btn-sm th-btn text-white fs-9 rounded-6" onclick="editcategory('')">Edit</button> -->
-                        <a href="" onclick="editcategory('')"><i class="text-primary fa fa-pencil"></i></a>
+                        <a class="py-1 px-2 th-btn rounded me-3" href="javascript:void(0)" onclick="editCategory('${row.id}','${row.name}')"><i class="text-white fa fa-pencil"></i></a>
+                        <a class="py-1 px-2 btn-danger rounded ms-3" href="javascript:void(0)" onclick="deleteCategory('${row.id}')"><i class="text-white fa fa-trash"></i></a>
                       </span>
                     </td>
-                    <td style="max-width: 50px;">
-                      <span>
-                        <!-- <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deletecategory('${row.id}')">Delete</button> -->
-                        <a href="" onclick="deletecategory('${row.id}')"><i class="text-danger fa fa-trash"></i></a>
-                      </span>
-                    </td>
+                    
 								</tr>
               `;
             });
@@ -1529,8 +1651,260 @@ function fetchAllCategory (){
 
 };
 
+
+// -------------------------------Fetch all Input Categories ---------------------------//
+function fetchAllInputCategory (){
+  
+  loader('#categorydata', 10)
+
+  var settings = querySetting("api/admin/category/input/getall", "GET", localStorage.getItem('access'));
+    
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+  if(response.error==true){
+      console.log(response.message);
+     
+  }else{
+      console.log(response.data)
+
+      let thedata = response.data;
+     
+      console.log(thedata)
+
+      if(thedata.length > 0){
+          let rowContent
+          $.each(thedata, (index, row) => {
+          
+             
+              // console.log(row.category.type)
+              index= index+1;
+              rowContent += `
+                <tr class="align-middle text-start">
+                    <td style="min-width: 50px;">${index}</td>
+                    <td style="min-width: 100px;" class="text-capitalize">${row.type}</td>
+                    <td style="min-width: 100px;">${row.name}</td>
+                    <td style="min-width: 50px;">
+                      <a href="javascript:void(0)" onclick="viewSubCategory('${row.id}','${row.name}')">
+                        <span class="text-primary">
+                          <i class="fa fa-eye"></i> View
+                        </span>
+                      </a>
+                    </td>
+                    <td style="min-width: 120px;">${splittingDate(row.created_at)}</td>
+                    <td style="min-width: 120px;">${splittingDate(row.updated_at)}</td>
+                   
+                    <td class="" style="max-width: 100px;">
+                      <span>
+                        <a class="py-1 px-2 th-btn rounded me-3" href="javascript:void(0)" onclick="editCategory('${row.id}','${row.name}')"><i class="text-white fa fa-pencil"></i></a>
+                        <a class="py-1 px-2 btn-danger rounded ms-3" href="javascript:void(0)" onclick="deleteCategory('${row.id}')"><i class="text-white fa fa-trash"></i></a>
+                      </span>
+                    </td>
+                    
+								</tr>
+              `;
+            });
+            $('#categorydata').html(rowContent);
+            $(document).ready( function () {
+              $('#allTable').DataTable({
+                scrollY: 300,
+                scrollX: true,
+                scrollCollapse: true,
+                retrieve: true,
+                paging: true,
+                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+                fixedHeader:{
+                    header: true,
+                    footer: true
+                }
+              });
+            });
+      }else{
+          $('#categorydata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Category Added Yet</h3></td></tr>");
+      }
+  }
+  });
+
+}; 
+// --------------------------------Adding a Crop  Category starts---------------------//
+const addcategory = () => {
+  // alert("balablu")
+  // console.log(localStorage.getItem('access'));
+  // selecting the input element and get its value
+  let categoryType = document.getElementById("category_type");
+  let categoryName = document.getElementById("category_name");
+
+
+  // Displaying the value 
+    if(!categoryType.value){
+      swal("Enter Category Type!");
+      categoryType.focus();
+      return false;
+    } else if(!categoryName.value){
+      swal("Enter Category Name!");
+      categoryName.focus();
+      return false;
+  } else {
+
+      const catAdd = JSON.stringify({
+          "type":categoryType.value,
+          "name": categoryName.value
+      });
+
+      var settings = querySetting("api/admin/category/add", "POST", localStorage.getItem('access'), catAdd);
+      
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if(response.error==true){
+              console.log(response.message);
+              swal("FAILED", response.message, "error");
+            }else{
+              console.log(response.message);
+              swal("SUCCESS", response.message, "success");
+            
+              categoryType.value=""
+              categoryName.value="";
+              
+              window.location.href = "category.html";
+              setTimeout(() => {
+                cancelRequest();
+              }, 2000)
+              fetchAllcolors();
+            }
+        });
+  }
+}; 
+
+
+// ------------------------------Deleting crop category ----------------------------------//
+const deleteCategory =(n)=>{
+  // swal("", n);
+  swal({
+    title: "Are you sure you want to delete this category?",
+    text: "Once deleted, you will not be able to recover this category!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+
+    var settings = querySetting("api/admin/category/delete/"+n, "POST", localStorage.getItem('access'));
+    
+  
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if(response.error==true){
+          console.log(response.message);
+          swal("FAILED", response.message, "error");
+        }else{
+          console.log(response.message);
+          swal("SUCCESS", response.message, "success");
+          window.location.href = "category.html";
+              setTimeout(() => {
+                cancelRequest();
+              }, 2000)
+              fetchAllCategory();
+        }
+      
+    });
+  }
+});
+}
+
+//-------------------Editing Category begins ------------------------------/
+const editCategory = (id, name) => {
+  // alert("clickme")
+  sessionStorage.setItem('categoryData', JSON.stringify({id:id, name:name}));
+  window.location.href = "#?categoryID="+id;
+  const URL = window.location.href;
+  const confirmEdit = URL.split("?");
+  
+  if(confirmEdit[1] !== undefined){
+    $('#category_name').val(name);
+    // $('#role_description').val(description);
+
+    // window.location.href = "update-role.html";
+
+    document.querySelector('#editBtn').classList.remove('d-none');
+    document.querySelector('#addBtn').classList.add('d-none');
+    document.querySelector('#cancelBtn').classList.remove('d-none');
+
+    window.location.href = `#category-section`;
+
+  }
+}
+
+/* --------------------------- cancel edit request -------------------------- */
+const cancelCategory = () => {
+  sessionStorage.removeItem('colorID');
+  window.location.href = "category.html";
+
+  // clears the inputs
+  $('#category_name').val("");
+  // $('#role_description').val("");
+
+  // hides the update and cancel btn while displaying the add role btn
+  if((window.location.href).split('#')[1] !== 'color-section'){
+      document.querySelector('#editBtn').classList.toggle('d-none');
+      document.querySelector('#addBtn').classList.toggle('d-none');
+      document.querySelector('#cancelBtn').classList.toggle('d-none');
+  }
+}
+
+const updateCategory =()=>{
+  let categoryID= JSON.parse(sessionStorage.getItem('categoryData')).id;
+  // console.log(localStorage.getItem('access'));
+
+  // selecting the input element and get its value
+  let categoryName = document.getElementById("category_name");
+  // let roleDescription = document.getElementById("role_description");
+
+  // Displaying the value 
+  // swal("", roleName), ""
+  if(!categoryName.value){
+      swal("Enter Category Name!");
+      categoryName.focus();
+      return false;
+  }else{
+
+      const categoryEdit = JSON.stringify({
+          "id": categoryID,
+          "name": categoryName.value,
+         
+      });
+
+      var settings = querySetting("api/admin/category/edit", "POST", localStorage.getItem('access'), categoryEdit);
+        
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if(response.error==true){
+              console.log(response.message);
+              swal("FAILED", response.message, "error");
+            }else{
+
+              console.log(response.message);
+              swal("SUCCESS", response.message, "success");
+              
+              setTimeout(() => {
+                cancelRequest();
+              }, 2000)
+              window.location.href = "category.html";
+              fetchAllcolors();
+            }
+        });
+  }
+};
+
+// ----------------------------EDITING AND MAKING UPDATE ENDS ------------------------//
+
+
+
+
+
 /* -------------------------------------------------------------------------- */
-/*                  Viewing individual category subcategories                 */
+/*                  Viewing individual crop category subcategories                 */
 /* -------------------------------------------------------------------------- */
 const viewSubCategory = (id, name) => {
   // alert(id);
@@ -1548,6 +1922,7 @@ const fetchAllSubCategories  =() => {
   let catname = catData.name;
 
   $('#subName').text(catname);
+  $('#Subname').text(catname);
   var settings = querySetting("api/admin/subcategory/getbycategory/"+catid, "GET", localStorage.getItem('access'));
   
 
@@ -1557,8 +1932,11 @@ const fetchAllSubCategories  =() => {
     console.log(response);
     if(response.error==true){
       console.log(response.message);
+      $('#subcategorydata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Sub-Category Added Yet</h3></td></tr>");
+      // swal("FAILED", response.message, "error");
     }else{
       console.log(response.data)
+      // swal("SUCCESS", response.message, "success");
       let thedata = response.data;
      
       console.log(thedata)
@@ -1577,17 +1955,10 @@ const fetchAllSubCategories  =() => {
                     <td style="min-width: 100px;">${row.name}</td>
                     <td style="min-width: 100px;">${splittingDate(row.created_at)}</td>
                     <td style="min-width: 100px;">${splittingDate(row.updated_at)}</td>
-                    
-                    <td style="max-width: 50px;">
+                    <td class="" style="max-width: 100px;">
                       <span>
-                        <!-- <button class="btn btn-sm th-btn text-white fs-9 rounded-6" onclick="editcategory('')">Edit</button> -->
-                        <a href="" onclick="editcategory('')"><i class="text-primary fa fa-pencil"></i></a>
-                      </span>
-                    </td>
-                    <td style="max-width: 50px;">
-                      <span>
-                        <!-- <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deletecategory('${row.id}')">Delete</button> -->
-                        <a href="" onclick="deletecategory('${row.id}')"><i class="text-danger fa fa-trash"></i></a>
+                        <a class="py-1 px-2 th-btn rounded me-3" href="javascript:void(0)" onclick="editSubCategory('${row.id}','${row.name}')"><i class="text-white fa fa-pencil"></i></a>
+                        <a class="py-1 px-2 btn-danger rounded ms-3" href="javascript:void(0)" onclick="deleteSubCategory('${row.id}')"><i class="text-white fa fa-trash"></i></a>
                       </span>
                     </td>
 								</tr>
@@ -1609,7 +1980,7 @@ const fetchAllSubCategories  =() => {
               });
             });
       }else{
-          $('#subcategorydata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Category Added Yet</h3></td></tr>");
+          $('#subcategorydata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Sub-Category Added Yet</h3></td></tr>");
       }
   }
       // loader('#tbdata')
@@ -1617,11 +1988,188 @@ const fetchAllSubCategories  =() => {
   });
 }
 
+// -------------------------------- Add Crop Subcategory Data ------------//
+const addSubCategory = () => {
+  let catData = JSON.parse(localStorage.getItem('singlecategoryid'));
+  // let catid = catData.id;
+
+  let catname = catData.name;
+  $('#Subname').text(catname);
+  // alert("balablu")
+  // console.log(localStorage.getItem('access'));
+  // selecting the input element and get its  value
+  
+  // let subCategoryId = document.getElementById("Subname");
+  let subCategoryId = catData.id;
+  let subCategoryName = document.getElementById("subCategory_name");
+
+ 
+  // Displaying the value 
+
+   if(!subCategoryName.value){
+    swal("Enter Sub-Category Name!");
+    subCategoryName.focus();
+    return false;
+  } else {
+
+      const subAdd = JSON.stringify({
+          "category_id": subCategoryId,
+          "subcategory_name": subCategoryName.value
+      });
+
+      var settings = querySetting("api/admin/subcategory/add", "POST", localStorage.getItem('access'), subAdd);
+      
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if(response.error==true){
+              console.log(response.message);
+              swal("FAILED", response.message, "error");
+            }else{
+              subCategoryId.value="";
+              subCategoryName.value="";
+              console.log(response.message);
+              swal("SUCCESS", response.message, "success");
+              setTimeout(() => {
+                cancelRequest();
+              }, 2000)
+              fetchAllSubCategories();
+              window.location.href = "sub-category.html";
+            }
+        });
+  }
+}; 
+
+// ------------------------------Add crop category Ends here ---------------------//
 
 
+//----------------------------------Deleting Crop subcategory --------------------------//
+const deleteSubCategory =(n)=>{
+  // swal("", n);
+  swal({
+    title: "Are you sure you want to delete this Sub category?",
+    text: "Once deleted, you will not be able to recover this Sub category!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+
+    var settings = querySetting("api/admin/subcategory/delete/"+n, "POST", localStorage.getItem('access'));
+    
+  
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if(response.error==true){
+          console.log(response.message);
+          swal("FAILED", response.message, "error");
+        }else{
+          console.log(response.message);
+          swal("SUCCESS", response.message, "success");
+          window.location.href = "sub-category.html";
+              setTimeout(() => {
+                cancelRequest();
+              }, 2000)
+              fetchAllCategory();
+        }
+      
+    });
+  }
+});
+}
+
+// ----------------------------Making Updates to crop Subcategory -------------------------//
+const editSubCategory = (id, name) => {
+  // alert("clickme")
+  sessionStorage.setItem('subcategoryData', JSON.stringify({id:id, name:name}));
+  window.location.href = "#?subcategoryID="+id;
+  const URL = window.location.href;
+  const confirmEdit = URL.split("?");
+  
+  if(confirmEdit[1] !== undefined){
+    $('#subCategory_name').val(name);
+    // $('#role_description').val(description);
+
+    // window.location.href = "update-role.html";
+
+    document.querySelector('#editBtn').classList.remove('d-none');
+    document.querySelector('#addBtn').classList.add('d-none');
+    document.querySelector('#cancelBtn').classList.remove('d-none');
+
+    window.location.href = `#Subcategory-section`;
+
+  }
+}
+
+
+
+/* --------------------------- cancel edit request -------------------------- */
+const cancelSubCategory = () => {
+  sessionStorage.removeItem('subcategoryID');
+  window.location.href = "sub-category.html";
+
+  // clears the inputs
+  $('#subCategory_name').val("");
+  // $('#role_description').val("");
+
+  // hides the update and cancel btn while displaying the add role btn
+  if((window.location.href).split('#')[1] !== 'color-section'){
+      document.querySelector('#editBtn').classList.toggle('d-none');
+      document.querySelector('#addBtn').classList.toggle('d-none');
+      document.querySelector('#cancelBtn').classList.toggle('d-none');
+  }
+}
+
+
+
+const updateSubCategory =()=>{
+  let subcategoryID= JSON.parse(sessionStorage.getItem('subcategoryData')).id;
+  // console.log(localStorage.getItem('access'));
+
+  // selecting the input element and get its value
+  let subCategoryName = document.getElementById("subCategory_name");
+  // let roleDescription = document.getElementById("role_description");
+
+  // Displaying the value 
+  // swal("", roleName), ""
+  if(!subCategoryName.value){
+      swal("Enter Sub Category Name!");
+      subCategoryName.focus();
+      return false;
+  }else{
+    // alert(subcategoryID)
+
+      const subCategoryEdit = JSON.stringify({
+          "id": subcategoryID,
+          "subcategory_name": subCategoryName.value,
+         
+      });
+
+      var settings = querySetting("api/admin/subcategory/edit", "POST", localStorage.getItem('access'), subCategoryEdit);
+        
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if(response.error==true){
+              console.log(response.message);
+              swal("FAILED", response.message, "error");
+            }else{
+
+              console.log(response.message);
+              swal("SUCCESS", response.message, "success");
+              
+              setTimeout(() => {
+                cancelRequest();
+              }, 2000)
+              window.location.href = "sub-category.html";
+              fetchAllSubCategories();
+            }
+        });
+  }
+}; 
 /* -------------------------------------------------------------------------- */
 /*                    Fetching All Categories ends here                   */
 /* -------------------------------------------------------------------------- */
+
 
 
 
@@ -1652,7 +2200,7 @@ function fetchAllcolors (){
           $.each(thedata, (index, row) => {
           
              
-              // console.log(row.category.type)
+              
               index= index+1;
               rowContent += `
                 <tr class="align-middle text-start">
@@ -1664,15 +2212,11 @@ function fetchAllcolors (){
                     <td style="max-width: 50px;">
                       <span>
                         <!-- <button class="btn btn-sm th-btn text-white fs-9 rounded-6" onclick="editcategory('')">Edit</button> -->
-                        <a href="" onclick="editcategory('')"><i class="text-primary fa fa-pencil"></i></a>
+                        <a class="py-1 px-2 th-btn rounded me-3" href="javascript:void(0)" onclick="editColor('${row.id}','${row.name}')"><i class="text-white fa fa-pencil"></i></a>
+                        <a class="py-1 px-2 btn-danger rounded ms-3" href="javascript:void(0)" onclick="deleteColor('${row.id}')"><i class="text-white fa fa-trash"></i></a>
                       </span>
                     </td>
-                    <td style="max-width: 50px;">
-                      <span>
-                        <!-- <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deletecategory('${row.id}')">Delete</button> -->
-                        <a href="" onclick="deletecategory('${row.id}')"><i class="text-danger fa fa-trash"></i></a>
-                      </span>
-                    </td>
+                    
 								</tr>
               `;
             });
@@ -1692,7 +2236,7 @@ function fetchAllcolors (){
               });
             });
       }else{
-          $('#colordata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Category Added Yet</h3></td></tr>");
+          $('#colordata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Color Added Yet</h3></td></tr>");
       }
   }
   });
@@ -1700,28 +2244,28 @@ function fetchAllcolors (){
 };
 
 //----------------------------------- Adding color start--------------------------------//
-const addColor =()=>{
+const addColor = () => {
   // console.log(localStorage.getItem('access'));
   // selecting the input element and get its value
   let colorName = document.getElementById("color_name");
+  // let colorID = document.getElementById("color_id")
 
 
   // Displaying the value 
 
-  if(!colorName.value){
-      swal("Enter Color Name!");
-      colorName.focus();
-      return false;
-  }else{
+   if(!colorName.value){
+    swal("Enter Color Name!");
+    colorName.focus();
+    return false;
+  } else {
 
       const colorAdd = JSON.stringify({
-          "color_name": colorName.value,
-          
-        
+          // "colour_id": colorID.value,
+          "colour_name": colorName.value
       });
 
       var settings = querySetting("api/admin/colour/add", "POST", localStorage.getItem('access'), colorAdd);
-        
+      
         $.ajax(settings).done(function (response) {
           console.log(response);
           if(response.error==true){
@@ -1731,6 +2275,7 @@ const addColor =()=>{
               console.log(response.message);
               swal("SUCCESS", response.message, "success");
             
+              // colorID.value="";
               colorName.value="";
               
               window.location.href = "color-setup.html";
@@ -1742,6 +2287,141 @@ const addColor =()=>{
         });
   }
 };
+
+//--------------------------------------- Adding Color end here ------------------------//
+
+// -----------------------DELETING COLORS BEGINS----------------------------// 
+
+
+const deleteColor =(n)=>{
+  // swal("", n);
+  swal({
+    title: "Are you sure you want to delete this role?",
+    text: "Once deleted, you will not be able to recover this file!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+
+    var settings = querySetting("api/admin/colour/delete/"+n, "POST", localStorage.getItem('access'));
+    
+  
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if(response.error==true){
+          console.log(response.message);
+          swal("FAILED", response.message, "error");
+        }else{
+          console.log(response.message);
+          swal("SUCCESS", response.message, "success");
+          window.location.href = "color-setup.html";
+              setTimeout(() => {
+                cancelRequest();
+              }, 2000)
+          fetchAllcolors();
+        }
+      
+    });
+  }
+});
+}
+
+/* -------------------- DELETING COLORS ENDS ------------------- */
+
+
+// ------------------------------EDITING COLORS STARTS ----------------------//
+const editColor = (id, name) => {
+  // alert("clickme")
+  sessionStorage.setItem('colorData', JSON.stringify({id:id, name:name}));
+  window.location.href = "#?colorID="+id;
+  const URL = window.location.href;
+  const confirmEdit = URL.split("?");
+  
+  if(confirmEdit[1] !== undefined){
+    $('#color_name').val(name);
+    // $('#role_description').val(description);
+
+    // window.location.href = "update-role.html";
+
+    document.querySelector('#editBtn').classList.remove('d-none');
+    document.querySelector('#addBtn').classList.add('d-none');
+    document.querySelector('#cancelBtn').classList.remove('d-none');
+
+    window.location.href = `#color-section`;
+
+  }
+}
+
+
+
+/* --------------------------- cancel edit request -------------------------- */
+const cancelColor = () => {
+  sessionStorage.removeItem('colorID');
+  window.location.href = "color-setup.html ";
+
+  // clears the inputs
+  $('#color_name').val("");
+  // $('#role_description').val("");
+
+  // hides the update and cancel btn while displaying the add role btn
+  if((window.location.href).split('#')[1] !== 'color-section'){
+      document.querySelector('#editBtn').classList.toggle('d-none');
+      document.querySelector('#addBtn').classList.toggle('d-none');
+      document.querySelector('#cancelBtn').classList.toggle('d-none');
+  }
+}
+
+
+
+const updatecolor =()=>{
+  let colorID = JSON.parse(sessionStorage.getItem('colorData')).id;
+  // console.log(localStorage.getItem('access'));
+
+  // selecting the input element and get its value
+  let colorName = document.getElementById("color_name");
+  // let roleDescription = document.getElementById("role_description");
+
+  // Displaying the value 
+  // swal("", roleName), ""
+  if(!colorName.value){
+      swal("Enter Color Name!");
+      colorName.focus();
+      return false;
+  }else{
+
+      const colorEdit = JSON.stringify({
+          "id": colorID,
+          "colour_name": colorName.value ,
+         
+      });
+
+      var settings = querySetting("api/admin/colour/edit", "POST", localStorage.getItem('access'), colorEdit);
+        
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if(response.error==true){
+              console.log(response.message);
+              swal("FAILED", response.message, "error");
+            }else{
+
+              console.log(response.message);
+              swal("SUCCESS", response.message, "success");
+              
+              setTimeout(() => {
+                cancelRequest();
+              }, 2000)
+              window.location.href = "color-setup.html";
+              fetchAllcolors();
+            }
+        });
+  }
+};
+
+// EDITING AND MAKING UPDATE ENDS 
+
+
 /* -------------------------------------------------------------------------- */
 /*                           Fetching all color end                           */
 /* -------------------------------------------------------------------------- */
@@ -1906,7 +2586,7 @@ function cropsWanted (){
                 <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
               </td>
               <td style="min-width: 70px;" class="text-primary">${row.user.email}</td>
-              <td style="min-width: 100px;"><small class="text-primary fw-bold text-uppercase">${row.title}</small> </td>
+              <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.type}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.title}</small> </td>
               <td style="min-width: 100px; text-align:center;">${crop_status}</td>
               <td style="min-width: 200px;">${row.description}</td>
               <td style="min-width: 50px;">

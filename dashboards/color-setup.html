@@ -60,25 +60,22 @@
 												<a href="javascript:void(0)"><span class="border border-active border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Setup</span></a>
 											</div>
 										</div>
-										<form class="form-control bg-light mx-auto border-0 shadow-sm rounded-3 py-4 mb-5" action="" method="post">
-											<!-- <label class="pt-1 pb-1 welcome text-secondary">Select Type</label>
-											<select class="form-control form-select form-control-lg rounded-3 shadow-form border-0" id="type">
-												<option class="welcome text-secondary" disabled selected>Select type </option>
-												<option value="crop">Crop</option>
-												<option value="input">Input</option>
-											</select> -->
-											<br>
-											<label class="pt-1 pb-1 welcome text-secondary">Enter a color name </label>
-											<input class="form-control rounded-2 shadow-form" type="text" id="color_name" placeholder="Enter a color">
-											<br>
-											<div class="text-end" >
-												<a href="#!" class="btn  th-btn fs-9 text-white rounded-6" onclick="addColor()" >Add a Color</a>
-												<a href="#" class="btn th-btn fs-9 text-white rounded-6 d-none" onclick="updatecolor()" id="editBtn">Update Category</a>
-												<a href="#" class="btn btn-danger fs-9 text-white rounded-6 d-none" onclick="cancelRequest()" id="cancelBtn">Cancel Update</a>
-										  	</div>
-					
-											<div class="error d-none pt-2"></div><div class="pt-2 d-none success"></div>
-										</form>
+
+										<div id="color-section">
+											<form class="form-control bg-light mx-auto border-0 shadow-sm rounded-3 py-4 mb-5" action="" method="">
+												<!--  -->
+												<label class="pt-1 pb-1 welcome text-secondary">Enter a color name </label>
+												<input class="form-control rounded-2 shadow-form" type="text" id="color_name" placeholder="Enter a color">
+												<br>
+												<div class="text-end" >
+													<a href="javascript:void(0)" class="btn  th-btn fs-9 text-white rounded-6" onclick="addColor()" id="addBtn" >Add a Color</a>
+													<a href="javascript:void(0)" class="btn th-btn fs-9 text-white rounded-6 d-none ucl" onclick="updatecolor()" id="editBtn">Update Color</a>
+													<a href="javascript:void(0)" class="btn btn-danger fs-9 text-white rounded-6 d-none" onclick="cancelColor()" id="cancelBtn">Cancel Update</a>
+												  </div>
+						
+												<div class="error d-none pt-2"></div><div class="pt-2 d-none success"></div>
+											</form>
+										</div>
 										
 										<h2  class="welcome">Categories</h2>
 										
@@ -88,11 +85,11 @@
 													<thead>
 														<tr>
 															<th style="min-width: 50px;">ID</th>
-															<th style="min-width: 100px;">Color Name</th>
-															<th style="min-width: 120px;">Created at</th>
-															<th style="min-width: 120px;">Updated at</th>
-															<th style="max-width: 50px;"></th>
-															<th style="max-width: 50px;"></th>
+															<th style="min-width: 100px;">COLOR NAME</th>
+															<th style="min-width: 120px;">CREATED AT</th>
+															<th style="min-width: 120px;">UPDATED AT</th>
+															<th style="max-width: 100px;">ACTION</th>
+															<!-- <th style="max-width: 50px;"></th> -->
 														</tr>
 													</thead>
 													<tbody id="colordata">
