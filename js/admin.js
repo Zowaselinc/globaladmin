@@ -1425,7 +1425,7 @@ function fetchAllnegotiation (){
               <td style="min-width: 120px;">${splittingDate(row.updated_at)}</td>
              
               <td style="min-width: 50px;">
-              <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+              <button onclick="allAdmin()" type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                   Asign Admin
               </button>
               
@@ -1440,7 +1440,7 @@ function fetchAllnegotiation (){
                       <div class="modal-body">
                           <form>
                             <label class="pt-1 pb-1 welcome text-secondary">Select Admin</label>
-                            <select class="form-control form-control-lg form-select rounded-2 shadow-form" type="text" onclick="allAdmin()" id="Alladmin">
+                            <select class="form-control form-control-lg form-select rounded-2 shadow-form" type="text"  id="Alladmin">
                               <option value="" disabled selected>Select Admin</option>
                               
                             </select>
