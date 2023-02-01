@@ -2,10 +2,20 @@
 /* -------------------------------------------------------------------------- */
 /*                          load profile image begins                         */
 /* -------------------------------------------------------------------------- */
-var loadFile = function (event) {
-  var image = document.getElementById("output");
-  image.src = URL.createObjectURL(event.target.files[0]);
-};
+function readURL(input) {
+  if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+          $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+          $('#imagePreview').hide();
+          $('#imagePreview').fadeIn(650);
+      }
+      reader.readAsDataURL(input.files[0]);
+  }
+}
+$("#imageUpload").change(function() {
+  readURL(this);
+});
   /* -------------------------------------------------------------------------- */
   /*                           load profile image ends                          */
   /* -------------------------------------------------------------------------- */
@@ -75,6 +85,7 @@ const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
 /* -------------------------------------------------------------------------- */
 
 function getUsersStats(){
+  adminName();
 // alert(localStorage.getItem('access'));
   var settings = querySetting("api/admin/users/getstats", "GET", localStorage.getItem('access'));
 
@@ -101,8 +112,14 @@ function getUsersStats(){
   });
 }
 
+const adminName = () => {
+  let admin = JSON.parse(localStorage.getItem('admin'));
+  $('#admin_name').text(admin.first_name+" "+admin.last_name);
+  // console.log(admin.first_name+" "+admin.last_name);
+  // console.log(admin);
+}
 
-
+ 
 
 /* -------------------------------------------------------------------------- */
 /*                          FETCHING USER STATS ENDS                          */
@@ -134,19 +151,15 @@ function fetchAllroles(){
           index= index+1;
           rowContent 
           += `<tr class="align-items-center">
-          <td style="min-width: 10px !important;"><span>${index}</span></td>
-          <td style="min-width: 100px !important;"><span>${row.role_name}</span></td>
-          <td style="min-width: 130px !important;"><span>${row.role_description}</span></td>
-          <td style="min-width: 100px !important;"><span>${splittingDate(row.created_at)}</span></td>
-          <td style="min-width: 100px;"><span>${splittingDate(row.updated_at)}</span></td>
-          <td style="min-width: 50px;">
-          <button class="cursor-pointer btn btn-sm th-btn fs-9 text-white rounded-6 text-end" onclick="editRole('${row.id}', '${row.role_name}', '${row.role_description}')">Update</button>
-          
-          </td>
-          <td style="min-width: 50px;"><span>
-          <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deleteadminRole('${row.id}')">Delete</button>
-          </span>
-          </td>	
+                <td style="min-width: 10px !important;"><span>${index}</span></td>
+                <td style="min-width: 100px !important;"><span>${row.role_name}</span></td>
+                <td style="min-width: 130px !important;"><span>${row.role_description}</span></td>
+                <td style="min-width: 100px !important;"><span>${splittingDate(row.created_at)}</span></td>
+                <td style="min-width: 100px;"><span>${splittingDate(row.updated_at)}</span></td>
+                <td style="min-width: 100px;">
+                <button class="btn btn-sm th-btn fs-9 text-white rounded-6 text-end me-3" onclick="editRole('${row.id}', '${row.role_name}', '${row.role_description}', '${row.section}')">Update</button>
+                <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deleteadminRole('${row.id}')">Delete</button>
+                </td>
               </tr>`;
         });
         // alert(response.data.length);
@@ -174,7 +187,7 @@ function fetchAllroles(){
         // loader('#tbdata')
         // $('#tbdata').html(rowContent);
     });
-  }
+};
   
 //   ------------------- FILLING ADMINISTRATIVE ROLE TABLE ENDS---------------------------//
 
@@ -187,6 +200,7 @@ const addRole =()=>{
     // selecting the input element and get its value
     let roleName = document.getElementById("role_name");
     let roleDescription = document.getElementById("role_description");
+    let roleSections = $('#choices-multiple-remove-button');
 
     // Displaying the value 
     // swal("", roleName), ""
@@ -198,34 +212,65 @@ const addRole =()=>{
         swal("Enter description!");
         roleDescription.focus();
         return false;
+    }else if(!roleSections.val()){
+      swal("Select Section Access!");
+        roleSections.focus();
+        return false;
     }else{
 
         const adminRole = JSON.stringify({
             "role_name": roleName.value,
+            "section": (roleSections.val()).toString(),
             "role_description": roleDescription.value
         });
 
+
         var settings = querySetting("api/admin/roles/add", "POST", localStorage.getItem('access'), adminRole);
           
-          $.ajax(settings).done(function (response) {
-            console.log(response);
-            if(response.error==true){
-                console.log(response.message);
-                swal("FAILED", response.message, "error");
-              }else{
-                console.log(response.message);
-                swal("SUCCESS", response.message, "success");
-                roleName.value="";
-                roleDescription.value="";
-                window.location.href = "admin-role.html";
-                setTimeout(() => {
-                  cancelRequest();
-                }, 2000)
-                fetchAllroles();
-              }
-          });
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if(response.error==true){
+              console.log(response.message);
+              swal("FAILED", response.message, "error");
+            }else{
+              console.log(response.message);
+              swal("SUCCESS", response.message, "success");
+              roleName.value="";
+              roleDescription.value="";
+              window.location.href = "admin-role.html";
+              setTimeout(() => {
+                cancelRequest();
+              }, 2000)
+              fetchAllroles();
+            }
+        });
     }
 };
+
+//----------------------------- Getting all section-------------------------------//
+const allSections = () => {
+  var settings = querySetting("api/admin/section/getall", "GET", localStorage.getItem('access'));
+    
+  
+  $.ajax(settings).done(function (data) {
+    let response = data.data;
+      for(let i = 0; i < response.length; i++){
+        $('.choices').append(`<option value='${response[i].section_name}'> ${response[i].section_name} </option>`);
+        if (i==response.length-1){
+          $(document).ready(function(){
+            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+              removeItemButton: true,
+              maxItemCount:12,
+              searchResultLimit:11,
+              renderChoiceLimit:11
+            });
+          console.log(multipleCancelButton)
+          });
+
+        }
+      }
+  });
+} 
 
 // ------------------------- ADDING ADMISTRATIVE ROLE ENDS------------------------------//
 
@@ -278,27 +323,8 @@ const deleteadminRole =(n)=>{
 
 const editRole = (id, name, description) => {
   sessionStorage.setItem('roleData', JSON.stringify({id:id, name:name, description:description}));
-  // window.location.href = "#?roleID="+id;
-  // const URL = window.location.href;
-  // const confirmEdit = URL.split("?");
-
-  
-
-  // // console.log(confirmEdit);
-  
-  // if(confirmEdit[1] !== undefined){
-  //   $('#role_name').val(name);
-  //   $('#role_description').val(description);
-
     window.location.href = "update-role.html";
-
-  //   if((window.location.href).split('#')[1] == 'role-section'){
-  //     document.querySelector('#editBtn').classList.remove('d-none');
-  //     document.querySelector('#addBtn').classList.add('d-none');
-  //     document.querySelector('#cancelBtn').classList.remove('d-none');
-
-  //   }
-  // }
+    // console.log(roleData)
 }
 
 const checkr = () => {
@@ -307,7 +333,10 @@ const checkr = () => {
    if(data !== undefined || data !== null || data !== ''){
     $('#role_name').val(data.name);
     $('#role_description').val(data.description);
+    // $('#choices-multiple-remove-button').val(data.section);
   }
+  // console.log($('#choices'))
+  // console.log(data.section)
 }
 
 /* --------------------------- cancel edit request -------------------------- */
@@ -330,11 +359,14 @@ const cancelRequest = () => {
 
 
 const updateAdminRole =()=>{
+   
+
   let adminRoleid = JSON.parse(sessionStorage.getItem('roleData')).id;
-  // console.log(localStorage.getItem('access'));
+  // console.log(localStorage.getItem(roleData));
   // selecting the input element and get its value
   let roleName = document.getElementById("role_name");
   let roleDescription = document.getElementById("role_description");
+  // let roleSections = $('#choices-multiple-remove-button');
 
   // Displaying the value 
   // swal("", roleName), ""
@@ -346,12 +378,13 @@ const updateAdminRole =()=>{
       swal("Enter description!");
       roleDescription.focus();
       return false;
-  }else{
+  }else {
 
       const adminRole = JSON.stringify({
           "id": adminRoleid,
           "role_name": roleName.value,
-          "role_description": roleDescription.value
+          "role_description": roleDescription.value,
+          "choices-multiple-remove-button": roleSections.value
       });
 
       var settings = querySetting("api/admin/roles/edit", "POST", localStorage.getItem('access'), adminRole);
@@ -368,6 +401,7 @@ const updateAdminRole =()=>{
               setTimeout(() => {
                 cancelRequest();
               }, 2000)
+              
               fetchAllroles();
             }
         });
@@ -752,7 +786,7 @@ const allRoles = () => {
   $.ajax(settings).done(function (data) {
     let response = data.data;
       for(let i = 0; i < response.length; i++){
-        $('#role').append(`<option value='${response[i].role_name}'>${response[i].role_name}</option>`);
+        $('#role').append(`<option value='${response[i].role_id}'>${response[i].role_name}</option>`);
       }
   });
 }
@@ -765,8 +799,6 @@ allRoles();
 /* -------------------------------------------------------------------------- */
 /*                          ADMINISTRATORS ENDS HERE                          */
 /* -------------------------------------------------------------------------- */
-
-
 
 
 
@@ -865,8 +897,6 @@ function fetchAllusers (){
 
 
 
-
-
 /* -------------------------------------------------------------------------- */
 /*                           ACTIVITY LOG STARTS HERE                           */
 /* -------------------------------------------------------------------------- */
@@ -936,7 +966,6 @@ function fetchAllactivity (){
         }
       });
     }
-
 
 
 /* -------------------------------------------------------------------------- */
@@ -1213,7 +1242,11 @@ let description = document.getElementById("description");
 
 // Displaying the value 
 // alert(roleName)
-if(!ticketSubject.value){
+if(!ticketUser.value){
+  swal("Select User!");
+  ticketUser.focus();
+  return false;
+}else if(!ticketSubject.value){
     swal("Enter ticket subject!");
     ticketSubject.focus();
     return false;
@@ -1225,11 +1258,7 @@ if(!ticketSubject.value){
     swal("Enter description!");
     description.focus();
     return false;
-}else if(!users.value){
-  swal("Select User!");
-  description.focus();
-  return false;}
-  else{
+} else{
 
     const ticketData = JSON.stringify({
       users: ticketUser.value,
@@ -1391,10 +1420,11 @@ function fetchAllorders (){
 /*                            FETCH ALL NEGOTIATION                           */
 /* -------------------------------------------------------------------------- */
 function fetchAllnegotiation (){
+  allAdmin()
 
   loader('#negotiationdata', 10)
 
-  var settings = querySetting("api/admin/crop/negotiation/getallNegotiations", "GET", localStorage.getItem('access'));
+  var settings = querySetting("api/admin/crop/conversation/getall/0/6", "GET", localStorage.getItem('access'));
     
   $.ajax(settings).done(function (data) {
     let response = data;
@@ -1404,28 +1434,42 @@ function fetchAllnegotiation (){
       console.log(response.message);
      
   }else{
-      console.log(response.data)
+      // console.log(response.data)
 
       let thedata = response.data;
-     
-      console.log(thedata)
-
+      // console.log(response.data)
+      
       if(thedata.length > 0){
-          let rowContent
+
+        let thedata = (response.data).reverse();
+          let rowContent;
           $.each(thedata, (index, row) => {
+                       
+            // console.log(row.userone.first_name)
+            // console.log(index, "----", row);
 
               index= index+1;
               rowContent += `<tr class="align-items-center">
               <td style="min-width: 50px;">${index}</td>
-              <td style="min-width: 100px;"> <strong class="welcome">${row.sender_id}</strong><br/>
-                <small class="text-primary fw-bold text-uppercase">${row.type}</small> 
+              <td style="min-width: 100px;"><strong class="welcome">${row.userone.first_name}, ${row.userone.last_name}</strong><br/>
+                <small class="text-primary fw-bold text-uppercase">${row.userone.type}</small> 
               </td>
-              <td style="min-width: 100px;">${row.receiver_id}</td>
-              <td style="min-width: 120px;">${splittingDate(row.created_at)}</td>
-              <td style="min-width: 120px;">${splittingDate(row.updated_at)}</td>
+              <td style="min-width: 100px;"><strong class="welcome">${row.usertwo.first_name}, ${row.usertwo.last_name}</strong><br/>
+                <small class="text-primary fw-bold text-uppercase">${row.usertwo.type}</small> 
+              </td>
+              <td style="min-width: 120px;">${splittingDate(row.crop.created_at)}</td>
+              <td style="min-width: 120px;">${splittingDate(row.crop.updated_at)}</td>
+              <td style="min-width: 50px;">
+                <a href="javascript:void(0)" onclick="negotiationView('${row.id}','${row.name}')">
+                    <span class="text-primary">
+                      <i class="fa fa-eye"></i> View
+                    </span>
+                </a>
+              </td>
+             
              
               <td style="min-width: 50px;">
-              <button onclick="allAdmin()" type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+              <button onclick="converSation('${row.conversationid}')" type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                   Asign Admin
               </button>
               
@@ -1440,14 +1484,13 @@ function fetchAllnegotiation (){
                       <div class="modal-body">
                           <form>
                             <label class="pt-1 pb-1 welcome text-secondary">Select Admin</label>
-                            <select class="form-control form-control-lg form-select rounded-2 shadow-form" type="text"  id="Alladmin">
+                            <select class="form-control form-control-lg form-select rounded-2 shadow-form" type="text" id="Alladmin">
                               <option value="" disabled selected>Select Admin</option>
                               
                             </select>
                             <br>
                             <div class="text-end">
-                              <a href="javascript:void(0)" class="btn  th-btn fs-9 text-white rounded-6" onclick="asignAdmin()"> Asign Admin</a>
-                           
+                              <a href="javascript:void(0)" class="btn  th-btn fs-9 text-white rounded-6" onclick="assignAdmin()" value=""> Asign Admin</a>
                             </div>
                           </form>
                       </div>
@@ -1508,6 +1551,143 @@ const allAdmin = () => {
   });
 }
 
+// Getting the conversation id 
+const converSation = (conversationid) => {
+  // alert(conversationid);
+  localStorage.setItem('singleConversation', JSON.stringify({"conversationid":conversationid}));
+  
+  // window.location.href = "sub-category.html";
+}
+
+//-------------------------- Assigning Admin -------------------------------//
+const assignAdmin = () => {
+  let converData = JSON.parse(localStorage.getItem('singleConversation'));
+  // alert("balablu")
+  // selecting the input element and get its value
+  let converID = converData.conversationid;
+  // alert("balablu")
+  console.log(converData.conversationid);
+
+  // selecting the input element and get its  value
+  console.log(converID)
+  
+  let negotiationID = converID;
+  let adminSelected = document.getElementById("Alladmin");
+ 
+  // Displaying the value 
+    if(!adminSelected.value){
+      swal("Select and Admin to Assign!");
+      adminSelected.focus();
+      return false;
+    } else {
+
+      const assignAdmin = JSON.stringify({
+        "negotiation_id": negotiationID,
+        "adminassigned":adminSelected.value,
+      });
+     
+
+      var settings = querySetting("api/admin/assignnegotiation/add", "POST", localStorage.getItem('access'), assignAdmin);
+      
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if(response.error==true){
+              console.log(response.message);
+              swal("FAILED", response.message, "error");
+            }else{
+              console.log(response.message);
+              swal("SUCCESS", response.message, "success");
+            
+              // categoryType.value=""
+              // categoryName.value="";
+              
+              window.location.href = "negotiation.html";
+              setTimeout(() => {
+                cancelRequest();
+              }, 2000)
+              fetchAllnegotiation();
+            }
+        });
+  }
+}; 
+
+//----------------------------------- All Assigned Negotiation --------------------------//
+function fetchAllAssigned (){
+
+  loader('#assignedData', 10)
+
+  var settings = querySetting("api/admin/assignnegotiation/getall", "GET", localStorage.getItem('access'));
+    
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+  if(response.error==true){
+    $('#assignedData').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Negotiation</h3></td></tr>");
+
+      console.log(response.message);
+     
+  }else{
+      // console.log(response.data)
+
+      let thedata = response.data;
+      // console.log(response.data)
+      
+      if(thedata.length > 0){
+
+        let thedata = (response.data).reverse();
+          let rowContent;
+          $.each(thedata, (index, row) => {
+                       
+            // console.log(row.userone.first_name)
+            console.log(index, "----", row);
+
+              index= index+1;
+              rowContent += `<tr class="align-items-center">
+              <td style="min-width: 50px;">${index}</td>
+              <td style="min-width: 100px;"><strong class="welcome">${row.adminassigned}</strong><br/>
+          
+              </td>
+              <td style="min-width: 100px;"><strong class="welcome">${row.negotiationid}</strong><br/>
+           
+              </td>
+              <td style="min-width: 100px;">${splittingDate(row.created_at)}</td>
+              <td style="min-width: 100px;">${splittingDate(row.updated_at)}</td>
+              <td class="text-end" style="min-width: 20px;">
+                  <div class="dropdown shadow-dot text-center">
+                      <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          <a href="javascript:void(0)" class="dropdown-item" href="">Re-Assign</a>
+                          <a href="javascript:void(0)" class="dropdown-item" onclick="deleteAssigne('${row.id}')">Delete</a>
+                      </div>
+                  </div>
+              </td>
+
+             </tr>`;
+            });
+            $('#assignedData').html(rowContent);
+            $(document).ready( function () {
+              $('#allTable').DataTable({
+                scrollY: 300,
+                scrollX: true,
+                scrollCollapse: true,
+                retrieve: true,
+                paging: true,
+                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+                fixedHeader:{
+                    header: true,
+                    footer: true
+                }
+              });
+            });
+      }else{
+      }
+  }
+  });
+
+} 
 
 
 /* -------------------------------------------------------------------------- */
@@ -1726,7 +1906,7 @@ function fetchAllInputCategory (){
   });
 
 }; 
-// --------------------------------Adding a Crop  Category starts---------------------//
+// --------------------------------Adding   Category starts---------------------//
 const addcategory = () => {
   // alert("balablu")
   // console.log(localStorage.getItem('access'));
@@ -1776,7 +1956,7 @@ const addcategory = () => {
 }; 
 
 
-// ------------------------------Deleting crop category ----------------------------------//
+// ------------------------------Deleting  category ----------------------------------//
 const deleteCategory =(n)=>{
   // swal("", n);
   swal({
@@ -2449,6 +2629,7 @@ function fetchAllinput (){
     console.log(response);
 
   if(response.error==true){
+    $('#inputdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Inputs added yet</h3></td></tr>");
       console.log(response.message);
   }else{
       let thedata = response.data;
@@ -2474,11 +2655,11 @@ function fetchAllinput (){
               index= index+1;
               rowContent += `<tr class="align-items-center">
               <td style="min-width: 50px;">${index}</td>
-              <td style="min-width: 170px;">${row.user_id}</td>
-              <td style="min-width: 170px;">${row.category_id}</td>
-              <td style="min-width: 170px;">${row.subcategory_id}</td>
+              <td style="min-width: 120px;">${row.user_id}</td>
+              <td style="min-width: 120px;">${row.category_id}</td>
+              <td style="min-width: 120px;">${row.subcategory_id}</td>
               <td style="min-width: 120px;">${row.packaging}</td>
-              <td style="min-width: 150px;">
+              <td style="min-width: 100px;">
               <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                   VIEW
               </button>
@@ -2501,30 +2682,26 @@ function fetchAllinput (){
                   </div>
               </div>
               </td>
-            
-              <!-- <td style="min-width: 150px;">${row.description}</td>
-              <td style="min-width: 140px; text-align:center;">${ticket_status}</td>
-              <td style="min-width: 140px;">${(row.created_at).split("T")[0]}</td>
-              <td style="min-width: 140px;">${(row.updated_at).split("T")[0]}</td>
-              <td class="text-end" style="min-width: 50px;">
-                  <div class="dropdown shadow-dot text-center">
-                      <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="">Edit</a>
-                          <a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Delete</a>
-                      </div>
-                  </div>
-              </td> -->
-              <td style="min-width: 50px; cursor:pointer;"  ><a href="../dashboards/view-more.html" class="success-color">View More</a></td>
+              <td style="min-width: 70px; cursor:pointer;"  ><a href="../dashboards/view-more.html" class="success-color">View More</a></td>
               
 
              </tr>`;
-          $('#inputdata').html(rowContent);
-          });
-      }else{
-          $('#inputdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Inputs registered yet</h3></td></tr>");
+            });
+            $('#inputdata').html(rowContent);
+            $(document).ready( function () {
+              $('#allTable').DataTable({
+                scrollY: 300,
+                scrollX: true,
+                scrollCollapse: true,
+                retrieve: true,
+                paging: true,
+                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+                fixedHeader:{
+                    header: true,
+                    footer: true
+                }
+              });
+            });
       }
   }
   });
@@ -2549,11 +2726,12 @@ function cropsWanted (){
   $.ajax(settings).done(function (data) {
     let response = data;
     console.log(response);
-
-  if(response.error==true){
+    
+    if(response.error==true){
+      $('#cropofferdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop Wanted Availble Yet</h3></td></tr>");
       console.log(response.message);
-     
-  }else{
+      
+    }else{
       console.log(response.data)
       let thedata = response.data;
       thedata = thedata.rows
@@ -2585,7 +2763,7 @@ function cropsWanted (){
                 <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
               </td>
               <td style="min-width: 70px;" class="text-primary">${row.user.email}</td>
-              <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.type}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.title}</small> </td>
+              <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
               <td style="min-width: 100px; text-align:center;">${crop_status}</td>
               <td style="min-width: 200px;">${row.description}</td>
               <td style="min-width: 50px;">
@@ -2786,8 +2964,6 @@ function cropsWanted (){
                 }
               });
             });
-      }else{
-          $('#cropdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop registered yet</h3></td></tr>");
       }
   }
   });
@@ -2887,7 +3063,7 @@ const viewMore  =() => {
         // loader('#tbdata')
         // $('#tbdata').html(rowContent);
     });
-  }
+}
 
 
 
@@ -2908,7 +3084,8 @@ const viewMore  =() => {
       console.log(response);
   
     if(response.error==true){
-        console.log(response.message);
+        // console.log(response.message);
+        $('#cropofferdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop For Sale Availble Yet</h3></td></tr>");
        
     }else{
         console.log(response.data)
@@ -2941,7 +3118,7 @@ const viewMore  =() => {
                   <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
                 </td>
                 <td style="min-width: 100px;" class="text-primary">${row.user.email}</td>
-                <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.type}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.title}</small> </td>
+                <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
                 <td style="min-width: 100px; text-align:center;">${crop_status}</td>
                 <td style="min-width: 200px;">${row.description}</td>
                 <td style="min-width: 50px;">
@@ -3142,8 +3319,6 @@ const viewMore  =() => {
                   }
                 });
               });
-        }else{
-            $('#cropofferdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop registered yet</h3></td></tr>");
         }
     }
     });
@@ -3202,7 +3377,7 @@ function cropsAuctioned (){
                   <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
                 </td>
                 <td style="min-width: 100px;" class="text-primary">${row.user.email}</td>
-                <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.type}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.title}</small> </td>
+                <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
                 <td style="min-width: 100px; text-align:center;">${crop_status}</td>
                 <td style="min-width: 200px;">${row.description}</td>
                 <td style="min-width: 50px;">
@@ -3404,7 +3579,7 @@ function cropsAuctioned (){
                 });
               });
         }else{
-            $('#cropauctiondata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop registered yet</h3></td></tr>");
+            $('#cropauctiondata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop For Auction yet</h3></td></tr>");
         }
     }
     });

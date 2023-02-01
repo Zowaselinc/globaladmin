@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zowasel  View - Negotiation</title>
+  <title>Zowasel  Assigned - Negotiation</title>
   <link rel="icon" href="../assets/logo/zowaselICO.png">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
@@ -38,13 +38,13 @@
 			<div class="dash ms-sm-auto ms-0 col col-12 col-lg-10  rightscrollableside">
 				<div class="main-content row d-flex justify-content-center align-items-center">
 				<!-- Card Header -->
-				 <div class="container-fluid header pb-1 pt-5 pt-md-8  ">
+				 <div class="container-fluid header pb-1 pt-2 ">
 					<div class="container">
 						<div class="header-body">
 							<div class="d-block d-md-flex mb-1 mt-4 justify-content-between align-items-middle">
-								<h2 class="fs-3 mb-3 welcome">All Negotiation</h2>
+								<h2 class="fs-5 mb-3 welcome">Assigned Negotiation</h2>
 								<div class="">
-									<a href="./assigned-negotiation.html"><span class="th-btn border-secondary text-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-2 text-secondary">View Asigned Negotiation</span></a>
+									<a href="./negotiation.html"><span class="th-btn border-secondary text-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-2 text-secondary">View Negotiation</span></a>
 									<!-- <a href=""><span class="border border-1 border-secondary bg-white ps-4 pe-4 pt-2 pb-2 rounded-pill text-secondary">Transaction To</span></a> -->
 								</div>
 							
@@ -72,17 +72,16 @@
 												<thead class="t-border">
 													<tr class="border-bottom t-border">
 														<th scope="">ID</th>
-														<th scope="">SENDER</th>
-														<th scope="">RECEIVER</th>
+														<th scope="">ADMIN ID</th>
+														<th scope="">NEGOTIATION</th>
 														<th scope="">DATE CREATED</th>
 														<th scope="">DATE UPDATED</th>
-														<th scope="">VIEW</th>
 														<th scope="">ACTION</th>
 													
 													</tr>
 												</thead>
 												
-												<tbody id="negotiationdata">
+												<tbody id="assignedData">
 
 													<!-- <tr class="text-center">
 														<td>
@@ -228,7 +227,7 @@
 	<script src="../js/admin.js"></script>
 	<script>
 		// allAdmin();
-		fetchAllnegotiation();
+		fetchAllAssigned();
 	</script>
 	
 </body>

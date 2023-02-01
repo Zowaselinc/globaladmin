@@ -88,6 +88,7 @@ function yourButton(){
         swal("SUCCESS", response.message, "success");
           localStorage.setItem('access',"Bearer "+response.token);
           localStorage.setItem('adminkey',response.keyid);
+          localStorage.setItem('admin', JSON.stringify(response.data));
           setTimeout(()=>{
               location.href="../dashboards/user-stats.html";
           },3000)

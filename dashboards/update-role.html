@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.3.1/css/fixedHeader.dataTables.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/style.css"/>
 
  
 </head>
@@ -77,23 +77,23 @@
 														  </div>
 														</div>	
 
-														<div class="col-lg-12 mb-5">
+														<!-- <div class="col-lg-12 mb-5">
 															<div class="form-group it">
 																<label class="form-control-label mb-2" for="section-access">Section Access</label>
+																
 																<select id="choices-multiple-remove-button" placeholder="Select sections to grant access" class=" mult-select-tag" multiple>
-																	<option value="dashbords">Dashbord</option>
-																	<option value="administrators">Admin</option>
-																	<option value="users">Users</option>
-																	<option value="roles">Roles</option>
-																	<option value="supports">Support</option>
-																	<option value="marketplace">Marketplace</option>
-																	<option value="wallet">Wallet</option>
-																	<option value="company">Company</option>
-																	<option value="messages">Messages</option>
-																	<option value="settings">Settings</option>
+																	<option value="Admin">Admin</option>
+																	<option value="Users">Users</option>
+																	<option value="Roles">Roles</option>
+																	<option value="Support">Support</option>
+																	<option value="Marketplace">Marketplace</option>
+																	<option value="Wallet">Wallet</option>
+																	<option value="Company">Company</option>
+																	<option value="Messages">Messages</option>
+																	<option value="Settings">Settings</option>
 																</select>
 															</div>
-														</div>
+														</div> -->
 
 													</div>
 											  </div>
@@ -101,7 +101,7 @@
 													<!-- <a href="javascript:void(0)" class="btn th-btn fs-9 text-white rounded-6" onclick="https://admin.growsel.comRole()" id="addBtn">Add Role</a> -->
 													<a href="#" class="btn th-btn fs-9 text-white rounded-6" onclick="updateAdminRole()" id="editBtn">Update Role</a>
 													<a href="#" class="btn btn-danger fs-9 text-white rounded-6" onclick="cancelRequest()" id="cancelBtn">Cancel Update</a>
-											  </div>
+											  </div>  
 										
 										</form>
 									</div>
@@ -122,7 +122,7 @@
 
 
 	<!-- <script src="../js/plugins/jquery/dist/jquery.min.js"></script> -->
-	<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script> -->
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
@@ -145,10 +145,13 @@
 	</script>
 
 	<script src="../js/admin.js"></script>
-	<!-- <script src="../js/table.js"></script> -->
+	<script src="../js/multiselect.js"></script>
 	<script>
+		
+		
+		
 		checkr();
-
+		
 		$(document).ready(function(){
 
 			var multipleCancelButton = new Choices('#choices-multiple-remove-button', {

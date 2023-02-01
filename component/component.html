@@ -1,9 +1,51 @@
+<script>
+    // const allSections = () => {
+        let sections = [];
+        let roleSections = [];
+        var settings = querySetting("api/admin/section/getall", "GET", localStorage.getItem('access'));
+        let adminRoleID;
+        $("nav li").hide();
+        $.ajax(settings).done(function (data) {
+            let response = data.data;
+            for(let i = 0; i < response.length; i++){
+                sections.push(response[i].section_name);
+                adminRoleID = JSON.stringify(JSON.parse(localStorage.getItem('admin')).role);
+                adminRoleID = JSON.parse(adminRoleID);
+            }
+            console.log(sections)
+            let roleidd = querySetting(`api/admin/roles/getbyroleid/${adminRoleID}`, "GET", localStorage.getItem('access'));
+            $.get(roleidd).done(function(data){
+                roleSections = JSON.parse(JSON.stringify(data.data));
+                roleSections = (roleSections.section).split(',');
+                let secID;
+                let allsec;
+                console.log(roleSections);
+                for(let j = 0; j < sections.length; j++){
+                    let allsec = `#${sections[j]}`;
+                    $(allsec).hide();
+                    if(roleSections == 'All'){
+                        $('nav li').show();
+                    }else{
+                        for(let i = 0; i < roleSections.length; i++){
+                            let secID = `#${roleSections[i]}`;
+                            $(secID).show();
+                            $('li:first-child').show();
+                            $('li:last-child').show();
+                        }
+                    }
+                }
+            })
+        });
+
+    // } 
+    
+</script>
 
 <div>
     <div class="position-sticky  nav-left ">
         <ul class="nav flex-column px-4 mt-1 mt-lg-0"> 
             <!-- Dashboard  -->
-            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" id="Dashboard">
                 <a href="javascript:void(0)"  onclick="clicked()" class="btnn nav-link text-white d-flex justify-content-between align-items-center hi" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false"> 
                     <div>
                         <i class="fa fa-desktop"></i>
@@ -13,13 +55,13 @@
 
                 <div class="collapse" id="dashboard-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
-                        <li><a href="./user-stats.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('user-stats.html')">User Stats</a></li>
-                        <li><a href="./finance-stats.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('finance-stats.html')">Fianace Stats</a></li>
+                        <a href="./user-stats.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('user-stats.html')">User Stats</a>
+                        <a href="./finance-stats.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('finance-stats.html')">Fianace Stats</a>
                     </ul>
                 </div>
             </li>
             <!-- Admin  -->
-            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" id="Admin">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#admin-collapse" aria-expanded="false"> 
                     <div>
                         <i class="fa fa-user-tie"></i>
@@ -29,14 +71,14 @@
 
                 <div class="collapse" id="admin-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
-                        <li><a href="./alladministrators.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('alladministrators.html')">Administrator</a></li>
-                        <li><a href="../dashboards/activity-log.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('../dashboards/activity-log.html')">Activity Log</a></li>
-                        <li><a href="./errorlog.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('errorlog.html')">Error Log</a></li>
+                        <a href="./alladministrators.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('alladministrators.html')">Administrator</a>
+                        <a href="../dashboards/activity-log.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('../dashboards/activity-log.html')">Activity Log</a>
+                        <a href="./errorlog.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('errorlog.html')">Error Log</a>
                     </ul>
                 </div>
             </li>
             <!-- Users  -->
-            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" id="Users">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#users-collapse" aria-expanded="false"> 
                     <div>
                         <i class="fa fa-users"></i>
@@ -46,13 +88,13 @@
 
                 <div class="collapse" id="users-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
-                    <li><a href="./add-users.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('add-users.html')">Add Users</a></li>
-                    <li><a href="./allusers.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('allusers.html')">All Users</a></li>
+                        <a href="./add-users.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('add-users.html')">Add Users</a>
+                        <a href="./allusers.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('allusers.html')">All Users</a>
                     </ul>
                 </div>
             </li>
             <!-- Roles  -->
-            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" id="Roles">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#roles-collapse" aria-expanded="false"> 
                     <div>
                         <i class="fa fa-tasks"></i>
@@ -62,13 +104,13 @@
 
                 <div class="collapse" id="roles-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
-                    <li><a href="./create-role.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('admin-role.html')">Create Role</a></li>
-                    <li><a href="./admin-role.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('alladministrators.html')">Admin Roles</a></li>
+                        <a href="./create-role.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('admin-role.html')">Create Role</a>
+                        <a href="./admin-role.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('alladministrators.html')">Admin Roles</a>
                     </ul>
                 </div>
             </li>
             <!-- Marketplace  -->
-            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" id="Marketplace">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#marketplace-collapse" aria-expanded="false"> 
                     <div>
                         <i class="fa fa-store"></i>
@@ -78,20 +120,20 @@
 
                 <div class="collapse" id="marketplace-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
-                    <li><a href="../dashboards/category.html" class="text-white nav-link spacing-4 ps-5 ms-1">Categories</a></li>
-                    <li><a href="../dashboards/crops.html" class="text-white nav-link spacing-4 ps-5 ms-1">Crop</a></li>
-                    <li><a href="../dashboards/input-market.html" class="text-white nav-link spacing-4 ps-5 ms-1">Input</a></li>
-                    <li><a href="../dashboards/negotiation.html" class="text-white nav-link spacing-4 ps-5 ms-1">Negotiation</a></li>
-                    <li><a href="../dashboards/view-orders.html" class="text-white nav-link spacing-4 ps-5 ms-1">Orders</a></li>
-                    <li><a href="../dashboards/transaction.html" class="text-white nav-link spacing-4 ps-5 ms-1">Market Transactions</a></li>
-                    <li><a href="../dashboards/purchase-order.html" class="text-white nav-link spacing-4 ps-5 ms-1">Purchase Orders</a></li>
-                    <li><a href="../dashboards/good-receipt.html" class="text-white nav-link spacing-4 ps-5 ms-1">Good Receipt Note</a></li>
-                    <li><a href="../dashboards/withdrawal-request.html" class="text-white nav-link spacing-4 ps-5 ms-1">Withdrawal Request</a></li>
+                        <a href="../dashboards/category.html" class="text-white nav-link spacing-4 ps-5 ms-1">Categories</a>
+                        <a href="../dashboards/crops.html" class="text-white nav-link spacing-4 ps-5 ms-1">Crop</a>
+                        <a href="../dashboards/input-market.html" class="text-white nav-link spacing-4 ps-5 ms-1">Input</a>
+                        <a href="../dashboards/negotiation.html" class="text-white nav-link spacing-4 ps-5 ms-1">Negotiation</a>
+                        <a href="../dashboards/view-orders.html" class="text-white nav-link spacing-4 ps-5 ms-1">Orders</a>
+                        <a href="../dashboards/transaction.html" class="text-white nav-link spacing-4 ps-5 ms-1">Market Transactions</a>
+                        <a href="../dashboards/purchase-order.html" class="text-white nav-link spacing-4 ps-5 ms-1">Purchase Orders</a>
+                        <a href="../dashboards/good-receipt.html" class="text-white nav-link spacing-4 ps-5 ms-1">Good Receipt Note</a>
+                        <a href="../dashboards/withdrawal-request.html" class="text-white nav-link spacing-4 ps-5 ms-1">Withdrawal Request</a>
                     </ul>
                 </div>
             </li>
             <!-- Support  -->
-            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2">
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" id="Support">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#support-collapse" aria-expanded="false"> 
                     <div>
                         <i class="fa fa-info-circle"></i>
@@ -101,13 +143,13 @@
 
                 <div class="collapse" id="support-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
-                    <li><a href="./support-ticket.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('support-ticket.html')">Add Ticket</a></li>
-                    <li><a href="./view-support-ticket.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('view-support-ticket.html')">Support Ticket</a></li>
+                        <a href="./support-ticket.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('support-ticket.html')">Add Ticket</a>
+                        <a href="./view-support-ticket.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('view-support-ticket.html')">Support Ticket</a>
                     </ul>
                 </div>
             </li>
             <!-- Wallet  -->
-            <li class="btn-toggle nav-item mb-2 mb-xxl-2 collapsed">
+            <li class="btn-toggle nav-item mb-2 mb-xxl-2 collapsed" id="Wallet">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#wallet-collapse" aria-expanded="false">
                     <div>
                         <i class="fa fa-wallet"></i>
@@ -117,27 +159,27 @@
 
                 <div class="collapse" id="wallet-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
-                    <li><a href="../dashboards/credit-wallet.html" class="text-white nav-link spacing-4 ps-5 ms-1">Credit wallet</a></li>
+                        <a href="../dashboards/credit-wallet.html" class="text-white nav-link spacing-4 ps-5 ms-1">Credit wallet</a>
                     <!-- <li><a href="../dashboards/withdrawal.html" class="text-white nav-link spacing-4">Withdrawal</a></li> -->
                     </ul>
                 </div>
             </li>
             <!-- Company  -->
-            <li class="nav-item mb-2 mb-xxl-2">
+            <li class="nav-item mb-2 mb-xxl-2" id="Company">
                 <a href="../dashboards/company.html" class="nav-link align-middle text-white">
                 <i class="far fa-building"></i>
                 <span class="ms-1 ps-3 spacing-4">Company</span>
                 </a>
             </li>
             <!-- Messages  -->
-            <li class="nav-item mb-2 mb-xxl-2">
+            <li class="nav-item mb-2 mb-xxl-2" id="Messages">
                 <a href="../dashboards/chat.html" class="nav-link align-middle text-white">
                 <i class="far fa-comment-alt"></i>
                 <span class="ms-1 ps-3 spacing-4">Messages</span>
                 </a>
             </li>
             <!-- Settings  -->
-            <li class="nav-item mb-2 mb-xxl-2">
+            <li class="nav-item mb-2 mb-xxl-2" id="Settings">
                 <a href="../dashboards/settings.html" class="nav-link align-middle text-white">
                 <i class="fa fa-cogs"></i>
                 <span class="ms-1 ps-3 spacing-4">Settings</span>

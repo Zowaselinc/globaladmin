@@ -56,7 +56,8 @@
 					<div class="container-fluid pt-3 pt-md-1  ">
 						<div class="container gx-0  pe-4 ps-md-4 ps-0">
 							<div class="col pb-4">
-								<div class="d-flex justify-content-between mb-3 mt-4">
+								<div class="d-flex mb-3 mt-4">
+									<a href="#" onclick="backButton()"><i class="fa fa-arrow-left fs-4 mt-2 me-3 success-color cursor-pointer"></i></a>
 									<span class="fs-3 welcome" style="line-height: 2.7rem;">TICKET #
 										<span class="fs-3 welcome">ZWLTKT22e85a946a37617b09e70c9d88ab3c82</span> <br>
 										<span class="fs-3 welcome">Made Payment for Input yet to receive product</span>
@@ -246,6 +247,12 @@
 	</script>
 
 <script src="../js/admin.js"></script>
+
+<script>
+	function backButton() {
+	window.history.back();
+	}
+</script>
 
 </body>
 
