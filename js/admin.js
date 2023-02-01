@@ -1541,7 +1541,7 @@ function fetchAllnegotiation (){
 
 // ------------------------- View individual crop conversation  ------------------------//
 const viewSingleConversation = (id) => {
-  alert(id);
+  // alert(id);
   // let cropId = JSON.stringify({"id": id});
   localStorage.setItem('singlecropdata', id);
   window.location.href = "negotiation-message.html";
