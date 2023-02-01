@@ -1460,7 +1460,7 @@ function fetchAllnegotiation (){
               <td style="min-width: 120px;">${splittingDate(row.crop.created_at)}</td>
               <td style="min-width: 120px;">${splittingDate(row.crop.updated_at)}</td>
               <td style="min-width: 50px;">
-                <a href="javascript:void(0)" onclick="negotiationView('${row.id}','${row.name}')">
+                <a href="javascript:void(0)" onclick="viewSingleConversation('${row.crop.id}')">
                     <span class="text-primary">
                       <i class="fa fa-eye"></i> View
                     </span>
@@ -1537,6 +1537,83 @@ function fetchAllnegotiation (){
   });
 
 }
+//----------------------- Filling the conversation  table End ------------------------//
+
+// ------------------------- View individual crop conversation  ------------------------//
+const viewSingleConversation = (id) => {
+  alert(id);
+  // let cropId = JSON.stringify({"id": id});
+  localStorage.setItem('singlecropdata', id);
+  window.location.href = "negotiation-message.html";
+}
+
+const singleConversation  =() => {
+  
+  
+  var settings = querySetting("api/admin/crop/getbyid/"+localStorage.getItem('singlecropdata'), "GET", localStorage.getItem('access'));
+  
+
+  $.ajax(settings).done(function (data) {
+    console.log(data);
+      let response = data;
+    console.log(response);
+    if(response.error==true){
+      console.log(response.message);
+    }else{
+      
+      // console.log(response.data.crop_request[0]);
+      // let count = response.data.crop_request[0];
+        $('#subCategory').text(response.data.subcategory.name);
+        $('#firstName').text(response.data.user.first_name);
+        $('#lastName').text(response.data.user.last_name);
+        $('#type').text(response.data.user.type);
+        $('#price').text(response.data.specification.price);
+      
+        
+        // specification
+        $('#category').text(response.data.category.name);
+        $('#testweight').text(response.data.specification.test_weight);
+        $('#color').text(response.data.specification.color);
+        $('#hardness').text(response.data.specification.hardness);
+        $('#moist').text(response.data.specification.moisture);
+        $('#splits').text(response.data.specification.splits);
+        $('#fm').text(response.data.specification.foreign_matter);
+        $('#oil').text(response.data.specification.oil_content);
+        $('#brokengrains').text(response.data.specification.broken_grains);
+        $('#infestation').text(response.data.specification.infestation);
+        $('#grainsize').text(response.data.specification.grain_size);
+        $('#weevil').text(response.data.specification.weevil);
+        $('#liters').text(response.data.specification.hectoliter);
+        $('#rotten').text(response.data.specification.rotten_shriveled);
+        $('#modeltype').text(response.data.specification.model_type);
+        $('#defects').text(response.data.specification.total_defects);
+        $('#dk').text(response.data.specification.dk);
+        $('#dock').text(response.data.specification.dockage);
+        $('#mold').text(response.data.specification.mold);
+        $('#unit').text(response.data.specification.unit);
+        $('#drying').text(response.data.specification.drying_process);
+        $('#extranous').text(response.data.specification.extraneous);
+        $('#Volatile').text(response.data.specification.volatile);
+        $('#drying').text(response.data.specification.drying_process);
+        // crop request 
+        // $('#country').text(count.country);
+        // $('#address').text(count.address);
+        // $('#zipCode').text(count.zip);
+        // $('#cropId').text(count.crop_id);
+        // $('#lastUpdate').text(count.updated_at);
+        // $('#state').text(count.state);
+        // $('#deliveryMethod').text(count.delivery_method);
+        // $('#deliveryWindow').text(count.delivery_window);
+        // $('#deliveryDate').text(count.delivery_date);
+        // crop request end
+
+        
+     }
+      // loader('#tbdata')
+      // $('#tbdata').html(rowContent);
+  });
+}
+
 
 // -------------- Collecting the Admin ------------------------//
 const allAdmin = () => {
@@ -1551,7 +1628,7 @@ const allAdmin = () => {
   });
 }
 
-// Getting the conversation id 
+// ------------------------Getting the conversation id--------------------// 
 const converSation = (conversationid) => {
   // alert(conversationid);
   localStorage.setItem('singleConversation', JSON.stringify({"conversationid":conversationid}));

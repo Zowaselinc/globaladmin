@@ -39,26 +39,26 @@
 				
 					<div class="container-fluid">
 						<div class="container gx-0 gy-0">
-							<div class="nego-top mt-0 pt-0 ps-5 py-3"><h1 class="text-white pt-4"> <a href="#" onclick="backButton()"><i class="fs-4 fa fa-arrow-left text-white"></i></a> Naziri farms</h1></div>
+							<div class="nego-top mt-0 pt-0 ps-5 py-3"><h1 class="text-white pt-4"> <a href="#" onclick="backButton()"><i class="fs-4 fa fa-arrow-left text-white"></i></a> </h1></div>
 							<!-- side details  -->
 							<div class="d-block d-md-flex justify-content-between">
 								<div class="col-5 ps-4 pe-4">
 									<div class="mt-5">
-										<div>
+										<!-- <div>
 											<img class="" width="100%" src="../assets/potato/potato nego.png" alt="">
-										</div>
+										</div> -->
 										<!-- product company and price -->
 										<div class="d-flex justify-content-between mt-4">
 											<div class="col-6">
-												<h2 class="welcome fs-3 fw-bold mb-3">Irish Potato</h2>
-												<h4 class="fs-5">NGN 3,940,450/bag</h4>
+												<h2 class="welcome fs-3 fw-bold mb-3" id="subCategory"></h2>
+												<h4 class="fs-5">NGN <span id="price" class="fs-5"></span>/bag</h4>
 											</div>
 											<div class="text-end align-items-end col-5">
-												<h6 style="letter-spacing: 0.5px;">Naziri farms</h6>
+												<span class="d-flex justify-content-end"><h6 style="letter-spacing: 0.5px;" class="me-3 fs-5" id="firstName">Naziri</h6> <h6 style="letter-spacing: 0.5px;" class="fs-5" id="lastName">farms</h6></span>
 												<div class="d-flex text-end align-items-middle justify-content-end">
 													<img width="13%" height="13%" src="../assets/Vector.png" alt="">
 													<h6 class="text-secondary ms-2">
-														Verified Merchant
+														Verified <span id="type" class="text-secondary fs-6 text-capitalize"></span>
 													</h6>
 												</div>
 												<div class="d-flex justify-content-end">
@@ -78,30 +78,30 @@
 													<tr>
 														<td>
 															<div class="boldtableContent-sm text-secondary welcome">Product Category</div>
-															<div class="tablenego welcome text-secondary">Grain</div>
+															<div class="tablenego welcome text-secondary" id="category"></div>
 														</td>
 														<td>
 															<div class="boldtableContent-sm text-secondary welcome">Test weight</div>
-															<div class="tablenego welcome text-secondary">MT</div>
+															<div class="tablenego welcome text-secondary" id="testweight"></div>
 														</td>
 														<td>
 															<div class="boldtableContent-sm text-secondary welcome">Color</div>
-															<div class="tablenego welcome text-secondary">Brown</div>
+															<div class="tablenego welcome text-secondary" id="color"></div>
 														</td>
 													</tr>
 	
 													<tr>
 														<td>
 															<div class="boldtableContent-sm text-secondary welcome">Hardness</div>
-															<div class="tablenego welcome text-secondary">Hard</div>
+															<div class="tablenego welcome text-secondary" id="hardness"></div>
 														</td>
 														<td>
 															<div class="boldtableContent-sm text-secondary welcome">Moisture</div>
-															<div class="tablenego welcome text-secondary">0%</div>
+															<div class="tablenego welcome text-secondary" id=""><span id="moist"></span>%</div>
 														</td>
 														<td>
-															<div class="boldtableContent-sm text-secondary welcome">SPlits</div>
-															<div class="tablenego welcome text-secondary">1%</div>
+															<div class="boldtableContent-sm text-secondary welcome">Splits</div>
+															<div class="tablenego welcome text-secondary"><span id="splits"></span> %</div>
 														</td>
 														
 													</tr>
@@ -109,45 +109,46 @@
 													<tr>
 														<td>
 															<div class="boldtableContent-sm text-secondary welcome">Foreign matter (FM)</div>
-															<div class="tablenego welcome text-secondary">3%</div>
+															<div class="tablenego welcome text-secondary"><span id="fm"></span> %</div>
 														</td>
 														<td>
 															<div class="boldtableContent-sm text-secondary welcome">Oil content</div>
-															<div class="tablenego welcome text-secondary">0%</div>
+															<div class="tablenego welcome text-secondary"><span id="oil"></span> %</div>
 														</td>
 														<td>
 															<div class="boldtableContent-sm text-secondary welcome">Broken grains</div>
-															<div class="tablenego welcome text-secondary">6%</div>
+															<div class="tablenego welcome text-secondary"><span id="brokengrains"></span> %</div>
 														</td>
 													</tr>
 	
 													<tr>
 														<td>
 															<div class="boldtableContent-sm text-secondary welcome">Infestation</div>
-															<div class="tablenego welcome text-secondary">5%</div>
+															<div class="tablenego welcome text-secondary"><span id="infestation"></span> %</div>
 														</td>
 														<td>
-															<div class="boldtableContent-sm text-secondary welcome">Litres</div>
-															<div class="tablenego welcome text-secondary">4L</div>
+															<div class="boldtableContent-sm text-secondary welcome">Litre</div>
+															<div class="tablenego welcome text-secondary" id=""><span id="liters"></span>L</div>
 														</td>
 														<td>
 															<div class="boldtableContent-sm text-secondary welcome">Weevil</div>
-															<div class="tablenego welcome text-secondary">0%</div>
+															<div class="tablenego welcome text-secondary"><span id="weevil"></span> %</div>
 														</td>
 													</tr>
 	
 													<tr>
 														<td>
 															<div class="boldtableContent-sm text-secondary welcome">Grain size</div>
-															<div class="tablenego welcome text-secondary">Whole grains</div>
+															<div class="tablenego welcome text-secondary" id="grainsize">Whole grains</div>
 														</td>
+														
 														<td>
 															<div class="boldtableContent-sm text-secondary welcome">Damaged kernel</div>
 															<div class="tablenego welcome text-secondary">2%</div>
 														</td>
 														<td>
 															<div class="boldtableContent-sm text-secondary welcome">Rotten shriveled</div>
-															<div class="tablenego welcome text-secondary">1%</div>
+															<div class="tablenego welcome text-secondary"><span id="rotten"></span> %</div>
 														</td>
 													</tr>
 													<tr>
@@ -167,14 +168,14 @@
 								<div class="col-7 bg-white">
 									<!-- Page content  -->
 									<div class="page-content message-content" id="message_content">
-										<div class="container chat-box-area bottom-content"> 
+										<div class="container align-items-center chat-box-area bottom-content"> 
 
 											<!-- CHAT OR NEGOTIATE IMAGE -->
-											<div class="chat-image">
+											<div class="chat-image mt-5 pt-5">
 												<img src="../assets/logo/chatscircle.png" />
-												<h1 class="text-center">Chat or send an offer to negotiate</h1>
+												<!-- <h1 class="text-center">Chat or send an offer to negotiate</h1> -->
 												<br>
-												<button class="btn th-btn text-white fw-bold" style="border-radius: 3px !important;">Join Negotiation</button>
+												<!-- <button class="btn th-btn text-white fw-bold" style="border-radius: 3px !important;">Join Negotiation</button> -->
 											</div>            
 											<!-- CHAT OR NEGOTIATE IMAGE -->
 
@@ -262,6 +263,7 @@
 	<script src="../js/admin.js"></script>
 
 	<script>
+		singleConversation();
 		function backButton() {
 		window.history.back();
 		}
