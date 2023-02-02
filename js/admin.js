@@ -475,13 +475,19 @@ function fetchAlladmin(){
                 index= index+1;
                 rowContent 
                 += `<tr class="align-items-center">
-                    <td  style="min-width: 80px;"><span>${index}</span></td>
-                    <td style="min-width: 120px;"><strong class="welcome">${row.first_name}</strong></td>
-                    <td style="min-width: 120px;"><strong class="welcome">${row.last_name}</strong></td>
-                    <td style="min-width: 130px;" class="text-primary"><span>${row.email}</span></td>
-                    <td style="min-width: 130px;"><span class="welcome">${row.phone}</span></td>
-                    <td style="min-width: 130px;"><span class="welcome">${row.role}</span></td> 
-                    <td style="min-width: 150px; "><span>
+                    <td><span>${index}</span></td>
+                    <td><strong class="welcome">${row.first_name}</strong></td>
+                    <td><strong class="welcome">${row.last_name}</strong></td>
+                    <td class="text-primary"><span>${row.email}</span></td>
+                    <td><span class="welcome">${row.phone}</span></td>
+                    <td>
+                      <a href="javascript:void(0)" onclick="viewAdministrator('${row.id}','${row.name}')">
+                        <span class="text-primary">
+                          <i class="fa fa-eye"></i> View
+                        </span>
+                      </a>
+                    </td> 
+                   <!-- <td style="min-width: 150px; "><span>
                     <button type="button" class="btn-sm text-white th-btn fs-9 rounded-6" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                         VIEW
                     </button>
@@ -503,12 +509,12 @@ function fetchAlladmin(){
                         </div>
                         </div>
                     </div></span>
-                    </td>
+                    </td> -->
                     
-                    <td style="min-width: 120px;">${status}</td>
-                    <td style="min-width: 160px;"><span>${splittingDate(row.created_at)}</span></td>
-                    <td style="min-width: 160px;"><span>${splittingDate(row.updated_at)}</span></td>
-                    <td class="text-end" style="min-width: 50px;"><span>
+                    <td>${status}</td>
+                    <td><span>${splittingDate(row.created_at)}</span></td>
+                    <td><span>${splittingDate(row.updated_at)}</span></td>
+                    <td class="text-end"><span>
                         <div class="dropdown shadow-dot text-center">
                             <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v"></i>
@@ -539,14 +545,50 @@ function fetchAlladmin(){
                       }
                     });
                   });
-                  
-                   // Calling the pagination function declared
-                  // let totalfetchedrow = thedata.length;
-                  // pagination(totalfetchedrow);
-                  
+             
           }
         });
 }
+
+// ---------------------------View single admin 
+const viewAdministrator = (id) => {
+  alert(id);
+  localStorage.setItem('singleAdminData', id);
+  window.location.href = "viewadmin.html";
+}
+
+const ViewAdministrator  =() => {
+  
+  
+  var settings = querySetting("api/admin/getbyid/"+localStorage.getItem('singleAdminData'), "GET", localStorage.getItem('access'));
+  
+
+  $.ajax(settings).done(function (data) {
+    console.log(data);
+      let response = data;
+    // console.log(response);
+    if(response.error==true){
+      // console.log(response.message);
+    }else{
+     
+      console.log(response.data.role)
+      // let users = response.data[0].user;
+      // let inputcategory = response.data[0].category;
+      // let inputsubtegory = response.data[0].subcategory;
+      $('#firstName').text(response.data.first_name);
+      $('#lastName').text(response.data.last_name);
+      $('#roleName').text(response.data.role.role_name);
+      $('#email').text(response.data.email);
+      $('#mobile').text(response.data.phone);
+      $('#recovery').text(response.data.recovery_phrase);
+      $('#section').text(response.data.role.section);
+      $('#section').text(response.data.section);
+      $('#datecreated').text(response.data.created_at);
+      $('#dateupdated').text(response.data.updated_at);
+      
+     }
+  });
+}              
 
 
 /* ----------------------- FETCHING ALL ADMINISTRATORS ENDS HERE ---------------------- */
