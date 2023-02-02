@@ -97,18 +97,27 @@ function getUsersStats(){
       console.log(response.message);
     }else{
       let count = response.data[0];
+      // Total users 
         $('#totalusers').text(count.Totalusers);
         $('#verifieduser').text(count.VerifiedUsers);
         $('#activeuser').text(count.ActiveUsers);
+        // Total Merchants 
         $('#totalmerchant').text(count.TotalMerchant);
         $('#verifiedmerchant').text(count.VerifiedMerchants);
         $('#activemerchant').text(count.ActiveMerchants);
+        // Total Corporates 
         $('#totalcorporates').text(count.TotalCorporate);
         $('#verifiedcorporate').text(count.VerifiedCorporate);
         $('#activecorporate').text(count.ActiveCorporate);
+        // Total Agents 
+        $('#toatalagent').text(count.TotalAgent);
+        $('#verifiedagent').text(count.VerifiedAgent);
+        $('#activeagent').text(count.ActiveAgent);
+        // Total Partners 
+        $('#toatlpartners').text(count.TotalPartners);
+        $('#verifiedpartners').text(count.VerifiedPartner);
+        $('#activepartners').text(count.ActivePartner);
      }
-      // loader('#tbdata')
-      // $('#tbdata').html(rowContent);
   });
 }
 
@@ -425,14 +434,9 @@ const updateAdminRole =()=>{
 
 function fetchAlladmin(){
   loader('#admindata', 14)
-  var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/getall",
-    "method": "GET",
-    "timeout": 0,
-    "headers": {
-     "Authorization": localStorage.getItem('access')},
-  };
-  
+
+  var settings = querySetting("api/admin/getall", "GET", localStorage.getItem('access'));
+ 
   $.ajax(settings).done(function (response) {
     console.log(response);
   });
@@ -472,11 +476,11 @@ function fetchAlladmin(){
                 rowContent 
                 += `<tr class="align-items-center">
                     <td  style="min-width: 80px;"><span>${index}</span></td>
-                    <td style="min-width: 120px;"><span>${row.first_name}</span></td>
-                    <td style="min-width: 120px;"><span>${row.last_name}</span></td>
-                    <td style="min-width: 130px;" class="success-color"><span>${row.email}</span></td>
-                    <td style="min-width: 130px;"><span>${row.phone}</span></td>
-                    <td style="min-width: 130px;"><span>${row.role}</span></td> 
+                    <td style="min-width: 120px;"><strong class="welcome">${row.first_name}</strong></td>
+                    <td style="min-width: 120px;"><strong class="welcome">${row.last_name}</strong></td>
+                    <td style="min-width: 130px;" class="text-primary"><span>${row.email}</span></td>
+                    <td style="min-width: 130px;"><span class="welcome">${row.phone}</span></td>
+                    <td style="min-width: 130px;"><span class="welcome">${row.role}</span></td> 
                     <td style="min-width: 150px; "><span>
                     <button type="button" class="btn-sm text-white th-btn fs-9 rounded-6" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                         VIEW
@@ -774,14 +778,9 @@ const addAdmin =()=>{
 
 // get all admin roles
 const allRoles = () => {
-  var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/roles/getall",
-    "method": "GET",
-    "timeout": 0,
-    "headers": {
-      "Authorization": localStorage.getItem('access')
-    },
-  };
+  
+  var settings = querySetting("api/admin/roles/getall", "GET", localStorage.getItem('access'));
+
   
   $.ajax(settings).done(function (data) {
     let response = data.data;
@@ -965,7 +964,7 @@ function fetchAllactivity (){
                 // pagination(totalfetchedrow);
         }
       });
-    }
+}
 
 
 /* -------------------------------------------------------------------------- */
@@ -1409,8 +1408,6 @@ function fetchAllorders (){
   });
 
 }
-
-
 /* -------------------------------------------------------------------------- */
 /*                            ORDERS DATA ENDS HERE                           */
 /* -------------------------------------------------------------------------- */
@@ -1460,7 +1457,7 @@ function fetchAllnegotiation (){
               <td style="min-width: 120px;">${splittingDate(row.crop.created_at)}</td>
               <td style="min-width: 120px;">${splittingDate(row.crop.updated_at)}</td>
               <td style="min-width: 50px;">
-                <a href="javascript:void(0)" onclick="viewSingleConversation('${row.crop.id}')">
+                <a href="javascript:void(0)" onclick="viewSingleConversation('${row.conversationid}')">
                     <span class="text-primary">
                       <i class="fa fa-eye"></i> View
                     </span>
@@ -1540,10 +1537,10 @@ function fetchAllnegotiation (){
 //----------------------- Filling the conversation  table End ------------------------//
 
 // ------------------------- View individual crop conversation  ------------------------//
-const viewSingleConversation = (id) => {
-  // alert(id);
+const viewSingleConversation = (conversationid) => {
+  // alert(conversationid);
   // let cropId = JSON.stringify({"id": id});
-  localStorage.setItem('singlecropdata', id);
+  localStorage.setItem('singlecropdata', conversationid);
   window.location.href = "negotiation-message.html";
 }
 
@@ -2692,22 +2689,16 @@ function fetchAllinput (){
 
   loader('#inputdata', 14)
 
-  var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/input/getall",
-    "method": "GET",
-    "timeout": 0,
-    "headers": {
-      "Authorization": localStorage.getItem('access')
-    },
-  };
+  var settings = querySetting("api/admin/input/getall", "GET", localStorage.getItem('access'));
+
     
   $.ajax(settings).done(function (data) {
     let response = data;
     console.log(response);
 
   if(response.error==true){
+    console.log(response.message);
     $('#inputdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Inputs added yet</h3></td></tr>");
-      console.log(response.message);
   }else{
       let thedata = response.data;
       if(thedata.length > 0){
@@ -2731,35 +2722,12 @@ function fetchAllinput (){
 
               index= index+1;
               rowContent += `<tr class="align-items-center">
-              <td style="min-width: 50px;">${index}</td>
-              <td style="min-width: 120px;">${row.user_id}</td>
-              <td style="min-width: 120px;">${row.category_id}</td>
-              <td style="min-width: 120px;">${row.subcategory_id}</td>
-              <td style="min-width: 120px;">${row.packaging}</td>
-              <td style="min-width: 100px;">
-              <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
-                  VIEW
-              </button>
-              
-              <!-- Modal -->
-              <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                      <div class="modal-header border-0">
-                      <h3 class="modal-title" id="staticBackdropLabel">Input Description</h3>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                      ${row.description}
-                      </div>
-                      <div class="modal-footer border-0">
-                      <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
-                      </div>
-                  </div>
-                  </div>
-              </div>
-              </td>
-              <td style="min-width: 70px; cursor:pointer;"  ><a href="../dashboards/view-more.html" class="success-color">View More</a></td>
+              <td>${index}</td>
+              <td> <strong class="welcome" >${row.user.first_name} ${row.user.last_name}</strong>
+              <br> <small class="text-primary text-capitalize">${row.user.type}</small></td>
+              <td class="text-primary">${row.user.email}</td>
+              <td>${row.category.name} <br> <small class="text-primary">${row.subcategory.name} </small>  </td>
+              <td style="cursor:pointer;"><a href="javascript:void(0)" class="success-color" onclick=viewMoreInput('${row.user_id}')> <i class="fa fa-eye"></i> View More </a></td>
               
 
              </tr>`;
@@ -2779,10 +2747,68 @@ function fetchAllinput (){
                 }
               });
             });
+      }else{
+        $('#inputdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Inputs added yet</h3></td></tr>");
       }
   }
   });
 
+}
+
+const viewMoreInput = (user_id) => {
+  // alert(user_id);
+  localStorage.setItem('singleInputData', user_id);
+  window.location.href = "view-more.html";
+}
+
+const viewInput  =() => {
+  
+  
+  var settings = querySetting("api/admin/input/getallbyuserid/"+localStorage.getItem('singleInputData'), "GET", localStorage.getItem('access'));
+  
+
+  $.ajax(settings).done(function (data) {
+    console.log(data);
+      let response = data;
+    // console.log(response);
+    if(response.error==true){
+      // console.log(response.message);
+    }else{
+      // console.log(data)
+      // let negotiate;
+      //       if(response.data.is_negotiable == 1){
+      //         negotiate = 
+      //           `YES`;
+      //       }else{
+      //         negotiate = 
+      //           `NO`;
+      //       }
+      // console.log(response.data[0].category);
+
+      let users = response.data[0].user;
+      let inputcategory = response.data[0].category;
+      let inputsubtegory = response.data[0].subcategory;
+      $('#firstName').text(users.first_name);
+      $('#lastName').text(users.last_name);
+      $('#description').html(response.data[0].description);
+      $('#instruction').html(response.data[0].usage_instruction);
+      $('#category').text(inputcategory.name);
+      $('#catname').text(inputcategory.name);
+      $('#subcategory').text(inputsubtegory.name);
+      $('#subcat').text(inputsubtegory.name);
+      $('#packaging').html(response.data[0].packaging);
+      $('#currency').text(response.data[0].currency);
+      $('#price').text(response.data[0].price);
+      $('#manufacuturer').text(response.data[0].manufacture_name);
+      $('#manufacturdate').text(response.data[0].manufacture_date);
+      $('#weight').text(response.data[0].kilograms);
+      $('#litres').text(response.data[0].liters);
+      $('#expirydate').text(response.data[0].expiry_date);
+      $('#deliverymethod').text(response.data[0].delivery_method);
+      $('#mfmstate').text(response.data[0].state);
+      $('#mfmcounntry').text(response.data[0].manufacture_country);
+     }
+  });
 }
 
 /* -------------------------------------------------------------------------- */
@@ -3047,7 +3073,6 @@ function cropsWanted (){
 
 };
 
-
 /* -------------------------------------------------------------------------- */
 /*                          view more details begins                          */
 /* -------------------------------------------------------------------------- */
@@ -3141,10 +3166,6 @@ const viewMore  =() => {
         // $('#tbdata').html(rowContent);
     });
 }
-
-
-
-
 
 
   /* -------------------------------------------------------------------------- */

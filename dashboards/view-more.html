@@ -42,7 +42,7 @@
 				<div class="container pe-0 ps-0">
 					<div class="col-12">
 						<div class=" d-flex cursor-pointer mb-3 ">
-							<a href="../dashboards/input-market.html"><i class="fa fa-arrow-left fs-4 mb-0 success-color cursor-pointer"></i></a>
+							<a href="javascript:void(0)" onclick="backButton()"><i class="fa fa-arrow-left fs-4 mb-0 success-color cursor-pointer"></i></a>
 							<h2 class="ms-2 ms-md-3 fs-4 welcome">Input</h2>
 						</div>
 
@@ -51,8 +51,8 @@
 							<div class="company-detail">
 								<div class="detail-content">
 									<div class="flex-1 d-flex align-items-center justify-content-">
-										<h1 class="welcome text-uppercase text-muted me-3">USER ID:</h1>
-										<h1 class="welcome text-uppercase text-muted">John Doe</h1>
+										<h1 class="welcome text-uppercase me-3">USER:</h1>
+										<div class="d-flex"><h1 id="firstName" class="welcome text-uppercase text-muted me-2"></h1> <h1 id="lastName" class="welcome text-uppercase text-muted"></h1></div>
 									</div>
 								</div>
 							</div>
@@ -65,18 +65,18 @@
 								<div class="d-block d-md-flex justify-content-md-between align-items-md-center">
 									<div class="col-12 col-md-6">
 										<div class="flex-1 col-md-8 pe-3 pe-md-0">
-											<h2 class="welcome">Description</h2>
-											<div><h5 style="text-align:justify ;" class="text-muted">'lorem ipsum' will uncover many web sites still in their infancy. Various.</h5></div>
+											<h2 class="welcome" >Description</h2>
+											<div><h5 style="text-align:justify ;" class="text-muted" id="description"></h5></div>
 										</div>
 										<div class="flex-1 col-md-8 mt-4 pe-3 pe-md-0">
 											<h2 class="welcome">Instruction</h2>
-											<div><h5 style="text-align:justify ;" class="text-muted">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various.</h5></div>
+											<div><h5 id="instruction" style="text-align:justify ;" class="text-muted"></h5></div>
 										</div>
 									</div>
 									<div class="col-12 col-md-6 text-md-end mt-3 mt-md-0">
 										<div class="flex-1">
-											<img src="../assets/images/insecticide1.jpg" width="65%" class="rounded-2" alt="">
-											<h2 class="welcome mt-2">Indoor/Outdoor Insecticide</h2>
+											<!-- <img src="../assets/images/insecticide1.jpg" width="65%" class="rounded-2" alt=""> -->
+											<h2 class="welcome mt-2"><span class="fs-6" id="category"></span> <span id="subcategory" class="fs-6"></span></h2>
 										</div>
 										
 									</div>
@@ -95,22 +95,22 @@
 										<tr>
 											<td>
 												<div class="boldtableContent">Product Category</div>
-												<div class="tableinfo welcome text-secondary">Chemicals</div>
+												<div class="tableinfo welcome text-secondary" id="catname"></div>
 											</td>
 											<td>
 												<div class="boldtableContent">Sub-Category</div>
-												<div class="tableinfo welcome text-secondary">Insecticide</div>
+												<div class="tableinfo welcome text-secondary" id="subcat"></div>
 											</td>
 										</tr>
 
 										<tr>
 											<td>
 												<div class="boldtableContent">Packaging</div>
-												<div class="tableinfo welcome text-secondary">Plastic</div>
+												<div class="tableinfo welcome text-secondary" id="packaging"></div>
 											</td>
 											<td>
 												<div class="boldtableContent">Currency</div>
-												<div class="tableinfo welcome text-secondary">NGN</div>
+												<div class="tableinfo welcome text-secondary" id="currency"></div>
 											</td>
 										</tr>
 
@@ -123,7 +123,7 @@
 											</td>
 											<td>
 												<div class="boldtableContent">Price</div>
-												<div class="tableinfo welcome text-secondary">NGN,250</div>
+												<div class="tableinfo welcome text-secondary" id="price"></div>
 											</td>
 											
 										</tr>
@@ -131,44 +131,44 @@
 										<tr>
 											<td>
 												<div class="boldtableContent">Manufacturer Name</div>
-												<div class="tableinfo welcome text-secondary">Dangoted</div>
+												<div class="tableinfo welcome text-secondary" id="manufacuturer"></div>
 											</td>
 											<td>
 												<div class="boldtableContent">Manufacturing Date</div>
-												<div class="tableinfo welcome text-secondary">20-October-2022</div>
+												<div class="tableinfo welcome text-secondary" id="manufacturdate"></div>
 											</td>
 										</tr>
 
 										<tr>
 											<td>
 												<div class="boldtableContent">Weight</div>
-												<div class="tableinfo welcome text-secondary">25KG</div>
+												<div class="tableinfo welcome text-secondary"><span id="weight"></span> KG</div>
 											</td>
 											<td>
 												<div class="boldtableContent">Expiry Date</div>
-												<div class="tableinfo welcome text-secondary">20-October-2023</div>
+												<div class="tableinfo welcome text-secondary" id="expirydate"></div>
 											</td>
 										</tr>
 
 										<tr>
 											<td>
 												<div class="boldtableContent">Litres</div>
-												<div class="tableinfo welcome text-secondary">4L</div>
+												<div class="tableinfo welcome text-secondary"><span id="litres"></span> L</div>
 											</td>
 											<td>
 												<div class="boldtableContent">Delivery Method</div>
-												<div class="tableinfo welcome text-secondary">Road</div>
+												<div class="tableinfo welcome text-secondary" id="deliverymethod">Road</div>
 											</td>
 										</tr>
 
 										<tr>
 											<td>
 												<div class="boldtableContent">Manufactiuring State</div>
-												<div class="tableinfo welcome text-secondary">Abia</div>
+												<div class="tableinfo welcome text-secondary" id="mfmstate"></div>
 											</td>
 											<td>
 												<div class="boldtableContent">Manufactiuring Country</div>
-												<div class="tableinfo welcome text-secondary">Nigeria</div>
+												<div class="tableinfo welcome text-secondary" id="mfmcounntry"></div>
 											</td>
 										</tr>
 
@@ -221,8 +221,14 @@
 		$('#bottomnav').load("../component/footer.html");
 	</script>
 
-	<script src="../js/chart.js"></script>
-	<script src="../js/script.js"></script>
+	<script src="../js/admin.js"></script>
+	<script>
+		viewInput();
+		function backButton() {
+		window.history.back();
+		}
+	</script>
+
 </body>
 
 </html>
