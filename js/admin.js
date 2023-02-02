@@ -552,7 +552,7 @@ function fetchAlladmin(){
 
 // ---------------------------View single admin 
 const viewAdministrator = (id) => {
-  alert(id);
+  // alert(id);
   localStorage.setItem('singleAdminData', id);
   window.location.href = "viewadmin.html";
 }
@@ -564,17 +564,15 @@ const ViewAdministrator  =() => {
   
 
   $.ajax(settings).done(function (data) {
-    console.log(data);
+    // console.log(data);
       let response = data;
     // console.log(response);
     if(response.error==true){
       // console.log(response.message);
     }else{
      
-      console.log(response.data.role)
-      // let users = response.data[0].user;
-      // let inputcategory = response.data[0].category;
-      // let inputsubtegory = response.data[0].subcategory;
+      // console.log(response.data.role)
+    
       $('#firstName').text(response.data.first_name);
       $('#lastName').text(response.data.last_name);
       $('#roleName').text(response.data.role.role_name);
