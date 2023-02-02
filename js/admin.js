@@ -578,6 +578,7 @@ const ViewAdministrator  =() => {
       $('#roleName').text(response.data.role.role_name);
       $('#email').text(response.data.email);
       $('#mobile').text(response.data.phone);
+      $('#description').text(response.data.role.role_description);
       $('#recovery').text(response.data.recovery_phrase);
       $('#section').text(response.data.role.section);
       $('#section').text(response.data.section);
