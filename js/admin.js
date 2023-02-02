@@ -778,7 +778,7 @@ const addAdmin =()=>{
 
 // get all admin roles
 const allRoles = () => {
-  
+
   var settings = querySetting("api/admin/roles/getall", "GET", localStorage.getItem('access'));
 
   
@@ -2868,7 +2868,6 @@ function cropsWanted (){
               <td style="min-width: 70px;" class="text-primary">${row.user.email}</td>
               <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
               <td style="min-width: 100px; text-align:center;">${crop_status}</td>
-              <td style="min-width: 200px;">${row.description}</td>
               <td style="min-width: 50px;">
               <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                   VIEW
@@ -3110,11 +3109,11 @@ const viewMore  =() => {
         let count = response.data.crop_request[0];
           $('#croptype').text(response.data.type);
           $('#user_id').text(response.data.user_id);
-          $('#application').text(response.data.application);
+          $('#application').html(response.data.application);
           $('#firstName').text(response.data.user.first_name);
           $('#lastName').text(response.data.user.last_name);
           $('#lastName').text(response.data.user.last_name);
-          $('#description').text(response.data.description);
+          $('#description').html(response.data.description);
           $('#cropTitle').text(response.data.title);
           $('#vidfed').text(response.data.video);
           $('#package').text(response.data.packaging);
@@ -3218,7 +3217,6 @@ const viewMore  =() => {
                 <td style="min-width: 100px;" class="text-primary">${row.user.email}</td>
                 <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
                 <td style="min-width: 100px; text-align:center;">${crop_status}</td>
-                <td style="min-width: 200px;">${row.description}</td>
                 <td style="min-width: 50px;">
                 <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                     VIEW
@@ -3477,7 +3475,6 @@ function cropsAuctioned (){
                 <td style="min-width: 100px;" class="text-primary">${row.user.email}</td>
                 <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
                 <td style="min-width: 100px; text-align:center;">${crop_status}</td>
-                <td style="min-width: 200px;">${row.description}</td>
                 <td style="min-width: 50px;">
                 <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                     VIEW
