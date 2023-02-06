@@ -1488,69 +1488,32 @@ function fetchAllnegotiation (){
 
               index= index+1;
               rowContent += `<tr class="align-items-center">
-              <td style="min-width: 50px;">${index}</td>
-              <td style="min-width: 100px;"><strong class="welcome">${row.userone.first_name}, ${row.userone.last_name}</strong><br/>
-                <small class="text-primary fw-bold text-uppercase">${row.userone.type}</small> 
-              </td>
-              <td style="min-width: 100px;"><strong class="welcome">${row.usertwo.first_name}, ${row.usertwo.last_name}</strong><br/>
-                <small class="text-primary fw-bold text-uppercase">${row.usertwo.type}</small> 
-              </td>
-              <td style="min-width: 120px;">${splittingDate(row.crop.created_at)}</td>
-              <td style="min-width: 120px;">${splittingDate(row.crop.updated_at)}</td>
-              <td style="min-width: 50px;">
-                <a href="javascript:void(0)" onclick="viewSingleConversation('${row.conversationid}')">
-                    <span class="text-primary">
-                      <i class="fa fa-eye"></i> View
-                    </span>
-                </a>
-              </td>
+                <td style="min-width: 50px;">${index}</td>
+                <td style="min-width: 100px;"><strong class="welcome">${row.userone.first_name}, ${row.userone.last_name}</strong><br/>
+                  <small class="text-primary fw-bold text-uppercase">${row.userone.type}</small> 
+                </td>
+                <td style="min-width: 100px;"><strong class="welcome">${row.usertwo.first_name}, ${row.usertwo.last_name}</strong><br/>
+                  <small class="text-primary fw-bold text-uppercase">${row.usertwo.type}</small> 
+                </td>
+                <td style="min-width: 120px;">${splittingDate(row.crop.created_at)}</td>
+                <td style="min-width: 120px;">${splittingDate(row.crop.updated_at)}</td>
+                <td style="min-width: 50px;">
+                  <a href="javascript:void(0)" onclick="viewSingleConversation('${row.conversationid}')">
+                      <span class="text-primary">
+                        <i class="fa fa-eye"></i> View
+                      </span>
+                  </a>
+                </td>
              
              
-              <td style="min-width: 50px;">
-              <button onclick="converSation('${row.conversationid}')" type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
-                  Asign Admin
-              </button>
-              
-              <!-- Modal -->
-              <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                      <div class="modal-header border-0">
-                      <h3 class="modal-title" id="staticBackdropLabel">Select Admin to Negotiate</h3>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                          <form>
-                            <label class="pt-1 pb-1 welcome text-secondary">Select Admin</label>
-                            <select class="form-control form-control-lg form-select rounded-2 shadow-form" type="text" id="Alladmin">
-                              <option value="" disabled selected>Select Admin</option>
-                              
-                            </select>
-                            <br>
-                            <div class="text-end">
-                              <a href="javascript:void(0)" class="btn  th-btn fs-9 text-white rounded-6" onclick="assignAdmin()" value=""> Asign Admin</a>
-                            </div>
-                          </form>
-                      </div>
-                     <!-- <div class="modal-footer border-0">
-                      <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
-                      </div> -->
-                  </div>
-                  </div>
-              </div>
-              </td>
-             <!-- <td class="text-end" style="min-width: 50px;">
-                  <div class="dropdown shadow-dot text-center">
-                      <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a href="javascript:void(0)" class="dropdown-item" href="">Asign Admin</a>
-                          <a href="javascript:void(0)" class="dropdown-item" onclick="deleteSupportTicket('${row.id}')">View</a>
-                      </div>
-                  </div>
-              </td> -->
-
+                <td style="min-width: 50px;">
+                  <button onclick="converSation('${row.conversationid}')" type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                      Asign Admin
+                  </button>
+                
+                 <!-- Modal -->
+                </td>
+            
              </tr>`;
             });
             $('#negotiationdata').html(rowContent);
