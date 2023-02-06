@@ -165,7 +165,7 @@ function fetchAllroles(){
                 <td style="min-width: 130px !important;"><span>${row.role_description}</span></td>
                 <td style="min-width: 100px !important;"><span>${splittingDate(row.created_at)}</span></td>
                 <td style="min-width: 100px;"><span>${splittingDate(row.updated_at)}</span></td>
-                <td style="min-width: 100px;">
+                <td class="text-center" style="min-width: 140px;">
                 <button class="btn btn-sm th-btn fs-9 text-white rounded-6 text-end me-3" onclick="editRole('${row.id}', '${row.role_name}', '${row.role_description}', '${row.section}')">Update</button>
                 <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deleteadminRole('${row.id}')">Delete</button>
                 </td>
@@ -1462,7 +1462,7 @@ function fetchAllnegotiation (){
 
   loader('#negotiationdata', 10)
 
-  var settings = querySetting("api/admin/crop/conversation/getall/0/6", "GET", localStorage.getItem('access'));
+  var settings = querySetting("api/admin/crop/conversation/getall/0/30", "GET", localStorage.getItem('access'));
     
   $.ajax(settings).done(function (data) {
     let response = data;
@@ -1487,7 +1487,7 @@ function fetchAllnegotiation (){
             // console.log(index, "----", row);
 
               index= index+1;
-              rowContent += `<tr class="align-items-center">
+              rowContent += `<tr class="">
                 <td style="min-width: 50px;">${index}</td>
                 <td style="min-width: 100px;"><strong class="welcome">${row.userone.first_name}, ${row.userone.last_name}</strong><br/>
                   <small class="text-primary fw-bold text-uppercase">${row.userone.type}</small> 
@@ -1498,7 +1498,7 @@ function fetchAllnegotiation (){
                 <td style="min-width: 120px;">${splittingDate(row.crop.created_at)}</td>
                 <td style="min-width: 120px;">${splittingDate(row.crop.updated_at)}</td>
                 <td style="min-width: 50px;">
-                  <a href="javascript:void(0)" onclick="viewSingleConversation('${row.conversationid}')">
+                  <a href="javascript:void(0)" onclick="viewSingleConversation(${row.crop.id},${row.crop.user_id})">
                       <span class="text-primary">
                         <i class="fa fa-eye"></i> View
                       </span>
@@ -1541,17 +1541,19 @@ function fetchAllnegotiation (){
 //----------------------- Filling the conversation  table End ------------------------//
 
 // ------------------------- View individual crop conversation  ------------------------//
-const viewSingleConversation = (conversationid) => {
-  // alert(conversationid);
+const viewSingleConversation = (cropid,userid) => {
+  // alert(cropid);
+  localStorage.setItem('negotiation_cropid', cropid);
+  localStorage.setItem('negotiation_userid', userid);
   // let cropId = JSON.stringify({"id": id});
-  localStorage.setItem('singlecropdata', conversationid);
+  // localStorage.setItem('singlecropdata', conversationid);
   window.location.href = "negotiation-message.html";
 }
 
 const singleConversation  =() => {
   
   
-  var settings = querySetting("api/admin/crop/getbyid/"+localStorage.getItem('singlecropdata'), "GET", localStorage.getItem('access'));
+  var settings = querySetting("api/admin/crop/"+localStorage.getItem('negotiation_cropid')+"/negotiation/getbyuserid/"+localStorage.getItem('negotiation_userid'), "GET", localStorage.getItem('access'));
   
 
   $.ajax(settings).done(function (data) {
@@ -1564,38 +1566,38 @@ const singleConversation  =() => {
       
       // console.log(response.data.crop_request[0]);
       // let count = response.data.crop_request[0];
-        $('#subCategory').text(response.data.subcategory.name);
-        $('#firstName').text(response.data.user.first_name);
-        $('#lastName').text(response.data.user.last_name);
-        $('#type').text(response.data.user.type);
-        $('#price').text(response.data.specification.price);
+        // $('#subCategory').text(response.data.subcategory.name);
+        // $('#firstName').text(response.data.user.first_name);
+        // $('#lastName').text(response.data.user.last_name);
+        // $('#type').text(response.data.user.type);
+        // $('#price').text(response.data.specification.price);
       
         
         // specification
-        $('#category').text(response.data.category.name);
-        $('#testweight').text(response.data.specification.test_weight);
-        $('#color').text(response.data.specification.color);
-        $('#hardness').text(response.data.specification.hardness);
-        $('#moist').text(response.data.specification.moisture);
-        $('#splits').text(response.data.specification.splits);
-        $('#fm').text(response.data.specification.foreign_matter);
-        $('#oil').text(response.data.specification.oil_content);
-        $('#brokengrains').text(response.data.specification.broken_grains);
-        $('#infestation').text(response.data.specification.infestation);
-        $('#grainsize').text(response.data.specification.grain_size);
-        $('#weevil').text(response.data.specification.weevil);
-        $('#liters').text(response.data.specification.hectoliter);
-        $('#rotten').text(response.data.specification.rotten_shriveled);
-        $('#modeltype').text(response.data.specification.model_type);
-        $('#defects').text(response.data.specification.total_defects);
-        $('#dk').text(response.data.specification.dk);
-        $('#dock').text(response.data.specification.dockage);
-        $('#mold').text(response.data.specification.mold);
-        $('#unit').text(response.data.specification.unit);
-        $('#drying').text(response.data.specification.drying_process);
-        $('#extranous').text(response.data.specification.extraneous);
-        $('#Volatile').text(response.data.specification.volatile);
-        $('#drying').text(response.data.specification.drying_process);
+        // $('#category').text(response.data.category.name);
+        // $('#testweight').text(response.data.specification.test_weight);
+        // $('#color').text(response.data.specification.color);
+        // $('#hardness').text(response.data.specification.hardness);
+        // $('#moist').text(response.data.specification.moisture);
+        // $('#splits').text(response.data.specification.splits);
+        // $('#fm').text(response.data.specification.foreign_matter);
+        // $('#oil').text(response.data.specification.oil_content);
+        // $('#brokengrains').text(response.data.specification.broken_grains);
+        // $('#infestation').text(response.data.specification.infestation);
+        // $('#grainsize').text(response.data.specification.grain_size);
+        // $('#weevil').text(response.data.specification.weevil);
+        // $('#liters').text(response.data.specification.hectoliter);
+        // $('#rotten').text(response.data.specification.rotten_shriveled);
+        // $('#modeltype').text(response.data.specification.model_type);
+        // $('#defects').text(response.data.specification.total_defects);
+        // $('#dk').text(response.data.specification.dk);
+        // $('#dock').text(response.data.specification.dockage);
+        // $('#mold').text(response.data.specification.mold);
+        // $('#unit').text(response.data.specification.unit);
+        // $('#drying').text(response.data.specification.drying_process);
+        // $('#extranous').text(response.data.specification.extraneous);
+        // $('#Volatile').text(response.data.specification.volatile);
+        // $('#drying').text(response.data.specification.drying_process);
         // crop request 
         // $('#country').text(count.country);
         // $('#address').text(count.address);
@@ -1611,7 +1613,7 @@ const singleConversation  =() => {
         
      }
       // loader('#tbdata')
-      // $('#tbdata').html(rowContent);
+      
   });
 }
 
