@@ -66,21 +66,21 @@
 														<div class="col-lg-12 mb-4">
 														  <div class="form-group">
 															<label class="form-control-label mb-2" for="input-username">Role Name</label>
-															<input type="text" id="role_name" class="form-control form-control-lg rounded-3 shadow-form border-0"  placeholder="Enter role name" value="">
+															<input type="text" id="role_name" class="form-control form-control-lg rounded-3 shadow-form border-0"  placeholder="Enter role name" value="" required>
 														  </div>
 														</div>
 						  
 														<div class="col-lg-12 mb-4">
 														  <div class="form-group">
 															<label class="form-control-label mb-2" for="input-last-name">Description</label>
-															<textarea rows="4" id="role_description" class="form-control form-control-lg rounded-3 shadow-form border-o" placeholder="Role description"></textarea>
+															<textarea rows="4" id="role_description" class="form-control form-control-lg rounded-3 shadow-form border-o" placeholder="Role description" required></textarea>
 														  </div>
 														</div>	
 
 														<div class="col-lg-12 mb-5">
 															<div class="form-group it">
-																<label class="form-control-label mb-2" for="section-access">Section Access</label>
-																<select id="choices-multiple-remove-button" placeholder="Select sections to grant access" class="choices mult-select-tag" multiple>
+																<label class="form-control-label mb-2" for="section-access">Sections to Grant Access <span class="text-danger fs-5">*</span></label>
+																<select id="choices-multiple-remove-button" value="" placeholder="Select sections to grant access" class=" choices mult-select-tag" multiple name="sections" required>
 																	<!-- <option value="dashbords">Dashbord</option>
 																	<option value="administrators">Admin</option>
 																	<option value="users">Users</option>
@@ -97,8 +97,11 @@
 													</div>
 											  </div>
 
-											  <div class="text-end" >
-													<a href="javascript:void(0)" onclick="addRole()" class="btn th-btn fs-9 text-white rounded-6" onclick="https://admin.growsel.comRole()" id="addBtn">Add Role</a>
+											  <div class="text-end">
+													<a href="javascript:void(0)" onclick="addRole()" class="btn th-btn fs-9 text-white rounded-6" id="addBtn">
+														<span class="d-none" role="status" id="spinner"><i class="fas fa-spinner fa-spin"  style="font-size:20px;"></i></span>
+														Add Role
+													</a>
 											  </div>
 
 										</form>
@@ -146,6 +149,9 @@
 
 	<script>
 		allSections();
+		
+  		// $('.text-field').prop('required',true);
+
 		// $(document).ready(function(){
 		// 	var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
 		// 		removeItemButton: true,

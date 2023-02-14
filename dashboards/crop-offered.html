@@ -62,16 +62,16 @@
 									</div>
 									<div class="card-body bg-white">
 										<div class="table-responsive table-hover">
-											<table id="allTable" class=" table table-hover table-lg align-middle table-borderless default-color">
+											<table id="allTable" class=" table table-hover table-lg align-middle table-borderless default-color" width="100%">
 												<thead class="t-border">
 													<tr class="border-bottom t-border">
-														<th scope="" style="min-width: 50px;">ID</th>
-														<th scope=""style="min-width: 120px;">USER</th>
-														<th scope=""style="min-width: 130px;">EMAIL</th>
-														<th scope=""style="min-width: 100px;">CATEGORY</th>
-														<th scope=""style="min-width: 100px;">STATUS</th>
+														<th scope="" style="min-width: 20px;">ID</th>
+														<th scope=""style="min-width: 80px;">USER</th>
+														<th scope=""style="min-width: 80px;">EMAIL</th>
+														<th scope=""style="min-width: 80px;">CATEGORY</th>
+														<th scope=""style="min-width: 50px;" class="text-center">STATUS</th>
 														<!-- <th scope=""style="min-width: 200px;">DESCRIPTION</th> -->
-														<th scope=""style="min-width: 50px;">SPECIFICATION</th>
+														<!-- <th scope=""style="min-width: 50px;">SPECIFICATION</th> -->
 														<th scope=""style="min-width: 70px;"></th>
 														
 													</tr>
@@ -111,13 +111,14 @@
 	crossorigin="anonymous"></script>
 	<script type="text/javascript" src="../assets/DataTables/datatables.min.js"></script>
 	
-	
 	<script>
-		$('#topnav').load("../component/nav-component.html")
-		$('#sidebarMenu').load("../component/component.html")
+		$('#topnav').load("../component/nav-component.html");
+		$('#sidebarMenu').load("../component/component.html");
 		$('#bottomnav').load("../component/footer.html");
 	</script>
+	
 	<script src="../js/admin.js"></script>
+	
 	<script>
 		cropsOffered();
 	</script>

@@ -43,7 +43,7 @@ function yourButton(){
     
     var mailformat = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
 
-    if(!email.value){
+    if(!email.value){ 
         swal("Enter an email address!");
         email.focus();
         return false;

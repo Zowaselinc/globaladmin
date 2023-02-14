@@ -1,15 +1,15 @@
 <script>
-    // const allSections = () => {
+    // const allSections = () => {,,,,,,,
         let sections = [];
         let roleSections = [];
-        var settings = querySetting("api/admin/section/getall", "GET", localStorage.getItem('access'));
+        var settings = querySetting ("api/admin/section/getall", "GET", localStorage.getItem('access'));
         let adminRoleID;
         $("nav li").hide();
         $.ajax(settings).done(function (data) {
             let response = data.data;
             for(let i = 0; i < response.length; i++){
                 sections.push(response[i].section_name);
-                adminRoleID = JSON.stringify(JSON.parse(localStorage.getItem('admin')).role);
+                adminRoleID = JSON.stringify(JSON.parse(localStorage.getItem('admin')).role_id);
                 adminRoleID = JSON.parse(adminRoleID);
             }
             console.log(sections)
@@ -37,7 +37,7 @@
             })
         });
 
-    // } 
+    // } out
     
 </script>
 
@@ -123,7 +123,7 @@
                         <a href="../dashboards/category.html" class="text-white nav-link spacing-4 ps-5 ms-1">Categories</a>
                         <a href="../dashboards/crops.html" class="text-white nav-link spacing-4 ps-5 ms-1">Crop</a>
                         <a href="../dashboards/input-market.html" class="text-white nav-link spacing-4 ps-5 ms-1">Input</a>
-                        <a href="../dashboards/negotiation.html" class="text-white nav-link spacing-4 ps-5 ms-1">Negotiation</a>
+                        <a href="../dashboards/assigned-negotiation.html" class="text-white nav-link spacing-4 ps-5 ms-1">Negotiations</a>
                         <a href="../dashboards/view-orders.html" class="text-white nav-link spacing-4 ps-5 ms-1">Orders</a>
                         <a href="../dashboards/transaction.html" class="text-white nav-link spacing-4 ps-5 ms-1">Market Transactions</a>
                         <a href="../dashboards/purchase-order.html" class="text-white nav-link spacing-4 ps-5 ms-1">Purchase Orders</a>

@@ -4,21 +4,21 @@
 /* -------------------------------------------------------------------------- */
 function readURL(input) {
   if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-          $('#imagePreview').css('background-image', 'url('+e.target.result +')');
-          $('#imagePreview').hide();
-          $('#imagePreview').fadeIn(650);
-      }
-      reader.readAsDataURL(input.files[0]);
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+      $('#imagePreview').hide();
+      $('#imagePreview').fadeIn(650);
+    }
+    reader.readAsDataURL(input.files[0]);
   }
 }
-$("#imageUpload").change(function() {
+$("#imageUpload").change(function () {
   readURL(this);
 });
-  /* -------------------------------------------------------------------------- */
-  /*                           load profile image ends                          */
-  /* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                           load profile image ends                          */
+/* -------------------------------------------------------------------------- */
 
 
 
@@ -32,7 +32,7 @@ const splittingDate = (data) => {
   // removing unnessary data from time
   let time = t.split(".000Z")[0];
 
-  return date+"<br/>"+time;
+  return date + "<br/>" + time;
 }
 
 /* ---------------------------- Spliting end here --------------------------- */
@@ -42,7 +42,7 @@ const splittingDate = (data) => {
 
 
 /* ----------------------------- activate loader ---------------------------- */
-const loader = (contentArea = "", colspan="") => {
+const loader = (contentArea = "", colspan = "") => {
   document.querySelector(contentArea).innerHTML = `<tr>
   <td colspan="${colspan}" class="text-center">
     <img src="../assets/loader.gif" alt=""/>
@@ -61,18 +61,18 @@ const loader = (contentArea = "", colspan="") => {
 // this holds the request headers and bodies
 // allows u to make a request
 const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
-    const settings = {
-        "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/${URL}`,
-        "method": METHOD,
-        "timeout": 0,
-        "headers": {
-            "Authorization": AUTHKEY,
-            "Content-Type": "application/json"
-        },
-        data: DATA
-    }
+  const settings = {
+    "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/${URL}`,
+    "method": METHOD,
+    "timeout": 0,
+    "headers": {
+      "Authorization": AUTHKEY,
+      "Content-Type": "application/json"
+    },
+    data: DATA
+  }
 
-    return settings;
+  return settings;
 }
 
 // end //
@@ -84,51 +84,51 @@ const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
 /*                         FETCHING USER STATS BEGINS                         */
 /* -------------------------------------------------------------------------- */
 
-function getUsersStats(){
+function getUsersStats() {
   adminName();
-// alert(localStorage.getItem('access'));
+  // alert(localStorage.getItem('access'));
   var settings = querySetting("api/admin/users/getstats", "GET", localStorage.getItem('access'));
 
   $.ajax(settings).done(function (data) {
     // console.log(data);
-      let response = data;
+    let response = data;
     console.log(response);
-    if(response.error==true){
+    if (response.error == true) {
       console.log(response.message);
-    }else{
+    } else {
       let count = response.data[0];
       // Total users 
-        $('#totalusers').text(count.Totalusers);
-        $('#verifieduser').text(count.VerifiedUsers);
-        $('#activeuser').text(count.ActiveUsers);
-        // Total Merchants 
-        $('#totalmerchant').text(count.TotalMerchant);
-        $('#verifiedmerchant').text(count.VerifiedMerchants);
-        $('#activemerchant').text(count.ActiveMerchants);
-        // Total Corporates 
-        $('#totalcorporates').text(count.TotalCorporate);
-        $('#verifiedcorporate').text(count.VerifiedCorporate);
-        $('#activecorporate').text(count.ActiveCorporate);
-        // Total Agents 
-        $('#toatalagent').text(count.TotalAgent);
-        $('#verifiedagent').text(count.VerifiedAgent);
-        $('#activeagent').text(count.ActiveAgent);
-        // Total Partners 
-        $('#toatlpartners').text(count.TotalPartners);
-        $('#verifiedpartners').text(count.VerifiedPartner);
-        $('#activepartners').text(count.ActivePartner);
-     }
+      $('#totalusers').text(count.Totalusers);
+      $('#verifieduser').text(count.VerifiedUsers);
+      $('#activeuser').text(count.ActiveUsers);
+      // Total Merchants 
+      $('#totalmerchant').text(count.TotalMerchant);
+      $('#verifiedmerchant').text(count.VerifiedMerchants);
+      $('#activemerchant').text(count.ActiveMerchants);
+      // Total Corporates 
+      $('#totalcorporates').text(count.TotalCorporate);
+      $('#verifiedcorporate').text(count.VerifiedCorporate);
+      $('#activecorporate').text(count.ActiveCorporate);
+      // Total Agents 
+      $('#toatalagent').text(count.TotalAgent);
+      $('#verifiedagent').text(count.VerifiedAgent);
+      $('#activeagent').text(count.ActiveAgent);
+      // Total Partners 
+      $('#toatlpartners').text(count.TotalPartners);
+      $('#verifiedpartners').text(count.VerifiedPartner);
+      $('#activepartners').text(count.ActivePartner);
+    }
   });
 }
 
 const adminName = () => {
   let admin = JSON.parse(localStorage.getItem('admin'));
-  $('#admin_name').text(admin.first_name+" "+admin.last_name);
+  $('#admin_name').text(admin.first_name + " " + admin.last_name);
   // console.log(admin.first_name+" "+admin.last_name);
   // console.log(admin);
 }
 
- 
+
 
 /* -------------------------------------------------------------------------- */
 /*                          FETCHING USER STATS ENDS                          */
@@ -139,26 +139,32 @@ const adminName = () => {
 /* -------------------------------------------------------------------------- */
 /*                    FETCHING ADMINISTRATIVE ROLES BEGINS                    */
 /* -------------------------------------------------------------------------- */
+const toggleSpinner = () => {
+  document.querySelector('#spinner').classList.toggle('d-none');
+}
 
-function fetchAllroles(){
-    loader('#tbdata', 7)
-    var settings = querySetting("api/admin/roles/getall", "GET", localStorage.getItem('access'));
+function fetchAllroles() {
+  loader('#tbdata', 7);
 
-    $.ajax(settings).done(function (data) {
+
+  var settings = querySetting("api/admin/roles/getall", "GET", localStorage.getItem('access'));
+
+  $.ajax(settings).done(function (data) {
     //   console.log(data);
-      //   let response = JSON.parse(data);
-      let response = data;
-      console.log(response);
-      if(response.error==true){
-        console.log(response.message);
-        $('#tbdata').html("<tr>"+response.message+"</tr>");
-      }else{
-        var rowContent;
-        let thedata = (response.data).reverse();
-        $.each(thedata, (index, row) => {
-          
-          index= index+1;
-          rowContent 
+    //   let response = JSON.parse(data);
+    let response = data;
+    console.log(response);
+    if (response.error == true) {
+      console.log(response.message);
+      $('#tbdata').html("<tr>" + response.message + "</tr>");
+    } else {
+
+      var rowContent;
+      let thedata = (response.data).reverse();
+      $.each(thedata, (index, row) => {
+
+        index = index + 1;
+        rowContent
           += `<tr class="align-items-center">
                 <td style="min-width: 10px !important;"><span>${index}</span></td>
                 <td style="min-width: 100px !important;"><span>${row.role_name}</span></td>
@@ -170,160 +176,156 @@ function fetchAllroles(){
                 <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deleteadminRole('${row.id}')">Delete</button>
                 </td>
               </tr>`;
+      });
+      // alert(response.data.length);
+      $('#tbdata').html(rowContent);
+      $(document).ready(function () {
+        $('#allTable').DataTable({
+          scrollY: 300,
+          scrollX: true,
+          scrollCollapse: true,
+          retrieve: true,
+          paging: true,
+          "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+          fixedHeader: {
+            header: true,
+            footer: true
+          }
         });
-        // alert(response.data.length);
-        $('#tbdata').html(rowContent);
-        // Calling the pagination function declared
-        // let totalfetchedrow = thedata.length;
-        // pagination(totalfetchedrow);
-        $(document).ready( function () {
-          $('#allTable').DataTable({
-            scrollY: 300,
-            scrollX: true,
-            scrollCollapse: true,
-            retrieve: true,
-            paging: true,
-            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-            fixedHeader:{
-                header: true,
-                footer: true
-            }
-          });
-        });
-        
+      });
 
-       }
-        // loader('#tbdata')
-        // $('#tbdata').html(rowContent);
-    });
+
+    }
+  });
 };
-  
+
 //   ------------------- FILLING ADMINISTRATIVE ROLE TABLE ENDS---------------------------//
-
-
 
 // --------------------------------------- ADDING NEW DATA TO ADMINISTRATIVE ROLE TABLE BEGINS ---------------------------//
 
-const addRole =()=>{
-    console.log(localStorage.getItem('access'));
-    // selecting the input element and get its value
-    let roleName = document.getElementById("role_name");
-    let roleDescription = document.getElementById("role_description");
-    let roleSections = $('#choices-multiple-remove-button');
+const addRole = () => {
+  // toggleSpinner();
 
-    // Displaying the value 
-    // swal("", roleName), ""
-    if(!roleName.value){
-        swal("Enter role!");
-        roleName.focus();
-        return false;
-    }else if(!roleDescription.value){
-        swal("Enter description!");
-        roleDescription.focus();
-        return false;
-    }else if(!roleSections.val()){
-      swal("Select Section Access!");
-        roleSections.focus();
-        return false;
-    }else{
+  // console.log(localStorage.getItem('access'));
+  // selecting the input element and get its value
+  let roleName = document.getElementById("role_name");
+  let roleDescription = document.getElementById("role_description");
+  let roleSections = $('#choices-multiple-remove-button');
 
-        const adminRole = JSON.stringify({
-            "role_name": roleName.value,
-            "section": (roleSections.val()).toString(),
-            "role_description": roleDescription.value
-        });
+  // Displaying the value 
+
+  if (!roleName.value) {
+    swal("Enter role!");
+    roleName.focus();
+    return false;
+  } else if (!roleDescription.value) {
+    swal("Enter description!");
+    roleDescription.focus();
+    return false;
+  } else if (roleSections.val() == "") {
+    swal("Select Section to Grant Access");
+    roleSections.focus();
+    return false;
+  } else {
+
+    const adminRole = JSON.stringify({
+      "role_name": roleName.value,
+      "role_description": roleDescription.value,
+      "section": (roleSections.val()).toString(),
+    });
 
 
-        var settings = querySetting("api/admin/roles/add", "POST", localStorage.getItem('access'), adminRole);
-          
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-          if(response.error==true){
-              console.log(response.message);
-              swal("FAILED", response.message, "error");
-            }else{
-              console.log(response.message);
-              swal("SUCCESS", response.message, "success");
-              roleName.value="";
-              roleDescription.value="";
-              window.location.href = "admin-role.html";
-              setTimeout(() => {
-                cancelRequest();
-              }, 2000)
-              fetchAllroles();
-            }
-        });
-    }
+    var settings = querySetting("api/admin/roles/add", "POST", localStorage.getItem('access'), adminRole);
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        // console.log(response.message);
+        // toggleSpinner();
+        swal("FAILED", response.message, "error");
+      } else {
+        // console.log(response.message);
+        // toggleSpinner();
+        swal("SUCCESS", response.message, "success");
+        // roleName.value="";
+        // roleDescription.value="";
+        // roleSections.value="";
+        window.location.href = "admin-role.html";
+        setTimeout(() => {
+          cancelRequest();
+        }, 2000)
+        fetchAllroles();
+      }
+    });
+  }
 };
 
 //----------------------------- Getting all section-------------------------------//
 const allSections = () => {
   var settings = querySetting("api/admin/section/getall", "GET", localStorage.getItem('access'));
-    
-  
+
+
   $.ajax(settings).done(function (data) {
     let response = data.data;
-      for(let i = 0; i < response.length; i++){
-        $('.choices').append(`<option value='${response[i].section_name}'> ${response[i].section_name} </option>`);
-        if (i==response.length-1){
-          $(document).ready(function(){
-            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-              removeItemButton: true,
-              maxItemCount:12,
-              searchResultLimit:11,
-              renderChoiceLimit:11
-            });
-          console.log(multipleCancelButton)
+    for (let i = 0; i < response.length; i++) {
+      $('.choices').append(`<option value='${response[i].section_name}'> ${response[i].section_name} </option>`);
+      if (i == response.length - 1) {
+        $(document).ready(function () {
+          var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+            removeItemButton: true,
+            maxItemCount: 12,
+            searchResultLimit: 11,
+            renderChoiceLimit: 11
           });
+          console.log(multipleCancelButton)
+        });
 
-        }
       }
+    }
   });
-} 
-
+}
 // ------------------------- ADDING ADMISTRATIVE ROLE ENDS------------------------------//
 
 
 
 // -----------------------DELETING ADMINISTRATIVE ROLE BEGINS----------------------------// 
 
-
-const deleteadminRole =(n)=>{
-    // swal("", n), ""
-    swal({
-      title: "Are you sure you want to delete this role?",
-      text: "Once deleted, you will not be able to recover this file!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    })
+const deleteadminRole = (n) => {
+  // swal("", n), ""
+  swal({
+    title: "Are you sure you want to delete this role?",
+    text: "Once deleted, you will not be able to recover this file!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
     .then((willDelete) => {
       if (willDelete) {
 
-    var settings = {
-        "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/roles/delete/"+n,
-        "method": "POST",
-        "timeout": 0,
-        "headers": {
-          "Authorization": localStorage.getItem('access')
-        },
-        "Content-Type": "application/json",
-      };
-      
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        if(response.error==true){
+        var settings = {
+          "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/roles/delete/" + n,
+          "method": "POST",
+          "timeout": 0,
+          "headers": {
+            "Authorization": localStorage.getItem('access')
+          },
+          "Content-Type": "application/json",
+        };
+
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if (response.error == true) {
             console.log(response.message);
             swal("FAILED", response.message, "error");
-          }else{
+          } else {
             console.log(response.message);
             swal("SUCCESS", response.message, "success");
             fetchAllroles();
           }
-        
-      });
-    }
-  });
+
+        });
+      }
+    });
 }
 
 /* -------------------- DELETING ADMINISTRATIVE ROLE ENDS ------------------- */
@@ -331,15 +333,15 @@ const deleteadminRole =(n)=>{
 /* ------------------------------- EDITING ADMINISTRATIVE ROLE BEGINS ------------------------------- */
 
 const editRole = (id, name, description) => {
-  sessionStorage.setItem('roleData', JSON.stringify({id:id, name:name, description:description}));
-    window.location.href = "update-role.html";
-    // console.log(roleData)
+  sessionStorage.setItem('roleData', JSON.stringify({ id: id, name: name, description: description }));
+  window.location.href = "update-role.html";
+  // console.log(roleData)
 }
 
 const checkr = () => {
-  
+
   let data = JSON.parse(sessionStorage.getItem('roleData'));
-   if(data !== undefined || data !== null || data !== ''){
+  if (data !== undefined || data !== null || data !== '') {
     $('#role_name').val(data.name);
     $('#role_description').val(data.description);
     // $('#choices-multiple-remove-button').val(data.section);
@@ -358,17 +360,17 @@ const cancelRequest = () => {
   $('#role_description').val("");
 
   // hides the update and cancel btn while displaying the add role btn
-  if((window.location.href).split('#')[1] !== 'role-section'){
+  if ((window.location.href).split('#')[1] !== 'role-section') {
     document.querySelector('#editBtn').classList.toggle('d-none');
-      // document.querySelector('#addBtn').classList.toggle('d-none');
-      document.querySelector('#cancelBtn').classList.toggle('d-none');
+    // document.querySelector('#addBtn').classList.toggle('d-none');
+    document.querySelector('#cancelBtn').classList.toggle('d-none');
   }
 }
 
 
 
-const updateAdminRole =()=>{
-   
+const updateAdminRole = () => {
+
 
   let adminRoleid = JSON.parse(sessionStorage.getItem('roleData')).id;
   // console.log(localStorage.getItem(roleData));
@@ -379,41 +381,41 @@ const updateAdminRole =()=>{
 
   // Displaying the value 
   // swal("", roleName), ""
-  if(!roleName.value){
-      swal("Enter role!");
-      roleName.focus();
-      return false;
-  }else if(!roleDescription.value){
-      swal("Enter description!");
-      roleDescription.focus();
-      return false;
-  }else {
+  if (!roleName.value) {
+    swal("Enter role!");
+    roleName.focus();
+    return false;
+  } else if (!roleDescription.value) {
+    swal("Enter description!");
+    roleDescription.focus();
+    return false;
+  } else {
 
-      const adminRole = JSON.stringify({
-          "id": adminRoleid,
-          "role_name": roleName.value,
-          "role_description": roleDescription.value,
-          "choices-multiple-remove-button": roleSections.value
-      });
+    const adminRole = JSON.stringify({
+      "id": adminRoleid,
+      "role_name": roleName.value,
+      "role_description": roleDescription.value,
+      "choices-multiple-remove-button": roleSections.value
+    });
 
-      var settings = querySetting("api/admin/roles/edit", "POST", localStorage.getItem('access'), adminRole);
-        
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-          if(response.error==true){
-              console.log(response.message);
-              swal("FAILED", response.message, "error");
-            }else{
+    var settings = querySetting("api/admin/roles/edit", "POST", localStorage.getItem('access'), adminRole);
 
-              console.log(response.message);
-              swal("SUCCESS", response.message, "success");
-              setTimeout(() => {
-                cancelRequest();
-              }, 2000)
-              
-              fetchAllroles();
-            }
-        });
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        console.log(response.message);
+        swal("FAILED", response.message, "error");
+      } else {
+
+        console.log(response.message);
+        swal("SUCCESS", response.message, "success");
+        setTimeout(() => {
+          cancelRequest();
+        }, 2000)
+
+        fetchAllroles();
+      }
+    });
   }
 };
 
@@ -432,49 +434,49 @@ const updateAdminRole =()=>{
 
 /* ----------------------- FETCHING ALL ADMINISTRATORS BEGINS HERE ---------------------- */
 
-function fetchAlladmin(){
+function fetchAlladmin() {
   loader('#admindata', 14)
 
   var settings = querySetting("api/admin/getall", "GET", localStorage.getItem('access'));
- 
+
   $.ajax(settings).done(function (response) {
     console.log(response);
   });
 
-      $.ajax(settings).done(function (data) {
-        //   console.log(data);
-          //   let response = JSON.parse(data);
-          let response = data;
-          // console.log(response);
-          if(response.error==true){
-            // console.log(response.message);
-            $('#admindata').html("<tr>"+response.message+"</tr>");
-          }else{
-            let thedata = (response.data).reverse();
-            let rowContent;
-            $.each(thedata, (index, row) => {  
+  $.ajax(settings).done(function (data) {
+    //   console.log(data);
+    //   let response = JSON.parse(data);
+    let response = data;
+    // console.log(response);
+    if (response.error == true) {
+      // console.log(response.message);
+      $('#admindata').html("<tr>" + response.message + "</tr>");
+    } else {
+      let thedata = (response.data).reverse();
+      let rowContent;
+      $.each(thedata, (index, row) => {
 
-              let status;
-               if(row.status==0){
-                status = `
+        let status;
+        if (row.status == 0) {
+          status = `
                   <div class="py-1 pe-3 ps-2 text-center rounded-pill past-due">
                     <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
                     <strong class="text-past fs-9">IN ACTIVE</strong>
                   </div>
                 `;
-               }else{
-                status = `
+        } else {
+          status = `
                 <div class="py-1 pe-3 ps-2 text-center rounded-pill successalert">
 												<span class="rounded-circle p-1 dot d-inline-block me-1"></span>
 												<strong class="text-success fs-9">ACTIVE</strong>
 									</div>
                 `;
-               }
-                
-                
-                index= index+1;
-                rowContent 
-                += `<tr class="align-items-center">
+        }
+
+
+        index = index + 1;
+        rowContent
+          += `<tr class="align-items-center">
                     <td><span>${index}</span></td>
                     <td><strong class="welcome">${row.first_name}</strong></td>
                     <td><strong class="welcome">${row.last_name}</strong></td>
@@ -526,28 +528,28 @@ function fetchAlladmin(){
                         </div></span>
                     </td>		
                    </tr>`;
-                  });
-                  // alert(response.data.length);
+      });
+      // alert(response.data.length);
 
-                  $('#admindata').html(rowContent);
+      $('#admindata').html(rowContent);
 
-                  $(document).ready( function () {
-                    $('#allTable').DataTable({
-                      scrollY: 300,
-                      scrollX: true,
-                      scrollCollapse: true,
-                      retrieve: true,
-                      paging: true,
-                      "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-                      fixedHeader:{
-                          header: true,
-                          footer: true
-                      }
-                    });
-                  });
-             
+      $(document).ready(function () {
+        $('#allTable').DataTable({
+          scrollY: 300,
+          scrollX: true,
+          scrollCollapse: true,
+          retrieve: true,
+          paging: true,
+          "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+          fixedHeader: {
+            header: true,
+            footer: true
           }
         });
+      });
+
+    }
+  });
 }
 
 // ---------------------------View single admin 
@@ -557,22 +559,22 @@ const viewAdministrator = (id) => {
   window.location.href = "viewadmin.html";
 }
 
-const ViewAdministrator  =() => {
-  
-  
-  var settings = querySetting("api/admin/getbyid/"+localStorage.getItem('singleAdminData'), "GET", localStorage.getItem('access'));
-  
+const ViewAdministrator = () => {
+
+
+  var settings = querySetting("api/admin/getbyid/" + localStorage.getItem('singleAdminData'), "GET", localStorage.getItem('access'));
+
 
   $.ajax(settings).done(function (data) {
     // console.log(data);
-      let response = data;
+    let response = data;
     // console.log(response);
-    if(response.error==true){
-      // console.log(response.message);
-    }else{
-     
-      // console.log(response.data.role)
-    
+    if (response.error == true) {
+      console.log(response.message);
+    } else {
+
+      console.log(response.data)
+
       $('#firstName').text(response.data.first_name);
       $('#lastName').text(response.data.last_name);
       $('#roleName').text(response.data.role.role_name);
@@ -584,10 +586,10 @@ const ViewAdministrator  =() => {
       $('#section').text(response.data.section);
       $('#datecreated').text(response.data.created_at);
       $('#dateupdated').text(response.data.updated_at);
-      
-     }
+
+    }
   });
-}              
+}
 
 
 /* ----------------------- FETCHING ALL ADMINISTRATORS ENDS HERE ---------------------- */
@@ -603,28 +605,29 @@ const deleteAdministrator = (id) => {
     buttons: true,
     dangerMode: true,
   })
-  .then((willDelete) => {
-    if (willDelete) {
-      var settings = {
-        "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/deletebyadminid/${id}`,
-        "method": "POST",
-        "timeout": 0,
-        "headers": {
-          "Authorization": localStorage.getItem('access')},
-      };
-      
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        if(response.error==true){
+    .then((willDelete) => {
+      if (willDelete) {
+        var settings = {
+          "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/deletebyadminid/${id}`,
+          "method": "POST",
+          "timeout": 0,
+          "headers": {
+            "Authorization": localStorage.getItem('access')
+          },
+        };
+
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if (response.error == true) {
             swal("FAILED", response.message, "error");
-          }else{
+          } else {
             swal("SUCCESS", response.message, "success");
             fetchAlladmin();
           }
-        
-      });
-    }
-  });
+
+        });
+      }
+    });
 
 }
 
@@ -633,7 +636,7 @@ const deleteAdministrator = (id) => {
 
 /* --------------------------- MAKING UPDATE TO AN ADMINISTRATOR STARTS HERE-------------------------- */
 const executeUpdate = (id, adm_id, fn, ln, mb, role) => {
-  let updateData = JSON.stringify({"id": id, "adminid":adm_id, "firstname": fn, "lastname": ln, "mobile": mb, "role": role});
+  let updateData = JSON.stringify({ "id": id, "adminid": adm_id, "firstname": fn, "lastname": ln, "mobile": mb, "role": role });
   localStorage.setItem('singleadmindata', updateData);
   window.location.href = "update-administrator.html";
 }
@@ -649,24 +652,25 @@ const makeUpdate = () => {
   let adminRole = document.getElementById("role");
 
   // Displaying the value 
-  if(!firstName.value){
-      swal("Enter first name!");
-      firstName.focus();
-      return false;
-  }else if(!lastName.value){
-      swal("Enter last name!");
-      lastName.focus();
-      return false;
-  }else if(!adminMobile.value){
-      swal("Enter mobile number!");
-      adminMobile.focus();
-      return false;
-  }else if(!adminRole.value){
-      swal("Enter admin role!");
-      adminRole.focus();
-      return false;
-  }else{
-
+  if (!firstName.value) {
+    swal("Enter first name!");
+    firstName.focus();
+    return false;
+  } else if (!lastName.value) {
+    swal("Enter last name!");
+    lastName.focus();
+    return false;
+  } else if (!adminMobile.value) {
+    swal("Enter mobile number!");
+    adminMobile.focus();
+    return false;
+  } else if (!adminRole.value) {
+    swal("Enter admin role!");
+    adminRole.focus();
+    return false;
+  } else {
+    let roleid =  adminRole.value.split(",")[0];
+    console.log(roleid);
     var settings = {
       "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/editbyadminid",
       "method": "POST",
@@ -681,51 +685,52 @@ const makeUpdate = () => {
         "first_name": firstName.value,
         "last_name": lastName.value,
         "phone": adminMobile.value,
-        "role": role.value
+        "role_id": ""+roleid,
+        "role_name": adminRole.value.split(",")[1],
       }),
     };
-        
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-          if(response.error==true){
-              console.log(response.message);
-              swal("FAILED", response.message, "error");
-          }else{
-              console.log(response.message);
-              swal("SUCCESS",response.message,"success");
-              sessionStorage.removeItem('singleadminid')
-              first_name.value="";
-              last_name.value="";
-              adminMobile.value="";
-              role.value="";
-              adminInformation();
 
-              setTimeout(() => {
-                window.location.href = 'alladministrators.html';
-                // alert("ewe");
-              }, 3300)
-          }
-        });
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        console.log(response.message);
+        swal("FAILED", response.message, "error");
+      } else {
+        console.log(response.message);
+        swal("SUCCESS", response.message, "success");
+        sessionStorage.removeItem('singleadminid')
+        first_name.value = "";
+        last_name.value = "";
+        adminMobile.value = "";
+        role.value = "";
+        adminInformation();
+
+        setTimeout(() => {
+          window.location.href = 'alladministrators.html';
+          // alert("ewe");
+        }, 3300)
+      }
+    });
   }
 };
 
 
 /* -------------- put in the previous data into the form inputs ------------- */
 const adminInformation = () => {
-let adminData = JSON.parse(localStorage.getItem('singleadmindata'));
+  let adminData = JSON.parse(localStorage.getItem('singleadmindata'));
 
-$('#first_name').val(adminData.firstname);
-$('#last_name').val(adminData.lastname);
-$('#mobile_no').val(adminData.mobile);
-setTimeout(() => {
-  $('#role option[value="'+adminData.role+'"]').attr("selected", "selected");
-}, 2000);
+  $('#first_name').val(adminData.firstname);
+  $('#last_name').val(adminData.lastname);
+  $('#mobile_no').val(adminData.mobile);
+  setTimeout(() => {
+    $('#role option[value="' + adminData.role + '"]').attr("selected", "selected");
+  }, 2000);
 }
 
 
 const removeSession = () => {
-localStorage.removeItem('singleadmindata');
-window.location.href = "alladministrators.html";
+  localStorage.removeItem('singleadmindata');
+  window.location.href = "alladministrators.html";
 }
 
 /* ------------------- UPDATING AN ADMINISTRATOR ENDS HERE ------------------ */
@@ -733,7 +738,7 @@ window.location.href = "alladministrators.html";
 
 /* ------------------- ADDING AN ADMINISTRATOR STARTS HERE ------------------ */
 
-const addAdmin =()=>{
+const addAdmin = () => {
   // console.log(localStorage.getItem('access'));
   // selecting the input element and get its value
   let firstName = document.getElementById("first_name");
@@ -747,35 +752,35 @@ const addAdmin =()=>{
 
 
   // Displaying the value 
-  if(!firstName.value){
-      swal("Enter first name!");
-      firstName.focus();
-      return false;
-  }else if(!lastName.value){
-      swal("Enter last name!");
-      lastName.focus();
-      return false;
-  }else if(!adminMail.value){
-      swal("Enter mail!");
-      adminMail.focus();
-      return false;
-  }else if(!adminPassword.value){
-      swal("Enter password!");
-      adminPassword.focus();
-      return false;
-  }else if(!adminMobile.value){
-      swal("Enter mobile number!");
-      adminMobile.focus();
-      return false;
-  }else if(!adminRole.value){
-      swal("Enter admin role!");
-      adminRole.focus();
-      return false;
-  // }else if(!adminRecovery.value){
-  //     swal("Enter recovery phase!");
-  //     adminRecovery.focus();
-  //     return false;
-  }else{
+  if (!firstName.value) {
+    swal("Enter first name!");
+    firstName.focus();
+    return false;
+  } else if (!lastName.value) {
+    swal("Enter last name!");
+    lastName.focus();
+    return false;
+  } else if (!adminMail.value) {
+    swal("Enter mail!");
+    adminMail.focus();
+    return false;
+  } else if (!adminPassword.value) {
+    swal("Enter password!");
+    adminPassword.focus();
+    return false;
+  } else if (!adminMobile.value) {
+    swal("Enter mobile number!");
+    adminMobile.focus();
+    return false;
+  } else if (!adminRole.value) {
+    swal("Enter admin role!");
+    adminRole.focus();
+    return false;
+    // }else if(!adminRecovery.value){
+    //     swal("Enter recovery phase!");
+    //     adminRecovery.focus();
+    //     return false;
+  } else {
 
     var settings = {
       "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/add",
@@ -791,28 +796,29 @@ const addAdmin =()=>{
         "email": adminMail.value.trim(),
         "password": adminPassword.value.trim(),
         "phone": adminMobile.value.trim(),
-        "role": adminRole.value.trim(),
+        "role_id": adminRole.value.split(",")[0],
+        "role_name": adminRole.value.split(",")[1],
       }),
     };
     // console.log(settings.data)
-        
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-          if(response.error==true){
-              console.log(response.message);
-              swal("FAILED",response.message,"error");
-            }else{
-              console.log(response.message);
-              swal("SUCCESS",response.message,"success");
-              firstName.value="";
-              lastName.value="";
-              adminMail.value="";
-              adminPassword.value="";
-              adminMobile.value="";
-              adminRole.value="";
-              fetchAllroles();
-          }
-        });
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        console.log(response.message);
+        swal("FAILED", response.message, "error");
+      } else {
+        console.log(response.message);
+        swal("SUCCESS", response.message, "success");
+        firstName.value = "";
+        lastName.value = "";
+        adminMail.value = "";
+        adminPassword.value = "";
+        adminMobile.value = "";
+        adminRole.value = "";
+        fetchAllroles();
+      }
+    });
   }
 };
 
@@ -822,12 +828,12 @@ const allRoles = () => {
 
   var settings = querySetting("api/admin/roles/getall", "GET", localStorage.getItem('access'));
 
-  
+
   $.ajax(settings).done(function (data) {
     let response = data.data;
-      for(let i = 0; i < response.length; i++){
-        $('#role').append(`<option value='${response[i].role_id}'>${response[i].role_name}</option>`);
-      }
+    for (let i = 0; i < response.length; i++) {
+      $('#role').append(`<option value='${response[i].role_id},${response[i].role_name}'>${response[i].role_name}</option>`);
+    }
   });
 }
 
@@ -847,39 +853,39 @@ allRoles();
 /*                       FETCHING ALL USERS BEGINS HERE                       */
 /* -------------------------------------------------------------------------- */
 
-function fetchAllusers (){
+function fetchAllusers() {
   loader('#allusers', 8)
 
   var settings = querySetting("api/admin/users/getall", "GET", localStorage.getItem('access'));
-    
-   
-    $.ajax(settings).done(function (data) {
-        let response = data;
-        console.log(response);
 
-      if(response.error==true){
-          console.log(response.message);
-      }else{
-          let thedata = response.data;
-          if(thedata.length > 0){
-              let rowContent
-              $.each(thedata, (index, row) => {
 
-                  let userStatus, verificationStatus;
-                  if(row.user.status == 1){
-                      userStatus = `<span class="text-success">Active</span>`;
-                  }else{
-                      userStatus = `<span class="text-danger">Inactive</span>`;
-                  }
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
 
-                  if(row.user.is_verified == 0){
-                      verificationStatus = `<span class="text-danger">Not Verified</span>`;
-                  }else{
-                      verificationStatus = `<span class="text-success">Verified</span>`;
-                  }
+    if (response.error == true) {
+      console.log(response.message);
+    } else {
+      let thedata = response.data;
+      if (thedata.length > 0) {
+        let rowContent
+        $.each(thedata, (index, row) => {
 
-                  index= index+1;
-                  rowContent += `<tr class="align-items-center">
+          let userStatus, verificationStatus;
+          if (row.user.status == 1) {
+            userStatus = `<span class="text-success">Active</span>`;
+          } else {
+            userStatus = `<span class="text-danger">Inactive</span>`;
+          }
+
+          if (row.user.is_verified == 0) {
+            verificationStatus = `<span class="text-danger">Not Verified</span>`;
+          } else {
+            verificationStatus = `<span class="text-success">Verified</span>`;
+          }
+
+          index = index + 1;
+          rowContent += `<tr class="align-items-center">
                       <td style="min-width: 50px;"><span>${index}</span></td>
                       <td style="min-width: 170px;">
                           <strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
@@ -905,28 +911,28 @@ function fetchAllusers (){
                       </td> -->
 
                   </tr>`;
-                  $('#allusers').html(rowContent);
+          $('#allusers').html(rowContent);
 
-                  $(document).ready( function () {
-                    $('#allTable').DataTable({
-                      scrollY: 300,
-                      scrollX: true,
-                      scrollCollapse: true,
-                      retrieve: true,
-                      paging: true,
-                      "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-                      fixedHeader:{
-                          header: true,
-                          footer: true
-                      }
-                    });
-                  });
-              });
-          }else{
-              $('#allusers').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No users registered yet</h3></td></tr>");
-          }
+          $(document).ready(function () {
+            $('#allTable').DataTable({
+              scrollY: 300,
+              scrollX: true,
+              scrollCollapse: true,
+              retrieve: true,
+              paging: true,
+              "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+              fixedHeader: {
+                header: true,
+                footer: true
+              }
+            });
+          });
+        });
+      } else {
+        $('#allusers').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No users registered yet</h3></td></tr>");
       }
-      });
+    }
+  });
 
 }
 
@@ -941,38 +947,32 @@ function fetchAllusers (){
 /*                           ACTIVITY LOG STARTS HERE                           */
 /* -------------------------------------------------------------------------- */
 
-function fetchAllactivity (){
+function fetchAllactivity() {
 
   loader('#activitylog', 14)
+  var settings = querySetting("api/admin/activitylog/getall", "GET", localStorage.getItem('access'));
 
-  var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/activitylog/getall",
-    "method": "GET",
-    "timeout": 0,
-    "headers": {
-      "Authorization": localStorage.getItem('access')},
 
-    }
-    
 
-    $.ajax(settings).done(function (data) {
-      console.log(data);
 
-        let response = data;
-        // console.log(response);
-        if(response.error==true){
-          console.log(response.message);
-          $('#activitylog').html("<tr>"+response.message+"</tr>");
-        }else{
-          let thedata = (response.data).reverse();
-          let rowContent;
-          $.each(thedata, (index, row) => {
-            index= index+1;
-            
-            // let theadmindata = JSON.stringify(row.theadmin);
-            // console.log(JSON.stringify(row.theadmin))
-            rowContent 
-              += `<tr class="align-items-center">
+  $.ajax(settings).done(function (data) {
+    console.log(data);
+
+    let response = data;
+    // console.log(response);
+    if (response.error == true) {
+      console.log(response.message);
+      $('#activitylog').html("<tr>" + response.message + "</tr>");
+    } else {
+      let thedata = (response.data).reverse();
+      let rowContent;
+      $.each(thedata, (index, row) => {
+        index = index + 1;
+
+        // let theadmindata = JSON.stringify(row.theadmin);
+        // console.log(JSON.stringify(row.theadmin))
+        rowContent
+          += `<tr class="align-items-center">
               <td style="min-width: 10px;">${index}</td>
               $.<td style="max-width: 120px;">${row.page_route}</td>
                   <td style="max-width: 170px;">${row.admin_id}</td>
@@ -983,28 +983,28 @@ function fetchAllactivity (){
                   <td style="min-width: 120px;">${(row.created_at).split("T")[0]}</td>
                  
                  </tr>`;
-              });
-              
-                $('#activitylog').html(rowContent);
-                // Calling the pagination function declared
-                $(document).ready( function () {
-                  $('#allTable').DataTable({
-                    scrollY: 300,
-                    scrollX: true,
-                    scrollCollapse: true,
-                    retrieve: true,
-                      paging: true,
-                      "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-                      fixedHeader:{
-                          header: true,
-                          footer: true
-                      }
-                  });
-                });
-                // let totalfetchedrow = thedata.length;
-                // pagination(totalfetchedrow);
-        }
       });
+
+      $('#activitylog').html(rowContent);
+      // Calling the pagination function declared
+      $(document).ready(function () {
+        $('#allTable').DataTable({
+          scrollY: 300,
+          scrollX: true,
+          scrollCollapse: true,
+          retrieve: true,
+          paging: true,
+          "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+          fixedHeader: {
+            header: true,
+            footer: true
+          }
+        });
+      });
+      // let totalfetchedrow = thedata.length;
+      // pagination(totalfetchedrow);
+    }
+  });
 }
 
 
@@ -1018,7 +1018,7 @@ function fetchAllactivity (){
 /*                            ERROR LOG STARTS HERE                           */
 /* -------------------------------------------------------------------------- */
 
-function fetchAllErrorlog (){
+function fetchAllErrorlog() {
 
   loader('#errordata', 14)
 
@@ -1031,21 +1031,21 @@ function fetchAllErrorlog (){
     },
   };
 
-    $.ajax(settings).done(function (data) {
-      //   console.log(data);
-        //   let response = JSON.parse(data);
-        
-        let response = data;
-        if(response.error==true){
-          $('#errordata').html("<tr>"+response.message+"</tr>");
-        }else{
-          let thedata = (response.data).reverse();
-          let rowContent;
-          $.each(thedata, (index, row) => {
-              
-              index= index+1;
-              rowContent 
-              += `<tr class="align-items-center">
+  $.ajax(settings).done(function (data) {
+    //   console.log(data);
+    //   let response = JSON.parse(data);
+
+    let response = data;
+    if (response.error == true) {
+      $('#errordata').html("<tr>" + response.message + "</tr>");
+    } else {
+      let thedata = (response.data).reverse();
+      let rowContent;
+      $.each(thedata, (index, row) => {
+
+        index = index + 1;
+        rowContent
+          += `<tr class="align-items-center">
                   <td style="min-width: 50px;">${index}</td>
                   <td style="min-width: 170px;">${row.error_name}</td>
                   <td style="min-width: 150px;">
@@ -1077,30 +1077,30 @@ function fetchAllErrorlog (){
                   <td style="min-width: 120px;">${row.error_code}</td>
                  
                  </tr>`;
-                });
-                $('#errordata').html(rowContent);
-                // Calling the pagination function declared
-             
-                // let totalfetchedrow = thedata.length;
-                // var data = (totalfetchedrow);
-
-                $(document).ready( function () {
-                  $('#allTable').DataTable({
-                    scrollY: 300,
-                      scrollX: true,
-                      scrollCollapse: true,
-                      retrieve: true,
-                      paging: true,
-                      "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-                      fixedHeader:{
-                          header: true,
-                          footer: true
-                      }
-                  });
-                });
-                // pagination(totalfetchedrow);
-              }
       });
+      $('#errordata').html(rowContent);
+      // Calling the pagination function declared
+
+      // let totalfetchedrow = thedata.length;
+      // var data = (totalfetchedrow);
+
+      $(document).ready(function () {
+        $('#allTable').DataTable({
+          scrollY: 300,
+          scrollX: true,
+          scrollCollapse: true,
+          retrieve: true,
+          paging: true,
+          "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+          fixedHeader: {
+            header: true,
+            footer: true
+          }
+        });
+      });
+      // pagination(totalfetchedrow);
+    }
+  });
 
 }
 
@@ -1108,25 +1108,25 @@ function fetchAllErrorlog (){
 /* -------------------------- delete the error log -------------------------- */
 
 const deleteErrorLog = (id) => {
-var settings = {
-  "url": `https://zowaseladmin.loclx.io/api/errorlog/deleteErrorlogbyid/${id}`,
-  "method": "DELETE",
-  "timeout": 0,
-  "headers": {
-    "Authorization": localStorage.getItem('access')
-  }
-};
+  var settings = {
+    "url": `https://zowaseladmin.loclx.io/api/errorlog/deleteErrorlogbyid/${id}`,
+    "method": "DELETE",
+    "timeout": 0,
+    "headers": {
+      "Authorization": localStorage.getItem('access')
+    }
+  };
 
-$.ajax(settings).done(function (response) {
-  console.log(response);
-  if(response.error==true){
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    if (response.error == true) {
       swal("FAILED", response.message, "error");
-    }else{
+    } else {
       alert("SUCCESS", response.message, "success");
       fetchAllErrorlog();
     }
-  
-});
+
+  });
 }
 
 /* ------------------------ end of error log deletion ----------------------- */
@@ -1141,57 +1141,57 @@ $.ajax(settings).done(function (response) {
 /* -------------------------------------------------------------------------- */
 /*                                   SUPPORT TICKETS STARTS HERE                                 */
 /* -------------------------------------------------------------------------- */
-function fetchAlltickets (){
+function fetchAlltickets() {
 
-  loader('#ticketdata', 14 )
-  
+  loader('#ticketdata', 14)
+
   var settings = querySetting("api/admin/ticket/getall", "GET", localStorage.getItem('access'));
-    
+
   $.ajax(settings).done(function (data) {
     let response = data;
     console.log(response);
 
-  if(response.error==true){
+    if (response.error == true) {
       console.log(response.message);
-  }else{
+    } else {
       let thedata = response.data;
       let rowContent = "";
       let index;
       console.log(thedata, "erfrefre");
-      if(thedata.length > 0){
-          for (let i = 0; i < thedata.length; i++) {
-            // console.log('Hello World', + i);
-            let ticket_status;
-            let row = thedata[i];
-            // console.log(row, "rowwwww");
-              if(row.ticket_status == 1){
-                ticket_status = 
-                  `<div class="py-1 pe-3 ps-2 text-center successalert">
+      if (thedata.length > 0) {
+        for (let i = 0; i < thedata.length; i++) {
+          // console.log('Hello World', + i);
+          let ticket_status;
+          let row = thedata[i];
+          // console.log(row, "rowwwww");
+          if (row.ticket_status == 1) {
+            ticket_status =
+              `<div class="py-1 pe-3 ps-2 text-center successalert">
                   <span class="rounded-circle p-1 dot d-inline-block me-1"></span>
                   <strong class="text-success" style="font-size: 12px;">OPEN</strong>
                   </div>`;
-              }else{
-                ticket_status = 
-                  `<div class="py-1 pe-3 ps-2 text-center past-due">
+          } else {
+            ticket_status =
+              `<div class="py-1 pe-3 ps-2 text-center past-due">
                     <span class="rounded-circle p-1 past d-inline-block me-1"></span>
                     <strong class="text-past" style="font-size: 12px;">CLOSED</strong>
                   </div>`;
-              }
+          }
 
-              let priority;
-              if(row.priority == 1){
-                priority = `
+          let priority;
+          if (row.priority == 1) {
+            priority = `
 									  	<div class=" bg-light px-2 py-1 fw-bold welcome text-center" style="font-size: 12px !important;">High</div>
                `;
-              }
-              else{
-                priority = `
+          }
+          else {
+            priority = `
 									  	<div class="bg-light px-2 py-1 fw-bold welcome text-center" style="font-size: 12px !important;">Low</div>
                `;
-              }
+          }
 
-              index= i+1;
-              rowContent += `
+          index = i + 1;
+          rowContent += `
               <tr class="align-items-center" >
 									  	<td class="" style="min-width: 20px; font-size: 12px !important;" data-label="Id"><span>${index}</span></td>
 									  	<td class="" style="max-width:150px !important; font-size: 12px !important;" data-label="Ticket Id">${row.ticket_id}</td>
@@ -1212,33 +1212,33 @@ function fetchAlltickets (){
                         </div>
 										</td>
 									</tr>
-              `;   
-          
+              `;
+
         }
-        
+
         $('#ticketdata').html(rowContent);
-        
-        
-          
-      }else{
-          $('#ticketdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Ticket registered yet</h3></td></tr>");
+
+
+
+      } else {
+        $('#ticketdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Ticket registered yet</h3></td></tr>");
       }
 
-      $(document).ready( function () {
+      $(document).ready(function () {
         $('#allTable').DataTable({
           scrollY: 300,
           scrollX: true,
           scrollCollapse: true,
-            paging: true,
-            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-            fixedHeader:{
-                header: true,
-                footer: true
-            }
+          paging: true,
+          "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+          fixedHeader: {
+            header: true,
+            footer: true
+          }
         });
       });
-  }
-  
+    }
+
   });
 
 }
@@ -1246,25 +1246,25 @@ function fetchAlltickets (){
 /* --------------------- Deleting support tickets starts -------------------- */
 
 const deleteSupportTicket = (id) => {
-var settings = {
-  "url": `https://zowaseladmin.loclx.io/api/tickets/deleteTicketbyid/${id}`,
-  "method": "DELETE",
-  "timeout": 0,
-  "headers": {
-    "Authorization": localStorage.getItem('access')
-  }
-};
+  var settings = {
+    "url": `https://zowaseladmin.loclx.io/api/tickets/deleteTicketbyid/${id}`,
+    "method": "DELETE",
+    "timeout": 0,
+    "headers": {
+      "Authorization": localStorage.getItem('access')
+    }
+  };
 
-$.ajax(settings).done(function (response) {
-  console.log(response);
-  if(response.error==true){
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    if (response.error == true) {
       swal("FAILED", response.message, "error");
-    }else{
+    } else {
       swal("SUCCESS", response.message, "success");
       fetchAlltickets();
     }
-  
-});
+
+  });
 }
 
 /* ---------------------- Deleting support tickets end ---------------------- */
@@ -1272,42 +1272,42 @@ $.ajax(settings).done(function (response) {
 
 /* ------------------------- adding support tickets ------------------------- */
 
-const addSupportTickets =()=>{
-console.log(localStorage.getItem('access'));
-// selecting the input element and get its value
-let ticketUser = document.getElementById("users")
-let ticketSubject = document.getElementById("subject");
-let ticketPriority = document.getElementById("priority");
-let description = document.getElementById("description");
+const addSupportTickets = () => {
+  console.log(localStorage.getItem('access'));
+  // selecting the input element and get its value
+  let ticketUser = document.getElementById("users")
+  let ticketSubject = document.getElementById("subject");
+  let ticketPriority = document.getElementById("priority");
+  let description = document.getElementById("description");
 
-// Displaying the value 
-// alert(roleName)
-if(!ticketUser.value){
-  swal("Select User!");
-  ticketUser.focus();
-  return false;
-}else if(!ticketSubject.value){
+  // Displaying the value 
+  // alert(roleName)
+  if (!ticketUser.value) {
+    swal("Select User!");
+    ticketUser.focus();
+    return false;
+  } else if (!ticketSubject.value) {
     swal("Enter ticket subject!");
     ticketSubject.focus();
     return false;
-}else if(!ticketPriority.value){
+  } else if (!ticketPriority.value) {
     swal("Select Priority!");
     ticketPriority.focus();
     return false;
-}else if(!description.value){
+  } else if (!description.value) {
     swal("Enter description!");
     description.focus();
     return false;
-} else{
+  } else {
 
     const ticketData = JSON.stringify({
       users: ticketUser.value,
       subject: ticketSubject.value,
       description: description.value,
       priority: ticketPriority.value,
-     
+
       "userId": "unknown",
-      
+
     });
 
     var settings = {
@@ -1320,22 +1320,22 @@ if(!ticketUser.value){
       },
       "data": ticketData
     };
-      
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        if(response.error==true){
-          //   console.log(response.message);
-            swal("FAILED", response.message, "error");
-          }else{
-          //   console.log(response.message);
-            swal("SUCCESS", response.message, "success");
-            ticketUser.value="";
-            ticketSubject.value="";
-            ticketPriority.value="";
-            description.value="";
-          }
-      });
-}
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        //   console.log(response.message);
+        swal("FAILED", response.message, "error");
+      } else {
+        //   console.log(response.message);
+        swal("SUCCESS", response.message, "success");
+        ticketUser.value = "";
+        ticketSubject.value = "";
+        ticketPriority.value = "";
+        description.value = "";
+      }
+    });
+  }
 };
 
 /* -------------------------- trigger create ticket ------------------------- */
@@ -1351,12 +1351,12 @@ const allUsers = () => {
       "Authorization": localStorage.getItem('access')
     },
   };
-  
+
   $.ajax(settings).done(function (data) {
     let response = data.data;
-      for(let i = 0; i < response.length; i++){
-        $('#users').append(`<option value='${response[i].user.first_name} ${response[i].user.last_name}'>${response[i].user.first_name} ${response[i].user.last_name}</option>`);
-      }
+    for (let i = 0; i < response.length; i++) {
+      $('#users').append(`<option value='${response[i].user.first_name} ${response[i].user.last_name}'>${response[i].user.first_name} ${response[i].user.last_name}</option>`);
+    }
   });
 }
 
@@ -1371,30 +1371,30 @@ const allUsers = () => {
 /*                           Crop  ORDERS STARTS HERE                             */
 /* -------------------------------------------------------------------------- */
 
-function fetchAllorders (){
+function fetchAllorders() {
 
   var settings = querySetting("api/admin/order/ORDA2B44991D42DB8E8", "GET", localStorage.getItem('access'));
-    
+
   $.ajax(settings).done(function (data) {
     let response = data;
     console.log(response);
 
-  if(response.error==true){
+    if (response.error == true) {
       console.log(response.message);
-  }else{
-        console.log(response.data)
-        let thedata = response.data;
-        thedata = thedata.rows
+    } else {
+      console.log(response.data)
+      let thedata = response.data;
+      thedata = thedata.rows
 
-        if(thedata.length > 0){
-          console.log(length);
-         
+      if (thedata.length > 0) {
+        console.log(length);
 
-          let rowContent
-          $.each(thedata, (index, row) => {
 
-              index= index+1;
-              rowContent += `<tr class="align-items-center">
+        let rowContent
+        $.each(thedata, (index, row) => {
+
+          index = index + 1;
+          rowContent += `<tr class="align-items-center">
               <td style="min-width: 50px;">${index}</td>
               <td style="min-width: 170px;">${row.ticket_id}</td>
               <td style="min-width: 170px;">${row.user_id}</td>
@@ -1441,11 +1441,11 @@ function fetchAllorders (){
 
              </tr>`;
           $('#ordersdata').html(rowContent);
-          });
-      }else{
-          $('#ordersdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Order registered yet</h3></td></tr>");
+        });
+      } else {
+        $('#ordersdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Order registered yet</h3></td></tr>");
       }
-  }
+    }
   });
 
 }
@@ -1457,48 +1457,97 @@ function fetchAllorders (){
 /* -------------------------------------------------------------------------- */
 /*                            FETCH ALL NEGOTIATION                           */
 /* -------------------------------------------------------------------------- */
-function fetchAllnegotiation (){
+function fetchAllnegotiation() {
   allAdmin()
 
   loader('#negotiationdata', 10)
 
-  var settings = querySetting("api/admin/crop/conversation/getall/0/30", "GET", localStorage.getItem('access'));
-    
+  var settings = querySetting("api/admin/crop/conversation/getall", "GET", localStorage.getItem('access'));
+
   $.ajax(settings).done(function (data) {
     let response = data;
     console.log(response);
 
-  if(response.error==true){
+    if (response.error == true) {
       console.log(response.message);
-     
-  }else{
+
+    } else {
       // console.log(response.data)
 
       let thedata = response.data;
       // console.log(response.data)
-      
-      if(thedata.length > 0){
+
+      if (thedata.length > 0) {
 
         let thedata = (response.data).reverse();
-          let rowContent;
-          $.each(thedata, (index, row) => {
-                       
-            // console.log(row.userone.first_name)
-            // console.log(index, "----", row);
+        let rowContent;
+        $.each(thedata, (index, row) => {
 
-              index= index+1;
-              rowContent += `<tr class="">
+          // Show the crop category if available
+          let cropCategory;
+          if (!row.crop) {
+            cropCategory = `<p>Null</p>`;
+          } else {
+            cropCategory = row.crop.category
+          }
+          // Show the crop subcategory if available
+          let cropSubCategory;
+          if (!row.crop) {
+            cropSubCategory = `<span>Null</span>`;
+          } else {
+            cropSubCategory = row.crop.subcategory
+          }
+          // Show the crop type if available
+          let cropType;
+          if (!row.crop) {
+            cropType = `<span>Null</span>`;
+          } else {
+            cropType = row.crop
+          }
+          // Show the created at date if available
+          let cropCreateDate;
+          if (!row.crop) {
+            cropCreateDate = `<span>Null</span>`;
+          } else {
+            cropCreateDate = `${splittingDate(row.crop.created_at)}`
+          }
+          // Shw the updated date if available
+          let cropUpdateDate;
+          if (!row.crop) {
+            cropUpdateDate = `<span>Null</span>`;
+          } else {
+            cropUpdateDate = `${splittingDate(row.crop.updated_at)}`
+          }
+          // Show user one if available
+          let UserOne;
+          if (!row.userone) {
+            UserOne = `<p>Null</p>`;
+          } else {
+            UserOne = row.userone
+
+          }
+
+
+          // console.log(row.crop.type)
+          console.log(index, "----", row);
+
+          index = index + 1;
+          rowContent += `<tr class="">
                 <td style="min-width: 50px;">${index}</td>
-                <td style="min-width: 100px;"><strong class="welcome">${row.userone.first_name}, ${row.userone.last_name}</strong><br/>
-                  <small class="text-primary fw-bold text-uppercase">${row.userone.type}</small> 
+                <td style="min-width: 100px;"><strong class="welcome">${UserOne.first_name}, ${UserOne.last_name}</strong><br/>
+                  <small class="text-primary fw-bold text-uppercase">${UserOne.type}</small> 
                 </td>
                 <td style="min-width: 100px;"><strong class="welcome">${row.usertwo.first_name}, ${row.usertwo.last_name}</strong><br/>
                   <small class="text-primary fw-bold text-uppercase">${row.usertwo.type}</small> 
                 </td>
-                <td style="min-width: 120px;">${splittingDate(row.crop.created_at)}</td>
-                <td style="min-width: 120px;">${splittingDate(row.crop.updated_at)}</td>
-                <td style="min-width: 50px;">
-                  <a href="javascript:void(0)" onclick="viewSingleConversation(${row.crop.id},${row.crop.user_id})">
+                <td style="min-width: 50px;"> <strong class="text-uppercase text-primary">${cropType.type}</strong></td>
+                <td style="min-width: 100px;"><strong class="welcome">${cropCategory.name}</strong><br/>
+                  <small class="text-primary fw-bold text-uppercase">${cropSubCategory.name}</small> 
+                </td>
+                <td style="min-width: 100px;">${cropCreateDate}</td>
+                <td style="min-width: 120px;">${cropUpdateDate}</td>
+                <td style="min-width: 80px;">
+                  <a href="javascript:void(0)" onclick="viewSingleConversation(${cropType.id},${cropType.user_id},${row.conversationid})">
                       <span class="text-primary">
                         <i class="fa fa-eye"></i> View
                       </span>
@@ -1506,279 +1555,1023 @@ function fetchAllnegotiation (){
                 </td>
              
              
-                <td style="min-width: 50px;">
+                <!--  <td style="min-width: 100px;">
                   <button onclick="converSation('${row.conversationid}')" type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                      Asign Admin
-                  </button>
-                
-                 <!-- Modal -->
-                </td>
+                      Assign Admin
+                  </button> -->
+                 <!-- Modal part in HTML -->
+                 <!-- </td>  -->
             
              </tr>`;
-            });
-            $('#negotiationdata').html(rowContent);
-            $(document).ready( function () {
-              $('#allTable').DataTable({
-                scrollY: 300,
-                scrollX: true,
-                scrollCollapse: true,
-                retrieve: true,
-                paging: true,
-                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-                fixedHeader:{
-                    header: true,
-                    footer: true
-                }
-              });
-            });
-      }else{
-          $('#negotiationdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Negotiation</h3></td></tr>");
+        });
+        $('#negotiationdata').html(rowContent);
+        $(document).ready(function () {
+          $('#allTable').DataTable({
+            scrollY: 300,
+            scrollX: true,
+            scrollCollapse: true,
+            retrieve: true,
+            paging: true,
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            fixedHeader: {
+              header: true,
+              footer: true
+            }
+          });
+        });
+      } else {
+        $('#negotiationdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Negotiation</h3></td></tr>");
       }
-  }
+    }
   });
 
 }
 //----------------------- Filling the conversation  table End ------------------------//
 
 // ------------------------- View individual crop conversation  ------------------------//
-const viewSingleConversation = (cropid,userid) => {
-  // alert(cropid);
+const viewSingleConversation = (cropid, userid, converid) => {
+  // alert(converid);
+
   localStorage.setItem('negotiation_cropid', cropid);
   localStorage.setItem('negotiation_userid', userid);
+  localStorage.setItem('conversation_id', converid);
+  // console.log(converid, "bbdbsbdbbdbdbbbdbddb")
   // let cropId = JSON.stringify({"id": id});
   // localStorage.setItem('singlecropdata', conversationid);
   window.location.href = "negotiation-message.html";
 }
 
-const singleConversation  =() => {
-  
-  
-  var settings = querySetting("api/admin/crop/"+localStorage.getItem('negotiation_cropid')+"/negotiation/getbyuserid/"+localStorage.getItem('negotiation_userid'), "GET", localStorage.getItem('access'));
-  
+const singleConversationMessage = () => {
+
+
+  var settings = querySetting("api/admin/crop/" + localStorage.getItem('negotiation_cropid') + "/negotiation/getbyuserid/" + localStorage.getItem('negotiation_userid'), "GET", localStorage.getItem('access'));
+
+
 
   $.ajax(settings).done(function (data) {
     console.log(data);
-      let response = data;
+    let response = data;
     console.log(response);
-    if(response.error==true){
+    if (response.error == true) {
       console.log(response.message);
-    }else{
-      
-      // console.log(response.data.crop_request[0]);
-      // let count = response.data.crop_request[0];
-        // $('#subCategory').text(response.data.subcategory.name);
-        // $('#firstName').text(response.data.user.first_name);
-        // $('#lastName').text(response.data.user.last_name);
-        // $('#type').text(response.data.user.type);
-        // $('#price').text(response.data.specification.price);
-      
-        
-        // specification
-        // $('#category').text(response.data.category.name);
-        // $('#testweight').text(response.data.specification.test_weight);
-        // $('#color').text(response.data.specification.color);
-        // $('#hardness').text(response.data.specification.hardness);
-        // $('#moist').text(response.data.specification.moisture);
-        // $('#splits').text(response.data.specification.splits);
-        // $('#fm').text(response.data.specification.foreign_matter);
-        // $('#oil').text(response.data.specification.oil_content);
-        // $('#brokengrains').text(response.data.specification.broken_grains);
-        // $('#infestation').text(response.data.specification.infestation);
-        // $('#grainsize').text(response.data.specification.grain_size);
-        // $('#weevil').text(response.data.specification.weevil);
-        // $('#liters').text(response.data.specification.hectoliter);
-        // $('#rotten').text(response.data.specification.rotten_shriveled);
-        // $('#modeltype').text(response.data.specification.model_type);
-        // $('#defects').text(response.data.specification.total_defects);
-        // $('#dk').text(response.data.specification.dk);
-        // $('#dock').text(response.data.specification.dockage);
-        // $('#mold').text(response.data.specification.mold);
-        // $('#unit').text(response.data.specification.unit);
-        // $('#drying').text(response.data.specification.drying_process);
-        // $('#extranous').text(response.data.specification.extraneous);
-        // $('#Volatile').text(response.data.specification.volatile);
-        // $('#drying').text(response.data.specification.drying_process);
-        // crop request 
-        // $('#country').text(count.country);
-        // $('#address').text(count.address);
-        // $('#zipCode').text(count.zip);
-        // $('#cropId').text(count.crop_id);
-        // $('#lastUpdate').text(count.updated_at);
-        // $('#state').text(count.state);
-        // $('#deliveryMethod').text(count.delivery_method);
-        // $('#deliveryWindow').text(count.delivery_window);
-        // $('#deliveryDate').text(count.delivery_date);
-        // crop request end
+      // responsemodal("erroricon.png", "Error", response.message);
 
-        
-     }
-      // loader('#tbdata')
-      
-  });
-}
-
-
-// -------------- Collecting the Admin ------------------------//
-const allAdmin = () => {
-  var settings = querySetting("api/admin/getall", "GET", localStorage.getItem('access'));
-    
-  
-  $.ajax(settings).done(function (data) {
-    let response = data.data;
-      for(let i = 0; i < response.length; i++){
-        $('#Alladmin').append(`<option value='${response[i].first_name} ${response[i].last_name}'> ${response[i].first_name} ${response[i].last_name}</option>`);
-      }
-  });
-}
-
-// ------------------------Getting the conversation id--------------------// 
-const converSation = (conversationid) => {
-  // alert(conversationid);
-  localStorage.setItem('singleConversation', JSON.stringify({"conversationid":conversationid}));
-  
-  // window.location.href = "sub-category.html";
-}
-
-//-------------------------- Assigning Admin -------------------------------//
-const assignAdmin = () => {
-  let converData = JSON.parse(localStorage.getItem('singleConversation'));
-  // alert("balablu")
-  // selecting the input element and get its value
-  let converID = converData.conversationid;
-  // alert("balablu")
-  console.log(converData.conversationid);
-
-  // selecting the input element and get its  value
-  console.log(converID)
-  
-  let negotiationID = converID;
-  let adminSelected = document.getElementById("Alladmin");
- 
-  // Displaying the value 
-    if(!adminSelected.value){
-      swal("Select and Admin to Assign!");
-      adminSelected.focus();
-      return false;
     } else {
+      // alert(response.message);
+      let thedatafetched = response.data.negotiations;
+      // console.log(thedatafetched, "The negotiation message data");
 
-      const assignAdmin = JSON.stringify({
-        "negotiation_id": negotiationID,
-        "adminassigned":adminSelected.value,
-      });
-     
+      // Now the data coming from response is not arranged.
+      // The Object.values method returns an array of object's values (which are your messages) 
+      // and then you sort them by message id in ascending order using sort function.
+      let thedata = Object.entries(thedatafetched)
+        .map(([key, val]) => ({ id: key, ...val }))
+        .sort((a, b) => a.id - b.id);
 
-      var settings = querySetting("api/admin/assignnegotiation/add", "POST", localStorage.getItem('access'), assignAdmin);
-      
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-          if(response.error==true){
-              console.log(response.message);
-              swal("FAILED", response.message, "error");
-            }else{
-              console.log(response.message);
-              swal("SUCCESS", response.message, "success");
+      // console.log(thedata, "the data");
+
+      let finalObj = {}
+      thedata.forEach((theresult) => {
+        // alert(theresult);
+
+        // console.log(finalObj, "hdfdf")
+        // console.log(thedata)
+        const date = theresult.created_at.split(" ")[0];
+        if (finalObj[date]) {
+          finalObj[date].push(theresult);
+        } else {
+          finalObj[date] = [theresult];
+        }
+      })
+      // console.log(finalObj, "final Obj")
+
+      let finalObjcount = Object.keys(finalObj).length;
+      // console.log(finalObjcount);
+
+
+      let rowContent = "";
+      let index;
+
+      if (finalObjcount > 0) {
+        $('.chat-image').hide();
+        $('.thechatside').show();
+
+
+        for (let i = 0; i < finalObjcount; i++) {
+          // console.log('Hello World', + i);
+          let grouped_date = Object.keys(finalObj)[i];
+          let therow = finalObj[Object.keys(finalObj)[i]];
+          console.log(therow.length);
+
+          // The row is coming out as an array with many objects. Loop through the array
+
+          let row = therow;
+          // console.log(row, "The row rf");
+
+          let themessageandType;
+          let chatGroupContent;
+          for (let x = 0; x < row.length; x++) {
             
-              // categoryType.value=""
-              // categoryName.value="";
-              
-              window.location.href = "negotiation.html";
-              setTimeout(() => {
-                cancelRequest();
-              }, 2000)
-              fetchAllnegotiation();
+
+            let time = row[x].created_at;
+            console.log(row[x].created_at);
+
+            let myTime = time.split("T")[1];
+
+            // console.log(time.split("T")[1])
+            let myDate = time.split("T")[0];
+            // console.log(time.split("T")[0])
+            var hour = parseInt(myTime.split(":")[0]) % 12;
+            // console.log(hour, "The hour");
+            var timeInAmPm = (hour == 0 ? "12" : hour) + ":" + myTime.split(":")[1] + " " + (parseInt(parseInt(myTime.split(":")[0]) / 12) < 1 ? "AM" : "PM");
+            // console.log(timeInAmPm, "timeInAmPm");
+
+            let themessagetype = row[x].messagetype;
+            if (themessagetype == "offer") {
+              // Hide Send offer button if an offer has been sent already
+              $('.open_offer_form').hide();
+              // Hide Send offer button if an offer has been sent already
             }
-        });
+            // let themessageandType;
+            if (themessagetype == "text") {
+              themessageandType = `
+                      <div class="w-100 d-flex chat-${row[x].type}">
+                        <div class="chat-content-${row[x].type}">
+                            <h5 class="text-primary fw-bold text-capitalize">${row[x].type}</h5>
+                          <div class="message-item">
+                            <div class="bubble">${row[x].message}</div> 
+                            <div class="message-time text-end">${timeInAmPm}</div>   
+                          </div>
+                        </div>
+                      </div>
+                      `;
+            } else if (themessagetype == "offer") {
+              let offerbox = JSON.parse(row[x].message);
+              themessageandType = `
+                          <div class="offer-right mb-2 mt-1">
+                              <div class="offered">
+                                  <!---->
+                                  <div class="colored">
+                                        <h5 class="text-primary fw-bold text-capitalize">${row[x].type}</h5>
+
+                                      <h3>Offer</h3>
+                                     
+                                      <div class="white-line"></div>
+                                      <div class="each-item">
+                                          <p>Required Item</p>
+                                          <h4>${offerbox.qty}${offerbox.test_weight}</h4>
+                                      </div>
+                                      <div class="each-item">
+                                          <p>Offer Price</p>
+                                          <h4>₦${offerbox.price}</h4>
+                                      </div>
+                                      <div class="each-item">
+                                          <p>Oil content</p>
+                                          <h4>${offerbox.oil_content}%</h4>
+                                      </div>
+                                      <div class="each-item">
+                                          <p>Foreign matter</p>
+                                          <h4>${offerbox.foreign_matter}%</h4>
+                                      </div>
+                                      <div class="each-item">
+                                          <p>Infestation</p>
+                                          <h4>${offerbox.infestation}%</h4>
+                                      </div>
+                                      <div class="each-item">
+                                          <p>Moisture</p>
+                                          <h4>${offerbox.moisture}%</h4>
+                                      </div>
+                                      <div class="each-item">
+                                          <p>Weevil</p>
+                                          <h4>${offerbox.weevil}%</h4>
+                                      </div>
+                                      <div class="each-item">
+                                          <p>Splits</p>
+                                          <h4>${offerbox.splits}%</h4>
+                                      </div>
+                                      <button>View Full Specification</button>
+                                  </div>
+                                  <!---->
+                                 
+                              </div>
+                          </div> 
+                                    <div class="message-time">${timeInAmPm}</div>
+                      `;
+            } else if (themessagetype == "admin") {
+                      let adminbox = JSON.parse(row[x].message);
+                      themessageandType = `
+                        <div class="w-100 d-flex chat-${row[x].type}">
+                          <div class="admin-message-${row[x].type}">
+                            <div class="message-item">
+                              <div class="bubble">${adminbox.message}</div>    
+                              <div class="message-time">${timeInAmPm}</div>   
+                              <div class="message-date d-none">${myDate}</div>  
+                            </div>
+                            </div>
+                          </div>`;
+            }else {
+              themessageandType = `
+                      <div class="w-100 d-flex chat-${row[x].type}">
+                        <div class="chat-content-${row[x].type}">
+                                  <h5 class="text-primary fw-bold text-capitalize">${row[x].type}</h5>
+                                <div class="message-item">
+                                  <div class="bubble">${row[x].message}</div> 
+                                  <div class="message-time text-end">${timeInAmPm}</div>   
+                                </div>
+                        </div>
+                    </div>
+                      `;
+            }
+
+
+            chatGroupContent += `
+                      ${themessageandType}
+                  `;
+
+
+          }
+
+          let refactoredChatGroupContent = JSON.stringify(chatGroupContent);
+          refactoredChatGroupContent = refactoredChatGroupContent.replace(undefined, '');
+          refactoredChatGroupContent = JSON.parse(refactoredChatGroupContent);
+
+
+          // console.log(refactoredChatGroupContent, " chatGroupContent bbbbbbbbbbbbbbbbbbbb");
+          var date = new Date();
+          var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
+          let themomentcode = moment(grouped_date, "YYYY-MM-DD").isSame(dateString, "YYYY-MM-DD");
+          let themoment;
+          if (themomentcode === true) {
+            themoment = "Today";
+          } else if (moment(grouped_date, "YYYY-MM-DD").calendar().split("T")[0].toLowerCase() == "yesterday") {
+            themoment = "Yesterday";
+          } else {
+            themoment = moment(grouped_date, "YYYY-MM-DD").fromNow();
+          }
+
+
+
+          let thegroupeddate = `
+                  <div class="thegroupeddate text-center my-4" style="text-transform:uppercase;">  <span class="nego-top  py-2 px-2 text-white rounded-2">${themoment}</span></div>
+              `;
+
+          let groupDateANDthemesssageType = thegroupeddate + refactoredChatGroupContent;
+
+
+
+
+          // let groupDateANDthemesssageType = refactoredChatGroupContent;
+
+
+          rowContent += `
+                  ${groupDateANDthemesssageType}
+              `;
+
+
+
+        }
+        $('#thechatside').html(rowContent);
+        // console.log(rowContent, " rowContent");
+        // console.log(thedata, "the data");
+
+        setTimeout(() => {
+          var ChatDiv = $('#thechatside');
+          var height = ChatDiv[0].scrollHeight;
+          ChatDiv.scrollTop(height);
+          console.log(height, "Chartbox Height");
+        }, 500)
+
+        // $('[data-toggle="tooltip"]').tooltip('toggle');
+        // setTimeout(()=>{
+        //     $('[data-toggle="tooltip"]').tooltip('hide');
+        // },10000)  
+
+      } else {
+        $('#thechatside').html("No conversation yet");
+      }
+
+    }
+    // loader('#tbdata')
+
+  });
+}
+const viewConversationSpecification = () => {
+
+  var settings = querySetting("api/admin/crop/" + localStorage.getItem('negotiation_cropid') + "/negotiation/getbyuserid/" + localStorage.getItem('negotiation_userid'), "GET", localStorage.getItem('access'));
+
+  $.ajax(settings).done(function (data) {
+    console.log(data);
+    let response = data;
+    console.log(response);
+    if (response.error == true) {
+      console.log(response.message);
+    } else {
+      let negotiate;
+      if (response.data.is_negotiable == 1) {
+        negotiate =
+          `YES`;
+      } else {
+        negotiate =
+          `NO`;
+      }
+      // console.log(response.data.crop_request[0]);
+      let count = response.data.crop;
+      console.log(count, "rrrr")
+      $('#firstName').text(count.user.first_name);
+      $('#lastName').text(count.user.last_name);
+      $('#Type').text(count.user.type);
+      $('#subCategory').text(count.subcategory.name);
+      $('#Color').text(count.specification.color);
+      $('#type').text(count.type);
+      $('#price').text(count.specification.price);
+
+      // specification
+      $('#category').text(count.category.name);
+      $('#testweight').text(count.specification.test_weight);
+      $('#color').text(count.specification.color);
+      $('#hardness').text(count.specification.hardness);
+      $('#moist').text(count.specification.moisture);
+      $('#splits').text(count.specification.splits);
+      $('#fm').text(count.specification.foreign_matter);
+      $('#oil').text(count.specification.oil_content);
+      $('#brokengrains').text(count.specification.broken_grains);
+      $('#infestation').text(count.specification.infestation);
+      $('#liters').text(count.specification.hectoliter);
+      $('#weevil').text(count.specification.weevil);
+      $('#grainsize').text(count.specification.grain_size);
+      $('#rotten').text(count.specification.rotten_shriveled);
+      $('#damages').text(count.specification.total_defects);
+
+    }
+
+  });
+}
+// super admin to view all negotiations alone 
+const ViewAllNegotiation =()=>{
+  let adminRoles = JSON.parse(localStorage.getItem('admin')).role_name;
+  // alert(adminRoles)
+  if(adminRoles =="Super Admin"){
+    // $('#assigned').show();
+    window.location.href = "negotiation.html";
+  }else{
+    // alert(hide())
+    // $('#assigned').hide();
+    swal("NO ACCESS GRANTED", "", "error")
   }
-}; 
-
-//----------------------------------- All Assigned Negotiation --------------------------//
-function fetchAllAssigned (){
-
-  loader('#assignedData', 10)
+}
+const hidebutton =()=>{
+  let adminRoles = JSON.parse(localStorage.getItem('admin')).role_name;
+  if(adminRoles =="Super Admin"){
+    $('#assigned').show();
+   }else{
+    $('#assigned').hide();
+  }
+}
+const fetchAllAssignenegotiation =()=> {
+  loader('#AllassignedData', 10)
 
   var settings = querySetting("api/admin/assignnegotiation/getall", "GET", localStorage.getItem('access'));
-    
+
   $.ajax(settings).done(function (data) {
     let response = data;
     console.log(response);
 
-  if(response.error==true){
-    $('#assignedData').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Negotiation</h3></td></tr>");
+    if (response.error == true) {
 
       console.log(response.message);
-     
-  }else{
+
+    } else {
       // console.log(response.data)
 
       let thedata = response.data;
-      // console.log(response.data)
-      
-      if(thedata.length > 0){
+      console.log(response.data)
 
+      if (thedata.length > 0) {
+        
+        
         let thedata = (response.data).reverse();
-          let rowContent;
-          $.each(thedata, (index, row) => {
-                       
-            // console.log(row.userone.first_name)
-            console.log(index, "----", row);
+        let rowContent;
+        $.each(thedata, (index, row) => {
 
-              index= index+1;
+            // console.log("ytyty")
+              index = index + 1;
               rowContent += `<tr class="align-items-center">
-              <td style="min-width: 50px;">${index}</td>
-              <td style="min-width: 100px;"><strong class="welcome">${row.adminassigned}</strong><br/>
-          
-              </td>
-              <td style="min-width: 100px;"><strong class="welcome">${row.negotiationid}</strong><br/>
-           
-              </td>
-              <td style="min-width: 100px;">${splittingDate(row.created_at)}</td>
-              <td style="min-width: 100px;">${splittingDate(row.updated_at)}</td>
-              <td class="text-end" style="min-width: 20px;">
-                  <div class="dropdown shadow-dot text-center">
-                      <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a href="javascript:void(0)" class="dropdown-item" href="">Re-Assign</a>
-                          <a href="javascript:void(0)" class="dropdown-item" onclick="deleteAssigne('${row.id}')">Delete</a>
-                      </div>
-                  </div>
-              </td>
-
-             </tr>`;
-            });
-            $('#assignedData').html(rowContent);
-            $(document).ready( function () {
-              $('#allTable').DataTable({
-                scrollY: 300,
-                scrollX: true,
-                scrollCollapse: true,
-                retrieve: true,
-                paging: true,
-                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-                fixedHeader:{
+                <td style="min-width: 50px;">${index}</td>
+                <td style="min-width: 120px;"><strong class="welcome">${row.administrator[0].first_name}, ${row.administrator[0].last_name}</strong><br/></td>
+                <td style="min-width: 100px;"><strong class="welcome">${row.conversation[0].userone.first_name}, ${row.conversation[0].userone.last_name}</strong><br/>
+                  <small class="text-primary fw-bold text-uppercase">${row.conversation[0].userone.type}</small> 
+                </td>
+                <td style="min-width: 100px;"><strong class="welcome">${row.conversation[0].usertwo.first_name}, ${row.conversation[0].usertwo.last_name}</strong><br/>
+                  <small class="text-primary fw-bold text-uppercase">${row.conversation[0].usertwo.type}</small> 
+                </td>
+                <td style="min-width: 100px;"><strong class="welcome text-uppercase text-primary">${row.conversation[0].crop.type}</strong></td>
+                <td style="min-width: 100px;"><strong class="welcome">${row.conversation[0].crop.category.name} </strong><br/>
+                  <small class="text-primary fw-bold text-uppercase">${row.conversation[0].crop.subcategory.name}</small> 
+                </td>
+                <td style="min-width: 100px;">${splittingDate(row.created_at)}</td>
+                <td style="min-width: 110px;">${splittingDate(row.updated_at)}</td>
+                <td class="text-end" style="min-width: 20px;">
+                    <div class="dropdown shadow-dot text-center">
+                        <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                            <a href="javascript:void(0)" class="dropdown-item" href="">Re-Assign</a>
+                            <a href="javascript:void(0)" class="dropdown-item" onclick="deleteAdminAssigne('${row.id}')">Delete</a>
+                        </div>
+                    </div>
+                </td>
+    
+              </tr>`;
+              $('#AllassignedData').html(rowContent);
+              $(document).ready(function () {
+                $('#allTable').DataTable({
+                  scrollY: 300,
+                  scrollX: true,
+                  scrollCollapse: true,
+                  retrieve: true,
+                  paging: true,
+                  "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+                  fixedHeader: {
                     header: true,
                     footer: true
-                }
+                  }
+                });
               });
-            });
-      }else{
+        });
+        // console.log(index, "----", row);
       }
+    }
+  });
+}
+// ------------------------Admin Sending Message to Negotiation Chat ---------------------------//
+
+
+Assignme = () => {
+  allAdmin();
+  // alert("balala")
+  let converData = localStorage.getItem('conversation_id');
+  // alert(converData)
+
+}
+
+/* ------------------------------- NEGOTIATION ------------------------------ */
+
+const allAdmin = () => {
+  var settings = querySetting("api/admin/getall", "GET", localStorage.getItem('access'));
+
+
+  $.ajax(settings).done(function (data) {
+    let response = data.data;
+    for (let i = 0; i < response.length; i++) {
+      $('#Alladmin').append(`<option value=${response[i].admin_id}> ${response[i].first_name} ${response[i].last_name}</option>`);
+    }
+  });
+}
+
+// ------------------------Getting the conversation id--------------------// 
+// const converSation = (conversationid) => {
+//   // alert(conversationid);
+//   localStorage.setItem('singleConversation', JSON.stringify({"conversationid":conversationid}));
+
+//   // window.location.href = "sub-category.html";
+// }
+
+//-------------------------- Assigning Admin -------------------------------//
+
+
+const assignAdmin = () => {
+  let converData = JSON.stringify(JSON.parse(localStorage.getItem('conversation_id')));
+  // alert(converData)
+  // selecting the input element and get its value
+  let converID = converData;
+  // alert("balablu")
+  // console.log(converData, "djdjdjdjdjdjdj");
+
+  // selecting the input element and get its  value
+  // console.log(converID)
+
+  let negotiationID = converID;
+  let adminSelected = document.getElementById("Alladmin");
+  // adminSelectedvalue = adminSelected.value;
+  console.log(Alladmin)
+  // Displaying the value 
+  if (!adminSelected.value) {
+    swal("Select and Admin to Assign!");
+    adminSelected.focus();
+    return false;
+  } else {
+
+    const assignSingleAdmin = JSON.stringify({
+      "conversation_id": negotiationID,
+      "adminassigned": adminSelected.value,
+    });
+
+
+    var settings = querySetting("api/admin/assignnegotiation/add", "POST", localStorage.getItem('access'), assignSingleAdmin);
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        console.log(response.message);
+        swal("FAILED", "This negotiation has already been assigned to an admin", "error");
+      } else {
+        console.log(response.message);
+        swal("SUCCESS", response.message, "success");
+
+        // categoryType.value=""
+        // categoryName.value="";
+
+        window.location.href = "negotiation.html";
+        setTimeout(() => {
+          cancelRequest();
+        }, 2000)
+        fetchAllnegotiation();
+      }
+    });
   }
+};
+
+//----------------------------------- All Assigned Negotiation to Individual Admin --------------------------//
+function fetchAllAssigned() {
+
+  loader('#assignedData', 10)
+  let adminID = JSON.parse(localStorage.getItem('admin')).admin_id;
+  let AdminId = adminID
+  // alert(AdminId)
+  var settings = querySetting("api/admin/assignnegotiation/getbyadminassigned/" +AdminId, "GET", localStorage.getItem('access'));
+
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+    if (response.error == true) {
+
+      console.log(response.message);
+
+    } else {
+      // console.log(response.data)
+
+      let thedata = response.data;
+      console.log(response.data)
+
+      if (thedata.length > 0) {
+        
+        
+        let thedata = (response.data).reverse();
+        let rowContent;
+        $.each(thedata, (index, row) => {
+
+            // console.log("ytyty")
+              index = index + 1;
+              rowContent += `<tr class="align-items-center">
+                <td style="min-width: 50px;">${index}</td>
+                <td style="min-width: 120px;"><strong class="welcome">${row.admindetails[0].first_name}, ${row.admindetails[0].last_name}</strong><br/></td>
+                <td style="min-width: 100px;"><strong class="welcome">${row.conversation[0].userone.first_name}, ${row.conversation[0].userone.last_name}</strong><br/>
+                  <small class="text-primary fw-bold text-uppercase">${row.conversation[0].userone.type}</small> 
+                </td>
+                <td style="min-width: 100px;"><strong class="welcome">${row.conversation[0].usertwo.first_name}, ${row.conversation[0].usertwo.last_name}</strong><br/>
+                  <small class="text-primary fw-bold text-uppercase">${row.conversation[0].usertwo.type}</small> 
+                </td>
+                <td style="min-width: 100px;"><strong class="welcome text-uppercase text-primary">${row.conversation[0].crop.type}</strong></td>
+                <td style="min-width: 100px;"><strong class="welcome">${row.conversation[0].crop.category.name} </strong><br/>
+                  <small class="text-primary fw-bold text-uppercase">${row.conversation[0].crop.subcategory.name}</small> 
+                </td>
+                <td style="min-width: 100px;">${splittingDate(row.created_at)}</td>
+                <td style="min-width: 110px;">${splittingDate(row.updated_at)}</td>
+                <td style="min-width: 50px;"> <a href="javascript:void(0)" onclick="JoinConversation(${row.conversation[0].crop.id},${row.conversation[0].crop.user_id})"class="text-white btn btn-sm th-btn" style="border-radius:4px !important;"> Join </a> </td>
+              <!-- <td class="text-end" style="min-width: 20px;">
+                    <div class="dropdown shadow-dot text-center">
+                        <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                            <a href="javascript:void(0)" class="dropdown-item" href="">Re-Assign</a>
+                            <a href="javascript:void(0)" class="dropdown-item" onclick="deleteAdminAssigne('${row.id}')">Delete</a>
+                        </div>
+                    </div>
+                </td> -->
+    
+              </tr>`;
+              $('#assignedData').html(rowContent);
+              $(document).ready(function () {
+                $('#allTable').DataTable({
+                  scrollY: 300,
+                  scrollX: true,
+                  scrollCollapse: true,
+                  retrieve: true,
+                  paging: true,
+                  "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+                  fixedHeader: {
+                    header: true,
+                    footer: true
+                  }
+                });
+              });
+          
+        });
+        // console.log(index, "----", row);
+      }
+    }
   });
 
-} 
+}
+
+// ----------------------------------------- Delete assigned Admin --------------------//
+const deleteAdminAssigne = (n) => {
+  // swal("", n);
+  swal({
+    title: "Are you sure you want to delete this category?",
+    text: "Once deleted, you will not be able to recover this category!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+    .then((willDelete) => {
+      if (willDelete) {
+
+        var settings = querySetting("api/admin/assignnegotiation/delete/" + n, "POST", localStorage.getItem('access'));
+
+
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if (response.error == true) {
+            console.log(response.message);
+            swal("FAILED", response.message, "error");
+          } else {
+            console.log(response.message);
+            swal("SUCCESS", response.message, "success");
+            window.location.href = "assigned-negotiation.html";
+            setTimeout(() => {
+              cancelRequest();
+            }, 2000)
+            fetchAllAssigned();
+          }
+
+        });
+      }
+    });
+}
+
+//----------------------------------------- Single Admin Assigned to Join Chat 
+const JoinConversation = (CropId, CropUser) => {
+  // alert(CropUser)
+  localStorage.setItem('message_cropid', CropId);
+  localStorage.setItem('message_userid', CropUser);
+  window.location.href = "negotiation-admin-message.html";
+}
+const adminConversationMessage = () => {
+
+
+  var settings = querySetting("api/admin/crop/" + localStorage.getItem('message_cropid') + "/negotiation/getbyuserid/" + localStorage.getItem('message_userid'), "GET", localStorage.getItem('access'));
+
+
+
+  $.ajax(settings).done(function (data) {
+    console.log(data);
+    let response = data;
+    console.log(response);
+    if (response.error == true) {
+      console.log(response.message);
+      // responsemodal("erroricon.png", "Error", response.message);
+
+    } else {
+      // alert(response.message);
+      let thedatafetched = response.data.negotiations;
+      // console.log(thedatafetched, "The negotiation message data");
+
+      // Now the data coming from response is not arranged.
+      // The Object.values method returns an array of object's values (which are your messages) 
+      // and then you sort them by message id in ascending order using sort function.
+      let thedata = Object.entries(thedatafetched)
+        .map(([key, val]) => ({ id: key, ...val }))
+        .sort((a, b) => a.id - b.id);
+
+      // console.log(thedata, "the data");
+
+      let finalObj = {}
+      thedata.forEach((theresult) => {
+        // alert(theresult);
+
+        // console.log(finalObj, "hdfdf")
+        // console.log(thedata)
+        const date = theresult.created_at.split(" ")[0];
+        if (finalObj[date]) {
+          finalObj[date].push(theresult);
+        } else {
+          finalObj[date] = [theresult];
+        }
+      })
+      // console.log(finalObj, "final Obj")
+
+      let finalObjcount = Object.keys(finalObj).length;
+      // console.log(finalObjcount);
+
+
+      let rowContent = "";
+      // let index;
+
+      if (finalObjcount > 0) {
+        $('.chat-image').hide();
+        $('.thechatside').show();
+
+
+        for (let i = 0; i < finalObjcount; i++) {
+          // console.log('Hello World', + i);
+          let grouped_date = Object.keys(finalObj)[i];
+          let therow = finalObj[Object.keys(finalObj)[i]];
+          console.log(therow.length);
+
+          // The row is coming out as an array with many objects. Loop through the array
+
+          let row = therow;
+          // console.log(row, "The row rf");
+
+          let themessageandType;
+          let chatGroupContent;
+          for (let x = 0; x < row.length; x++) {
+
+
+            let time = row[x].created_at;
+            console.log(row[x].created_at);
+
+            let myTime = time.split("T")[1];
+
+            // console.log(time.split("T")[1])
+            let myDate = time.split("T")[0];
+            // console.log(time.split("T")[0])
+            var hour = parseInt(myTime.split(":")[0]) % 12;
+            // console.log(hour, "The hour");
+            var timeInAmPm = (hour == 0 ? "12" : hour) + ":" + myTime.split(":")[1] + " " + (parseInt(parseInt(myTime.split(":")[0]) / 12) < 1 ? "AM" : "PM");
+            // console.log(timeInAmPm, "timeInAmPm");
+
+            let themessagetype = row[x].messagetype;
+            if (themessagetype == "offer") {
+              // Hide Send offer button if an offer has been sent already
+              $('.open_offer_form').hide();
+              // Hide Send offer button if an offer has been sent already
+            }
+            // let themessageandType;
+            if (themessagetype == "text") {
+              themessageandType = `
+                      <div class="w-100 d-flex chat-${row[x].type}">
+                        <div class="chat-content-${row[x].type}">
+                            <h5 class="text-primary fw-bold text-capitalize">${row[x].type}</h5>
+                          <div class="message-item">
+                            <div class="bubble">${row[x].message}</div> 
+                            <div class="message-time text-end">${timeInAmPm}</div>   
+                          </div>
+                        </div>
+                      </div>
+                      `;
+                  } else if (themessagetype == "offer") {
+                    let offerbox = JSON.parse(row[x].message);
+                    themessageandType = `
+                                <div class="offer-right mb-2 mt-1">
+                                    <div class="offered">
+                                        <!---->
+                                        <div class="colored">
+                                              <h5 class="text-primary fw-bold text-capitalize">${row[x].type}</h5>
+
+                                            <h3>Offer</h3>
+                                          
+                                            <div class="white-line"></div>
+                                            <div class="each-item">
+                                                <p>Required Item</p>
+                                                <h4>${offerbox.qty}${offerbox.test_weight}</h4>
+                                            </div>
+                                            <div class="each-item">
+                                                <p>Offer Price</p>
+                                                <h4>₦${offerbox.price}</h4>
+                                            </div>
+                                            <div class="each-item">
+                                                <p>Oil content</p>
+                                                <h4>${offerbox.oil_content}%</h4>
+                                            </div>
+                                            <div class="each-item">
+                                                <p>Foreign matter</p>
+                                                <h4>${offerbox.foreign_matter}%</h4>
+                                            </div>
+                                            <div class="each-item">
+                                                <p>Infestation</p>
+                                                <h4>${offerbox.infestation}%</h4>
+                                            </div>
+                                            <div class="each-item">
+                                                <p>Moisture</p>
+                                                <h4>${offerbox.moisture}%</h4>
+                                            </div>
+                                            <div class="each-item">
+                                                <p>Weevil</p>
+                                                <h4>${offerbox.weevil}%</h4>
+                                            </div>
+                                            <div class="each-item">
+                                                <p>Splits</p>
+                                                <h4>${offerbox.splits}%</h4>
+                                            </div>
+                                            <button>View Full Specification</button>
+                                        </div>
+                                        <!---->
+                                      
+                                    </div>
+                                </div> 
+                                          <div class="message-time">${timeInAmPm}</div>
+                            `;
+                  } else if (themessagetype == "admin") {
+                    let adminbox = JSON.parse(row[x].message);
+                    themessageandType = `
+                            <div class="w-100 d-flex chat-${row[x].type}">
+                              <div class="admin-message-${row[x].type}">
+                                <div class="message-item">
+                                  <div class="bubble">${adminbox.message}</div>    
+                                  <div class="message-time">${timeInAmPm}</div>   
+                                  <div class="message-date d-none">${myDate}</div>  
+                                </div>
+                              </div>
+                            </div>`;
+                  } else {
+                      `<div class="w-100 d-flex chat-${row[x].type}">
+                      <div class="chat-content-${row[x].type}">
+                          <h5 class="text-primary fw-bold text-capitalize">${row[x].type}</h5>
+                        <div class="message-item">
+                          <div class="bubble">${row[x].message}</div> 
+                          <div class="message-time text-end">${timeInAmPm}</div>   
+                        </div>
+                      </div>
+                    </div>`
+                  }
+
+            chatGroupContent += `
+                      ${themessageandType}
+                  `;
+
+
+          }
+
+          let refactoredChatGroupContent = JSON.stringify(chatGroupContent);
+          refactoredChatGroupContent = refactoredChatGroupContent.replace(undefined, '');
+          refactoredChatGroupContent = JSON.parse(refactoredChatGroupContent);
+
+
+          // console.log(refactoredChatGroupContent, " chatGroupContent bbbbbbbbbbbbbbbbbbbb");
+          var date = new Date();
+          var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
+          let themomentcode = moment(grouped_date, "YYYY-MM-DD").isSame(dateString, "YYYY-MM-DD");
+          let themoment;
+          if (themomentcode === true) {
+            themoment = "Today";
+          } else if (moment(grouped_date, "YYYY-MM-DD").calendar().split("T")[0].toLowerCase() == "yesterday") {
+            themoment = "Yesterday";
+          } else {
+            themoment = moment(grouped_date, "YYYY-MM-DD").fromNow();
+          }
+
+
+
+          let thegroupeddate = `
+                  <div class="thegroupeddate text-center my-4" style="text-transform:uppercase;">  <span class="nego-top  py-2 px-2 text-white rounded-2">${themoment}</span></div>
+              `;
+
+          let groupDateANDthemesssageType = thegroupeddate + refactoredChatGroupContent;
+
+
+
+
+          // let groupDateANDthemesssageType = refactoredChatGroupContent;
+
+
+          rowContent += `
+                  ${groupDateANDthemesssageType}
+              `;
+
+
+
+        }
+        $('#thechatside').html(rowContent);
+        // console.log(rowContent, " rowContent");
+        // console.log(thedata, "the data");
+
+        setTimeout(() => {
+          var ChatDiv = $('#thechatside');
+          var height = ChatDiv[0].scrollHeight;
+          ChatDiv.scrollTop(height);
+          console.log(height, "Chartbox Height");
+        }, 500)
+
+        // $('[data-toggle="tooltip"]').tooltip('toggle');
+        // setTimeout(()=>{
+        //     $('[data-toggle="tooltip"]').tooltip('hide');
+        // },10000)  
+
+      } else {
+        $('#thechatside').html("No conversation yet");
+      }
+
+    }
+    // loader('#tbdata')
+
+  });
+}
+const adminConversationMessageSpecification = () => {
+
+  var settings = querySetting("api/admin/crop/" + localStorage.getItem('message_cropid') + "/negotiation/getbyuserid/" + localStorage.getItem('message_userid'), "GET", localStorage.getItem('access'));
+
+  $.ajax(settings).done(function (data) {
+    console.log(data);
+    let response = data;
+    console.log(response);
+    if (response.error == true) {
+      console.log(response.message);
+    } else {
+
+      console.log(response.data.negotiations[0].conversation_id, "negotiation");
+      localStorage.setItem('negotiationMessageId', response.data.negotiations[0].conversation_id);
+
+      let count = response.data.crop;
+      console.log(count, "rrrr")
+      $('#firstName').text(count.user.first_name); type
+      $('#lastName').text(count.user.last_name);
+      $('#Type').text(count.user.type);
+      $('#subCategory').text(count.subcategory.name);
+      $('#Color').text(count.specification.color);
+      $('#type').text(count.type);
+      $('#price').text(count.specification.price);
+
+      // specification
+      $('#category').text(count.category.name);
+      $('#testweight').text(count.specification.test_weight);
+      $('#color').text(count.specification.color);
+      $('#hardness').text(count.specification.hardness);
+      $('#moist').text(count.specification.moisture);
+      $('#splits').text(count.specification.splits);
+      $('#fm').text(count.specification.foreign_matter);
+      $('#oil').text(count.specification.oil_content);
+      $('#brokengrains').text(count.specification.broken_grains);
+      $('#infestation').text(count.specification.infestation);
+      $('#liters').text(count.specification.hectoliter);
+      $('#weevil').text(count.specification.weevil);
+      $('#grainsize').text(count.specification.grain_size);
+      $('#rotten').text(count.specification.rotten_shriveled);
+      $('#damages').text(count.specification.total_defects);
+
+    }
+
+  });
+}
+const sendMessage = () => {
+  let adminCropId = JSON.parse(localStorage.getItem('admin')).admin_id;
+  let negotiationMessageid = localStorage.getItem('negotiationMessageId');
+
+  // alert(negotiationMessageid)
+  let Negotiation_id = negotiationMessageid;
+  let Message = document.getElementById("negotiationtextmessage")
+  let AdminCropid = adminCropId;
+
+  const adminMessage = JSON.stringify({
+    "conversation_id": Negotiation_id,
+    "type": "admin",
+    "message": Message.value,
+    "messagetype": "text",
+    "admin_id": AdminCropid,
+
+  });
+
+
+  var settings = querySetting("api/admin/crop/negotiation/sendmessage", "POST", localStorage.getItem('access'), adminMessage);
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    if (response.error == true) {
+      console.log(response.message);
+      swal("FAILED", response.message, "error");
+    } else {
+      // console.log(response.message);
+      // swal("SUCCESS", response.message, "success");
+      Message.value = "";
+      // roleDescription.value="";
+      // roleSections.value="";
+      // window.location.href = "admin-role.html";
+      // setTimeout(() => {
+      //   cancelRequest();
+      // }, 2000)
+      // fetchAllroles();
+    }
+  });
+
+}
 
 
 /* -------------------------------------------------------------------------- */
 /*                            NEGOTIATION ENDS HERE                           */
 /* -------------------------------------------------------------------------- */
 
+
+
+
 /* -------------------------------------------------------------------------- */
 /*                          COMPANY DATA STARTS HERE                          */
 /* -------------------------------------------------------------------------- */
 
-function fetchAllcompany (){
+function fetchAllcompany() {
 
   var settings = {
     "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/company/getall",
@@ -1789,20 +2582,20 @@ function fetchAllcompany (){
     },
   };
 
-    $.ajax(settings).done(function (data) {
-        console.log(data);
-        //   let response = JSON.parse(data);
-        let response = data;
-        if(response.error==true){
-          $('#companydata').html("<tr>"+response.message+"</tr>");
-        }else{
-          let thedata = (response.data).reverse();
-          let rowContent;
-          $.each(thedata, (index, row) => {
-              console.log(response.data)
-              index= index+1;
-              rowContent 
-              += `<tr class="align-items-center">
+  $.ajax(settings).done(function (data) {
+    console.log(data);
+    //   let response = JSON.parse(data);
+    let response = data;
+    if (response.error == true) {
+      $('#companydata').html("<tr>" + response.message + "</tr>");
+    } else {
+      let thedata = (response.data).reverse();
+      let rowContent;
+      $.each(thedata, (index, row) => {
+        console.log(response.data)
+        index = index + 1;
+        rowContent
+          += `<tr class="align-items-center">
                   <td style="min-width: 50px;">${index}</td>
                   <td style="min-width: 170px;">${row.user_id}</td>
                   <td style="min-width: 150px;">${row.company_name}</td>
@@ -1820,10 +2613,10 @@ function fetchAllcompany (){
                       <button class="btn btn-sm btn-danger rounded-6" type="button" onclick="deleteErrorLog('${row.id}')">Delete</button>
                   </td> -->	
                  </tr>`;
-              $('#companydata').html(rowContent);
-            });
-        }
+        $('#companydata').html(rowContent);
       });
+    }
+  });
 
 }
 
@@ -1835,34 +2628,34 @@ function fetchAllcompany (){
 /* -------------------------------------------------------------------------- */
 /*                     Fetching all crop categories data start                     */
 /* -------------------------------------------------------------------------- */
-function fetchAllCategory (){
-  
+function fetchAllCategory() {
+
   loader('#categorydata', 10)
 
   var settings = querySetting("api/admin/category/crop/getall", "GET", localStorage.getItem('access'));
-    
+
   $.ajax(settings).done(function (data) {
     let response = data;
     console.log(response);
 
-  if(response.error==true){
+    if (response.error == true) {
       console.log(response.message);
-     
-  }else{
+
+    } else {
       console.log(response.data)
 
       let thedata = response.data;
-     
+
       console.log(thedata)
 
-      if(thedata.length > 0){
-          let rowContent
-          $.each(thedata, (index, row) => {
-          
-             
-              // console.log(row.category.type)
-              index= index+1;
-              rowContent += `
+      if (thedata.length > 0) {
+        let rowContent
+        $.each(thedata, (index, row) => {
+
+
+          // console.log(row.category.type)
+          index = index + 1;
+          rowContent += `
                 <tr class="align-middle text-start">
                     <td style="min-width: 50px;">${index}</td>
                     <td style="min-width: 100px;" class="text-capitalize">${row.type}</td>
@@ -1886,60 +2679,60 @@ function fetchAllCategory (){
                     
 								</tr>
               `;
-            });
-            $('#categorydata').html(rowContent);
-            $(document).ready( function () {
-              $('#allTable').DataTable({
-                scrollY: 300,
-                scrollX: true,
-                scrollCollapse: true,
-                retrieve: true,
-                paging: true,
-                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-                fixedHeader:{
-                    header: true,
-                    footer: true
-                }
-              });
-            });
-      }else{
-          $('#categorydata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Category Added Yet</h3></td></tr>");
+        });
+        $('#categorydata').html(rowContent);
+        $(document).ready(function () {
+          $('#allTable').DataTable({
+            scrollY: 300,
+            scrollX: true,
+            scrollCollapse: true,
+            retrieve: true,
+            paging: true,
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            fixedHeader: {
+              header: true,
+              footer: true
+            }
+          });
+        });
+      } else {
+        $('#categorydata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Category Added Yet</h3></td></tr>");
       }
-  }
+    }
   });
 
 };
 
 
 // -------------------------------Fetch all Input Categories ---------------------------//
-function fetchAllInputCategory (){
-  
+function fetchAllInputCategory() {
+
   loader('#categorydata', 10)
 
   var settings = querySetting("api/admin/category/input/getall", "GET", localStorage.getItem('access'));
-    
+
   $.ajax(settings).done(function (data) {
     let response = data;
     console.log(response);
 
-  if(response.error==true){
+    if (response.error == true) {
       console.log(response.message);
-     
-  }else{
+
+    } else {
       console.log(response.data)
 
       let thedata = response.data;
-     
+
       console.log(thedata)
 
-      if(thedata.length > 0){
-          let rowContent
-          $.each(thedata, (index, row) => {
-          
-             
-              // console.log(row.category.type)
-              index= index+1;
-              rowContent += `
+      if (thedata.length > 0) {
+        let rowContent
+        $.each(thedata, (index, row) => {
+
+
+          // console.log(row.category.type)
+          index = index + 1;
+          rowContent += `
                 <tr class="align-middle text-start">
                     <td style="min-width: 50px;">${index}</td>
                     <td style="min-width: 100px;" class="text-capitalize">${row.type}</td>
@@ -1963,29 +2756,29 @@ function fetchAllInputCategory (){
                     
 								</tr>
               `;
-            });
-            $('#categorydata').html(rowContent);
-            $(document).ready( function () {
-              $('#allTable').DataTable({
-                scrollY: 300,
-                scrollX: true,
-                scrollCollapse: true,
-                retrieve: true,
-                paging: true,
-                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-                fixedHeader:{
-                    header: true,
-                    footer: true
-                }
-              });
-            });
-      }else{
-          $('#categorydata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Category Added Yet</h3></td></tr>");
+        });
+        $('#categorydata').html(rowContent);
+        $(document).ready(function () {
+          $('#allTable').DataTable({
+            scrollY: 300,
+            scrollX: true,
+            scrollCollapse: true,
+            retrieve: true,
+            paging: true,
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            fixedHeader: {
+              header: true,
+              footer: true
+            }
+          });
+        });
+      } else {
+        $('#categorydata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Category Added Yet</h3></td></tr>");
       }
-  }
+    }
   });
 
-}; 
+};
 // --------------------------------Adding   Category starts---------------------//
 const addcategory = () => {
   // alert("balablu")
@@ -1996,48 +2789,48 @@ const addcategory = () => {
 
 
   // Displaying the value 
-    if(!categoryType.value){
-      swal("Enter Category Type!");
-      categoryType.focus();
-      return false;
-    } else if(!categoryName.value){
-      swal("Enter Category Name!");
-      categoryName.focus();
-      return false;
+  if (!categoryType.value) {
+    swal("Enter Category Type!");
+    categoryType.focus();
+    return false;
+  } else if (!categoryName.value) {
+    swal("Enter Category Name!");
+    categoryName.focus();
+    return false;
   } else {
 
-      const catAdd = JSON.stringify({
-          "type":categoryType.value,
-          "name": categoryName.value
-      });
+    const catAdd = JSON.stringify({
+      "type": categoryType.value,
+      "name": categoryName.value
+    });
 
-      var settings = querySetting("api/admin/category/add", "POST", localStorage.getItem('access'), catAdd);
-      
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-          if(response.error==true){
-              console.log(response.message);
-              swal("FAILED", response.message, "error");
-            }else{
-              console.log(response.message);
-              swal("SUCCESS", response.message, "success");
-            
-              categoryType.value=""
-              categoryName.value="";
-              
-              window.location.href = "category.html";
-              setTimeout(() => {
-                cancelRequest();
-              }, 2000)
-              fetchAllcolors();
-            }
-        });
+    var settings = querySetting("api/admin/category/add", "POST", localStorage.getItem('access'), catAdd);
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        console.log(response.message);
+        swal("FAILED", response.message, "error");
+      } else {
+        console.log(response.message);
+        swal("SUCCESS", response.message, "success");
+
+        categoryType.value = ""
+        categoryName.value = "";
+
+        window.location.href = "category.html";
+        setTimeout(() => {
+          cancelRequest();
+        }, 2000)
+        fetchAllcolors();
+      }
+    });
   }
-}; 
+};
 
 
 // ------------------------------Deleting  category ----------------------------------//
-const deleteCategory =(n)=>{
+const deleteCategory = (n) => {
   // swal("", n);
   swal({
     title: "Are you sure you want to delete this category?",
@@ -2046,41 +2839,41 @@ const deleteCategory =(n)=>{
     buttons: true,
     dangerMode: true,
   })
-  .then((willDelete) => {
-    if (willDelete) {
+    .then((willDelete) => {
+      if (willDelete) {
 
-    var settings = querySetting("api/admin/category/delete/"+n, "POST", localStorage.getItem('access'));
-    
-  
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-      if(response.error==true){
-          console.log(response.message);
-          swal("FAILED", response.message, "error");
-        }else{
-          console.log(response.message);
-          swal("SUCCESS", response.message, "success");
-          window.location.href = "category.html";
-              setTimeout(() => {
-                cancelRequest();
-              }, 2000)
-              fetchAllCategory();
-        }
-      
+        var settings = querySetting("api/admin/category/delete/" + n, "POST", localStorage.getItem('access'));
+
+
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if (response.error == true) {
+            console.log(response.message);
+            swal("FAILED", response.message, "error");
+          } else {
+            console.log(response.message);
+            swal("SUCCESS", response.message, "success");
+            window.location.href = "category.html";
+            setTimeout(() => {
+              cancelRequest();
+            }, 2000)
+            fetchAllCategory();
+          }
+
+        });
+      }
     });
-  }
-});
 }
 
 //-------------------Editing Category begins ------------------------------/
 const editCategory = (id, name) => {
   // alert("clickme")
-  sessionStorage.setItem('categoryData', JSON.stringify({id:id, name:name}));
-  window.location.href = "#?categoryID="+id;
+  sessionStorage.setItem('categoryData', JSON.stringify({ id: id, name: name }));
+  window.location.href = "#?categoryID=" + id;
   const URL = window.location.href;
   const confirmEdit = URL.split("?");
-  
-  if(confirmEdit[1] !== undefined){
+
+  if (confirmEdit[1] !== undefined) {
     $('#category_name').val(name);
     // $('#role_description').val(description);
 
@@ -2105,15 +2898,15 @@ const cancelCategory = () => {
   // $('#role_description').val("");
 
   // hides the update and cancel btn while displaying the add role btn
-  if((window.location.href).split('#')[1] !== 'color-section'){
-      document.querySelector('#editBtn').classList.toggle('d-none');
-      document.querySelector('#addBtn').classList.toggle('d-none');
-      document.querySelector('#cancelBtn').classList.toggle('d-none');
+  if ((window.location.href).split('#')[1] !== 'color-section') {
+    document.querySelector('#editBtn').classList.toggle('d-none');
+    document.querySelector('#addBtn').classList.toggle('d-none');
+    document.querySelector('#cancelBtn').classList.toggle('d-none');
   }
 }
 
-const updateCategory =()=>{
-  let categoryID= JSON.parse(sessionStorage.getItem('categoryData')).id;
+const updateCategory = () => {
+  let categoryID = JSON.parse(sessionStorage.getItem('categoryData')).id;
   // console.log(localStorage.getItem('access'));
 
   // selecting the input element and get its value
@@ -2122,41 +2915,41 @@ const updateCategory =()=>{
 
   // Displaying the value 
   // swal("", roleName), ""
-  if(!categoryName.value){
-      swal("Enter Category Name!");
-      categoryName.focus();
-      return false;
-  }else{
+  if (!categoryName.value) {
+    swal("Enter Category Name!");
+    categoryName.focus();
+    return false;
+  } else {
 
-      const categoryEdit = JSON.stringify({
-          "id": categoryID,
-          "name": categoryName.value,
-         
-      });
+    const categoryEdit = JSON.stringify({
+      "id": categoryID,
+      "name": categoryName.value,
 
-      var settings = querySetting("api/admin/category/edit", "POST", localStorage.getItem('access'), categoryEdit);
-        
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-          if(response.error==true){
-              console.log(response.message);
-              swal("FAILED", response.message, "error");
-            }else{
+    });
 
-              console.log(response.message);
-              swal("SUCCESS", response.message, "success");
-              
-              setTimeout(() => {
-                cancelRequest();
-              }, 2000)
-              window.location.href = "category.html";
-              fetchAllcolors();
-            }
-        });
+    var settings = querySetting("api/admin/category/edit", "POST", localStorage.getItem('access'), categoryEdit);
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        console.log(response.message);
+        swal("FAILED", response.message, "error");
+      } else {
+
+        console.log(response.message);
+        swal("SUCCESS", response.message, "success");
+
+        setTimeout(() => {
+          cancelRequest();
+        }, 2000)
+        window.location.href = "category.html";
+        fetchAllcolors();
+      }
+    });
   }
 };
 
-// ----------------------------EDITING AND MAKING UPDATE ENDS ------------------------//
+// ----------------------------EDITING AND MAKING UPDATE TO CATEGORY ENDS ------------------------//
 
 
 
@@ -2168,12 +2961,12 @@ const updateCategory =()=>{
 const viewSubCategory = (id, name) => {
   // alert(id);
   // let cropId = JSON.stringify({"id": id});
-  localStorage.setItem('singlecategoryid', JSON.stringify({"id":id,"name":name}));
+  localStorage.setItem('singlecategoryid', JSON.stringify({ "id": id, "name": name }));
   window.location.href = "sub-category.html";
 }
 
 
-const fetchAllSubCategories  =() => {
+const fetchAllSubCategories = () => {
   loader('#subcategorydata', 10)
   let catData = JSON.parse(localStorage.getItem('singlecategoryid'));
   let catid = catData.id;
@@ -2182,33 +2975,33 @@ const fetchAllSubCategories  =() => {
 
   $('#subName').text(catname);
   $('#Subname').text(catname);
-  var settings = querySetting("api/admin/subcategory/getbycategory/"+catid, "GET", localStorage.getItem('access'));
-  
+  var settings = querySetting("api/admin/subcategory/getbycategory/" + catid, "GET", localStorage.getItem('access'));
+
 
   $.ajax(settings).done(function (data) {
     console.log(data);
-      let response = data;
+    let response = data;
     console.log(response);
-    if(response.error==true){
+    if (response.error == true) {
       console.log(response.message);
       $('#subcategorydata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Sub-Category Added Yet</h3></td></tr>");
       // swal("FAILED", response.message, "error");
-    }else{
+    } else {
       console.log(response.data)
       // swal("SUCCESS", response.message, "success");
       let thedata = response.data;
-     
+
       console.log(thedata)
 
-      if(thedata.length > 0){
-          let rowContent
-          $.each(thedata, (index, row) => {
-              index= index+1;
-              rowContent += 
-              // console.log(row.category_id);
-              // let count = response.data.crop_request[0];
-              // $('#subName').text(row.category_id);
-              `
+      if (thedata.length > 0) {
+        let rowContent
+        $.each(thedata, (index, row) => {
+          index = index + 1;
+          rowContent +=
+            // console.log(row.category_id);
+            // let count = response.data.crop_request[0];
+            // $('#subName').text(row.category_id);
+            `
                 <tr class="align-middle">
                     <td style="min-width: 50px;">${index}</td>
                     <td style="min-width: 100px;">${row.name}</td>
@@ -2222,28 +3015,28 @@ const fetchAllSubCategories  =() => {
                     </td>
 								</tr>
               `;
-            });
-            $('#subcategorydata').html(rowContent);
-            $(document).ready( function () {
-              $('#allTable').DataTable({
-                scrollY: 300,
-                scrollX: true,
-                scrollCollapse: true,
-                retrieve: true,
-                paging: true,
-                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-                fixedHeader:{
-                    header: true,
-                    footer: true
-                }
-              });
-            });
-      }else{
-          $('#subcategorydata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Sub-Category Added Yet</h3></td></tr>");
+        });
+        $('#subcategorydata').html(rowContent);
+        $(document).ready(function () {
+          $('#allTable').DataTable({
+            scrollY: 300,
+            scrollX: true,
+            scrollCollapse: true,
+            retrieve: true,
+            paging: true,
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            fixedHeader: {
+              header: true,
+              footer: true
+            }
+          });
+        });
+      } else {
+        $('#subcategorydata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Sub-Category Added Yet</h3></td></tr>");
       }
-  }
-      // loader('#tbdata')
-      // $('#tbdata').html(rowContent);
+    }
+    // loader('#tbdata')
+    // $('#tbdata').html(rowContent);
   });
 }
 
@@ -2257,52 +3050,52 @@ const addSubCategory = () => {
   // alert("balablu")
   // console.log(localStorage.getItem('access'));
   // selecting the input element and get its  value
-  
+
   // let subCategoryId = document.getElementById("Subname");
   let subCategoryId = catData.id;
   let subCategoryName = document.getElementById("subCategory_name");
 
- 
+
   // Displaying the value 
 
-   if(!subCategoryName.value){
+  if (!subCategoryName.value) {
     swal("Enter Sub-Category Name!");
     subCategoryName.focus();
     return false;
   } else {
 
-      const subAdd = JSON.stringify({
-          "category_id": subCategoryId,
-          "subcategory_name": subCategoryName.value
-      });
+    const subAdd = JSON.stringify({
+      "category_id": subCategoryId,
+      "subcategory_name": subCategoryName.value
+    });
 
-      var settings = querySetting("api/admin/subcategory/add", "POST", localStorage.getItem('access'), subAdd);
-      
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-          if(response.error==true){
-              console.log(response.message);
-              swal("FAILED", response.message, "error");
-            }else{
-              subCategoryId.value="";
-              subCategoryName.value="";
-              console.log(response.message);
-              swal("SUCCESS", response.message, "success");
-              setTimeout(() => {
-                cancelRequest();
-              }, 2000)
-              fetchAllSubCategories();
-              window.location.href = "sub-category.html";
-            }
-        });
+    var settings = querySetting("api/admin/subcategory/add", "POST", localStorage.getItem('access'), subAdd);
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        console.log(response.message);
+        swal("FAILED", response.message, "error");
+      } else {
+        subCategoryId.value = "";
+        subCategoryName.value = "";
+        console.log(response.message);
+        swal("SUCCESS", response.message, "success");
+        setTimeout(() => {
+          cancelRequest();
+        }, 2000)
+        fetchAllSubCategories();
+        window.location.href = "sub-category.html";
+      }
+    });
   }
-}; 
+};
 
 // ------------------------------Add crop category Ends here ---------------------//
 
 
 //----------------------------------Deleting Crop subcategory --------------------------//
-const deleteSubCategory =(n)=>{
+const deleteSubCategory = (n) => {
   // swal("", n);
   swal({
     title: "Are you sure you want to delete this Sub category?",
@@ -2311,41 +3104,41 @@ const deleteSubCategory =(n)=>{
     buttons: true,
     dangerMode: true,
   })
-  .then((willDelete) => {
-    if (willDelete) {
+    .then((willDelete) => {
+      if (willDelete) {
 
-    var settings = querySetting("api/admin/subcategory/delete/"+n, "POST", localStorage.getItem('access'));
-    
-  
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-      if(response.error==true){
-          console.log(response.message);
-          swal("FAILED", response.message, "error");
-        }else{
-          console.log(response.message);
-          swal("SUCCESS", response.message, "success");
-          window.location.href = "sub-category.html";
-              setTimeout(() => {
-                cancelRequest();
-              }, 2000)
-              fetchAllCategory();
-        }
-      
+        var settings = querySetting("api/admin/subcategory/delete/" + n, "POST", localStorage.getItem('access'));
+
+
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if (response.error == true) {
+            console.log(response.message);
+            swal("FAILED", response.message, "error");
+          } else {
+            console.log(response.message);
+            swal("SUCCESS", response.message, "success");
+            window.location.href = "sub-category.html";
+            setTimeout(() => {
+              cancelRequest();
+            }, 2000)
+            fetchAllCategory();
+          }
+
+        });
+      }
     });
-  }
-});
 }
 
 // ----------------------------Making Updates to crop Subcategory -------------------------//
 const editSubCategory = (id, name) => {
   // alert("clickme")
-  sessionStorage.setItem('subcategoryData', JSON.stringify({id:id, name:name}));
-  window.location.href = "#?subcategoryID="+id;
+  sessionStorage.setItem('subcategoryData', JSON.stringify({ id: id, name: name }));
+  window.location.href = "#?subcategoryID=" + id;
   const URL = window.location.href;
   const confirmEdit = URL.split("?");
-  
-  if(confirmEdit[1] !== undefined){
+
+  if (confirmEdit[1] !== undefined) {
     $('#subCategory_name').val(name);
     // $('#role_description').val(description);
 
@@ -2372,17 +3165,17 @@ const cancelSubCategory = () => {
   // $('#role_description').val("");
 
   // hides the update and cancel btn while displaying the add role btn
-  if((window.location.href).split('#')[1] !== 'color-section'){
-      document.querySelector('#editBtn').classList.toggle('d-none');
-      document.querySelector('#addBtn').classList.toggle('d-none');
-      document.querySelector('#cancelBtn').classList.toggle('d-none');
+  if ((window.location.href).split('#')[1] !== 'color-section') {
+    document.querySelector('#editBtn').classList.toggle('d-none');
+    document.querySelector('#addBtn').classList.toggle('d-none');
+    document.querySelector('#cancelBtn').classList.toggle('d-none');
   }
 }
 
 
 
-const updateSubCategory =()=>{
-  let subcategoryID= JSON.parse(sessionStorage.getItem('subcategoryData')).id;
+const updateSubCategory = () => {
+  let subcategoryID = JSON.parse(sessionStorage.getItem('subcategoryData')).id;
   // console.log(localStorage.getItem('access'));
 
   // selecting the input element and get its value
@@ -2391,40 +3184,40 @@ const updateSubCategory =()=>{
 
   // Displaying the value 
   // swal("", roleName), ""
-  if(!subCategoryName.value){
-      swal("Enter Sub Category Name!");
-      subCategoryName.focus();
-      return false;
-  }else{
+  if (!subCategoryName.value) {
+    swal("Enter Sub Category Name!");
+    subCategoryName.focus();
+    return false;
+  } else {
     // alert(subcategoryID)
 
-      const subCategoryEdit = JSON.stringify({
-          "id": subcategoryID,
-          "subcategory_name": subCategoryName.value,
-         
-      });
+    const subCategoryEdit = JSON.stringify({
+      "id": subcategoryID,
+      "subcategory_name": subCategoryName.value,
 
-      var settings = querySetting("api/admin/subcategory/edit", "POST", localStorage.getItem('access'), subCategoryEdit);
-        
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-          if(response.error==true){
-              console.log(response.message);
-              swal("FAILED", response.message, "error");
-            }else{
+    });
 
-              console.log(response.message);
-              swal("SUCCESS", response.message, "success");
-              
-              setTimeout(() => {
-                cancelRequest();
-              }, 2000)
-              window.location.href = "sub-category.html";
-              fetchAllSubCategories();
-            }
-        });
+    var settings = querySetting("api/admin/subcategory/edit", "POST", localStorage.getItem('access'), subCategoryEdit);
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        console.log(response.message);
+        swal("FAILED", response.message, "error");
+      } else {
+
+        console.log(response.message);
+        swal("SUCCESS", response.message, "success");
+
+        setTimeout(() => {
+          cancelRequest();
+        }, 2000)
+        window.location.href = "sub-category.html";
+        fetchAllSubCategories();
+      }
+    });
   }
-}; 
+};
 /* -------------------------------------------------------------------------- */
 /*                    Fetching All Categories ends here                   */
 /* -------------------------------------------------------------------------- */
@@ -2435,33 +3228,33 @@ const updateSubCategory =()=>{
 /* -------------------------------------------------------------------------- */
 /*                             Fetching all Colors  start                           */
 /* -------------------------------------------------------------------------- */
-function fetchAllcolors (){
-  
+function fetchAllcolors() {
+
   loader('#colordata', 10)
 
   var settings = querySetting("api/admin/colour/getall", "GET", localStorage.getItem('access'));
-    
+
   $.ajax(settings).done(function (data) {
     let response = data;
     console.log(response);
 
-  if(response.error==true){
+    if (response.error == true) {
       console.log(response.message);
-     
-  }else{
+
+    } else {
       console.log(response.data)
       let thedata = response.data;
-     
+
       console.log(thedata)
 
-      if(thedata.length > 0){
-          let rowContent
-          $.each(thedata, (index, row) => {
-          
-             
-              
-              index= index+1;
-              rowContent += `
+      if (thedata.length > 0) {
+        let rowContent
+        $.each(thedata, (index, row) => {
+
+
+
+          index = index + 1;
+          rowContent += `
                 <tr class="align-middle text-start">
                     <td style="min-width: 50px;">${index}</td>
                     <td style="min-width: 100px;">${row.name}</td>
@@ -2478,26 +3271,26 @@ function fetchAllcolors (){
                     
 								</tr>
               `;
-            });
-            $('#colordata').html(rowContent);
-            $(document).ready( function () {
-              $('#allTable').DataTable({
-                scrollY: 300,
-                scrollX: true,
-                scrollCollapse: true,
-                retrieve: true,
-                paging: true,
-                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-                fixedHeader:{
-                    header: true,
-                    footer: true
-                }
-              });
-            });
-      }else{
-          $('#colordata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Color Added Yet</h3></td></tr>");
+        });
+        $('#colordata').html(rowContent);
+        $(document).ready(function () {
+          $('#allTable').DataTable({
+            scrollY: 300,
+            scrollX: true,
+            scrollCollapse: true,
+            retrieve: true,
+            paging: true,
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            fixedHeader: {
+              header: true,
+              footer: true
+            }
+          });
+        });
+      } else {
+        $('#colordata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Color Added Yet</h3></td></tr>");
       }
-  }
+    }
   });
 
 };
@@ -2512,38 +3305,38 @@ const addColor = () => {
 
   // Displaying the value 
 
-   if(!colorName.value){
+  if (!colorName.value) {
     swal("Enter Color Name!");
     colorName.focus();
     return false;
   } else {
 
-      const colorAdd = JSON.stringify({
-          // "colour_id": colorID.value,
-          "colour_name": colorName.value
-      });
+    const colorAdd = JSON.stringify({
+      // "colour_id": colorID.value,
+      "colour_name": colorName.value
+    });
 
-      var settings = querySetting("api/admin/colour/add", "POST", localStorage.getItem('access'), colorAdd);
-      
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-          if(response.error==true){
-              console.log(response.message);
-              swal("FAILED", response.message, "error");
-            }else{
-              console.log(response.message);
-              swal("SUCCESS", response.message, "success");
-            
-              // colorID.value="";
-              colorName.value="";
-              
-              window.location.href = "color-setup.html";
-              setTimeout(() => {
-                cancelRequest();
-              }, 2000)
-              fetchAllcolors();
-            }
-        });
+    var settings = querySetting("api/admin/colour/add", "POST", localStorage.getItem('access'), colorAdd);
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        console.log(response.message);
+        swal("FAILED", response.message, "error");
+      } else {
+        console.log(response.message);
+        swal("SUCCESS", response.message, "success");
+
+        // colorID.value="";
+        colorName.value = "";
+
+        window.location.href = "color-setup.html";
+        setTimeout(() => {
+          cancelRequest();
+        }, 2000)
+        fetchAllcolors();
+      }
+    });
   }
 };
 
@@ -2552,7 +3345,7 @@ const addColor = () => {
 // -----------------------DELETING COLORS BEGINS----------------------------// 
 
 
-const deleteColor =(n)=>{
+const deleteColor = (n) => {
   // swal("", n);
   swal({
     title: "Are you sure you want to delete this role?",
@@ -2561,30 +3354,30 @@ const deleteColor =(n)=>{
     buttons: true,
     dangerMode: true,
   })
-  .then((willDelete) => {
-    if (willDelete) {
+    .then((willDelete) => {
+      if (willDelete) {
 
-    var settings = querySetting("api/admin/colour/delete/"+n, "POST", localStorage.getItem('access'));
-    
-  
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-      if(response.error==true){
-          console.log(response.message);
-          swal("FAILED", response.message, "error");
-        }else{
-          console.log(response.message);
-          swal("SUCCESS", response.message, "success");
-          window.location.href = "color-setup.html";
-              setTimeout(() => {
-                cancelRequest();
-              }, 2000)
-          fetchAllcolors();
-        }
-      
+        var settings = querySetting("api/admin/colour/delete/" + n, "POST", localStorage.getItem('access'));
+
+
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if (response.error == true) {
+            console.log(response.message);
+            swal("FAILED", response.message, "error");
+          } else {
+            console.log(response.message);
+            swal("SUCCESS", response.message, "success");
+            window.location.href = "color-setup.html";
+            setTimeout(() => {
+              cancelRequest();
+            }, 2000)
+            fetchAllcolors();
+          }
+
+        });
+      }
     });
-  }
-});
 }
 
 /* -------------------- DELETING COLORS ENDS ------------------- */
@@ -2593,12 +3386,12 @@ const deleteColor =(n)=>{
 // ------------------------------EDITING COLORS STARTS ----------------------//
 const editColor = (id, name) => {
   // alert("clickme")
-  sessionStorage.setItem('colorData', JSON.stringify({id:id, name:name}));
-  window.location.href = "#?colorID="+id;
+  sessionStorage.setItem('colorData', JSON.stringify({ id: id, name: name }));
+  window.location.href = "#?colorID=" + id;
   const URL = window.location.href;
   const confirmEdit = URL.split("?");
-  
-  if(confirmEdit[1] !== undefined){
+
+  if (confirmEdit[1] !== undefined) {
     $('#color_name').val(name);
     // $('#role_description').val(description);
 
@@ -2625,16 +3418,16 @@ const cancelColor = () => {
   // $('#role_description').val("");
 
   // hides the update and cancel btn while displaying the add role btn
-  if((window.location.href).split('#')[1] !== 'color-section'){
-      document.querySelector('#editBtn').classList.toggle('d-none');
-      document.querySelector('#addBtn').classList.toggle('d-none');
-      document.querySelector('#cancelBtn').classList.toggle('d-none');
+  if ((window.location.href).split('#')[1] !== 'color-section') {
+    document.querySelector('#editBtn').classList.toggle('d-none');
+    document.querySelector('#addBtn').classList.toggle('d-none');
+    document.querySelector('#cancelBtn').classList.toggle('d-none');
   }
 }
 
 
 
-const updatecolor =()=>{
+const updatecolor = () => {
   let colorID = JSON.parse(sessionStorage.getItem('colorData')).id;
   // console.log(localStorage.getItem('access'));
 
@@ -2644,37 +3437,37 @@ const updatecolor =()=>{
 
   // Displaying the value 
   // swal("", roleName), ""
-  if(!colorName.value){
-      swal("Enter Color Name!");
-      colorName.focus();
-      return false;
-  }else{
+  if (!colorName.value) {
+    swal("Enter Color Name!");
+    colorName.focus();
+    return false;
+  } else {
 
-      const colorEdit = JSON.stringify({
-          "id": colorID,
-          "colour_name": colorName.value ,
-         
-      });
+    const colorEdit = JSON.stringify({
+      "id": colorID,
+      "colour_name": colorName.value,
 
-      var settings = querySetting("api/admin/colour/edit", "POST", localStorage.getItem('access'), colorEdit);
-        
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-          if(response.error==true){
-              console.log(response.message);
-              swal("FAILED", response.message, "error");
-            }else{
+    });
 
-              console.log(response.message);
-              swal("SUCCESS", response.message, "success");
-              
-              setTimeout(() => {
-                cancelRequest();
-              }, 2000)
-              window.location.href = "color-setup.html";
-              fetchAllcolors();
-            }
-        });
+    var settings = querySetting("api/admin/colour/edit", "POST", localStorage.getItem('access'), colorEdit);
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        console.log(response.message);
+        swal("FAILED", response.message, "error");
+      } else {
+
+        console.log(response.message);
+        swal("SUCCESS", response.message, "success");
+
+        setTimeout(() => {
+          cancelRequest();
+        }, 2000)
+        window.location.href = "color-setup.html";
+        fetchAllcolors();
+      }
+    });
   }
 };
 
@@ -2691,95 +3484,81 @@ const updatecolor =()=>{
 /*                           INPUT DATA STARTS HERE                           */
 /* -------------------------------------------------------------------------- */
 
-function fetchAllinput (){
+function fetchAllinput() {
 
   loader('#inputdata', 14)
 
   var settings = querySetting("api/admin/input/getall", "GET", localStorage.getItem('access'));
 
-    
+
   $.ajax(settings).done(function (data) {
     let response = data;
     console.log(response);
-
-  if(response.error==true){
-    console.log(response.message);
-    $('#inputdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Inputs added yet</h3></td></tr>");
-  }else{
+    swal(response.message);
+    $('#inputdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Inputs Product Found</h3></td></tr>");
+    if (response.error == true) {
+      console.log(response.message);
+    } else {
       let thedata = response.data;
-      if(thedata.length > 0){
-          let rowContent
-          $.each(thedata, (index, row) => {
+      if (thedata.length > 0) {
+        let rowContent
+        $.each(thedata, (index, row) => {
 
-              let ticket_status;
-              if(row.ticket_status == 1){
-                ticket_status = 
-                  `<div class="py-1 pe-3 ps-2 text-center rounded-pill successalert">
-                    <span class="rounded-circle p-1 dot d-inline-block me-1"></span>
-                    <strong class="text-success fs-10">ACTIVE</strong>
-                  </div>`;
-              }else{
-                ticket_status = 
-                  `<div class="py-1 pe-3 ps-2 text-center rounded-pill past-due">
-                    <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
-                    <strong class="text-past fs-10">IN ACTIVE</strong>
-                  </div>`;
-              }
 
-              index= index+1;
-              rowContent += `<tr class="align-items-center">
+          index = index + 1;
+          rowContent += `<tr class="align-items-center">
               <td>${index}</td>
               <td> <strong class="welcome" >${row.user.first_name} ${row.user.last_name}</strong>
               <br> <small class="text-primary text-capitalize">${row.user.type}</small></td>
               <td class="text-primary">${row.user.email}</td>
               <td>${row.category.name} <br> <small class="text-primary">${row.subcategory.name} </small>  </td>
-              <td style="cursor:pointer;"><a href="javascript:void(0)" class="success-color" onclick=viewMoreInput('${row.user_id}')> <i class="fa fa-eye"></i> View More </a></td>
+              <td style="cursor:pointer;"><a href="javascript:void(0)" class="success-color" onclick=viewMoreInput('${row.id}')> <i class="fa fa-eye"></i> View </a></td>
               
 
              </tr>`;
-            });
-            $('#inputdata').html(rowContent);
-            $(document).ready( function () {
-              $('#allTable').DataTable({
-                scrollY: 300,
-                scrollX: true,
-                scrollCollapse: true,
-                retrieve: true,
-                paging: true,
-                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-                fixedHeader:{
-                    header: true,
-                    footer: true
-                }
-              });
-            });
-      }else{
+        });
+        $('#inputdata').html(rowContent);
+        $(document).ready(function () {
+          $('#allTable').DataTable({
+            scrollY: 300,
+            scrollX: true,
+            scrollCollapse: true,
+            retrieve: true,
+            paging: true,
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            fixedHeader: {
+              header: true,
+              footer: true
+            }
+          });
+        });
+      } else {
         $('#inputdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Inputs added yet</h3></td></tr>");
       }
-  }
+    }
   });
 
 }
 
-const viewMoreInput = (user_id) => {
-  // alert(user_id);
-  localStorage.setItem('singleInputData', user_id);
+const viewMoreInput = (id) => {
+  // alert(id);
+  localStorage.setItem('singleInputData', id);
   window.location.href = "view-more.html";
 }
 
-const viewInput  =() => {
-  
-  
-  var settings = querySetting("api/admin/input/getallbyuserid/"+localStorage.getItem('singleInputData'), "GET", localStorage.getItem('access'));
-  
+const viewInput = () => {
+
+
+  var settings = querySetting("api/admin/input/getbyid/" + localStorage.getItem('singleInputData'), "GET", localStorage.getItem('access'));
+
 
   $.ajax(settings).done(function (data) {
     console.log(data);
-      let response = data;
+    let response = data;
     // console.log(response);
-    if(response.error==true){
+    if (response.error == true) {
       // console.log(response.message);
-    }else{
+    } else {
       // console.log(data)
       // let negotiate;
       //       if(response.data.is_negotiable == 1){
@@ -2813,7 +3592,7 @@ const viewInput  =() => {
       $('#deliverymethod').text(response.data[0].delivery_method);
       $('#mfmstate').text(response.data[0].state);
       $('#mfmcounntry').text(response.data[0].manufacture_country);
-     }
+    }
   });
 }
 
@@ -2826,254 +3605,79 @@ const viewInput  =() => {
 /*                           CROPS DATA STARTS HERE                           */
 /* -------------------------------------------------------------------------- */
 
-function cropsWanted (){
-  
+function cropsWanted() {
+
   loader('#cropdata', 10)
 
   var settings = querySetting("api/admin/crop/getbycropwanted", "GET", localStorage.getItem('access'));
-    
+
   $.ajax(settings).done(function (data) {
     let response = data;
     console.log(response);
-    
-    if(response.error==true){
+
+    if (response.error == true) {
       $('#cropofferdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop Wanted Availble Yet</h3></td></tr>");
       console.log(response.message);
-      
-    }else{
+
+    } else {
       console.log(response.data)
       let thedata = response.data;
       thedata = thedata.rows
 
-      if(thedata.length > 0){
-          let rowContent
-          $.each(thedata, (index, row) => {
-          
-              let crop_status;
-              if(row.user.status == 1){
-                crop_status = 
-                  `<div class="py-1 text-center rounded-pill successalert">
+      if (thedata.length > 0) {
+        let rowContent
+        $.each(thedata, (index, row) => {
+
+          let crop_status;
+          if (row.user.status == 1) {
+            crop_status =
+              `<div class="py-1 text-center rounded-pill successalert">
                     <span class="rounded-circle p-1 dot d-inline-block"></span>
                     <strong class="text-success" style="font-size:12px;">ACTIVE</strong>
                   </div>`;
-              }else{
-                crop_status = 
-                  `<div class="py-1 text-center rounded-pill past-due">
+          } else {
+            crop_status =
+              `<div class="py-1 text-center rounded-pill past-due">
                     <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
                     <strong class="text-past"  style="font-size:12px;">IN ACTIVE</strong>
                   </div>`;
-              }
-              // console.log(row.category.type)
-              index= index+1;
-              rowContent += `
-              <tr class="align-items-center">
-              <td style="min-width: 50px;">${index}</td>
-              <td style="min-width: 100px;"><strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
+          }
+          // console.log(row.category.type)
+          index = index + 1;
+          rowContent += `
+              <tr class="">
+              <td>${index}</td>
+              <td><strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
                 <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
               </td>
-              <td style="min-width: 70px;" class="text-primary">${row.user.email}</td>
-              <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
-              <td style="min-width: 100px; text-align:center;">${crop_status}</td>
-              <td style="min-width: 50px;">
-              <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
-                  VIEW
-              </button>
-              
-              <!-- Modal -->
-              <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                      <div class="modal-header border-0">
-                      <h3 class="modal-title">Crop Specification</h3>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-
-                      <div class="">
-                                    <div class="">
-                                        <!---->
-                                        <div class="">
-                                            <h3>Wanted</h3>
-                                            <hr/>
-
-                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="col-4">
-                                                  <h3>Acid Ash</h3>
-                                                  <h6>${row.specification.acid_ash}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                  <h3>Broken Grains</h3>
-                                                  <h6>${row.specification.broken_grains}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                <h3>Color</h3>
-                                                <h6>${row.specification.color}</h6>
-                                              </div>
-                                            </div>
-
-                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="col-4">
-                                                  <h3>Curcumin Content</h3>
-                                                  <h6>${row.specification.curcumin_content}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                  <h3>Dead Insect</h3>
-                                                  <h6>${row.specification.dead_insect}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                <h3>DK</h3>
-                                                <h6>${row.specification.dk}</h6>
-                                              </div>
-                                            </div>
-
-                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="col-4">
-                                                  <h3>Drying Process</h3>
-                                                  <h6>${row.specification.drying_process}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                  <h3>Extraneous</h3>
-                                                  <h6>${row.specification.extraneous}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                <h3>Foreign Matter</h3>
-                                                <h6>${row.specification.foreign_matter}</h6>
-                                              </div>
-                                            </div>
-
-                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="col-4">
-                                                  <h3>Grain Size</h3>
-                                                  <h6>${row.specification.grain_size}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                  <h3>Hardness</h3>
-                                                  <h6>${row.specification.hardness}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                <h3>Hectoliter</h3>
-                                                <h6>${row.specification.hectoliter}</h6>
-                                              </div>
-                                            </div>
-
-                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="col-4">
-                                                  <h3>Infestation</h3>
-                                                  <h6>${row.specification.infestation}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                  <h3>Mammalian</h3>
-                                                  <h6>${row.specification.mammalian}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                <h3>Model Type</h3>
-                                                <h6>${row.specification.model_type}</h6>
-                                              </div>
-                                            </div>
-
-                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="col-4">
-                                                  <h3>Moisture</h3>
-                                                  <h6>${row.specification.moisture}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                  <h3>Mold</h3>
-                                                  <h6>${row.specification.mold}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                <h3>OIl Content</h3>
-                                                <h6>${row.specification.oil_content}</h6>
-                                              </div>
-                                            </div>
-
-                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="col-4">
-                                                  <h3>Price</h3>
-                                                  <h6>${row.specification.price}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                  <h3>Quantity</h3>
-                                                  <h6>${row.specification.qty}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                <h3>Rotten Shriveled</h3>
-                                                <h6>${row.specification.rotten_shriveled}</h6>
-                                              </div>
-                                            </div>
-
-                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="col-4">
-                                                  <h3>Splits</h3>
-                                                  <h6>${row.specification.splits}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                  <h3>Test Weight</h3>
-                                                  <h6>${row.specification.test_weight}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                <h3>Total Defects</h3>
-                                                <h6>${row.specification.total_defects}</h6>
-                                              </div>
-                                            </div>
-
-                                            <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                              <div class="col-4">
-                                                  <h3>Unit</h3>
-                                                  <h6>${row.specification.unit}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                  <h3>Volatile</h3>
-                                                  <h6>${row.specification.volatile}</h6>
-                                              </div>
-                                              <div class="col-4">
-                                                <h3>Weevil</h3>
-                                                <h6>${row.specification.weevil}</h6>
-                                              </div>
-                                            </div>
-
-                                            
-                                            
-                                        </div>
-                                        <!---->
-                                    </div>
-                                </div>
-
-                      
-                      </div>
-                      <div class="modal-footer border-0">
-                      <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
-                      </div>
-                  </div>
-                  </div>
-              </div>
-              </td>
-            
-            
-              <td style="min-width: 50px; cursor:pointer;">
-                <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')">View More</a>
+              <td class="text-primary">${row.user.email}</td>
+              <td><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
+              <td>${crop_status}</td>
+              <td style="cursor:pointer;" class="text-center">
+                <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')"> <i class="fa fa-eye"></i> View</a>
               </td>
               
 
             </tr>
               `;
-            });
-            $('#cropdata').html(rowContent);
-            $(document).ready( function () {
-              $('#allTable').DataTable({
-                scrollY: 300,
-                scrollX: true,
-                scrollCollapse: true,
-                retrieve: true,
-                paging: true,
-                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-                fixedHeader:{
-                    header: true,
-                    footer: true
-                }
-              });
-            });
+        });
+        $('#cropdata').html(rowContent);
+        $(document).ready(function () {
+          $('#allTable').DataTable({
+            scrollY: 300,
+            scrollX: true,
+            scrollCollapse: true,
+            retrieve: true,
+            paging: true,
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            fixedHeader: {
+              header: true,
+              footer: true
+            }
+          });
+        });
       }
-  }
+    }
   });
 
 };
@@ -3090,602 +3694,255 @@ const viewMoreCrop = (id) => {
 }
 
 
-const viewMore  =() => {
-  
-  
-    var settings = querySetting("api/admin/crop/getbyid/"+localStorage.getItem('singlecropdata'), "GET", localStorage.getItem('access'));
-    
-  
-    $.ajax(settings).done(function (data) {
-      console.log(data);
-        let response = data;
-      console.log(response);
-      if(response.error==true){
-        console.log(response.message);
-      }else{
-        let negotiate;
-              if(response.data.is_negotiable == 1){
-                negotiate = 
-                  `YES`;
-              }else{
-                negotiate = 
-                  `NO`;
-              }
-        console.log(response.data.crop_request[0]);
-        let count = response.data.crop_request[0];
-          $('#croptype').text(response.data.type);
-          $('#user_id').text(response.data.user_id);
-          $('#application').html(response.data.application);
-          $('#firstName').text(response.data.user.first_name);
-          $('#lastName').text(response.data.user.last_name);
-          $('#lastName').text(response.data.user.last_name);
-          $('#description').html(response.data.description);
-          $('#cropTitle').text(response.data.title);
-          $('#vidfed').text(response.data.video);
-          $('#package').text(response.data.packaging);
-          $('#currency').text(response.data.currency);
-          $('#negotiate').text(negotiate);
-          
-          // specification
-          $('#price').text(response.data.specification.price);
-          $('#quantity').text(response.data.specification.qty);
-          $('#grainSize').text(response.data.specification.grain_size);
-          $('#hardness').text(response.data.specification.hardness);
-          $('#acid').text(response.data.specification.acid_ash);
-          $('#color').text(response.data.specification.color);
-          $('#curcumin_content').text(response.data.specification.curcumin_content);
-          $('#rotten_shriveled').text(response.data.specification.rotten_shriveled);
-          $('#infestation').text(response.data.specification.infestation);
-          $('#splits').text(response.data.specification.splits);
-          $('#insect').text(response.data.specification.dead_insect);
-          $('#mammalian').text(response.data.specification.mammalian);
-          $('#testweight').text(response.data.specification.test_weight);
-          $('#modeltype').text(response.data.specification.model_type);
-          $('#defects').text(response.data.specification.total_defects);
-          $('#dk').text(response.data.specification.dk);
-          $('#moist').text(response.data.specification.moisture);
-          $('#dock').text(response.data.specification.dockage);
-          $('#mold').text(response.data.specification.mold);
-          $('#unit').text(response.data.specification.unit);
-          $('#drying').text(response.data.specification.drying_process);
-          $('#oil').text(response.data.specification.oil_content);
-          $('#extranous').text(response.data.specification.extraneous);
-          $('#Volatile').text(response.data.specification.volatile);
-          $('#weevil').text(response.data.specification.weevil);
-          $('#drying').text(response.data.specification.drying_process);
-          // crop request 
-          $('#country').text(count.country);
-          $('#address').text(count.address);
-          $('#zipCode').text(count.zip);
-          $('#cropId').text(count.crop_id);
-          $('#lastUpdate').text(count.updated_at);
-          $('#state').text(count.state);
-          $('#deliveryMethod').text(count.delivery_method);
-          $('#deliveryWindow').text(count.delivery_window);
-          $('#deliveryDate').text(count.delivery_date);
-          // crop request end
+const viewMore = () => {
 
-          
-       }
-        // loader('#tbdata')
-        // $('#tbdata').html(rowContent);
-    });
+
+  var settings = querySetting("api/admin/crop/getbyid/" + localStorage.getItem('singlecropdata'), "GET", localStorage.getItem('access'));
+
+
+  $.ajax(settings).done(function (data) {
+    console.log(data);
+    let response = data;
+    console.log(response);
+    if (response.error == true) {
+      console.log(response.message);
+    } else {
+      let negotiate;
+      if (response.data.is_negotiable == 1) {
+        negotiate =
+          `YES`;
+      } else {
+        negotiate =
+          `NO`;
+      }
+      // console.log(response.data.crop_request[0]);
+      let count = response.data.crop_request[0];
+      $('#croptype').text(response.data.type);
+      $('#user_id').text(response.data.user_id);
+      $('#application').html(response.data.application);
+      $('#firstName').text(response.data.user.first_name);
+      $('#lastName').text(response.data.user.last_name);
+      $('#lastName').text(response.data.user.last_name);
+      $('#description').html(response.data.description);
+      $('#category_name').text(response.data.category.name);
+      $('#Subcategory_name').text(response.data.subcategory.name);
+      $('#vidfed').text(response.data.video);
+      $('#package').text(response.data.packaging);
+      $('#currency').text(response.data.currency);
+      $('#negotiate').text(negotiate);
+
+      // specification
+      $('#price').text(response.data.specification.price);
+      $('#quantity').text(response.data.specification.qty);
+      $('#grainSize').text(response.data.specification.grain_size);
+      $('#hardness').text(response.data.specification.hardness);
+      $('#acid').text(response.data.specification.acid_ash);
+      $('#color').text(response.data.specification.color);
+      $('#curcumin_content').text(response.data.specification.curcumin_content);
+      $('#rotten_shriveled').text(response.data.specification.rotten_shriveled);
+      $('#infestation').text(response.data.specification.infestation);
+      $('#splits').text(response.data.specification.splits);
+      $('#insect').text(response.data.specification.dead_insect);
+      $('#mammalian').text(response.data.specification.mammalian);
+      $('#testweight').text(response.data.specification.test_weight);
+      $('#modeltype').text(response.data.specification.model_type);
+      $('#defects').text(response.data.specification.total_defects);
+      $('#dk').text(response.data.specification.dk);
+      $('#moist').text(response.data.specification.moisture);
+      $('#dock').text(response.data.specification.dockage);
+      $('#mold').text(response.data.specification.mold);
+      $('#unit').text(response.data.specification.unit);
+      $('#drying').text(response.data.specification.drying_process);
+      $('#oil').text(response.data.specification.oil_content);
+      $('#extranous').text(response.data.specification.extraneous);
+      $('#Volatile').text(response.data.specification.volatile);
+      $('#weevil').text(response.data.specification.weevil);
+      $('#drying').text(response.data.specification.drying_process);
+      // crop request 
+      $('#country').text(count.country);
+      $('#address').text(count.address);
+      $('#zipCode').text(count.zip);
+      $('#cropId').text(count.crop_id);
+      $('#lastUpdate').text(count.updated_at);
+      $('#state').text(count.state);
+      $('#deliveryMethod').text(count.delivery_method);
+      $('#deliveryWindow').text(count.delivery_window);
+      $('#deliveryDate').text(count.delivery_date);
+      // crop request end
+
+
+    }
+    // loader('#tbdata')
+    // $('#tbdata').html(rowContent);
+  });
 }
 
 
-  /* -------------------------------------------------------------------------- */
-  /*                             Crop offered begins                            */
-  /* -------------------------------------------------------------------------- */
-  function cropsOffered (){
-  
-    loader('#cropofferdata', 10)
-  
-    var settings = querySetting("api/admin/crop/getbycropoffer", "GET", localStorage.getItem('access'));
-      
-    $.ajax(settings).done(function (data) {
-      let response = data;
-      console.log(response);
-  
-    if(response.error==true){
-        // console.log(response.message);
-        $('#cropofferdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop For Sale Availble Yet</h3></td></tr>");
-       
-    }else{
-        console.log(response.data)
-        let thedata = response.data;
-        thedata = thedata.rows
-        if(thedata.length > 0){
-            let rowContent
-            $.each(thedata, (index, row) => {
-            
-                let crop_status;
-                if(row.user.status == 1){
-                  crop_status = 
-                    `<div class="py-1 text-center rounded-pill successalert">
+/* -------------------------------------------------------------------------- */
+/*                             Crop offered begins                            */
+/* -------------------------------------------------------------------------- */
+function cropsOffered() {
+
+  loader('#cropofferdata', 10)
+
+  var settings = querySetting("api/admin/crop/getbycropoffer", "GET", localStorage.getItem('access'));
+
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+    if (response.error == true) {
+      console.log(response.message);
+
+    } else {
+      console.log(response.data)
+
+      let thedata = response.data;
+
+      thedata = thedata
+      if (thedata.length > 0) {
+        let rowContent
+        $.each(thedata, (index, row) => {
+
+          let crop_status;
+          if (row.user.status == 1) {
+            crop_status =
+              `<div class="py-1 text-center rounded-pill successalert">
                       <span class="rounded-circle p-1 dot d-inline-block"></span>
                       <strong class="text-success" style="font-size:12px;">ACTIVE</strong>
                     </div>`;
-                }else{
-                  crop_status = 
-                    `<div class="py-1 text-center rounded-pill past-due">
+          } else {
+            crop_status =
+              `<div class="py-1 text-center rounded-pill past-due">
                       <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
                       <strong class="text-past"  style="font-size:12px;">IN ACTIVE</strong>
                     </div>`;
-                }
-                
-                index= index+1;
-                rowContent += `
-                <tr class="align-items-center">
-                <td style="min-width: 50px;">${index}</td>
-                <td style="min-width: 120px;"><strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
+          }
+
+          index = index + 1;
+          rowContent +=
+            `<tr class=" align-items-center">
+                <td>${index}</td>
+                <td><strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
                   <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
                 </td>
-                <td style="min-width: 100px;" class="text-primary">${row.user.email}</td>
-                <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
-                <td style="min-width: 100px; text-align:center;">${crop_status}</td>
-                <td style="min-width: 50px;">
-                <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
-                    VIEW
-                </button>
-                
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header border-0">
-                        <h3 class="modal-title">Crop Specification</h3>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-  
-                        <div class="">
-                                      <div class="">
-                                          <!---->
-                                          <div class="">
-                                              <h3>Wanted</h3>
-                                              <hr/>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Acid Ash</h3>
-                                                    <h6>${row.specification.acid_ash}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Broken Grains</h3>
-                                                    <h6>${row.specification.broken_grains}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>Color</h3>
-                                                  <h6>${row.specification.color}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Curcumin Content</h3>
-                                                    <h6>${row.specification.curcumin_content}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Dead Insect</h3>
-                                                    <h6>${row.specification.dead_insect}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>DK</h3>
-                                                  <h6>${row.specification.dk}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Drying Process</h3>
-                                                    <h6>${row.specification.drying_process}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Extraneous</h3>
-                                                    <h6>${row.specification.extraneous}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>Foreign Matter</h3>
-                                                  <h6>${row.specification.foreign_matter}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Grain Size</h3>
-                                                    <h6>${row.specification.grain_size}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Hardness</h3>
-                                                    <h6>${row.specification.hardness}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>Hectoliter</h3>
-                                                  <h6>${row.specification.hectoliter}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Infestation</h3>
-                                                    <h6>${row.specification.infestation}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Mammalian</h3>
-                                                    <h6>${row.specification.mammalian}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>Model Type</h3>
-                                                  <h6>${row.specification.model_type}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Moisture</h3>
-                                                    <h6>${row.specification.moisture}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Mold</h3>
-                                                    <h6>${row.specification.mold}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>OIl Content</h3>
-                                                  <h6>${row.specification.oil_content}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Price</h3>
-                                                    <h6>${row.specification.price}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Quantity</h3>
-                                                    <h6>${row.specification.qty}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>Rotten Shriveled</h3>
-                                                  <h6>${row.specification.rotten_shriveled}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Splits</h3>
-                                                    <h6>${row.specification.splits}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Test Weight</h3>
-                                                    <h6>${row.specification.test_weight}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>Total Defects</h3>
-                                                  <h6>${row.specification.total_defects}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Unit</h3>
-                                                    <h6>${row.specification.unit}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Volatile</h3>
-                                                    <h6>${row.specification.volatile}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>Weevil</h3>
-                                                  <h6>${row.specification.weevil}</h6>
-                                                </div>
-                                              </div>
-  
-                                              
-                                              
-                                          </div>
-                                          <!---->
-                                      </div>
-                                  </div>
-  
-                        
-                        </div>
-                        <div class="modal-footer border-0">
-                        <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
+                <td class="text-primary">${row.user.email}</td>
+                <td><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
+                <td>${crop_status}</td>
+                <td style="cursor:pointer;" class="text-center">
+                  <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')"> <i class="fa fa-eye"></i> View</a>
                 </td>
-              
-              
-                <td style="min-width: 50px; cursor:pointer;">
-                  <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')">View More</a>
+                
+  
+              </tr>`;
+        });
+        $('#cropofferdata').html(rowContent);
+        $(document).ready(function () {
+          $('#allTable').DataTable({
+            scrollY: 300,
+            scrollX: true,
+            scrollCollapse: true,
+            retrieve: true,
+            paging: true,
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            fixedHeader: {
+              header: true,
+              footer: true
+            }
+          });
+        });
+      } else {
+        $('#cropofferdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop For Sale yet</h3></td></tr>");
+      }
+    }
+  });
+
+};
+
+/* -------------------------------------------------------------------------- */
+/*                               Crop Offers end                              */
+/* -------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------- */
+/*                             Crop Auction begins                            */
+/* -------------------------------------------------------------------------- */
+function cropsAuctioned() {
+
+  loader('#cropauctiondata', 10)
+
+  var settings = querySetting("api/admin/crop/getbycropauction", "GET", localStorage.getItem('access'));
+
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+    if (response.error == true) {
+      console.log(response.message);
+
+    } else {
+      console.log(response.data)
+      let thedata = response.data;
+      thedata = thedata.rows
+      if (thedata.length > 0) {
+        let rowContent
+        $.each(thedata, (index, row) => {
+
+          let crop_status;
+          if (row.user.status == 1) {
+            crop_status =
+              `<div class="py-1 text-center rounded-pill successalert">
+                      <span class="rounded-circle p-1 dot d-inline-block"></span>
+                      <strong class="text-success" style="font-size:12px;">ACTIVE</strong>
+                    </div>`;
+          } else {
+            crop_status =
+              `<div class="py-1 text-center rounded-pill past-due">
+                      <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
+                      <strong class="text-past"  style="font-size:12px;">IN ACTIVE</strong>
+                    </div>`;
+          }
+
+          index = index + 1;
+          rowContent += `
+                <tr class="">
+                <td>${index}</td>
+                <td><strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
+                  <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
+                </td>
+                <td class="text-primary">${row.user.email}</td>
+                <td><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
+                <td>${crop_status}</td>
+                <td style="cursor:pointer;" class="text-center">
+                  <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')"> <i class="fa fa-eye"></i> View</a>
                 </td>
                 
   
               </tr>
                 `;
-              });
-              $('#cropofferdata').html(rowContent);
-              $(document).ready( function () {
-                $('#allTable').DataTable({
-                  scrollY: 300,
-                  scrollX: true,
-                  scrollCollapse: true,
-                  retrieve: true,
-                  paging: true,
-                  "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-                  fixedHeader:{
-                      header: true,
-                      footer: true
-                  }
-                });
-              });
-        }
+        });
+        $('#cropauctiondata').html(rowContent);
+        $(document).ready(function () {
+          $('#allTable').DataTable({
+            scrollY: 300,
+            scrollX: true,
+            scrollCollapse: true,
+            retrieve: true,
+            paging: true,
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            fixedHeader: {
+              header: true,
+              footer: true
+            }
+          });
+        });
+      } else {
+        $('#cropauctiondata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop For Auction yet</h3></td></tr>");
+      }
     }
-    });
-  
-  };
+  });
 
-  /* -------------------------------------------------------------------------- */
-  /*                               Crop Offers end                              */
-  /* -------------------------------------------------------------------------- */
-
-
-  /* -------------------------------------------------------------------------- */
-  /*                             Crop Auction begins                            */
-  /* -------------------------------------------------------------------------- */
-function cropsAuctioned (){
-  
-    loader('#cropauctiondata', 10)
-  
-    var settings = querySetting("api/admin/crop/getbycropauction", "GET", localStorage.getItem('access'));
-      
-    $.ajax(settings).done(function (data) {
-      let response = data;
-      console.log(response);
-  
-    if(response.error==true){
-        console.log(response.message);
-       
-    }else{
-        console.log(response.data)
-        let thedata = response.data;
-        thedata = thedata.rows
-        if(thedata.length > 0){
-            let rowContent
-            $.each(thedata, (index, row) => {
-            
-                let crop_status;
-                if(row.user.status == 1){
-                  crop_status = 
-                    `<div class="py-1 text-center rounded-pill successalert">
-                      <span class="rounded-circle p-1 dot d-inline-block"></span>
-                      <strong class="text-success" style="font-size:12px;">ACTIVE</strong>
-                    </div>`;
-                }else{
-                  crop_status = 
-                    `<div class="py-1 text-center rounded-pill past-due">
-                      <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
-                      <strong class="text-past"  style="font-size:12px;">IN ACTIVE</strong>
-                    </div>`;
-                }
-                
-                index= index+1;
-                rowContent += `
-                <tr class="align-items-center">
-                <td style="min-width: 50px;">${index}</td>
-                <td style="min-width: 120px;"><strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
-                  <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
-                </td>
-                <td style="min-width: 100px;" class="text-primary">${row.user.email}</td>
-                <td style="min-width: 100px;"><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
-                <td style="min-width: 100px; text-align:center;">${crop_status}</td>
-                <td style="min-width: 50px;">
-                <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
-                    VIEW
-                </button>
-                
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header border-0">
-                        <h3 class="modal-title">Crop Specification</h3>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-  
-                        <div class="">
-                                      <div class="">
-                                          <!---->
-                                          <div class="">
-                                              <h3>Wanted</h3>
-                                              <hr/>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Acid Ash</h3>
-                                                    <h6>${row.specification.acid_ash}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Broken Grains</h3>
-                                                    <h6>${row.specification.broken_grains}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>Color</h3>
-                                                  <h6>${row.specification.color}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Curcumin Content</h3>
-                                                    <h6>${row.specification.curcumin_content}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Dead Insect</h3>
-                                                    <h6>${row.specification.dead_insect}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>DK</h3>
-                                                  <h6>${row.specification.dk}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Drying Process</h3>
-                                                    <h6>${row.specification.drying_process}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Extraneous</h3>
-                                                    <h6>${row.specification.extraneous}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>Foreign Matter</h3>
-                                                  <h6>${row.specification.foreign_matter}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Grain Size</h3>
-                                                    <h6>${row.specification.grain_size}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Hardness</h3>
-                                                    <h6>${row.specification.hardness}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>Hectoliter</h3>
-                                                  <h6>${row.specification.hectoliter}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Infestation</h3>
-                                                    <h6>${row.specification.infestation}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Mammalian</h3>
-                                                    <h6>${row.specification.mammalian}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>Model Type</h3>
-                                                  <h6>${row.specification.model_type}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Moisture</h3>
-                                                    <h6>${row.specification.moisture}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Mold</h3>
-                                                    <h6>${row.specification.mold}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>OIl Content</h3>
-                                                  <h6>${row.specification.oil_content}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Price</h3>
-                                                    <h6>${row.specification.price}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Quantity</h3>
-                                                    <h6>${row.specification.qty}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>Rotten Shriveled</h3>
-                                                  <h6>${row.specification.rotten_shriveled}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Splits</h3>
-                                                    <h6>${row.specification.splits}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Test Weight</h3>
-                                                    <h6>${row.specification.test_weight}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>Total Defects</h3>
-                                                  <h6>${row.specification.total_defects}</h6>
-                                                </div>
-                                              </div>
-  
-                                              <div class="d-block d-md-flex justify-content-around align-items-center pe-1 ps-1 mb-3">
-                                                <div class="col-4">
-                                                    <h3>Unit</h3>
-                                                    <h6>${row.specification.unit}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                    <h3>Volatile</h3>
-                                                    <h6>${row.specification.volatile}</h6>
-                                                </div>
-                                                <div class="col-4">
-                                                  <h3>Weevil</h3>
-                                                  <h6>${row.specification.weevil}</h6>
-                                                </div>
-                                              </div>
-  
-                                              
-                                              
-                                          </div>
-                                          <!---->
-                                      </div>
-                                  </div>
-  
-                        
-                        </div>
-                        <div class="modal-footer border-0">
-                        <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </td>
-              
-              
-                <td style="min-width: 50px; cursor:pointer;">
-                  <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')">View More</a>
-                </td>
-                
-  
-              </tr>
-                `;
-              });
-              $('#cropauctiondata').html(rowContent);
-              $(document).ready( function () {
-                $('#allTable').DataTable({
-                  scrollY: 300,
-                  scrollX: true,
-                  scrollCollapse: true,
-                  retrieve: true,
-                  paging: true,
-                  "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-                  fixedHeader:{
-                      header: true,
-                      footer: true
-                  }
-                });
-              });
-        }else{
-            $('#cropauctiondata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop For Auction yet</h3></td></tr>");
-        }
-    }
-    });
-  
-  };
+};
 
 /* -------------------------------------------------------------------------- */
 /*                             CROP DATA ENDS HERE                            */

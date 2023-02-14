@@ -39,13 +39,7 @@
 				
 					<div class="container-fluid mx-0">
 						<div class="container gx-0 gy-0 ">
-							<div class="nego-top shadow-form mt-0 pt-0 ps-5 mx-0 py-1 d-flex align-items-center">
-								<a href="javascript:void(0)" class="mt-3" onclick="backButton()"><i class="fs-4 fa fa-arrow-left text-white"></i></a>
-								<h1 class="text-white pt-4 ms-3">Negotiations
-									<span id="initiator"></span>
-									<span id="participant"></span>
-								</h1>
-							</div>
+							<div class="nego-top shadow-form mt-0 pt-0 ps-5 mx-0 py-1"><h1 class="text-white pt-4"> <a href="#" onclick="backButton()"><i class="fs-4 fa fa-arrow-left text-white"></i></a> </h1></div>
 							<!-- side details  -->
 							<div class="d-block d-md-flex justify-content-between">
 								<div class="col-12 col-lg-5 ps-4 pe-4">
@@ -189,18 +183,13 @@
 											<!-- CHAT OR NEGOTIATE IMAGE -->
 
 											<div class="thechatside bg-white" id="thechatside" style="max-height: 470px;">
-												<div class="chat-content">
+												<!-- <div class="chat-content">
 													<div class="message-item">
 														<div class="bubble">Do you have a time for interviews today?</div>    
 														<div class="message-time">4.30 AM</div>    
 													</div>
-												</div>
-												<div class="chat-content user">
-													<div class="message-item">
-														<div class="bubble">Yes, I have.</div>    
-														<div class="message-time">9.30 AM</div>    
-													</div>
-												</div>
+												</div> -->
+												
 											</div>    
 											<!-- NEGOTIATION FORM -->
 												<!-- Footer -->
@@ -211,37 +200,12 @@
 																<div class="form-group boxed">
 																	<div class="input-wrapper message-area mt-3 bg-white">
 																		<div class="append-media d-flex justify-content-between align-items-center px-3 py-2">
-																			<!-- <input type="text" id="negotiationtextmessage" class="form-control ms-2 rounded-1" placeholder="Type message..." style="width:90%;"> -->
-																			<!-- <a href="javascript:void(0);" onclick="sendmessage()" class="btn th-btn mb-1 py-2" style="border-radius: 3px !important;"><i class="text-white fa fa-paper-plane"></i></a> -->
-																			<div><span style="font-size: 12px;">Click to Assign an admin to join in negotiation process</span></div>
-																			<button onclick="Assignme()" type="button" class="btn btn-md th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Assign Admin</button>
+																			<input type="text" id="negotiationtextmessage" class="form-control ms-2 rounded-1 spacing-4" placeholder="Type message..." style="width:90%; padding: 10px 10px;">
+																			<a href="javascript:void(0);" onclick="sendMessage()" id="sendme" class="btn th-btn mb-1 py-2 mt-1" style="border-radius: 3px !important;"><i class="text-white fa fa-paper-plane"></i></a>
+																			<!-- <div><span style="font-size: 12px;">Click to Assign an admin to join in negotiation process</span></div> -->
+																			<!-- <button onclick="Assignme()" type="button" class="btn btn-md th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Assign Admin</button> -->
 																		</div>
-																			<!-- modal  starts  -->
-																			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-																				<div class="modal-dialog modal-dialog-centered">
-																					<div class="modal-content">
-																						<div class="modal-header border-0">
-																						<h3 class="modal-title" id="staticBackdropLabel">Select Admin to Negotiate</h3>
-																						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-																						</div>
-																						<div class="modal-body">
-																							<form>
-																							<label class="pt-1 pb-1 welcome text-secondary">Select Admin</label>
-																							<select class="form-control form-control-lg form-select rounded-2 shadow-form" type="text" id="Alladmin">
-																								<option value="" disabled selected>Select Admin</option>
-																								
-																							</select>
-																							<br>
-																							<div class="text-end">
-																								<a href="javascript:void(0)" class="btn  th-btn fs-9 text-white rounded-6" onclick="assignAdmin()" value=""> Asign Admin</a>
-																							</div>
-																							</form>
-																						</div>
-																					
-																					</div>
-																				</div>
-																			</div>
-																			<!-- Modal Ends  -->
+																			
 																	</div>
 																</div>
 															</form>
@@ -292,11 +256,25 @@
 	<script src="../js/admin.js"></script>
 
 	<script>
-		singleConversationMessage();
-		viewConversationSpecification();
+		adminConversationMessage();
+		adminConversationMessageSpecification();
+		setInterval(() => {
+			adminConversationMessage();
+		}, 2000);
+
 		function backButton() {
 		window.history.back();
 		}
+	</script>
+	<!-- This allows you to make use of enter to send message  -->
+	<script>
+		var input = document.getElementById("negotiationtextmessage");
+		input.addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			document.getElementById("sendme").click();
+		}
+		});
 	</script>
 
 	
