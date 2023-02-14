@@ -463,6 +463,7 @@ input:focus, select:focus {
   justify-content: end;
  } 
 .chat-content-admin{
+  position: relative;
     max-width: 55%;
     padding: 5px 16px 10px 10px;
     border-radius: 10px;
@@ -477,8 +478,8 @@ input:focus, select:focus {
     content: '';
     position: absolute;
     visibility: visible;
-    top: 10px;
-    left: 533px;
+    top: 0px;
+    left: 106px;
     border: 10px solid transparent;
     border-top: 10px solid  #fafafa;
   }
@@ -486,8 +487,8 @@ input:focus, select:focus {
     content: '';
     position: absolute;
     visibility: visible;
-    top: 10px;
-    left: 533px;
+    top: 0px;
+    left: 106px;
     border: 10px solid transparent;
     border-top: 10px solid  #fafafa;
     clear: both;
