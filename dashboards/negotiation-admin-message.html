@@ -39,7 +39,7 @@
 				
 					<div class="container-fluid mx-0">
 						<div class="container gx-0 gy-0 ">
-							<div class="nego-top shadow-form mt-0 pt-0 ps-5 mx-0 py-1"><h1 class="text-white pt-4"> <a href="#" onclick="backButton()"><i class="fs-4 fa fa-arrow-left text-white"></i></a> </h1></div>
+							<div class="nego-top shadow-form mt-0 pt-0 ps-5 mx-0 py-1"><h1 class="text-white pt-4"> <a href="#" onclick="backButton()"><i class="fs-4 fa fa-arrow-left text-white me-3"></i></a>Negotiation</h1></div>
 							<!-- side details  -->
 							<div class="d-block d-md-flex justify-content-between">
 								<div class="col-12 col-lg-5 ps-4 pe-4">
@@ -262,11 +262,21 @@
 			adminConversationMessage();
 		}, 2000);
 
+		$(document).ready(function() { 
+			setTimeout(() => {
+          var ChatDiv = $('#thechatside');
+          var height = ChatDiv[0].scrollHeight;
+          ChatDiv.scrollTop(height);
+          console.log(height, "Chartbox Height");
+        }, 300)
+		 });
+		
+
 		function backButton() {
 		window.history.back();
 		}
 	</script>
-	<!-- This allows you to make use of enter to send message  -->
+	<!-- This allows you to make use of enter button to send message  -->
 	<script>
 		var input = document.getElementById("negotiationtextmessage");
 		input.addEventListener("keypress", function(event) {

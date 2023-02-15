@@ -335,3 +335,290 @@ function sortTable(n) {
 // });
  
 
+
+
+/* ------------------------------- NEGOTIATION ------------------------------ */
+const populateUserandFarmOwnerNegotiationMessages =()=>{
+
+    let singleproductID = localStorage.getItem('singleproductID');
+
+    let user = localStorage.getItem('zowaselUser');
+    user = JSON.parse(user);
+    let userid = user.user.id;
+    let usertype = user.user.type;
+
+    console.log(singleproductID, "singleproductID");
+    console.log(userid, "userid");
+    console.log(liveMobileUrl, "liveMobileUrl");
+
+    startPageLoader();
+    $.ajax({
+        url: `${liveMobileUrl}/crop/`+singleproductID+`/negotiation/getbyuserid/`+userid,
+        type: "GET",
+        "timeout": 25000,
+        "headers": {
+            "Content-Type": "application/json",
+            // "authorization": localStorage.getItem('authToken')
+        },
+        success: function(response) { 
+            // alert("efe");
+            setTimeout(()=>{
+                EndPageLoader();
+            },1500)
+            
+            // $('.loader').hide();
+            // console.log(response, "The negotiation response");
+            if(response.error == true){
+                console.log(response.message);
+                // responsemodal("erroricon.png", "Error", response.message);
+            }else{
+                // alert(response.message);
+                let thedatafetched = response.data;
+                // console.log(thedatafetched, "The negotiation message data");
+
+                // Now the data coming from response is not arranged.
+                // The Object.values method returns an array of object's values (which are your messages) 
+                // and then you sort them by message id in ascending order using sort function.
+                let thedata = Object.entries(thedatafetched)
+                .map(([key, val]) => ({id: key, ...val}))
+                .sort((a, b) => a.id - b.id);
+
+                // console.log(thedata, "the data");
+
+                let finalObj = {}
+                thedata.forEach((theresult) => {
+
+                    const date = theresult.created_at.split(" ")[0];
+                    if (finalObj[date]) {
+                        finalObj[date].push(theresult);
+                    } else {
+                        finalObj[date] = [theresult];
+                    }
+                })
+                console.log(finalObj, "final Obj")
+
+                let finalObjcount = Object.keys(finalObj).length;
+                // console.log(finalObjcount);
+
+
+                let rowContent = "";
+                let index;
+
+                if(finalObjcount > 0){
+                    $('.chat-image').hide();
+                    $('.thechatside').show();
+
+
+                    for (let i = 0; i < finalObjcount; i++) {
+                      console.log('Hello World', + i);
+                        let grouped_date = Object.keys(finalObj)[i];
+                        let therow = finalObj[Object.keys(finalObj)[i]];
+                        console.log(therow.length);
+                        
+                        // The row is coming out as an array with many objects. Loop through the array
+                    
+                        let row = therow;
+                        console.log(row, "The row rf");
+
+                        let themessageandType;
+                        let chatGroupContent;
+                        for (let x = 0; x < row.length; x++) {
+                            // index= x+1;
+
+                            let negotiationpage_type = localStorage.getItem('negotiationpage_type');
+                            let chatboxClass, accept_decline_checkbox;
+                            if(usertype == "merchant"){
+                                if(row[x].type == "merchant"){
+                                    chatboxClass = `user`;
+                                }else{
+                                    chatboxClass = ``;
+                                }
+
+                                accept_decline_checkbox = `We will let you know when corporate accepts/declines offer.`;
+
+                            }else if(usertype == "corporate"){
+                                if(row[x].type == "corporate"){
+                                    chatboxClass = `user`;
+                                }else{
+                                    chatboxClass = ``;
+                                }
+
+                                if(negotiationpage_type=="cropwanted"){
+                                    accept_decline_checkbox = `
+                                        <div class="d-flex justify-conntent-between">
+                                            <span class="text-success">Accept <input type="checkbox" /> </span>
+                                            <span class="tetx-danger">Decline <input type="checkbox" /> </span>
+                                        </div>
+                                    `;
+                                }
+                            }
+
+                            let time = row[x].created_at;
+                            // console.log(time);
+                            
+                            let myTime = time.split(" ")[1];
+                            let myDate = time.split(" ")[0];
+                            var hour = parseInt(myTime.split(":")[0]) % 12;
+                            // console.log(hour, "The hour");
+                            var timeInAmPm = (hour == 0 ? "12": hour ) + ":" + myTime.split(":")[1] + " " + (parseInt(parseInt(myTime.split(":")[0]) / 12) < 1 ? "AM" : "PM");
+                            // console.log(timeInAmPm, "timeInAmPm");
+
+                            let themessagetype = row[x].messagetype;
+                            if(themessagetype == "offer"){
+                                // Hide Send offer button if an offer has been sent already
+                                $('.open_offer_form').hide();
+                                // Hide Send offer button if an offer has been sent already
+                            }
+                            // let themessageandType;
+                            if(themessagetype == "text"){
+                                themessageandType = `
+                                    <div class="chat-content ${chatboxClass}">
+                                        <div class="message-item">
+                                            <div class="bubble">${row[x].message}</div>    
+                                            <div class="message-time">${timeInAmPm}</div>   
+                                        </div>
+                                    </div>
+                                `;
+                            }else if(themessagetype == "offer"){
+                                let offerbox = JSON.parse(row[x].message);
+                                themessageandType = `
+                                    <div class="offer-right mb-2 mt-1">
+                                        <div class="offered">
+                                            <!---->
+                                            <div class="colored">
+                                                <h3>Offer</h3>
+                                                <hr />
+                                                <div class="white-line"></div>
+                                                <div class="each-item">
+                                                    <p>Required Item</p>
+                                                    <h4>${offerbox.qty}${offerbox.test_weight}</h4>
+                                                </div>
+                                                <div class="each-item">
+                                                    <p>Offer Price</p>
+                                                    <h4>₦${offerbox.price}</h4>
+                                                </div>
+                                                <div class="each-item">
+                                                    <p>Oil content</p>
+                                                    <h4>${offerbox.oil_content}%</h4>
+                                                </div>
+                                                <div class="each-item">
+                                                    <p>Foreign matter</p>
+                                                    <h4>${offerbox.foreign_matter}%</h4>
+                                                </div>
+                                                <div class="each-item">
+                                                    <p>Infestation</p>
+                                                    <h4>${offerbox.infestation}%</h4>
+                                                </div>
+                                                <div class="each-item">
+                                                    <p>Moisture</p>
+                                                    <h4>${offerbox.moisture}%</h4>
+                                                </div>
+                                                <div class="each-item">
+                                                    <p>Weevil</p>
+                                                    <h4>${offerbox.weevil}%</h4>
+                                                </div>
+                                                <div class="each-item">
+                                                    <p>Splits</p>
+                                                    <h4>${offerbox.splits}%</h4>
+                                                </div>
+                                                <button>View Full Specification</button>
+                                            </div>
+                                            <!---->
+                                            <div class="message-item">
+                                                <div class="accept_decline_checkbox">${accept_decline_checkbox}</div> 
+                                                <div class="message-time">${timeInAmPm}</div>  
+                                            </div>
+                                        </div>
+                                    </div> 
+                                `;
+                            }else{
+                                themessageandType = `
+                                    <div class="chat-content ${chatboxClass}">
+                                        <div class="message-item">
+                                            <div class="bubble">${row[x].message}</div>    
+                                            <div class="message-time">${timeInAmPm}</div>   
+                                            <div class="message-date d-none">${myDate}</div>  
+                                        </div>
+                                    </div>
+                                `;
+                            }
+
+                            
+                            chatGroupContent += `
+                                ${themessageandType}
+                            `;
+
+
+                        }
+                        
+                        let refactoredChatGroupContent = JSON.stringify(chatGroupContent);
+                        refactoredChatGroupContent = refactoredChatGroupContent.replace(undefined,'<hr/>');
+                        refactoredChatGroupContent = JSON.parse(refactoredChatGroupContent);
+
+
+                        // console.log(refactoredChatGroupContent, " chatGroupContent bbbbbbbbbbbbbbbbbbbb");
+                        var date = new Date();
+                        var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+                        let themomentcode = moment(grouped_date, "YYYY-MM-DD").isSame(dateString, "YYYY-MM-DD");
+                        let themoment;
+                        if(themomentcode === true){
+                            themoment = "Today";
+                        }else if(moment(grouped_date, "YYYY-MM-DD").calendar().split(" ")[0].toLowerCase() == "yesterday"){
+                            themoment = "Yesterday";
+                        }else{
+                            themoment = moment(grouped_date, "YYYY-MM-DD").fromNow();
+                        }
+
+
+
+                        let thegroupeddate = `
+                            <div class="thegroupeddate text-center mt-4" style="text-transform:uppercase;"><span>${themoment} - ${grouped_date}</span></div>
+                        `;
+
+                        let groupDateANDthemesssageType = thegroupeddate+refactoredChatGroupContent;
+
+
+                        rowContent += `
+                            ${groupDateANDthemesssageType}
+                        `;
+
+                        
+                        
+                    }
+                    $('#thechatside').html(rowContent);
+                    // console.log(rowContent, " rowContent");
+                    // console.log(thedata, "the data");
+                  
+                    setTimeout(()=>{
+                        var ChatDiv = $('#thechatside');
+                        var height = ChatDiv[0].scrollHeight;
+                        ChatDiv.scrollTop(height);
+                        console.log(height, "Chartbox Height");
+                    },500)
+                    
+                    $('[data-toggle="tooltip"]').tooltip('toggle');
+                    setTimeout(()=>{
+                        $('[data-toggle="tooltip"]').tooltip('hide');
+                    },10000)  
+                    
+                }else{
+                    $('#thechatside').html("No conversation yet");
+                }
+                    
+            }
+        },
+        error: function(xmlhttprequest, textstatus, message) {
+            EndPageLoader();
+            if(textstatus==="timeout") {
+                basicmodal("", "Service timed out \nCheck your internet connection");
+            } else {
+                // alert(textstatus);
+                basicmodal("", textstatus+"<br/>This session has ended, Login again");
+                setTimeout(()=>{
+                    logout();
+                },3000)
+            }
+        }
+    });
+}
+

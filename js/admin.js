@@ -950,10 +950,8 @@ function fetchAllusers() {
 function fetchAllactivity() {
 
   loader('#activitylog', 14)
-  var settings = querySetting("api/admin/activitylog/getall", "GET", localStorage.getItem('access'));
 
-
-
+  var settings = querySetting("api/admin/activitylog/getallparams/0/100", "GET", localStorage.getItem('access'));
 
   $.ajax(settings).done(function (data) {
     console.log(data);
@@ -1674,13 +1672,15 @@ const singleConversationMessage = () => {
             
 
             let time = row[x].created_at;
-            console.log(row[x].created_at);
+            // console.log(row[x].created_at);
+                let t = time.split("T")[1]
+                let times = t.split("000Z")[0]
+                // console.log(times, "bbbbbbnd")
+            let myTime = times.split("000Z")[0];
+                // console.log(myTime, "bbbbbbnd")
 
-            let myTime = time.split("T")[1];
+            let myDate = time.split("T")[1];
 
-            // console.log(time.split("T")[1])
-            let myDate = time.split("T")[0];
-            // console.log(time.split("T")[0])
             var hour = parseInt(myTime.split(":")[0]) % 12;
             // console.log(hour, "The hour");
             var timeInAmPm = (hour == 0 ? "12" : hour) + ":" + myTime.split(":")[1] + " " + (parseInt(parseInt(myTime.split(":")[0]) / 12) < 1 ? "AM" : "PM");
@@ -1809,10 +1809,13 @@ const singleConversationMessage = () => {
             themoment = moment(grouped_date, "YYYY-MM-DD").fromNow();
           }
 
-
+          // console.log(timeSplit, "jjjjjjjjjjjjj")
+          let splitTime = grouped_date.split("T")[0]
+          let timeSplit = splitTime.split("T")[0]
+          // console.log(timeSplit, "jjjjjjjjjjjjj")
 
           let thegroupeddate = `
-                  <div class="thegroupeddate text-center my-4" style="text-transform:uppercase;">  <span class="nego-top  py-2 px-2 text-white rounded-2">${themoment}</span></div>
+                  <div class="thegroupeddate text-center my-4" style="text-transform:uppercase;">  <span class="nego-top  py-2 px-2 text-white rounded-2">${themoment} - ${timeSplit}</span></div>
               `;
 
           let groupDateANDthemesssageType = thegroupeddate + refactoredChatGroupContent;
@@ -2290,15 +2293,35 @@ const adminConversationMessage = () => {
           let themessageandType;
           let chatGroupContent;
           for (let x = 0; x < row.length; x++) {
+            let negotiationpage_type = localStorage.getItem('negotiationpage_type');
+            // console.log(negotiationpage_type, "bambam")
+                let chatboxClass, accept_decline_checkbox;
+                
+                    if(row[x].type == "corporate"){
+                        chatboxClass = `user`;
+                    }else{
+                        chatboxClass = ``;
+                    }
+
+                    if(negotiationpage_type=="cropwanted"){
+                        accept_decline_checkbox = `
+                            <div class="d-flex justify-conntent-between">
+                                <span class="text-success">Accept <input type="checkbox" /> </span>
+                                <span class="tetx-danger">Decline <input type="checkbox" /> </span>
+                            </div>
+                        `;
+                    }
 
 
             let time = row[x].created_at;
-            console.log(row[x].created_at);
+            // console.log(row[x].created_at);
+                let t = time.split("T")[1]
+                let times = t.split("000Z")[0]
+                // console.log(times, "bbbbbbnd")
+            let myTime = times.split("000Z")[0];
+                // console.log(myTime, "bbbbbbnd")
 
-            let myTime = time.split("T")[1];
-
-            // console.log(time.split("T")[1])
-            let myDate = time.split("T")[0];
+            let myDate = time.split("T")[1];
             // console.log(time.split("T")[0])
             var hour = parseInt(myTime.split(":")[0]) % 12;
             // console.log(hour, "The hour");
@@ -2371,6 +2394,7 @@ const adminConversationMessage = () => {
                                             <button>View Full Specification</button>
                                         </div>
                                         <!---->
+                                        <div class="accept_decline_checkbox">${accept_decline_checkbox}</div> 
                                       
                                     </div>
                                 </div> 
@@ -2408,30 +2432,37 @@ const adminConversationMessage = () => {
           }
 
           let refactoredChatGroupContent = JSON.stringify(chatGroupContent);
-          refactoredChatGroupContent = refactoredChatGroupContent.replace(undefined, '');
+          refactoredChatGroupContent = refactoredChatGroupContent.replace(undefined, "");
           refactoredChatGroupContent = JSON.parse(refactoredChatGroupContent);
 
 
           // console.log(refactoredChatGroupContent, " chatGroupContent bbbbbbbbbbbbbbbbbbbb");
+          // var datetime = moment.tz('America/Los_Angeles').format('DD-MM-YYYY HH:MM:SS').split(' ');
+          // $('#myDateDiv').text(datetime[0]);
+          // $('#myTimeDiv').text(datetime[1]);
+
+
           var date = new Date();
-          var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
+          var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("")[1];
           let themomentcode = moment(grouped_date, "YYYY-MM-DD").isSame(dateString, "YYYY-MM-DD");
           let themoment;
-          if (themomentcode === true) {
-            themoment = "Today";
-          } else if (moment(grouped_date, "YYYY-MM-DD").calendar().split("T")[0].toLowerCase() == "yesterday") {
-            themoment = "Yesterday";
-          } else {
-            themoment = moment(grouped_date, "YYYY-MM-DD").fromNow();
+          if(themomentcode === true){
+              themoment = "Today";
+          }else if(moment(grouped_date, "YYYY-MM-DD").calendar().split("")[0].toLowerCase() == "yesterday"){
+              themoment = "Yesterday";
+          }else{
+              themoment = moment(grouped_date, "YYYY-MM-DD").fromNow();
           }
-
-
-
+          // console.log(timeSplit, "jjjjjjjjjjjjj")
+          let splitTime = grouped_date.split("T")[0]
+          let timeSplit = splitTime.split("T")[0]
+          // console.log(timeSplit, "jjjjjjjjjjjjj")
+        
           let thegroupeddate = `
-                  <div class="thegroupeddate text-center my-4" style="text-transform:uppercase;">  <span class="nego-top  py-2 px-2 text-white rounded-2">${themoment}</span></div>
+                  <div class="thegroupeddate text-center my-4" style="text-transform:uppercase;">  <span class="nego-top  py-2 px-2 text-white rounded-2">${themoment} - ${timeSplit}</span></div>
               `;
 
-          let groupDateANDthemesssageType = thegroupeddate + refactoredChatGroupContent;
+          let groupDateANDthemesssageType = thegroupeddate+refactoredChatGroupContent;
 
 
 
@@ -2450,12 +2481,7 @@ const adminConversationMessage = () => {
         // console.log(rowContent, " rowContent");
         // console.log(thedata, "the data");
 
-        setTimeout(() => {
-          var ChatDiv = $('#thechatside');
-          var height = ChatDiv[0].scrollHeight;
-          ChatDiv.scrollTop(height);
-          console.log(height, "Chartbox Height");
-        }, 500)
+        
 
         // $('[data-toggle="tooltip"]').tooltip('toggle');
         // setTimeout(()=>{
@@ -2467,7 +2493,6 @@ const adminConversationMessage = () => {
       }
 
     }
-    // loader('#tbdata')
 
   });
 }
@@ -2483,7 +2508,8 @@ const adminConversationMessageSpecification = () => {
       console.log(response.message);
     } else {
 
-      console.log(response.data.negotiations[0].conversation_id, "negotiation");
+      console.log(response.data.crop.user.type, "negotiation");
+      localStorage.setItem('negotiationpage_type', response.data.crop.user.type);
       localStorage.setItem('negotiationMessageId', response.data.negotiations[0].conversation_id);
 
       let count = response.data.crop;
