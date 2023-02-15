@@ -3520,8 +3520,6 @@ function fetchAllinput() {
   $.ajax(settings).done(function (data) {
     let response = data;
     console.log(response);
-    swal(response.message);
-    $('#inputdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Inputs Product Found</h3></td></tr>");
     if (response.error == true) {
       console.log(response.message);
     } else {
