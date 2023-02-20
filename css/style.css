@@ -693,7 +693,7 @@ button.success:hover,.btn-second:hover, .success:hover{
 .border-primary {
     border-color: var(--bg-dot) !important;
 }
-.border-secondary:hover{
+.active, .border-secondary:hover{
     background-color: var(--btn-dashboard) !important;
     color: white !important;
     border-color: var(--btn-dashboard) !important;
@@ -855,8 +855,10 @@ background-position:
 
 .active{
     background: var(--btn-dashboard) !important;
-    padding: 15px 18px;
-    border-radius: 5px;
+    color: white;
+    border-color: var(--btn-dashboard) !important;
+    /* padding: 15px 18px; */
+    /* border-radius: 5px; */
 }
 .spacing-4{
     letter-spacing: 2px;
@@ -1092,11 +1094,11 @@ div {
 
 
     .leftfixedside{
-        width: 18%;
+        width: 20%;
     }
     
     .rightscrollableside{
-        width:83%;
+        width:80%;
      
     }
     /* right side image starts */
@@ -1128,8 +1130,10 @@ div {
 
     .active{
         background: var(--btn-dashboard) !important;
-        padding: 22px 30px !important;
-        border-radius: 5px;
+        color: white;
+        border-color: var(--btn-dashboard) !important;
+        /* padding: 22px 30px !important;
+        border-radius: 5px; */
     }
     .spacing-4{
         letter-spacing: 2px;

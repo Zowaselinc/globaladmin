@@ -1,4 +1,4 @@
-i<script>
+<script>
     // const allSections = () => {,,,,,,,
         let sections = [];
         let roleSections = [];
@@ -19,7 +19,7 @@ i<script>
                 roleSections = (roleSections.section).split(',');
                 let secID;
                 let allsec;
-                console.log(roleSections);
+                // console.log(roleSections);
                 for(let j = 0; j < sections.length; j++){
                     let allsec = `#${sections[j]}`;
                     $(allsec).hide();
@@ -30,6 +30,7 @@ i<script>
                             let secID = `#${roleSections[i]}`;
                             $(secID).show();
                             $('li:first-child').show();
+                            // $('#finance').hide();
                             $('li:last-child').show();
                         }
                     }
@@ -56,7 +57,7 @@ i<script>
                 <div class="collapse" id="dashboard-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
                         <a href="./user-stats.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('user-stats.html')">User Stats</a>
-                        <a href="./finance-stats.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('finance-stats.html')">Fianace Stats</a>
+                        <a href="./finance-stats.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('finance-stats.html')" id="finance">Fianace Stats</a>
                     </ul>
                 </div>
             </li>
@@ -186,7 +187,7 @@ i<script>
                 </a>
             </li>
              <!-- Landing Page  -->
-            <li class="btn-toggle nav-item mb-2 mb-xxl-2 collapsed" id="Wallet">
+            <li class="btn-toggle nav-item mb-2 mb-xxl-2 collapsed" id="Lading_Page">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#landing-collapse" aria-expanded="false">
                     <div>
                         <i class="far fa-clone"></i>
@@ -196,7 +197,9 @@ i<script>
 
                 <div class="collapse" id="landing-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
-                        <a href="../dashboards/credit-wallet.html" class="text-white nav-link spacing-4 ps-5 ms-1">Media</a>
+                        <a href="../dashboards/home.html" class="text-white nav-link spacing-4 ps-5 ms-1">Home Page</a>
+                        <a href="" class="text-white nav-link spacing-4 ps-5 ms-1">Categories</a>
+                        <a href="" class="text-white nav-link spacing-4 ps-5 ms-1">Articles</a>
                     <!-- <li><a href="../dashboards/withdrawal.html" class="text-white nav-link spacing-4">Withdrawal</a></li> -->
                     </ul>
                 </div>

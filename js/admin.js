@@ -78,6 +78,70 @@ const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
 // end //
 
 
+/* -------------------------------------------------------------------------- */
+/*                     EDITITNG THE LANDING PAGE VIA ADMIN STARTS                   */
+/* -------------------------------------------------------------------------- */
+
+
+const landingPage =()=>{
+  loader('#homeLanding', 7);
+  var settings = {
+    "url": "http://touchofcloud.com.ng:8000/api/pages",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer a9a5d26cc0936b2a477a80f27fcb060c9ea04d9e4729b82bdcbae1e9846906964157c1162f61ae869a0e669ec2901bcecd02eb2121d05e13f9158b45e7f7443fa4ba8cd1ed81d53c87b4500fdf40be7871a3436fe2846b7ae60487b929adf8cd98676722d8a325a0461763132f4c2a026af0ef1d89702e05d9db7a8a826f67ed"
+    },
+  };
+  
+  $.ajax(settings).done(function (response) {
+    // console.log(response.data, "dadad");
+    console.log(JSON.parse(JSON.stringify(response.data)), "wwwww");
+    // console.log(JSON.parse(response.data.attributes), "attrtr")
+    // $("#homeLanding").append(response.data.attributes.pagecontent)
+    if (response.error == true) {
+    } else {
+      let thedata = JSON.parse(JSON.stringify(response.data));
+      console.log(thedata , "ddddddd")
+      if (thedata.length > 0) {
+        let rowContent
+        $.each(thedata, (index, row) => {
+
+          index = index + 1;
+          rowContent += `<tr class="align-items-middle">
+                      <td style="min-width: 50px;"><span class="align-items-center">${index}</span></td>
+                      <td style="min-width: 100px;"><strong class="text-uppercase welcome fw-bold">${row.attributes.pagetitle}</strong></td>
+                      <td style="min-width: 100px;"><a href="javascript:void(0)" onclick="editPageContent('${row.id}')" class="btn btn-lg th-btn text-white" style="border-radius:3px !important;">EDIT</a></td>
+                  </tr>`;
+          $('#homeLanding').html(rowContent);
+
+          $(document).ready(function () {
+            $('#allTable').DataTable({
+              scrollY: 300,
+              scrollX: true,
+              scrollCollapse: true,
+              retrieve: true,
+              paging: true,
+              "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+              fixedHeader: {
+                header: true,
+                footer: true
+              }
+            });
+          });
+        });
+      } else {
+        $('#homeLanding').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No users registered yet</h3></td></tr>");
+      }
+    }
+  });
+}
+const editPageContent=(id)=>{
+  // alert(id)
+}
+/* -------------------------------------------------------------------------- */
+/*                     EDITITNG THE LANDING PAGE VIA ADMIN ENDS                   */
+/* -------------------------------------------------------------------------- */
 
 
 /* -------------------------------------------------------------------------- */
@@ -92,9 +156,9 @@ function getUsersStats() {
   $.ajax(settings).done(function (data) {
     // console.log(data);
     let response = data;
-    console.log(response);
+    // console.log(response);
     if (response.error == true) {
-      console.log(response.message);
+      // console.log(response.message);
     } else {
       let count = response.data[0];
       // Total users 
@@ -951,7 +1015,7 @@ function fetchAllactivity() {
 
   loader('#activitylog', 14)
 
-  var settings = querySetting("api/admin/activitylog/getallparams/0/100", "GET", localStorage.getItem('access'));
+  var settings = querySetting("api/admin/activitylog/getallparams/0/10000", "GET", localStorage.getItem('access'));
 
   $.ajax(settings).done(function (data) {
     console.log(data);
@@ -967,6 +1031,13 @@ function fetchAllactivity() {
       $.each(thedata, (index, row) => {
         index = index + 1;
 
+        let theadmin;
+        if (!row.theadmin) {
+          theadmin = `<p>Null</p>`;
+        } else {
+          theadmin = row.theadmin
+        }
+
         // let theadmindata = JSON.stringify(row.theadmin);
         // console.log(JSON.stringify(row.theadmin))
         rowContent
@@ -976,8 +1047,8 @@ function fetchAllactivity() {
                   <td style="max-width: 170px;">${row.admin_id}</td>
                   <td style="min-width: 200px;">${row.section_accessed}</td>
                   <td style="min-width: 120px;">${row.action}</td>
-                  <td style="min-width: 120px;">${row.theadmin.role}</td>
-                  <td style="min-width: 120px;">${row.theadmin.first_name} <br> ${row.theadmin.last_name}</td>
+                  <td style="min-width: 120px;">${theadmin.role_name}</td>
+                  <td style="min-width: 120px;">${theadmin.first_name} <br> ${theadmin.last_name}</td>
                   <td style="min-width: 120px;">${(row.created_at).split("T")[0]}</td>
                  
                  </tr>`;
@@ -1366,12 +1437,12 @@ const allUsers = () => {
 
 
 /* -------------------------------------------------------------------------- */
-/*                           Crop  ORDERS STARTS HERE                             */
+/*                           ORDERS STARTS HERE                             */
 /* -------------------------------------------------------------------------- */
 
 function fetchAllorders() {
 
-  var settings = querySetting("api/admin/order/ORDA2B44991D42DB8E8", "GET", localStorage.getItem('access'));
+  var settings = querySetting("api/admin/order/getall", "GET", localStorage.getItem('access'));
 
   $.ajax(settings).done(function (data) {
     let response = data;
@@ -1382,7 +1453,7 @@ function fetchAllorders() {
     } else {
       console.log(response.data)
       let thedata = response.data;
-      thedata = thedata.rows
+      // thedata = thedata.rows 
 
       if (thedata.length > 0) {
         console.log(length);
@@ -1390,55 +1461,46 @@ function fetchAllorders() {
 
         let rowContent
         $.each(thedata, (index, row) => {
-
+          let products = JSON.parse(row.products)
+          console.log(products, "balaala")
           index = index + 1;
           rowContent += `<tr class="align-items-center">
               <td style="min-width: 50px;">${index}</td>
-              <td style="min-width: 170px;">${row.ticket_id}</td>
-              <td style="min-width: 170px;">${row.user_id}</td>
-              <td style="min-width: 170px;">${row.subject}</td>
-              <td style="min-width: 150px;">
-              <button type="button" class="btn btn-sm th-btn text-white fs-9 rounded-6 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
-                  VIEW
-              </button>
-              
-              <!-- Modal -->
-              <div class="modal fade" id="staticBackdrop${index}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                      <div class="modal-header border-0">
-                      <h3 class="modal-title" id="staticBackdropLabel">Ticket Description</h3>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                      ${row.description}
-                      </div>
-                      <div class="modal-footer border-0">
-                      <button type="button" class="btn th-btn text-white" data-bs-dismiss="modal">Close</button>
-                      </div>
-                  </div>
-                  </div>
-              </div>
+              <td style="min-width: 170px;" class="welcome"><strong class="welcome">${row.order_hash}</strong></td>
+              <td style="min-width: 150px;"><strong class="welcome">${row.buyer.first_name}, ${row.buyer.last_name}</strong> 
+                <br/>
+                <h5 class="text-primary text-capitalize">${row.buyer.type}</h5>
               </td>
-              <td style="min-width: 120px;">${row.priority}</td>
-              <td style="min-width: 150px;">${row.admin_assigned}</td>
-              
-              <td style="min-width: 140px;">${(row.created_at).split("T")[0]}</td>
-              <td style="min-width: 140px;">${(row.updated_at).split("T")[0]}</td>
-              <td class="text-end" style="min-width: 50px;">
-                  <div class="dropdown shadow-dot text-center">
-                      <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="">Edit</a>
-                          <a class="dropdown-item" onclick="deleteSupportTicket('${row.id}')" href="javascript:void(0)">Delete</a>
-                      </div>
-                  </div>
+              <td style="min-width: 150px;"><strong class="welcome">${row.seller.first_name}, ${row.seller.last_name}</strong> 
+                <br/>
+                <h5 class="text-primary text-capitalize">${row.seller.type}</h5>
               </td>
-
+              <td style="min-width: 100px;"><strong>${products[0].category.name}</strong> <br/> 
+                 <h5 class="text-primary">${products[0].subcategory.name}</h5>
+              </td>
+              <td style="min-width: 100px;"><strong class="welcome text-primary text-uppercase">${products[0].type}</strong></td>
+              <td style="min-width: 120px;"><strong class="welcome">NGN ${row.total}</strong></td>
+              <td style="min-width: 120px;"><strong class="welcome">${row.payment_status}</strong></td>
+              <td style="min-width: 100px;"><strong><a href="javascript:void(0)"  class="text-primary border border-success btn btn-md"  onclick="viewSingleOrder('${row.order_hash}')">VIEW</a></strong></td>
+              
+              <td style="min-width: 110px;">${(row.created_at).split("T")[0]}</td>
+              <td style="min-width: 110px;">${(row.updated_at).split("T")[0]}</td>
              </tr>`;
           $('#ordersdata').html(rowContent);
+          $(document).ready(function () {
+            $('#allTable').DataTable({
+              scrollY: 300,
+              scrollX: true,
+              scrollCollapse: true,
+              retrieve: true,
+              paging: true,
+              "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+              fixedHeader: {
+                header: true,
+                footer: true
+              }
+            });
+          });
         });
       } else {
         $('#ordersdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Order registered yet</h3></td></tr>");
@@ -1446,6 +1508,110 @@ function fetchAllorders() {
     }
   });
 
+}
+
+const viewSingleOrder = (orderid) => {
+  // alert(orderid, "ffffffff");
+  localStorage.setItem('singleOrderdata', orderid);
+  window.location.href = "view-single-order.html";
+}
+const ViewOrder = () => {
+
+
+  var settings = querySetting("api/admin/order/" + localStorage.getItem('singleOrderdata'), "GET", localStorage.getItem('access'));
+
+
+  $.ajax(settings).done(function (data) {
+    console.log(data);
+    let response = data;
+    // console.log(response);
+    if (response.error == true) {
+      // console.log(response.message);
+    } else {
+      console.log(response.data, "ooooo")
+      let deliverywindow;
+            if(!response.crop_request){
+              deliverywindow = 
+                ``;
+            }else{
+              deliverywindow =  response.crop_request
+            }
+            
+      // console.log(response.data[0].category);
+
+      let products = JSON.parse(response.data.products)
+      console.log(products, "products");
+      let waybill = JSON.parse(response.data.waybill_details)
+      console.log(waybill, "waybill")
+      let tracking = JSON.parse(response.data.tracking_details)
+      console.log(tracking, "tracking")
+
+  
+      // let inputcategory = response.data[0].category;
+      // let inputsubtegory = response.data[0].subcategory;
+      $('#oredrid').text(response.data.order_hash);
+      $('#BfirstName').text(response.data.buyer.first_name);
+      $('#BlastName').html(response.data.buyer.last_name);
+      $('#SfirstName').text(response.data.seller.first_name);
+      $('#SlastName').text(response.data.seller.last_name);
+      $('#amount').text(response.data.total);
+      $('#amountdue').text(response.data.amount_due);
+      $('#amountpaid').text(response.data.amount_paid);
+      $('#paystatus').text(response.data.payment_status);
+
+      $('#dwindow').text(deliverywindow.delivery_window);
+
+      $('#categorysub').html(products[0].subcategory.name);
+      $('#offertype').html(products[0].type);
+      $('#cropqty').text(products[0].specification.qty);
+      $('#warehouse').text(products[0].warehouse_address);
+      $('#price').text(products[0].specification.price);
+      $('#quantity').text(products[0].specification.qty);
+      $('#grainSize').text(products[0].specification.grain_size);
+      $('#hardness').text(products[0].specification.hardness);
+      $('#acidash').text(products[0].specification.acid_ash);
+      $('#color').text(products[0].specification.color);
+      $('#curcumin_content').text(products[0].specification.curcumin_content);
+      $('#rotten_shriveled').text(products[0].specification.rotten_shriveled);
+      $('#infestation').text(products[0].specification.infestation);
+      $('#splits').text(products[0].specification.splits);
+      $('#insect').text(products[0].specification.dead_insect);
+      $('#mammalian').text(products[0].specification.mammalian);
+      $('#testweight').text(products[0].specification.test_weight);
+      $('#modeltype').text(products[0].specification.model_type);
+      $('#defects').text(products[0].specification.total_defects);
+      $('#dk').text(products[0].specification.dk);
+      $('#moist').text(products[0].specification.moisture);
+      $('#dock').text(products[0].specification.dockage);
+      $('#mold').text(products[0].specification.mold);
+      $('#drying').text(products[0].specification.drying_process);
+      $('#oil').text(products[0].specification.oil_content);
+      $('#extranous').text(products[0].specification.extraneous);
+      $('#Volatile').text(products[0].specification.volatile);
+      $('#weevil').text(products[0].specification.weevil);
+      $('#package').text(products[0].specification.mammalian);
+      $('#broken').text(products[0].specification.broken_grains);
+      $('#grainsize').text(products[0].specification.grain_size);
+      $('#volatile').text(products[0].specification.volatile);
+      $('#hecto').text(products[0].specification.hectoliter);
+      $('#vidfed').text(products[0].video);
+
+
+      $('#pickuplocation').text(tracking.pickup_location);
+      $('#deliverylocation').text(tracking.delivery_location);
+      $('#trackstatus').text(tracking.transit[0].status);
+      $('#arrivdate').text(tracking.transit[0].date);
+
+      
+      
+      $('#wdescription').html(waybill.dispatch_section.description);
+      $('#wconsigne').text(waybill.dispatch_section.cosignee);
+      $('#wdate').text(waybill.dispatch_section.date);
+      $('#driver_name').text(waybill.dispatch_section.drivers_data.drivers_name);
+      $('#driver_lincense').text(waybill.dispatch_section.drivers_data.driving_license);
+      $('#tnumber').text(waybill.dispatch_section.truck_number);
+    }
+  });
 }
 /* -------------------------------------------------------------------------- */
 /*                            ORDERS DATA ENDS HERE                           */
@@ -2589,8 +2755,6 @@ const sendMessage = () => {
 /* -------------------------------------------------------------------------- */
 /*                            NEGOTIATION ENDS HERE                           */
 /* -------------------------------------------------------------------------- */
-
-
 
 
 /* -------------------------------------------------------------------------- */

@@ -50,9 +50,9 @@
 									<div class="mt-3">
 										<div class="d-block d-md-flex justify-content-between">
 											<h2 class="welcome mb-3">Add categories for crop</h2>
-											<div class="d-block d-md-flex">
-												<a href="javascript:void(0)"><span class="border border-active border-secondary bg-white ps-3 pe-3 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Crop Categories</span></a>
-												<a href="./color-setup.html"><span class="border border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Setup</span></a>
+											<div id="myDIV" class="d-block d-md-flex">
+												<a href="javascript:void(0)"><span class="btnn border active border-secondary bg-white ps-3 pe-3 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Crop Categories</span></a>
+												<a href="./color-setup.html"><span class="btnn border border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Setup</span></a>
 											</div>
 										</div>
 
@@ -84,9 +84,9 @@
 										
 										<div class="d-block d-md-flex justify-content-between">
 											<h2  class="welcome">Categories</h2>
-											<div class="d-block d-md-flex">
-												<a href="javascript:void(0)" id="crop" onclick="fetchAllCategory()"><span class="border border-secondary bg-white ps-3 pe-3 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Crop</span></a>
-												<a href="javascript:void(0)" onclick="fetchAllInputCategory()"><span class="border border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Input</span></a>
+											<div id="myDIV" class="d-block d-md-flex">
+												<a href="javascript:void(0)" onclick="fetchAllCategory()"><span class=" border active border-secondary bg-white ps-3 pe-3 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Crop</span></a>
+												<a href="javascript:void(0)" onclick="fetchAllInputCategory()"><span class=" border border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Input</span></a>
 											</div>
 										</div>
 										<br>
@@ -130,15 +130,15 @@
 	</div>
 
   <!-- <script src="../js/script.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-    crossorigin="anonymous"></script>
+  integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+  crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-	integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-	crossorigin="anonymous"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script type="text/javascript" src="../assets/DataTables/datatables.min.js"></script>
+  integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script type="text/javascript" src="../assets/DataTables/datatables.min.js"></script>
 
 	
 	<script>
@@ -153,18 +153,30 @@
 		// $(document).ready(function(){
    		// 	 $("#crop").trigger("click");
 		// });
+		
 	</script>
 
 	<script>
 		$("html, body").animate({ scrollTop: $(document).height() }, "slow");
 	</script>
-	<!-- <script>
-		$(document).ready(function(){
-			$("#formButton").click(function(){
-				$("#form1").toggle();
-			});
+	<script>
+		// Get the container element
+		var btnContainer = document.getElementById("myDIV");
+		
+		// Get all buttons with class="btn" inside the container
+		var btns = btnContainer.getElementsByClassName("border-secondary");
+		
+
+
+		// Loop through the buttons and add the active class to the current/clicked button
+		for (var i = 0; i < btns.length; i++) {
+		btns[i].addEventListener("click", function() {
+			var current = document.getElementsByClassName("active");
+			current[0].className = current[0].className.replace(" active", "");
+			this.className += " active";
 		});
-	</script> -->
+		} 
+	</script>
 	
 </body>
 
