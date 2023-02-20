@@ -86,11 +86,11 @@ const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
 const landingPage =()=>{
   loader('#homeLanding', 7);
   var settings = {
-    "url": "http://touchofcloud.com.ng:8000/api/pages",
+    "url": "http://192.168.1.111:1337/api/pages",
     "method": "GET",
     "timeout": 0,
     "headers": {
-      "Authorization": "Bearer a9a5d26cc0936b2a477a80f27fcb060c9ea04d9e4729b82bdcbae1e9846906964157c1162f61ae869a0e669ec2901bcecd02eb2121d05e13f9158b45e7f7443fa4ba8cd1ed81d53c87b4500fdf40be7871a3436fe2846b7ae60487b929adf8cd98676722d8a325a0461763132f4c2a026af0ef1d89702e05d9db7a8a826f67ed"
+      // "Authorization": "Bearer a9a5d26cc0936b2a477a80f27fcb060c9ea04d9e4729b82bdcbae1e9846906964157c1162f61ae869a0e669ec2901bcecd02eb2121d05e13f9158b45e7f7443fa4ba8cd1ed81d53c87b4500fdf40be7871a3436fe2846b7ae60487b929adf8cd98676722d8a325a0461763132f4c2a026af0ef1d89702e05d9db7a8a826f67ed"
     },
   };
   
@@ -1015,7 +1015,7 @@ function fetchAllactivity() {
 
   loader('#activitylog', 14)
 
-  var settings = querySetting("api/admin/activitylog/getallparams/0/10000", "GET", localStorage.getItem('access'));
+  var settings = querySetting("api/admin/activitylog/getallparams/1000/10000", "GET", localStorage.getItem('access'));
 
   $.ajax(settings).done(function (data) {
     console.log(data);

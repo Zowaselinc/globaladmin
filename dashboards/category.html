@@ -85,7 +85,7 @@
 										<div class="d-block d-md-flex justify-content-between">
 											<h2  class="welcome">Categories</h2>
 											<div id="myDIV" class="d-block d-md-flex">
-												<a href="javascript:void(0)" onclick="fetchAllCategory()"><span class=" border active border-secondary bg-white ps-3 pe-3 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Crop</span></a>
+												<a href="javascript:void(0)" onclick="fetchAllCategory()"><span class=" border border-secondary bg-white ps-3 pe-3 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Crop</span></a>
 												<a href="javascript:void(0)" onclick="fetchAllInputCategory()"><span class=" border border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-pill  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Input</span></a>
 											</div>
 										</div>
@@ -159,25 +159,8 @@
 	<script>
 		$("html, body").animate({ scrollTop: $(document).height() }, "slow");
 	</script>
-	<script>
-		// Get the container element
-		var btnContainer = document.getElementById("myDIV");
-		
-		// Get all buttons with class="btn" inside the container
-		var btns = btnContainer.getElementsByClassName("border-secondary");
-		
 
 
-		// Loop through the buttons and add the active class to the current/clicked button
-		for (var i = 0; i < btns.length; i++) {
-		btns[i].addEventListener("click", function() {
-			var current = document.getElementsByClassName("active");
-			current[0].className = current[0].className.replace(" active", "");
-			this.className += " active";
-		});
-		} 
-	</script>
-	
-</body>
+	</body>
 
 </html>
