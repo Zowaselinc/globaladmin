@@ -138,6 +138,9 @@ const landingPage =()=>{
 }
 const editPageContent=(id)=>{
   // alert(id)
+  sessionStorage.setItem('pageID', JSON.stringify({ id: id}));
+  // localStorage.setItem('singleAdminData', id);
+  // window.location.href = "viewadmin.html";
 }
 /* -------------------------------------------------------------------------- */
 /*                     EDITITNG THE LANDING PAGE VIA ADMIN ENDS                   */
@@ -1010,12 +1013,14 @@ function fetchAllusers() {
 /* -------------------------------------------------------------------------- */
 /*                           ACTIVITY LOG STARTS HERE                           */
 /* -------------------------------------------------------------------------- */
-
-function fetchAllactivity() {
+let offset = 0;
+let limit = 50;
+function fetchAllactivity(offset,limit) {
 
   loader('#activitylog', 14)
-
-  var settings = querySetting("api/admin/activitylog/getallparams/1000/10000", "GET", localStorage.getItem('access'));
+  let url = `api/admin/activitylog/getallparams/${offset}/${limit}`;
+  console.log(url)
+  var settings = querySetting(url, "GET", localStorage.getItem('access'));
 
   $.ajax(settings).done(function (data) {
     console.log(data);
@@ -1076,6 +1081,19 @@ function fetchAllactivity() {
   });
 }
 
+$('#mpaginate').on('click',function(){
+
+      /* ----------- Auto increment offset by 50 everytime it is clicked ---------- */
+      offset+=50;
+      limit+=50;
+
+    //  alert(offset);
+      /* ------------------- call fetch function to show result ------------------- */
+      fetchAllactivity(offset,limit);
+
+
+
+})
 
 /* -------------------------------------------------------------------------- */
 /*                            ACTIVITY LOG ENDS HERE                            */
@@ -3914,7 +3932,6 @@ const viewMore = () => {
       $('#description').html(response.data.description);
       $('#category_name').text(response.data.category.name);
       $('#Subcategory_name').text(response.data.subcategory.name);
-      $('#vidfed').text(response.data.video);
       $('#package').text(response.data.packaging);
       $('#currency').text(response.data.currency);
       $('#negotiate').text(negotiate);
@@ -3954,16 +3971,82 @@ const viewMore = () => {
       $('#lastUpdate').text(count.updated_at);
       $('#state').text(count.state);
       $('#deliveryMethod').text(count.delivery_method);
-      $('#deliveryWindow').text(count.delivery_window);
-      $('#deliveryDate').text(count.delivery_date);
-      // crop request end
+      $('#deliveryWindow').text(count.delivery_window)
 
+      // let deliverywindow = JSON.parse(count.delivery_window)
+      // $('#from').html(deliverywindow.from);
+      // $('#to').html(deliverywindow.to);
+      // // console.log(JSON.parse(count.delivery_window))
+      // $('#deliveryDate').text(count.delivery_date);
+      // // crop request end
 
-    }
+      var photo = JSON.parse(response.data.images);
+        console.log(photo, "ssss")
+        $("#images").append('<img src='+photo+' />');
+      // $('#images').append(JSON.parse(response.data.images))
+      console.log(JSON.parse(response.data.images),"bambam")
+
+     
+    
+     }
+    
     // loader('#tbdata')
     // $('#tbdata').html(rowContent);
   });
 }
+const watchVideo = () => {
+
+  var settings = querySetting("api/admin/crop/getbyid/" + localStorage.getItem('singlecropdata'), "GET", localStorage.getItem('access'));
+
+  $.ajax(settings).done(function (data) {
+    console.log(data);
+    let response = data;
+    console.log(response);
+    if (response.error == true) {
+      $('#vidFeed').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop Wanted Availble Yet</h3></td></tr>");
+      console.log(response.message);
+    } else {
+      let video = response.data.video;
+      // alert(video)
+      // $("#vidFeed").attr(video);
+      window.open(video);
+      return false;
+     }
+  
+  });
+  
+
+}
+
+// $(document).ready(function() { 
+//   // Watch More Link click handlers
+//       const $popup = $('.video-popup');
+//       const $modal = $('#modal');
+//       const $closeIcon = $('.close');
+//       const $watchMoreLink = $('.watch-more');
+  
+//       $watchMoreLink.click(function(e) {
+//           $popup.fadeIn(200);
+//           $modal.fadeIn(200);
+//           e.preventDefault();
+//       });
+//       $closeIcon.click(function () {
+//           $popup.fadeOut(200);
+//           $modal.fadeOut(200);
+//       });
+//       // for escape key
+//       $(document).on('keyup',function(e) {
+//           if (e.key === "Escape") {
+//              $popup.fadeOut(200);
+//              $modal.fadeOut(200);
+//           }
+//       });
+//       // click outside of the popup, close it
+//       $modal.on('click', function(e){
+//           $popup.fadeOut(200);
+//           $modal.fadeOut(200);
+//       });
+//   });
 
 
 /* -------------------------------------------------------------------------- */

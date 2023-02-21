@@ -82,7 +82,8 @@
 									</div>
 									<div class="col-12 col-md-6 text-md-end mt-3 mt-md-0">
 										<div class="">
-											<!-- <img src="../assets/images/insecticide1.jpg" width="65%" class="rounded-2" alt="" id="images"> -->
+											<!-- <img src="" width="65%" class="rounded-2" alt="" id="images"> -->
+											<div id="images" class="rounded-2" width="65%"></div>
 											<div class="d-flex justify-content-end">
 												<h2 class="welcome mt-2 me-3" id="category_name"></h2>
 												<h2 class="welcome mt-2" id="Subcategory_name"></h2>
@@ -148,7 +149,9 @@
 											<tr>
 												<td>
 													<div class="boldtableContent">Delivery Window</div>
-													<div id="deliveryWindow" class="text-primary welcome text-secondary"></div>
+													<div id="deliveryWindow" class="text-primary welcome fw-bold">
+														From <span id="from" class="text-primary"></span> To <span id="to" class="text-primary"></span>
+													</div>
 												</td>
 											</tr>
 											<tr>
@@ -307,8 +310,18 @@
 												<td>
 													<div class="boldtableContent">Video</div>
 													<div class="tableinfo welcome text-secondary">
-														<a id="vidfed" href="" class="success-color">Click to Watch Video</a> 
-													</div>
+														<a  href="javascript:void(0)"  onclick="watchVideo()" id="vidFeed" class="success-color watch-more">Click to Watch Video</a> 
+															<div id="modal" class="modal"></div>
+																<!-- <div class="video-popup">
+																	<a class="close">&times;</a>
+																	
+																	<div class="video-wrapper">
+																		<div class="video-container">
+																		<iframe width="560" height="315" id="vidFeed" src="https://www.youtube.com/watch?v=1aMKcSFzfZ8&ab_channel=MikeLess-FarmhandMike"  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+																		</div>
+																	</div>
+																</div> -->
+															</div>
 												</td>
 												<td>
 													<div class="boldtableContent">Packaging</div>
