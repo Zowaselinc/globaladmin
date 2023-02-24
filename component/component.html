@@ -57,7 +57,7 @@
                 <div class="collapse" id="dashboard-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
                         <a href="./user-stats.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('user-stats.html')">User Stats</a>
-                        <a href="./finance-stats.html" class="text-white nav-link spacing-4 ps-5 ms-1 d-none" onclick="location.assign('finance-stats.html')" id="finance">Fianace Stats</a>
+                        <a href="./finance-stats.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('finance-stats.html')" id="finance">Fianace Stats</a>
                     </ul>
                 </div>
             </li>
@@ -98,7 +98,7 @@
             <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" id="Roles">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#roles-collapse" aria-expanded="false"> 
                     <div>
-                        <i class="fa fa-tasks"></i>
+                        <i class="far fa-list-alt"></i>
                         <span class="ms-1 ps-3 spacing-4">Roles</span>
                     </div>
                 </a>
@@ -133,8 +133,25 @@
                     </ul>
                 </div>
             </li>
+            <!-- Credit and Risk Assestment  -->
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" id="Marketplace">
+                <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#credit" aria-expanded="false"> 
+                    <div>
+                        <i class="far fa-folder"></i>
+                        <span class="ms-1 ps-3 spacing-4">Credit & Risk Assestment</span>
+                    </div>
+                </a>
+
+                <div class="collapse" id="credit">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
+                        <a href="../dashboards/farmers.html" class="text-white nav-link spacing-4 ps-5 ms-1">Farmers</a>
+                        <a href="../dashboards/loans.html" class="text-white nav-link spacing-4 ps-5 ms-1">Loans</a>
+                        <a href="../dashboards/credit-scoring.html" class="text-white nav-link spacing-4 ps-5 ms-1">Credit Scoring</a>
+                    </ul>
+                </div>
+            </li>
             <!-- Support  -->
-            <li class="d-none btn-toggle nav-item collapsed mb-2 mb-xxl-2" id="Support">
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" id="Support">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#support-collapse" aria-expanded="false"> 
                     <div>
                         <i class="fa fa-info-circle"></i>
@@ -144,13 +161,13 @@
 
                 <div class="collapse" id="support-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
-                        <a href="./support-ticket.html" class="d-none text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('support-ticket.html')">Add Ticket</a>
+                        <a href="./support-ticket.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('support-ticket.html')">Add Ticket</a>
                         <a href="./view-support-ticket.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('view-support-ticket.html')">Support Ticket</a>
                     </ul>
                 </div>
             </li>
             <!-- Wallet  -->
-            <li class="d-none btn-toggle nav-item mb-2 mb-xxl-2 collapsed" id="Wallet">
+            <li class="btn-toggle nav-item mb-2 mb-xxl-2 collapsed" id="Wallet">
                 <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#wallet-collapse" aria-expanded="false">
                     <div>
                         <i class="fa fa-wallet"></i>
@@ -166,21 +183,21 @@
                 </div>
             </li>
             <!-- Company  -->
-            <li class="d-none nav-item mb-2 mb-xxl-2" id="Company">
+            <li class="nav-item mb-2 mb-xxl-2" id="Company">
                 <a href="../dashboards/company.html" class="nav-link align-middle text-white">
                 <i class="far fa-building"></i>
                 <span class="ms-1 ps-3 spacing-4">Company</span>
                 </a>
             </li>
             <!-- Messages  -->
-            <li class="d-none nav-item mb-2 mb-xxl-2" id="Messages">
+            <li class="nav-item mb-2 mb-xxl-2" id="Messages">
                 <a href="../dashboards/chat.html" class="nav-link align-middle text-white">
                 <i class="far fa-comment-alt"></i>
                 <span class="ms-1 ps-3 spacing-4">Messages</span>
                 </a>
             </li>
             <!-- Settings  -->
-            <li class="d-none nav-item mb-2 mb-xxl-2" id="Settings">
+            <li class="nav-item mb-2 mb-xxl-2" id="Settings">
                 <a href="../dashboards/settings.html" class="nav-link align-middle text-white">
                 <i class="fa fa-cogs"></i>
                 <span class="ms-1 ps-3 spacing-4">Settings</span>

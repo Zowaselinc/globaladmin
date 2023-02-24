@@ -1066,18 +1066,15 @@ div {
 
 
 /* media screen starts */
-@media screen and (min-width: 1194px) {
- 
 
-}
 
 @media screen and (min-width: 960px) {
     .leftfixedside{
-        width: 22%;
+        width: 25%;
     }
     
     .rightscrollableside{
-        width:78%;
+        width:75%;
         
     }
     .bg_img {
@@ -1089,17 +1086,25 @@ div {
         border-radius: unset !important;
         box-shadow: unset !important;
       }
+      .spacing-4{
+        letter-spacing: 2px;
+        font-weight: 300 !important;
+        font-family: var(--universal-font) !important;
+        font-style: normal !important;
+        font-size: 11px !important;
+    }
      
 }
+
 @media screen and (min-width: 1400px) {
 
 
     .leftfixedside{
-        width: 20%;
+        width: 22%;
     }
     
     .rightscrollableside{
-        width:80%;
+        width:78%;
      
     }
     /* right side image starts */
@@ -2033,8 +2038,7 @@ input:checked + .switch:active::before {
   /* -------------------------------------------------------------------------- */
 
   /* videos  */
-
-  /* .modal {
+   .videoModal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -2049,25 +2053,25 @@ input:checked + .switch:active::before {
     display: none;
     z-index: 2;
     position: absolute;
-    top: 20%;
+    top: 60%;
     left: 50%;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     padding: 10px 20px;
-    background-color: #fff;
-    border-radius: 4px;
+    background-color: #000000;
+    border-radius: 5px !important;
  }
   .video-popup.visible {
     display: block;
  }
   .video-popup .close {
     position: absolute;
-    right: 8px;
-    top: -3px;
+    right: 20px;
+    top: 0px;
     font-weight: 900;
-    font-size: 28px;
-    color: black;
+    font-size: 1.5rem !important;
+    color: white;
     padding: 5px 10px;
     border-bottom: none;
     cursor: pointer;
@@ -2094,4 +2098,4 @@ input:checked + .switch:active::before {
     width: 100%;
     height: 100%;
  }
-   */
+  

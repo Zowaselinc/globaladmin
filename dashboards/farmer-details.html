@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Zowasel | Farmer Details </title>
+	<link rel="icon" href="../assets/logo/zowaselICO.png">
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+		integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+
+	<link rel="stylesheet" href="../assets/font awesome/css/all.css" />
+	<link rel="stylesheet" href="../assets/font awesome/css/fontawesome.css" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="../assets/bootstrap-5.1.3-dist/css/bootstrap.css" />
+	<link rel="stylesheet" href="../css/style.css" />
+
+
+</head>
+
+<body>
+	<!------------------------------ Top Nav Bar begins  -------------------------------->
+	<div id="topnav" class="sticky-top shadow"></div>
+
+	<!------------------------------ Top Nav BarEnds  -------------------------------->
+
+	<div class="container-fluid">
+		<div class="row">
+			<!-------------------------------- Left side Nav Starts -------------------------->
+			<nav id="sidebarMenu" class="col-12 col-lg-auto d-lg-block bg-light leftfixedside collapse bd-links"></nav>
+			<!-- ------------------------------ Left side nav Ends----------------------------->
+			<div class="dash ms-sm-auto ms-0 col col-12 col-lg-10 pb-0 pt-1 rightscrollableside">
+				
+				
+				<!-- View more begins  -->
+			<div class="container-fluid gx-0 gl-md-0 gx-lg-3">
+				<div class="container pe-0 ps-0">
+					<div class="nego-top shadow-form mt-0 pt-0 ps-5 mx-0 d-flex justify-content-between align-items-center">
+						<div class="col"><a class="" href="#" onclick="backButton()"><i class="fs-4 fa fa-arrow-left text-white mt-3"></i></a></div>
+						<div class="col-12"><h4 class="text-white text-center mt-3 fw-bold">Farmer Details</h4></div>
+					</div>
+					<div class="d-block d-md-flex justify-content-md-between rounded-1 pb-3">
+							<!-- LEft side information 	 -->
+						<div class="col-12 col-lg-6 px-1 mb-5 shadow-sm bg-light ">
+							<div class="px-2 pt-4 mb-4">
+								<!-- basic Information  -->
+								
+								<h4 class="welcome mb-4 py-2 fw-bold"style="border-bottom: 1px solid lightgrey;">Basic Information</h4>
+								<form>
+									<div>
+										<div class="row row-cols-1 row-cols-md-2 row-cols-lg-2">
+											<div class="col mb-4">
+												<div class="form-group">
+												<label class="form-control-label mb-2" for="farmer-details">First Name</label>
+												<span type="text" id="first_name" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
+												</div>
+											</div>
+
+											<div class="col mb-4">
+												<div class="form-group">
+													<label class="form-control-label mb-2" for="farmer-detail">Last Name</label>
+													<span type="text" id="last_name" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
+												</div>
+											</div>
+
+											<div class="col mb-4">
+												<div class="form-group">
+													<label class="form-control-label mb-2" for="farmer-detail">Middle Name</label>
+													<span type="text" id="middle_name" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
+												</div>
+											</div>
+
+											<div class="col mb-4">
+												<div class="form-group">
+													<label class="form-control-label mb-2" for="farmer-detail">Email Address</label>
+													<span type="text" id="email" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
+												</div>
+											</div>
+
+											<div class="col mb-4">
+												<div class="form-group">
+													<label class="form-control-label mb-2" for="farmer detail">Mobile Number</label>
+													<span type="text" id="mobile" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
+												</div>
+											</div>
+
+											<div class="col mb-4">
+												<div class="form-group">
+													<label class="form-control-label mb-2" for="farmer-detail">Gender</label>
+													<span type="text" id="gender" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6 text-capitalize"></span>
+												</div>
+											</div>
+
+											<div class="col mb-4">
+												<div class="form-group">
+												  <label class="form-control-label mb-2" for="farmer-detail">Marital Status</label>
+												  <span type="text" id="marital_status" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6 text-capitalize"></span>
+												</div>
+											</div>
+
+											<div class="col mb-4">
+												<div class="form-group">
+												  <label class="form-control-label mb-2" for="farmer-detail">Date of Birth</label>
+												  <span type="text" id="dob" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
+												</div>
+											</div>
+
+											
+										</div>
+									</div>
+							  	</form>
+								  <div class="col mb-4">
+									<div class="form-group">
+									  <label class="form-control-label mb-2" for="farmer-detail">Languages Spoken</label>
+									  <span type="text" id="language" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
+									</div>
+								</div>
+							
+								<!-- Address information  -->
+								<h4 class="welcome mb-3 py-3 mt-5 fw-bold" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgreygrey;">Address Information</h4>
+
+								<form>
+									<div>
+										<div class="row d-flex justify-content-between">
+											<div class="col-6 mb-4">
+												<div class="form-group">
+												<label class="form-control-label mb-2" for="farmer-details">Country</label>
+												<span type="text" id="country" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
+												</div>
+											</div>
+
+											<div class="col-6 mb-4">
+												<div class="form-group">
+													<label class="form-control-label mb-2" for="farmer-detail">State</label>
+													<span type="text" id="state" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
+												</div>
+											</div>
+
+											<div class="col-12 mb-4">
+												<div class="form-group">
+													<label class="form-control-label mb-2" for="farmer-detail">City</label>
+													<span type="text" id="city" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6 text-capitalize"></span>
+												</div>
+											</div>
+
+											<div class="col-12 mb-4">
+												<div class="form-group">
+													<label class="form-control-label mb-2" for="farmer-detail">Address</label>
+													<span type="text" id="address" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
+												</div>
+											</div>
+
+											<div class="col-12 mb-4">
+												<div class="form-group">
+													<label class="form-control-label mb-2" for="farmer detail">Landmark</label>
+													<span type="text" id="landmark" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
+												</div>
+											</div>
+
+										</div>
+									</div>
+							  	</form>
+								<br>
+								<!-- bank details  -->
+								<div>
+									<h4 class="welcome mb-3 fw-bold py-2"  style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey;">Bank Information</h4>
+
+									<div class="d-flex justify-content-between pb-4">
+										<span class="welcome fw-bold fs-6">Bank Name:</span>
+										<span id="bank" class="text-secondary fs-6"></span>
+									</div>
+									<div class="d-flex justify-content-between pb-4">
+										<span class="welcome fw-bold fs-6">Account Name:</span>
+										<span id="acctName" class="text-secondary fs-6"></span>
+									</div>
+									<div class="d-flex justify-content-between pb-4">
+										<span class="welcome fw-bold fs-6">Account Number:</span>
+										<span id="acctNumber" class="text-secondary fs-6"></span>
+									</div>
+								</div>
+								<br>
+								<!-- Loan History  -->
+								<div>
+									<h4 class="welcome mb-3 py-2 fw-bold" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey;">Loan history</h4>
+
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Taken Loan Before:</span>
+											<span id="lonee" class="text-secondary fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Previous Loan Amount:</span>
+											<span class="text-secondary fs-6">NGN <span id="loanAmount" class="text-secondary fs-6"></span></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Season of Loan:</span>
+											<span id="loanSeason" class="text-secondary fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Repayment Status:</span>
+											<span id="repayment" class="text-secondary fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Difficulty in Repaying Loan:</span>
+											<span id="repayDifficult" class="text-secondary fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Mode of Repayment:</span>
+											<span id="modeOfPayment" class="text-secondary fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Cost of Cultivation:</span>
+											<span id="costCultivation" class="text-secondary fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Cost of Cultivation Per Plant Season:</span>
+											<span id="costPerseason" class="text-secondary fs-6"></span>
+										</div>
+								</div>
+							</div>
+						</div>
+							<!-- Right Side information  -->
+						<div class="col-12 col-lg-6 px-1 mb-5 shadow-sm bg-white ">
+							<div class="px-2 pt-4 mb-4">
+								<!-- Bank Information  -->
+								<div class="px-2 mb-4">
+									<!-- farmer kyf information  -->
+									<div>
+										<h4 class="welcome pb-3 fw-bold" style="border-bottom: 1px solid lightgrey;">Farmer KYF (Know Your Farmer) Information</h4>
+										<br>
+
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Name of Corporative:</span>
+											<span id="corName" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Corporative Status:</span>
+											<span id="corStatus" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Educational Level:</span>
+											<span id="eduStatus" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Mode of Identification:</span>
+											<span id="idCard" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Identification No.:</span>
+											<span id="idNumber" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Professional Farm Training:</span>
+											<span id="training" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Farming Experiecne:</span>
+											<span class="text-secondary text-capitalize fs-6"><span id="experience" class="text-secondary text-capitalize fs-6"></span> Years</span>
+										</div>
+									</div>
+									
+									<!-- Farmers Next of Kin Information  -->
+									<div>
+										<h4 class="welcome fw-bold py-2 mb-3" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey;">NOK (Next of Kin) Information</h4>
+									
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">NOK Name:</span>
+											<span id="nokName"  class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Relationship:</span>
+											<span id="nokRelationship"  class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">NOK Occupation:</span>
+											<span id="nokOccupation"  class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">NOK Mobile No.:</span>
+											<span id="nokMobile"  class="text-secondary text-capitalize fs-6"></span>
+										</div>
+									</div>
+									
+									<!-- Farm Practice information  -->
+									<div>
+										<h4 class="welcome mb-3 py-2 fw-bold" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey;">Farm Practice Information</h4>
+									
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Fertilizer Used:</span>
+											<span id="fertilizerName" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Fungi Used:</span>
+											<span id="fungiName" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">SQKM Cultivated:</span>
+											<span class="text-secondary text-capitalize fs-6"><span id="sqmCultivated" class="text-secondary text-capitalize fs-6"></span> SQM</span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Most Viable Crop:</span>
+											<span id="viableCrop" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Crop Applied:</span>
+											<span id="intendedCrop" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Fertilizer Per Crop Application:</span>
+											<span id="perCropApply" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Fertilizer Applied Per Season:</span>
+											<span id="perCropSeason" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Crop Rotation Practice:</span>
+											<span id="cropControlPractice" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Weed Control Practice:</span>
+											<span id="controlPractice" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Average Income Per Harvest:</span>
+											<span id="averageIncome" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+									</div>
+									<!-- Farm information  -->
+									<div class="d-none">
+										<h4 class="welcome fw-bold py-2 mb-3" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey;">Farming Information</h4>
+									
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Farm Location:</span>
+											<span id="farmLocation" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Farm Size:</span>
+											<span class="text-secondary text-capitalize fs-6"><span id="farmSize" class="fs-6" ></span> SQM</span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Farm Practice:</span>
+											<span id="farmPractice" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Crop Cultivated:</span>
+											<span id="cropPlanted" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Livestock Reared:</span>
+											<span id="livestockR" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Livestock Number:</span>
+											<span id="liveStockNo" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Estd Income Per Year:</span>
+											<span class="text-secondary text-capitalize fs-6">NGN <span id="incomePer" class="fs-6" ></span></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Farm Ownership:</span>
+											<span id="farmOwner" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Owner Name:</span>
+											<span id="nameOwner" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Owner Mobile No.:</span>
+											<span id="OwnerMobile" class="text-secondary text-capitalize fs-6"></span>
+										</div>
+										<div class="d-flex justify-content-between pb-4">
+											<span class="welcome fw-bold fs-6">Lease Year:</span>
+											<span class="text-secondary text-capitalize fs-6"><span id="leaseOut" class="text-secondary text-capitalize fs-6"></span> Years</span>
+										</div>
+									</div>
+									<!-- Farm Information Table  -->
+									<div>
+										<h4 class="welcome fw-bold py-2 mb-3" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey;">Farming Information</h4>
+										<h3>Farm</h3>
+										<div class="table-responsive">
+											<table class="align-middle table table-borderless table-hover default-color mb-1">
+												<thead>
+													<th style="min-width: 10px;">ID</th>
+													<th style="min-width: 150px;">Loaction / Size</th>
+													<th style="min-width: 110px;">Practice</th>
+													<th style="min-width: 150px;">(Est) Income Per Year</th>
+													<th style="min-width: 50px;">Ownership</th>
+													<th style="min-width: 80px;">View</th>
+												</thead>
+												<tbody id="farmData">
+													
+		
+												</tbody>
+
+												
+								
+											</table>
+										</div>
+									</div>
+									<br>
+									<!-- Farm Mechanization Table  -->
+									<div>
+										<h4 class="welcome fw-bold py-2 mb-3" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey;">Farm Mechanization</h4>
+										<h3>Machine</h3>
+										<div class="table-responsive">
+											<table class="align-middle table table-borderless table-hover default-color mb-1">
+												<thead>
+													<th style="min-width: 10px;">ID</th>
+													<th style="min-width: 90px;">Type</th>
+													<th style="min-width: 90px;">No. Possed</th>
+													<th style="min-width: 190px;">(Avg) Maintanace Cost</th>
+													<th style="min-width: 100px;">Years Used</th>
+													<th style="min-width: 100px;">Active Units</th>
+													<th style="min-width: 120px;">Defective Units</th>
+												</thead>
+												<tbody id="farMMechanization">
+													
+		
+												</tbody>
+
+												
+								
+											</table>
+										</div>
+									</div>
+
+								</div>
+							
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+				
+				<!-- View more End  -->
+
+				<!-- Footer starts -->
+				<div id="bottomnav" class="footer"></div>
+				<!-- footer ends  -->
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+		integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+		</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+		integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
+		</script>
+
+	<script>
+		$('#topnav').load("../component/nav-component.html");
+		$('#sidebarMenu').load("../component/component.html");
+		$('#bottomnav').load("../component/footer.html");
+	</script>
+
+	<script src="../js/admin.js"></script>
+	<script src="../js/credit.js"></script>
+	
+	<script>
+		function backButton() {
+		window.history.back();
+		}
+	</script>
+
+	<script>
+		farmerDetails();
+	</script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+	

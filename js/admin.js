@@ -4007,46 +4007,48 @@ const watchVideo = () => {
       console.log(response.message);
     } else {
       let video = response.data.video;
-      // alert(video)
-      // $("#vidFeed").attr(video);
-      window.open(video);
-      return false;
+      let videos =video.replace('watch?v=','embed/');
+      // alert(videos)
+      $("#vidFeed").attr("src",videos);
+      
+      // window.open(video);
+      // return false;
      }
   
   });
   
 
 }
-
-// $(document).ready(function() { 
-//   // Watch More Link click handlers
-//       const $popup = $('.video-popup');
-//       const $modal = $('#modal');
-//       const $closeIcon = $('.close');
-//       const $watchMoreLink = $('.watch-more');
+// video modal iframe 
+$(document).ready(function() { 
+  // Watch More Link click handlers
+      const $popup = $('.video-popup');
+      const $videoModal = $('#videoModal');
+      const $closeIcon = $('.close');
+      const $watchMoreLink = $('.watch-more');
   
-//       $watchMoreLink.click(function(e) {
-//           $popup.fadeIn(200);
-//           $modal.fadeIn(200);
-//           e.preventDefault();
-//       });
-//       $closeIcon.click(function () {
-//           $popup.fadeOut(200);
-//           $modal.fadeOut(200);
-//       });
-//       // for escape key
-//       $(document).on('keyup',function(e) {
-//           if (e.key === "Escape") {
-//              $popup.fadeOut(200);
-//              $modal.fadeOut(200);
-//           }
-//       });
-//       // click outside of the popup, close it
-//       $modal.on('click', function(e){
-//           $popup.fadeOut(200);
-//           $modal.fadeOut(200);
-//       });
-//   });
+      $watchMoreLink.click(function(e) {
+          $popup.fadeIn(200);
+          $videoModal.fadeIn(200);
+          e.preventDefault();
+      });
+      $closeIcon.click(function () {
+          $popup.fadeOut(200);
+          $videoModal.fadeOut(200);
+      });
+      // for escape key
+      $(document).on('keyup',function(e) {
+          if (e.key === "Escape") {
+             $popup.fadeOut(200);
+             $videoModal.fadeOut(200);
+          }
+      });
+      // click outside of the popup, close it
+      $videoModal.on('click', function(e){
+          $popup.fadeOut(200);
+          $videoModal.fadeOut(200);
+      });
+  });
 
 
 /* -------------------------------------------------------------------------- */

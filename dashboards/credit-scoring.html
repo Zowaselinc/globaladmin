@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zowasel | Credit Scoring</title>
+  <link rel="icon" href="../assets/logo/zowaselICO.png">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="../assets/font awesome/css/all.css" />
+  <link rel="stylesheet" href="../assets/font awesome/css/fontawesome.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="../assets/bootstrap-5.1.3-dist/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/DataTables/datatables.min.css"/>
+	<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.3.1/css/fixedHeader.dataTables.min.css">
+	<link rel="stylesheet" href="../css/style.css" />
+
+ 
+</head>
+
+<body>
+  <!------------------------------ Top Nav Bar begins  -------------------------------->
+	<div id="topnav" class="sticky-top shadow"></div>
+
+  <!------------------------------ Top Nav BarEnds  -------------------------------->
+
+	<div class="container-fluid">
+		<div class="row">
+		<nav id="sidebarMenu" class="col-12 col-lg-auto d-lg-block bg-light leftfixedside collapse bd-links"></nav>
+		<div class="dash ms-sm-auto ms-0 col col-12  col-lg-10  rightscrollableside">
+			<div class="main-content row d-flex justify-content-center align-items-center">
+			
+				<div class="container-fluid pt-3">
+					<div class="container">
+						<div class="col-12 col-lg-12 mb-5 mb-xl-0">
+							<div class="mb-3">
+								<h2 class="welcome fs-5">Credit Scoring</h2>
+							</div>
+							<div class="card border-0 shadow-sm bg-white" style="border-radius: 5px !important;">
+								
+								<div class="card-body bg-white mt-2 ">
+									<div class=" d-none table-responsive-lg">
+										<table id="allTable" class="pt-3 table table-hover table-lg align-middle table-borderless default-color" cellspacing="0" width="100%">
+											<thead class="t-border">
+												<tr class="border-bottom t-border text-uppercase">
+													<th>ID</th>
+													<th>USER</th>
+													<th>EMAIL</th>
+													<th>MOBILE NO.</th>
+													<th>VERIFICATION STATUS</th>
+													<th>STATUS</th>
+													<th>DATE CREATED</th>
+													<th>DATE UPDATED</th>
+													<!-- <th></th> -->
+												</tr>
+											</thead>
+											
+											<tbody id="allusers"></tbody>
+											
+										</table>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
+					
+				</div>
+			</div>
+
+			<!-- Footer starts -->
+			<div id="bottomnav" class="footer"></div>
+			<!-- footer ends  -->
+		</div>
+		</div>
+	</div>
+
+	<script src="../js/plugins/jquery/dist/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+	integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+	crossorigin="anonymous"></script>
+	<script type="text/javascript" src="../assets/DataTables/datatables.min.js"></script>
+	
+	<script>
+		$('#topnav').load("../component/nav-component.html");
+		$('#sidebarMenu').load("../component/component.html");
+		$('#bottomnav').load("../component/footer.html");
+	</script>
+
+	<script src="../js/admin.js"></script>
+	<script>
+		fetchAllusers ()
+	</script>
+</body>
+
+</html>
