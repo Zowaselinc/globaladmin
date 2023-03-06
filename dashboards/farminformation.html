@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zowasel | Farm Information</title>
+  <link rel="icon" href="../assets/logo/zowaselICO.png">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="../assets/font awesome/css/all.css" />
+  <link rel="stylesheet" href="../assets/font awesome/css/fontawesome.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<link rel="stylesheet" href="../assets/bootstrap-5.1.3-dist/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/DataTables/datatables.min.css"/>
+	<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.3.1/css/fixedHeader.dataTables.min.css">
+	<link rel="stylesheet" href="../css/style.css" />
+
+ 
+</head>
+
+<body>
+  <!------------------------------ Top Nav Bar begins  -------------------------------->
+	<div id="topnav" class="sticky-top shadow"></div>
+
+  <!------------------------------ Top Nav BarEnds  -------------------------------->
+
+	<div class="container-fluid">
+		<div class="row">
+		<nav id="sidebarMenu" class="col-12 col-lg-auto d-lg-block bg-light leftfixedside collapse bd-links"></nav>
+		<div class="dash ms-sm-auto ms-0 col col-12  col-lg-10  rightscrollableside">
+			<div class="main-content row d-flex justify-content-center align-items-center">
+			
+				<div class="container-fluid pt-3 gx-0 gx-lg-5">
+					<div class="container mb-5 ">
+						<div class="col-12 mb-5 mb-xl-0">
+							<div class="d-block d-md-flex justify-content-between align-items-center mb-3">
+								<h4 class="welcome fw-bold"><i href="#" onclick="backButton()" class="fa fa-arrow-left text-primary me-3" style="cursor: pointer;"></i>Add Farm </h4>
+								<!-- <button href="" class="btn btn-lg th-btn text-white" style="border-radius: 5px !important;">Next</button> -->
+							</div>
+						</div>
+						
+						<form class="mt-4">
+							<h2 class="mb-3 welcome fw-bold">Farm Information </h2>
+							<div class="py-3">
+								<div class="row">
+									<div class="col-12 col-lg-6 mb-4">
+										<div class="form-group">
+											<label class="form-control-label mb-2" for="farm">Where is your farm located?</label>
+											<input type="text" id="farmLocation" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter your answer" required="yes">
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-4">
+										<div class="form-group">
+											<label class="form-control-label mb-2" for="farm">What type of farming do u practice?</label>
+											<select name="" id="farmPractices" class="form-select form-control-lg rounded-3 shadow-form border-0 welcome fs-6">
+												<option value=""selected disabled>Select option</option>
+												<option value="Arable">Arable</option>
+												<option value="Pastoral">Pastoral</option>
+												<option value="Subsistent">Subsistent</option>
+												<option value="Mixed">Mixed</option>
+												<option value="Sole">Sole</option>
+												<option value="Fish">Fish</option>
+												<option value="Livestock">Livestock</option>
+												<option value="Shifting cultivation">Shifting cultivation</option>
+												<option value="Land rotation/Bush fallowing">Land rotation/Bush fallowing</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-12 mb-4">
+										<div class="form-group">
+											<label class="form-control-label mb-2" for="loan history">What is the size of your farm in (SQM)?</label>
+											<input type="text" id="farmSize" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter size of farm land" required="yes">
+										</div>
+									</div>
+									<h3 class="welcome mb-3">Farm Location Coordinates</h3>
+									<div class="col-12 col-lg-6 mb-4">
+										<div class="form-group">
+											<label class="form-control-label mb-2" for="farm">Longitute</label>
+											<input type="text" id="farmLog" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter your answer" required="yes">
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-4">
+										<div class="form-group">
+											<label class="form-control-label mb-2" for="farm">Latitude</label>
+											<input type="text" id="farmLat" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter your answer" required="yes">
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-4">
+										<div class="form-group">
+											<label class="form-control-label mb-2" for="farm">The farmland you are cultivating is it rented?</label>
+											<select name="" id="farmOwnership" class="form-select form-control-lg rounded-3 shadow-form border-0 welcome fs-6">
+												<option value=""selected disabled>Select option</option>
+												<option value="1">Yes</option>
+												<option value="0">No</option>
+											</select>
+										</div>
+									</div>
+									
+									<div class="col-12 col-lg-6 mb-4">
+										<div class="form-group">
+											<label class="form-control-label mb-2" for="farm">If rented or leased for how many years?</label>
+											<input type="text" id="leaseYear" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter your answer"  required="yes"> 
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-4">
+										<div class="form-group">
+											<label class="form-control-label mb-2" for="farm">Name of farm</label>
+											<input type="text" id="farmOwnerName" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter your answer"  pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required="yes">
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-4">
+										<div class="form-group">
+											<label class="form-control-label mb-2" for="farm">Farm owner number</label>
+											<input type="text" id="farmOwnerNumber" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter your answer"  required="yes"> 
+										</div>
+									</div>
+									<div class="col-12 mb-4">
+										<div class="form-group">
+											<label class="form-control-label mb-2" for="farm">List crop cultivated</label>
+											<input type="text" id="cropCultivated" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter your answer"  required="yes"> 
+										</div>
+									</div>
+									<div class="col-12 col-lg-6 mb-4">
+										<div class="form-group">
+											<label class="form-control-label mb-2" for="farm">List of livestock rared</label>
+											<input type="text" id="animalRared" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter your answer"  required="yes"> 
+										</div>
+									</div>
+									
+									<div class="col-12 col-lg-6 mb-4">
+										<div class="form-group">
+											<label class="form-control-label mb-2" for="farm">Number of livestock rared</label>
+											<input type="text" id="numLivestock" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter your answer" required="yes">
+										</div>
+									</div>
+									
+									<div class="col-12 mb-4">
+										<div class="form-group">
+											<label class="form-control-label mb-2" for="loan history">What is your estimated income per year?</label>
+											<input type="text" id="incomePerYear" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter your answer" required="yes"> 
+										</div>
+									</div>
+								
+									
+
+								</div>
+							</div>
+								<div class="text-end">
+									<a href="javascript:void(0)" id="" onclick="addFarmInformation()" class="btn th-btn btn-lg text-white px-4 py-2 fs-6 mt-3" style="border-radius: 5px !important;">Add</a>
+								</div>
+						</form>
+					</div>
+
+
+
+
+					
+				</div>
+			</div>
+
+			<!-- Footer starts -->
+			<div id="bottomnav" class="footer"></div>
+			<!-- footer ends  -->
+		</div>
+		</div>
+	</div>
+
+	<script src="../js/plugins/jquery/dist/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+	integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+	crossorigin="anonymous"></script>
+	<script type="text/javascript" src="../assets/DataTables/datatables.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script>
+		$('#topnav').load("../component/nav-component.html");
+		$('#sidebarMenu').load("../component/component.html");
+		$('#bottomnav').load("../component/footer.html");
+	</script>
+
+	<script src="../js/admin.js"></script>
+	<script src="../js/credit.js"></script>
+
+	<script>
+		function backButton() {
+		window.history.back();
+		}
+		
+	</script>
+</body>
+
+</html>

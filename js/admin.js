@@ -3922,7 +3922,7 @@ const viewMore = () => {
           `NO`;
       }
       // console.log(response.data.crop_request[0]);
-      let count = response.data.crop_request[0];
+      
       $('#croptype').text(response.data.type);
       $('#user_id').text(response.data.user_id);
       $('#application').html(response.data.application);
@@ -3964,6 +3964,13 @@ const viewMore = () => {
       $('#weevil').text(response.data.specification.weevil);
       $('#drying').text(response.data.specification.drying_process);
       // crop request 
+      if (!response.data.crop_request[0]){
+          $("#cropRequest").hide();
+          $("#requestAvail").show();
+      }else {
+
+    
+      let count = response.data.crop_request[0];
       $('#country').text(count.country);
       $('#address').text(count.address);
       $('#zipCode').text(count.zip);
@@ -3972,7 +3979,7 @@ const viewMore = () => {
       $('#state').text(count.state);
       $('#deliveryMethod').text(count.delivery_method);
       $('#deliveryWindow').text(count.delivery_window)
-
+      }
       // let deliverywindow = JSON.parse(count.delivery_window)
       // $('#from').html(deliverywindow.from);
       // $('#to').html(deliverywindow.to);
@@ -3982,7 +3989,7 @@ const viewMore = () => {
 
       var photo = JSON.parse(response.data.images);
         console.log(photo, "ssss")
-        $("#images").append('<img src='+photo+' />');
+        // $("#images").append('<img src='+photo+' />');
       // $('#images').append(JSON.parse(response.data.images))
       console.log(JSON.parse(response.data.images),"bambam")
 
@@ -4003,9 +4010,9 @@ const watchVideo = () => {
     let response = data;
     console.log(response);
     if (response.error == true) {
-      $('#vidFeed').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop Wanted Availble Yet</h3></td></tr>");
-      console.log(response.message);
-    } else {
+      alert(response.error);
+      
+    } else{
       let video = response.data.video;
       let videos =video.replace('watch?v=','embed/');
       // alert(videos)
@@ -4013,7 +4020,8 @@ const watchVideo = () => {
       
       // window.open(video);
       // return false;
-     }
+    
+     } 
   
   });
   
