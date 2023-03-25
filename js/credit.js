@@ -68,7 +68,7 @@ const baseURL = (URL, METHOD, DATA = {}) => {
 /* -------------------------------------------------------------------------- */
 
 
-function fetchAllFarmers() {
+const fetchAllFarmers=()=> {
   // loader('#tbdata', 7);
 
 
@@ -664,10 +664,11 @@ const addBankInfo =()=>{
     }
   });
 }
-
+// onclick function to add loan history 
 const addLoanHist=()=>{
   window.location.href="loan-history.html"
 }
+// adding loan history for farmers 
 const addLoanHistory=()=>{
   let farmersID = localStorage.getItem('farmerID');
   let farmerid = farmersID
@@ -774,7 +775,7 @@ const addLoanHistory=()=>{
 
 $("#farmerKYF").click(function(){ window.location.href="farmerKYF.html"})
 
-
+// add kyf information 
 const addKYF=()=>{
   let farmersID = localStorage.getItem('farmerID');
   let farmerid = farmersID
@@ -943,7 +944,7 @@ var settings = baseURL("api:rwfMbhtF/farmerkyf", "POST", KYFINFO);
 $("#farmPractice").click(function(){ window.location.href="farmpractice.html"})
 
 
-
+// add farm practice information 
 const addFarmPractice =()=> {
   // alert("woth")
 
@@ -1085,7 +1086,7 @@ function farmRandomID() { // Public Domain/MIT
 }
 // RANDOM ID
 
-
+// add farm information 
 const addFarmInformation =()=> {
   // alert(farmRandomID())
 
@@ -1237,7 +1238,7 @@ const addFarmInformation =()=> {
 
 $("#addFarmsMachine").click(function(){ window.location.href="farmmachine.html"})
 
-// RANDOM ID 
+// RANDOM ID for Machine
 function farmMachineID() { // Public Domain/MIT
   var d = new Date().getTime();//Timestamp
   var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
@@ -1254,7 +1255,7 @@ function farmMachineID() { // Public Domain/MIT
   });
 }
 // RANDOM ID
-
+// add farm machine 
 const addFarmMachine =()=> {
   // alert("FARMMACHINE-"+ farmMachineID())
 
@@ -1340,4 +1341,127 @@ const addFarmMachine =()=> {
       }, 2000)
     }
   });
+}
+
+// Getting the contact messages from individuals who visit the landing page 
+
+const allContacted=()=> {
+  // loader('#tbdata', 7);
+
+  var settings = baseURL("api:rwfMbhtF/contact", "GET");
+
+  $.ajax(settings).done(function (data) {
+ 
+    let response = data;
+    console.log(response);
+    if (response.error == true) {
+      console.log(response.message);
+      $('#farmersData').html("<tr>" + response.message + "</tr>");
+    } else {
+
+      var rowContent="";
+      let thedata = (response).reverse();
+      $.each(thedata, (index, row) => {
+        // console.log(thedata,);
+
+        index = index + 1;
+        rowContent += 
+          `<tr class="table-ul">
+              <td class="border-0">${index}</td>
+              <td class="border-0"><div class="welcome fw-bold">${row.fullname}</div></td>
+              <td class="border-0"><div class="text-primary fw-bold">${row.email}</div></td>
+              <td class="border-0">
+                <a href="javascript:void(0)" class="text-primary btn-md py-2 px-2 border-primary border rounded-2 me-3" onclick="viewContactMessage('${row.id}')">VIEW</a>
+                <a href="javascript:void(0)" class="text-danger btn-md py-2 px-2 border-danger border rounded-2 ms-2" onclick="deleteSingleMessage('${row.id}')">DELETE</a>
+              </td>
+            </tr>
+            `;
+      });
+      // alert(response.data.length);
+      $('#contactData').html(rowContent);
+      $(document).ready(function () {
+        $('#allTable').DataTable({
+          scrollY: 300,
+          scrollX: true,
+          scrollCollapse: true,
+          retrieve: true,
+          paging: true,
+          "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+          fixedHeader: {
+            header: true,
+            footer: true,
+            
+          }
+        });
+      });
+
+
+    }
+  });
+};
+
+const viewContactMessage = (id)=>{
+  // alert(id)
+  localStorage.setItem('contactID', id)
+  window.location.href="contactmsg.html"
+}
+
+const messageDetails =()=>{
+
+  var settings = baseURL("api:rwfMbhtF/contact/" + localStorage.getItem('contactID'), "GET",);
+
+  $.ajax(settings).done(function (data) {
+    // console.log(data);
+    let response = data;
+    console.log(response);
+    if (response.error == true) {
+      console.log(response.message);
+    } else {
+
+      let reply = response
+      $('#fullname').text(reply.fullname);
+      $('#email').text(reply.email);
+      $('#mobile').text(reply.mobile);
+      $('#messages').text(reply.message);
+     
+    }
+
+    })
+}
+
+const deleteSingleMessage = (id) => {
+  // swal("", n);
+  // alert(id)
+  swal({
+    title: "Are you sure you want to delete this contact message?",
+    text: "Once deleted, you will not be able to recover this message again!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+    .then((willDelete) => {
+      if (willDelete) {
+
+        var settings = baseURL("api:rwfMbhtF/contact/"+ id, "DELETE");
+
+
+        $.ajax(settings).done(function (response) {
+          // let response=data
+          // console.log(data);
+          if (response.error == true) {
+            // console.log(response.message);
+            swal("FAILED", response.message, "error");
+          } else {
+            // console.log(response.message);
+            swal("SUCCESS", response.message, "success");
+            window.location.href="farmer-details.html";
+            setTimeout(() => {
+              cancelRequest();
+            }, 2000)
+            allContacted();
+          }
+
+        });
+      }
+    });
 }

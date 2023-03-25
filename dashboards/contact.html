@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zowasel | Landing Home</title>
+  <title>Zowasel | Contact</title>
   <link rel="icon" href="../assets/logo/zowaselICO.png">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
@@ -47,28 +47,25 @@
 							
 							<div class="col-12 mt-3">
 								<div class="d-flex justify-content-between align-items-center">
-									<span class="welcome fs-5 fw-bold">Landing Page Edit</span>
+									<span class="welcome fs-5 fw-bold">Contacts</span>
 									<!-- <a href="javascript:void(0)" onclick="saveEdit()" class="btn btn-md th-btn text-white rounded fs-6" style="border-radius: 3px !important;">Save</a> -->
 								</div>
 								<!-- Landing Page Details  -->
-								<div class="col-12 shadow-sm mt-4">
-									<div class="card-body bg-white ">
+								<div class="col-12 mt-4">
+									<div class="card-body bg-light ">
 										<div class="table-responsive">
-											<table id="allTable" class="table table-hover table-lg table-borderless default-color" width="100%">
-												<thead class="t-border">
+											<table id="allTable" class="table table-space table-lg table-borderless default-color" width="100%">
+												<thead class="t-border d-none">
 													<tr class="border-bottom t-border">
 														<th scope="">ID</th>
-														<th scope="">PAGES</th>
+														<th scope="">NAME</th>
+														<th scope="">EMAIL</th>
 														<th scope="">ACTION</th>
 													</tr>
 												</thead>
 												
-												<tbody id="homeLanding">
-													<tr class="align-items-middle">
-														<td style="min-width: 50px;"><span class="align-items-center">1</span></td>
-														<td style="min-width: 100px;"><strong class="text-uppercase welcome fw-bold">Home</strong></td>
-														<td style="min-width: 100px;"><a href="javascript:void(0)" onclick="editPageContent('${row.id}')" class="btn btn-lg th-btn text-white" style="border-radius:3px !important;">EDIT</a></td>
-													</tr>
+												<tbody id="contactData" class="">
+
 												</tbody>
 												
 											</table>
@@ -107,10 +104,11 @@
 		$('#sidebarMenu').load("../component/component.html");
 		$('#bottomnav').load("../component/footer.html");
 	</script>
-  
+
 	<script src="/js/admin.js"></script>
+	<script src="/js/credit.js"></script>
 	<script>
-		// landingPage();
+		allContacted();
 	</script>
 </body>
 

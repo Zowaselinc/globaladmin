@@ -928,7 +928,7 @@ background-position:
 
 
 .table{
-    
+   
     border-top: 1px solid #dee2e6 !important;
     margin-bottom: 70px;   
     font-family: var(--universal-font);
@@ -987,6 +987,20 @@ tr {
 .tablenego {
   font-size: 14px !important;
  letter-spacing: 0.2px;
+}
+
+.table-ul td {
+  border-radius: 3px !important;
+  padding: 20px 25px !important;
+
+}
+.table-space{
+  border-collapse:separate !important;
+  border-spacing:0 15px !important;
+}
+.table-ul  {
+  background-color: #ffffff !important;
+  /* box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1) !important; */
 }
 
  /* -------------------------------------------------------------------------- */
@@ -2260,9 +2274,11 @@ input:checked + .switch:active::before {
 }
 .farmer-pic{
   /* padding: 100px 0px; */
-  width: 90%;
+  /* position: relative; */
+  width: 80%;
+  height: auto;
   /* background-size: contain; */
-  border-radius: ;
+  /* border-radius: ; */
   border: 10px solid #F8F8F8;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -2270,7 +2286,8 @@ input:checked + .switch:active::before {
 }
 
 .farmer-pic img {
-  width: 100%;
+  width: 95%;
+  /* position: absolute; */
   /* margin-left: 50px; */
   /* border: 10px solid #F8F8F8;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1); */

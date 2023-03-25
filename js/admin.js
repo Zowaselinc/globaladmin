@@ -938,14 +938,21 @@ function fetchAllusers() {
         let rowContent
         $.each(thedata, (index, row) => {
 
+          let user;
+          if(!row.user){
+            // user=`<td>in complete data</td>`
+          }else{
+           user = row.user
+          }
+
           let userStatus, verificationStatus;
-          if (row.user.status == 1) {
+          if (user.status == 1) {
             userStatus = `<span class="text-success">Active</span>`;
           } else {
             userStatus = `<span class="text-danger">Inactive</span>`;
           }
 
-          if (row.user.is_verified == 0) {
+          if (user.is_verified == 0) {
             verificationStatus = `<span class="text-danger">Not Verified</span>`;
           } else {
             verificationStatus = `<span class="text-success">Verified</span>`;
@@ -955,11 +962,11 @@ function fetchAllusers() {
           rowContent += `<tr class="align-items-center">
                       <td style="min-width: 50px;"><span>${index}</span></td>
                       <td style="min-width: 170px;">
-                          <strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
-                          <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
+                          <strong class="text-secondary">${user.first_name} ${user.last_name}</strong><br/>
+                          <small class="text-primary fw-bold text-uppercase">${user.type}</small>
                       </td>
-                      <td style="min-width: 150px;" class="text-primary">${row.user.email}</td>
-                      <td style="min-width: 120px;">${row.user.phone}</td>
+                      <td style="min-width: 150px;" class="text-primary">${user.email}</td>
+                      <td style="min-width: 120px;">${user.phone}</td>
                       <td style="min-width: 170px;">${verificationStatus}</td>
                       <td style="min-width: 80px;">${userStatus}</td>
                       <td style="min-width: 120px;">${(row.created_at).split("T")[0]}</td>
@@ -3704,8 +3711,12 @@ function fetchAllinput() {
     console.log(response);
     if (response.error == true) {
       console.log(response.message);
+      $('#inputdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Inputs added yet</h3></td></tr>");
     } else {
+      response.data 
+      // console.log(response.data)
       let thedata = response.data;
+      // console.log(thedata)
       if (thedata.length > 0) {
         let rowContent
         $.each(thedata, (index, row) => {
@@ -3774,7 +3785,8 @@ const viewInput = () => {
       //         negotiate = 
       //           `NO`;
       //       }
-      // console.log(response.data[0].category);
+      console.log(response.data[0].images);
+      
 
       let users = response.data[0].user;
       let inputcategory = response.data[0].category;
@@ -3798,6 +3810,21 @@ const viewInput = () => {
       $('#deliverymethod').text(response.data[0].delivery_method);
       $('#mfmstate').text(response.data[0].state);
       $('#mfmcounntry').text(response.data[0].manufacture_country);
+      
+      // let dataURL = response.data[0].images
+      const canvas = document.getElementById('my-canvas');
+
+      // Convert canvas to dataURL and log to console
+      const dataURL = canvas.toDataURL();
+      console.log(dataURL);
+      // Logs data:image/png;base64,wL2dvYWwgbW9yZ...
+
+      // Convert to Base64 string
+      // const base64 = getBase64StringFromDataURL(dataURL);
+      // console.log(base64);
+      // Logs wL2dvYWwgbW9yZ...
+
+
     }
   });
 }
@@ -3926,9 +3953,15 @@ const viewMore = () => {
       $('#croptype').text(response.data.type);
       $('#user_id').text(response.data.user_id);
       $('#application').html(response.data.application);
-      $('#firstName').text(response.data.user.first_name);
-      $('#lastName').text(response.data.user.last_name);
-      $('#lastName').text(response.data.user.last_name);
+      // user info
+      if(!response.data.user){
+        $( 'names').hide();
+      } else{
+        $('#firstName').text(response.data.user.first_name);
+        $('#lastName').text(response.data.user.last_name);
+      }
+ 
+
       $('#description').html(response.data.description);
       $('#category_name').text(response.data.category.name);
       $('#Subcategory_name').text(response.data.subcategory.name);
@@ -4085,8 +4118,15 @@ function cropsOffered() {
         let rowContent
         $.each(thedata, (index, row) => {
 
+          let user;
+          if(!row.user){
+          //  user = 'Null'
+          }else{
+           user = row.user
+          }
+
           let crop_status;
-          if (row.user.status == 1) {
+          if (user.status == 1) {
             crop_status =
               `<div class="py-1 text-center rounded-pill successalert">
                       <span class="rounded-circle p-1 dot d-inline-block"></span>
@@ -4099,15 +4139,17 @@ function cropsOffered() {
                       <strong class="text-past"  style="font-size:12px;">IN ACTIVE</strong>
                     </div>`;
           }
+          
+       
 
           index = index + 1;
           rowContent +=
             `<tr class=" align-items-center">
                 <td>${index}</td>
-                <td><strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
-                  <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
+                <td><strong class="text-secondary">${user.first_name} ${user.last_name}</strong><br/>
+                  <small class="text-primary fw-bold text-uppercase">${user.type}</small>
                 </td>
-                <td class="text-primary">${row.user.email}</td>
+                <td class="text-primary">${user.email}</td>
                 <td><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
                 <td>${crop_status}</td>
                 <td style="cursor:pointer;" class="text-center">
@@ -4117,6 +4159,7 @@ function cropsOffered() {
   
               </tr>`;
         });
+     
         $('#cropofferdata').html(rowContent);
         $(document).ready(function () {
           $('#allTable').DataTable({

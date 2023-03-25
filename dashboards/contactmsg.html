@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zowasel | Landing Home</title>
+  <title>Zowasel | Contact message</title>
   <link rel="icon" href="../assets/logo/zowaselICO.png">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
@@ -47,31 +47,36 @@
 							
 							<div class="col-12 mt-3">
 								<div class="d-flex justify-content-between align-items-center">
-									<span class="welcome fs-5 fw-bold">Landing Page Edit</span>
+									<span class="welcome fs-4 fw-bold"><a class="" href="#" onclick="backButton()"><i class="fs-4 fa fa-arrow-left text-primary mt-3 me-4"></i></a>Contact Message</span>
 									<!-- <a href="javascript:void(0)" onclick="saveEdit()" class="btn btn-md th-btn text-white rounded fs-6" style="border-radius: 3px !important;">Save</a> -->
 								</div>
 								<!-- Landing Page Details  -->
-								<div class="col-12 shadow-sm mt-4">
-									<div class="card-body bg-white ">
-										<div class="table-responsive">
-											<table id="allTable" class="table table-hover table-lg table-borderless default-color" width="100%">
-												<thead class="t-border">
-													<tr class="border-bottom t-border">
-														<th scope="">ID</th>
-														<th scope="">PAGES</th>
-														<th scope="">ACTION</th>
-													</tr>
-												</thead>
-												
-												<tbody id="homeLanding">
-													<tr class="align-items-middle">
-														<td style="min-width: 50px;"><span class="align-items-center">1</span></td>
-														<td style="min-width: 100px;"><strong class="text-uppercase welcome fw-bold">Home</strong></td>
-														<td style="min-width: 100px;"><a href="javascript:void(0)" onclick="editPageContent('${row.id}')" class="btn btn-lg th-btn text-white" style="border-radius:3px !important;">EDIT</a></td>
-													</tr>
-												</tbody>
-												
-											</table>
+								<div class="col-12 mt-4 rounded-2 shadow-sm">
+									<div class="card-body bg-white rounded-2 shadow-sm">
+										<div class="row">
+											<div class="col-12 col-lg-5 py-3">
+												<div class="row px-5 mt-5">
+													<span class="welcome fs-6 mb-2 fw-bold">Name</span>
+													<span id="fullname" class="border-bottom border-3 py-2 welcome fw-bold fs-5">Null</span>
+												</div>
+												<div class="row px-5 mt-5">
+													<span class="welcome fs-6 mb-2 fw-bold">Email</span>
+													<span id="email" class="border-bottom border-3 py-2 welcome fw-bold fs-5">Null</span>
+												</div>
+												<div class="row px-5 mt-5 mb-4">
+													<span class="welcome fs-6 mb-2 fw-bold">Mobile</span>
+													<span id="mobile" class="border-bottom border-3 py-2 welcome fw-bold fs-5">Null</span>
+												</div>
+											</div>
+											<div class="col-12 col-lg-7 pb-3 pt-1">
+												<div class="" style="border-left: 3px solid grey; height: 50vh;">
+													<div class="row px-5 mt-5 mb-4">
+														<span class="welcome fs-6 mb-2 fw-bold">Message</span>
+														<span name="" id="messages" cols="30" rows="10" class="border py-2 fs-6"></span>
+													</div>
+												</div>
+											</div>
+										
 										</div>
 									</div>
 									
@@ -107,10 +112,14 @@
 		$('#sidebarMenu').load("../component/component.html");
 		$('#bottomnav').load("../component/footer.html");
 	</script>
-  
+
 	<script src="/js/admin.js"></script>
+	<script src="/js/credit.js"></script>
 	<script>
-		// landingPage();
+		messageDetails();
+		function backButton() {
+		window.history.back();
+		};
 	</script>
 </body>
 
