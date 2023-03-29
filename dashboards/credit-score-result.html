@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zowasel - Users</title>
+  <title>Zowasel | Credit Scoring</title>
   <link rel="icon" href="../assets/logo/zowaselICO.png">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
@@ -41,34 +41,35 @@
 				<div class="container-fluid pt-3">
 					<div class="container">
 						<div class="col-12 col-lg-12 mb-5 mb-xl-0">
-							<div class="mb-3">
-								<h2 class="welcome fs-5">USERS</h2>
+							<div class="mb-3 d-flex align-items-center">
+								<a href="/dashboards/credit-scoring.html">
+									<i class="fa-solid fa-arrow-left me-3 fs-4 text-primary"></i>
+								</a>
+								<span class="welcome text-muted fs-4">Credit Score Result</span>
 							</div>
-							<div class="card border-0 shadow-sm bg-white" style="border-radius: 5px !important;">
-								
-								<div class="card-body bg-white mt-2 ">
-									<div class="table-responsive-lg">
-										<table id="allTable" class="pt-3 table table-hover table-lg align-middle table-borderless default-color" cellspacing="0" width="100%">
-											<thead class="t-border">
-												<tr class="border-bottom t-border text-uppercase">
-													<th>ID</th>
-													<th>USER</th>
-													<th>EMAIL</th>
-													<th>MOBILE NO.</th>
-													<th>VERIFICATION STATUS</th>
-													<th>STATUS</th>
-													<th>DATE CREATED</th>
-													<th>DATE UPDATED</th>
-													<th></th>
-													<!-- <th></th> -->
-												</tr>
-											</thead>
-											
-											<tbody id="allusers"></tbody>
-											
-										</table>
-										
-									</div>
+							<div class="row bg-light mt-4 p-2 pb-4">
+								<div class="col-12 text-end">
+									<button class="btn th-btn btn-lg text-white px-4 py-2 fs-6 mt-3 fw-bold" style="border-radius: 5px !important;">View Farmer Profile</button>
+								</div>
+								<div class="col-lg-6">
+									<h2>SCORE</h2>
+									<ul class="list-unstyled">
+										<li class="py-2 fs-6 text-muted">Amount requested by farmer</li>
+										<li class="py-2 fs-6 text-muted">Average Income of farmer per month</li>
+										<li class="py-2 fs-6 text-muted">Estimaated Installment per month</li>
+										<li class="py-2 fs-6 text-muted">Recommended amount to issue farmer</li>
+										<li class="py-2 fs-6 text-muted">Reason for recommendation</li>
+									</ul>
+								</div>
+								<div class="col-lg-6">
+									<h2 class="text-warning">39 (C)</h2>
+									<ul class="list-unstyled">
+										<li class="py-2 fs-6 text-muted">₦600,000</li>
+										<li class="py-2 fs-6 text-muted">₦186,519.25</li>
+										<li class="py-2 fs-6 text-muted">₦50,000</li>
+										<li class="py-2 fs-6 text-muted">₦150,000</li>
+										<li class="py-2 fs-6 text-muted">Farmers metrics are not so viable, credit issued should be on a basis of test, please check recommendation.</li>
+									</ul>
 								</div>
 							</div>
 						</div>

@@ -40,7 +40,6 @@ const splittingDate = (data) => {
 
 
 
-
 /* ----------------------------- activate loader ---------------------------- */
 const loader = (contentArea = "", colspan = "") => {
   document.querySelector(contentArea).innerHTML = `<tr>
@@ -77,6 +76,38 @@ const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
 
 // end //
 
+
+// for landing
+const urlSetup = (URL, METHOD, DATA = {}) => {
+  const settings = {
+    "url": `https://api.studioxcreative.ng/api/${URL}`,
+    "method": METHOD,
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer 30fb714e913879f2f6b0f3d7b3be13aa64366669ad8b1e20937b49a28619e0db097017fe01280c9489e02cfe493687e6646e3bd013adeadb8390adaff6630a590e90e2225eb6b067cb0a7ead4c84d328b24f8303b9c809d9f6af3dd359d4065b2872f4dc9a710d473c8dd7d3868117533051212c69805b76212856c8e8c57ee6",
+      "Content-Type": "application/json"
+    },
+    data: DATA
+  }
+
+  return settings;
+}
+
+// for data image
+const dataImage = (DATA = {}) => {
+  const settings = {
+    "url": `https://filesapi.growsel.com/upload.php`,
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "processData": false,
+      "contentType": false,
+    },
+    data: DATA
+  }
+
+  return settings;
+}
 
 /* -------------------------------------------------------------------------- */
 /*                     EDITITNG THE LANDING PAGE VIA ADMIN STARTS                   */
@@ -936,9 +967,10 @@ function fetchAllusers() {
       let thedata = response.data;
       if (thedata.length > 0) {
         let rowContent
+        let user;
         $.each(thedata, (index, row) => {
+          console.log(thedata);
 
-          let user;
           if(!row.user){
             // user=`<td>in complete data</td>`
           }else{
@@ -971,7 +1003,6 @@ function fetchAllusers() {
                       <td style="min-width: 80px;">${userStatus}</td>
                       <td style="min-width: 120px;">${(row.created_at).split("T")[0]}</td>
                       <td style="min-width: 120px;">${(row.updated_at).split("T")[0]}</td>
-                      <!--
                       <td class="text-end" style="min-width: 50px;">
                           <div class="dropdown shadow-dot text-center">
                               <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -982,7 +1013,7 @@ function fetchAllusers() {
                                   <a class="dropdown-item" onclick="n ('${row.id}')" href="javascript:void(0)">Delete</a>
                               </div>
                           </div>
-                      </td> -->
+                      </td> 
 
                   </tr>`;
           $('#allusers').html(rowContent);
@@ -4270,4 +4301,621 @@ function cropsAuctioned() {
 
 /* -------------------------------------------------------------------------- */
 /*                             CROP DATA ENDS HERE                            */
+/* -------------------------------------------------------------------------- */
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                               LANDING SECTION                              */
+/* -------------------------------------------------------------------------- */
+
+/* ---------------------------- Edit page section --------------------------- */
+const pageSections = [];
+const pageSection = () => {
+  let btnTxt = $('#btntext').val();
+  let btnLink = $('#btnlink').val();
+  let desc = $('#ctadesc').val();
+
+  if(btnTxt !== "" || btnLink !== ""){
+    let createPageSection = {
+      "buttontext":btnTxt,
+      "buttonlink":btnLink,
+      "description":desc,
+    };
+
+    var stn = urlSetup("components/1", "GET");
+
+      $.ajax(stn).done(function (data) {
+
+
+
+        let response = data;
+
+        let mycalltoaction= JSON.parse(response.data.attributes.componentcontent).calltoaction;
+        // console.log(mycalltoaction)
+     
+        let mybuttons= mycalltoaction;
+        
+        mybuttons.push(createPageSection);
+        // console.log(mybuttons)
+        let companyLogoURL = JSON.parse(response.data.attributes.componentcontent).logourl;
+        let companyLogoID = JSON.parse(response.data.attributes.componentcontent).logoid;
+        
+        const settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://api.studioxcreative.ng/api/components/1",
+          "method": "PUT",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer 30fb714e913879f2f6b0f3d7b3be13aa64366669ad8b1e20937b49a28619e0db097017fe01280c9489e02cfe493687e6646e3bd013adeadb8390adaff6630a590e90e2225eb6b067cb0a7ead4c84d328b24f8303b9c809d9f6af3dd359d4065b2872f4dc9a710d473c8dd7d3868117533051212c69805b76212856c8e8c57ee6",
+            "Content-Type": "application/json"
+          },
+          "processData": false,
+          "data": JSON.stringify({
+            "data": {
+              "title": "navbar",
+              "componentcontent": JSON.stringify({
+                  "logourl": companyLogoURL,
+                  "logoid": companyLogoID,
+                  "calltoaction": mybuttons
+              }),
+              "componentjs": ""
+            }
+          })
+        };
+  
+        $.ajax(settings).done(function (response) {
+          listNavBarSections();
+        });
+      });
+  }else{
+    swal("ERROR", "Button text and button link required", "error");
+  }
+}
+/* ------------------------------ button click ------------------------------ */
+$('#addPage').click(pageSection);
+
+
+
+// componentcontent: '{\n"logourl":"",\n"logoid":"",\n"calltoaction":[\n{"buttontext":"",\n "buttonlink":"",\n "description":"",\n}\n\n]\n\n\n\n\n\n}'
+
+// list the navbar contents
+const listNavBarSections = () => {
+  var settings = urlSetup("components/1", "GET");
+  
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+    
+    document.querySelector('#output').setAttribute('src', JSON.parse(response.data.attributes.componentcontent).logourl);
+    
+    let mycalltoaction= JSON.parse(response.data.attributes.componentcontent).calltoaction;
+    console.log(mycalltoaction)
+    let rowContent;
+    if(mycalltoaction.length > 0){
+      $.each(mycalltoaction, (index, row) => {
+        index = index + 1;
+        rowContent += `
+          <tr class="align-items-middle">
+            <td style="min-width: 50px">
+              <span class="align-items-center">${index}</span>
+            </td>
+            <td style="min-width: 100px">
+              <strong class="welcome"
+                >${row.buttontext}</strong
+              >
+            </td>
+            <td style="min-width: 100px">
+              <strong class="welcome"
+                >${row.buttonlink}</strong
+              >
+            </td>
+            <td style="min-width: 100px">
+              <a href="javascript:void" onclick="swal('${row.description}')" class="welcome text-warning">View Text</a>
+            </td>
+          </tr>`;
+      });
+    }else{
+      rowContent = `<tr class="align-items-middle">
+        <td colspan="5" class="text-center"><h3 class="py-4">No CALLS TO ACTION</h3></td>
+      </tr>`
+    }
+    $('#homeLanding').html(rowContent);
+  });
+}
+
+/* ---------------------------- show Zowasel Logo --------------------------- */
+var loadFile = function (event) {
+  var reader = new FileReader();
+  reader.onload = function () {
+    var output = document.getElementById("output");
+    output.src = reader.result;
+
+  };
+  reader.readAsDataURL(event.target.files[0]);
+
+  let blob = event.target.files[0];
+  let fd = new FormData();
+  fd.append("image", blob);
+
+  // 
+  fetch('https://filesapi.growsel.com/upload.php', {
+    method: 'POST',
+    body: fd
+  })
+  .then(response => response.json())
+  .then(data => {
+    if(data.error == false){
+      let companyLogoURL = data.data.imageLink;
+      let companyLogoID = data.data.documentid;
+      var stn = urlSetup("components/1", "GET");
+
+      $.ajax(stn).done(function (data) {
+        let response = data;
+        // console.log(response);
+        let landingCTAs = JSON.parse(response.data.attributes.componentcontent).calltoaction;
+        // console.log(JSON.parse(landingCTAs))
+        const settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://api.studioxcreative.ng/api/components/1",
+          "method": "PUT",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer 30fb714e913879f2f6b0f3d7b3be13aa64366669ad8b1e20937b49a28619e0db097017fe01280c9489e02cfe493687e6646e3bd013adeadb8390adaff6630a590e90e2225eb6b067cb0a7ead4c84d328b24f8303b9c809d9f6af3dd359d4065b2872f4dc9a710d473c8dd7d3868117533051212c69805b76212856c8e8c57ee6",
+            "Content-Type": "application/json"
+          },
+          "processData": false,
+          "data": JSON.stringify({
+            "data": {
+              "title": "navbar",
+              "componentcontent": JSON.stringify({
+                  "logourl": companyLogoURL,
+                  "logoid": companyLogoID,
+                  "calltoaction": landingCTAs
+              }),
+              "componentjs": ""
+            }
+          })
+        };
+  
+        $.ajax(settings).done(function (response) {
+          // console.log(response);
+          listNavBarSections()
+        });
+
+      });
+
+    }else{
+      swal("ERROR",data.message,"ERROR")
+    }
+  })
+  .catch((e) => console.log(e))
+  
+};
+
+
+
+
+/* ------------------------------ page sections ----------------------------- */
+const AddPageSection = () => {
+  let pn = $('#pagename').val();
+  let pd = $('#pagedesc').val();
+  let hl = $('#route').val();
+
+  if(pn !== "" || hl !== ""){
+    let createPageSection = JSON.stringify({
+      data: {
+        "pagename":pn,
+        "pagedescription":pd,
+        "hashroute":hl,
+      }
+    });
+
+    console.log(createPageSection)
+        
+    const settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "https://api.studioxcreative.ng/api/pages",
+      "method": "POST",
+      "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer 30fb714e913879f2f6b0f3d7b3be13aa64366669ad8b1e20937b49a28619e0db097017fe01280c9489e02cfe493687e6646e3bd013adeadb8390adaff6630a590e90e2225eb6b067cb0a7ead4c84d328b24f8303b9c809d9f6af3dd359d4065b2872f4dc9a710d473c8dd7d3868117533051212c69805b76212856c8e8c57ee6",
+        "Content-Type": "application/json"
+      },
+      "processData": false,
+      "data": createPageSection
+    };
+
+    $.ajax(settings).done(function (response) {
+      allPageSections();
+      swal("SUCCESS", "Page Route Added Successfully", "success");
+    });
+    
+  }else{
+    swal("ERROR", "Page text and page route required", "error");
+  }
+}
+/* ------------------------------ button click ------------------------------ */
+$('#addPageSections').click(AddPageSection);
+
+
+const allPageSections = () => {
+  var settings = urlSetup("pages", "GET");
+  
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    let allps = response.data;
+    
+    let rowContent;
+    if(allps.length > 0){
+
+        $.each(allps, (index, row) => {
+          index = index + 1;
+          rowContent += `
+            <tr class="align-items-middle">
+              <td style="min-width: 50px">
+                <span class="align-items-center">${index}</span>
+              </td>
+              <td style="min-width: 100px">
+                <strong class="welcome"
+                  >${row.attributes.pagename}</strong
+                >
+              </td>
+              <td style="min-width: 100px">
+                <strong class="welcome"
+                  >${row.attributes.hashroute}</strong
+                >
+              </td>
+              <td style="min-width: 100px">
+                <a href="javascript:void(0)" onclick="swal('${row.attributes.pagedescription}')" class="welcome text-warning">View Text</a>
+              </td>
+              <td style="min-width: 100px">
+                <a href="javascript:void(0)" class="welcome text-info">
+                  <small class="fa fa-pencil"></small>
+                </a>
+              </td>
+              <td style="min-width: 100px">
+                <a href="javascript:void(0)" onclick="delPageSections('${row.id}')" class="welcome text-danger">
+                  <small class="fa fa-trash"></small>
+                </a>
+              </td>
+            </tr>`;
+        });
+    }else{
+      rowContent = `<tr class="align-items-middle">
+        <td colspan="6" class="text-center"><h3 class="py-4">No PAGES CREATED YET</h3></td>
+      </tr>`;
+    }
+
+    $('#homeLanding').html(rowContent);
+  });
+}
+
+/* --------------------------- delete page section -------------------------- */
+const delPageSections = (id) => {
+  const settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `https://api.studioxcreative.ng/api/pages/${id}`,
+    "method": "DELETE",
+    "headers": {
+      "accept": "application/json",
+      "Authorization": "Bearer 30fb714e913879f2f6b0f3d7b3be13aa64366669ad8b1e20937b49a28619e0db097017fe01280c9489e02cfe493687e6646e3bd013adeadb8390adaff6630a590e90e2225eb6b067cb0a7ead4c84d328b24f8303b9c809d9f6af3dd359d4065b2872f4dc9a710d473c8dd7d3868117533051212c69805b76212856c8e8c57ee6",
+      "Content-Type": "application/json"
+    },
+    "processData": false
+  };
+
+  $.ajax(settings).done(function (response) {
+    allPageSections();
+    swal("SUCCESS", "Page Route Deleted Successfully", "success");
+  });
+}
+
+
+
+/* ----------------------------- footer section ----------------------------- */
+  /* ---------------------------- show Zowasel Logo --------------------------- */
+var loadFooterLogo = function (event) {
+  var reader = new FileReader();
+  reader.onload = function () {
+    var output = document.getElementById("output");
+    output.src = reader.result;
+
+  };
+  reader.readAsDataURL(event.target.files[0]);
+
+  let blob = event.target.files[0];
+  let fd = new FormData();
+  fd.append("image", blob);
+
+  // 
+  fetch('https://filesapi.growsel.com/upload.php', {
+    method: 'POST',
+    body: fd
+  })
+  .then(response => response.json())
+  .then(data => {
+    if(data.error == false){
+      let companyLogoURL = data.data.imageLink;
+      let companyLogoID = data.data.documentid;
+      var stn = urlSetup("components/2", "GET");
+
+      $.ajax(stn).done(function (data) {
+        let response = data;
+        // console.log(response);
+        let footerLinks = JSON.parse(response.data.attributes.componentcontent);
+        console.log(footerLinks)
+        formInfo = JSON.stringify({
+          "logourl":companyLogoURL,
+          "logoid":companyLogoID,
+          "companyaddress": footerLinks.companyaddress,
+          "companyemail": footerLinks.companyemail,
+          "companymobile": footerLinks.companymobile,
+          "googleplaylink": footerLinks.googleplaylink,
+          "appstorelink": footerLinks.appstorelink,
+          "copyrighttext":footerLinks.copyrighttext,
+          "facebookpagelink":footerLinks.facebookpagelink,
+          "instagrampagelink":footerLinks.instagrampagelink,
+          "linkedinpagelink":footerLinks.linkedinpagelink,
+          "twitterpagelink":footerLinks.twitterpagelink
+        })
+        const settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://api.studioxcreative.ng/api/components/2",
+          "method": "PUT",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer 30fb714e913879f2f6b0f3d7b3be13aa64366669ad8b1e20937b49a28619e0db097017fe01280c9489e02cfe493687e6646e3bd013adeadb8390adaff6630a590e90e2225eb6b067cb0a7ead4c84d328b24f8303b9c809d9f6af3dd359d4065b2872f4dc9a710d473c8dd7d3868117533051212c69805b76212856c8e8c57ee6",
+            "Content-Type": "application/json"
+          },
+          "processData": false,
+          "data": JSON.stringify({
+            "data": {
+              "title": "footer",
+              "componentcontent": formInfo,
+              "componentjs": ""
+            }
+          })
+        };
+  
+        $.ajax(settings).done(function (response) {
+          // console.log(response);
+          listFooterSections()
+        });
+
+      });
+
+    }else{
+      swal("ERROR",data.message,"error")
+    }
+  })
+  .catch((e) => console.log(e))
+  
+};
+
+const listFooterSections = () => {
+  var settings = urlSetup("components/2", "GET");
+  
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+    let footerLinks = JSON.parse(response.data.attributes.componentcontent);
+    document.querySelector('#output').setAttribute('src', footerLinks.logourl);
+    // console.log(footerLinks.logoid);
+    
+    let rowContent;
+    if(footerLinks){
+      rowContent += `
+        <tr class="align-items-middle">
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.companyaddress}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.companyemail}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.companymobile}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.googleplaylink}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.appstorelink}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.copyrighttext}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.facebookpagelink}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.instagrampagelink}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.linkedinpagelink}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.twitterpagelink}</strong
+            >
+          </td>
+        </tr>`;
+    }else{
+      rowContent = `<tr class="align-items-middle">
+        <td colspan="5" class="text-center"><h3 class="py-4">No CALLS TO ACTION</h3></td>
+      </tr>`
+    }
+    $('#homeLanding').html(rowContent);
+  });
+}
+
+const createFooterLinks = () => {
+
+  let compaddr = $('#companyaddr').val();
+  let compmail = $('#companymail').val();
+  let compfone = $('#companyfone').val();
+  let gplay = $('#gplay').val();
+  let apple = $('#applelink').val();
+  let cright = $('#copyrighttext').val();
+  let fb = $('#fblink').val();
+  let insta = $('#instalink').val();
+  let linked = $('#linkedinlink').val();
+  let tweet = $('#twitlink').val();
+
+  var settings = urlSetup("components/2", "GET");
+  
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+    let footerLinks = JSON.parse(response.data.attributes.componentcontent);
+    
+    
+    if(compaddr !== "" || compmail !== "" || compfone !== "" || gplay !== "" || apple !== "" || cright !== "" || fb !== "" || insta !== "" || linked !== "" || tweet !== ""){
+      // let createPageSection = JSON.stringify({
+        // data: {
+        //   "pagename":pn,
+        //   "pagedescription":pd,
+        //   "hashroute":hl,
+        // }
+      formInfo = JSON.stringify({
+        "logourl": footerLinks.logourl,
+        "logoid": footerLinks.logoid,
+        "companyaddress": compaddr,
+        "companyemail": compmail,
+        "companymobile": compfone,
+        "googleplaylink": gplay,
+        "appstorelink": apple,
+        "copyrighttext":cright,
+        "facebookpagelink":fb,
+        "instagrampagelink":insta,
+        "linkedinpagelink":linked,
+        "twitterpagelink":tweet
+      })
+  
+      const settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://api.studioxcreative.ng/api/components/2",
+        "method": "PUT",
+        "headers": {
+          "accept": "application/json",
+          "Authorization": "Bearer 30fb714e913879f2f6b0f3d7b3be13aa64366669ad8b1e20937b49a28619e0db097017fe01280c9489e02cfe493687e6646e3bd013adeadb8390adaff6630a590e90e2225eb6b067cb0a7ead4c84d328b24f8303b9c809d9f6af3dd359d4065b2872f4dc9a710d473c8dd7d3868117533051212c69805b76212856c8e8c57ee6",
+          "Content-Type": "application/json"
+        },
+        "processData": false,
+        "data": JSON.stringify({
+          "data": {
+            "title": "footer",
+            "componentcontent": formInfo,
+            "componentjs": ""
+          }
+        })
+      };
+  
+      $.ajax(settings).done(function (response) {
+        // console.log(response);
+        swal("SUCCESS", "Footer links added successfully", "success");
+        listFooterSections()
+      });
+      
+    } else {
+      swal("ERROR", "All footer links required" ,"error")
+    }
+  });
+
+}
+
+/* ------------------------------ button click ------------------------------ */
+$('#addFooter').click(createFooterLinks);
+/* -------------------------------------------------------------------------- */
+/*                           END OF LANDING SECTION                           */
+/* -------------------------------------------------------------------------- */
+
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                                USERS SECTION                               */
+/* -------------------------------------------------------------------------- */
+/* ----------------------------- form controller ---------------------------- */
+
+function swapForm(loc = ""){
+  var accountType = $("#accountype").val();
+  var usertype = $("#usertype").val();
+
+  if(!accountType || !usertype){
+    swal("All fields required!");
+  }else{
+    $('.regForms').addClass('d-none');
+    if(accountType == "individual"){
+      
+      $('#individual').removeClass('d-none');
+
+    }else if(accountType=="company"){
+
+      location.assign("/dashboards/company-form.html");
+      
+    }else{
+      return false;
+    }
+    // check if the current location is registered
+    if(loc != ""){
+      $('.regForms').addClass('d-none');
+      /* -------------------------- show the kyc section -------------------------- */
+      if(loc == "kyc"){
+
+        $('#kycDoc').removeClass('d-none');
+        
+      } else if (loc == "individual") {
+
+        $('#individual').removeClass('d-none');
+      
+      } else if (loc == "stageOne") {
+
+        $('#stageOne').removeClass('d-none');
+
+      }
+    }
+  }
+}
+$(".file-upload-field").on("change", function(){ 
+  $(this).parent(".file-upload-wrapper").attr("data-text",$(this).val().replace(/.*(\/|\\)/, '') );
+});
+/* -------------------------------- add users ------------------------------- */
+
+// define a variable for holding the data collected
+// let 
+
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                            END OF USERS SECTION                            */
 /* -------------------------------------------------------------------------- */

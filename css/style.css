@@ -928,7 +928,7 @@ background-position:
 
 
 .table{
-   
+    
     border-top: 1px solid #dee2e6 !important;
     margin-bottom: 70px;   
     font-family: var(--universal-font);
@@ -989,20 +989,6 @@ tr {
  letter-spacing: 0.2px;
 }
 
-.table-ul td {
-  border-radius: 3px !important;
-  padding: 20px 25px !important;
-
-}
-.table-space{
-  border-collapse:separate !important;
-  border-spacing:0 15px !important;
-}
-.table-ul  {
-  background-color: #ffffff !important;
-  /* box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1) !important; */
-}
-
  /* -------------------------------------------------------------------------- */
  /*                               table end here                               */
  /* -------------------------------------------------------------------------- */
@@ -1056,7 +1042,9 @@ tr {
 .rounded-6{
     border-radius: 5px !important;
 }
-
+.dis-none{
+  display: none;
+}
 .filter{
     border: 1px solid #02b502;
     border-radius: 5px;
@@ -2274,9 +2262,7 @@ input:checked + .switch:active::before {
 }
 .farmer-pic{
   /* padding: 100px 0px; */
-  /* position: relative; */
-  width: 80%;
-  height: auto;
+  width: 90%;
   /* background-size: contain; */
   /* border-radius: ; */
   border: 10px solid #F8F8F8;
@@ -2286,8 +2272,7 @@ input:checked + .switch:active::before {
 }
 
 .farmer-pic img {
-  width: 95%;
-  /* position: absolute; */
+  width: 100%;
   /* margin-left: 50px; */
   /* border: 10px solid #F8F8F8;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1); */
@@ -2304,4 +2289,60 @@ input:checked + .switch:active::before {
   font-size: 13px !important;
 }
 
+/* ----------------------------------- -- ----------------------------------- */
+/* ------------------------- Create Credit Variables ------------------------ */
+/* ----------------------------------- -- ----------------------------------- */
+.Creditvariables:hover{
+  background-color: rgba(2, 181, 2, 0.164);
+  cursor: pointer;
+}
+.creditVarActive{
+  background-color: rgba(2, 181, 2, 0.164);
+  border-left: 3px solid #2dbe60;
+}
+#tab2{
+  display: none;
+}
+/* ---------------------------------- input --------------------------------- */
+.search-form {
+	right: 200px;
+	top: 200px;
+}
 
+ .search-field {
+	background-color: transparent;
+	background-image: url(https://wp-themes.com/wp-content/themes/twentythirteen/images/search-icon.png);
+	background-position: 5px  center;
+	background-repeat: no-repeat;
+	background-size: 20px 20px;
+	border: none;
+	cursor: pointer;
+	height: 30px;
+	padding: 0 0 0 30px;
+	position: relative;
+	-webkit-transition: width 400ms ease, background 400ms ease;
+	transition:         width 400ms ease, background 400ms ease;
+	width:0px;
+   cursor: pointer;
+}
+
+.search-field:focus {
+	border: 2px solid #c3c0ab;
+	cursor: text;
+	outline: 0;
+	width: 250px;
+}
+.search-form
+.search-submit { 
+display:none;
+}
+/* ---------------------------------- Table --------------------------------- */
+.creditTable{
+  width: 200%;
+  background-color: #fff;
+}
+.creditTable table thead tr th{
+}
+/* ----------------------------------- -- ----------------------------------- */
+/* ------------------------- Create Credit Variables ------------------------ */
+/* ----------------------------------- -- ----------------------------------- */ 
