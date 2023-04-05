@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zowasel - Batch Users Registration</title>
+    <link rel="icon" href="../assets/logo/zowaselICO.png" />
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="../assets/font awesome/css/all.css" />
+    <link rel="stylesheet" href="../assets/font awesome/css/fontawesome.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link
+      rel="stylesheet"
+      href="../assets/bootstrap-5.1.3-dist/css/bootstrap.css"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+	<style>
+		.file-upload-wrapper {
+			position: relative;
+			width: 100%;
+			height: 60px;
+		}
+		.file-upload-wrapper:after {
+			content: attr(data-text);
+			font-size: 14px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: #fff;
+			padding: 0 15px;
+			display: block;
+			width: calc(100% - 40px);
+			pointer-events: none;
+			z-index: 20;
+			height: 40px;
+			line-height: 40px;
+			color: #999;
+			border-radius: 5px 10px 10px 5px;
+			font-weight: 300;
+		}
+		.file-upload-wrapper:before {
+			content: "Upload";
+			position: absolute;
+			top: 0;
+			right: 0;
+			display: inline-block;
+			height: 40px;
+			background: #4daf7c;
+			color: #fff;
+			font-weight: 700;
+			z-index: 25;
+			font-size: 14px;
+			line-height: 40px;
+			padding: 0 15px;
+			text-transform: uppercase;
+			pointer-events: none;
+			border-radius: 0 5px 5px 0;
+		}
+		.file-upload-wrapper:hover:before {
+			background: #3d8c63;
+		}
+		.file-upload-wrapper input {
+			opacity: 0;
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			z-index: 99;
+			height: 40px;
+			margin: 0;
+			padding: 0;
+			display: block;
+			cursor: pointer;
+			width: 100%;
+		}
+    #main-page-wrapper{
+      position: relative;
+    }
+    #loader-wrapper{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.2);
+      width: 100vw;
+      height: 100vh;
+      z-index: 1000;
+      display: none;
+    }
+	</style>
+  </head>
+
+  <body>
+    <!------------------------------ Top Nav Bar begins  -------------------------------->
+    <div id="topnav" class="sticky-top shadow" class="footer"></div>
+    
+    <!------------------------------ Top Nav BarEnds  -------------------------------->
+    
+    <div class="container-fluid" id="main-page-wrapper">
+      <div class="" id="loader-wrapper">efd</div>
+      <div class="row">
+        <nav
+          id="sidebarMenu"
+          class="col-12 col-lg-auto d-lg-block bg-light leftfixedside collapse bd-links"
+        ></nav>
+        <div
+          class="dash ms-sm-auto ms-0 col col-12 col-lg-10 rightscrollableside"
+        >
+          <div
+            class="main-content row d-flex justify-content-center align-items-center"
+          >
+            <div class="container-fluid pt-md-5">
+              <div class="container gx-0 gx-md-3">
+                <div class="col-12 col-lg-12 mb-5 mb-xl-0">
+                  <div
+                    class="card border-0 rounded-5 shadow-sm mt-3"
+                    id="kycDoc"
+                  >
+                    <div class="card-header rounded-5 border-0 p-3 bg-white">
+                      <h1 class="text-secondary">BATCH USER REGISTRATION</h1>
+                    </div>
+                    <div class="card-body bg-light">
+                      <form enctype="multipart/form-data">
+
+                        <div
+                          class="p-3 row d-flex justify-content-center"
+                        >
+                        <div class="col">
+                            <div class="form-group">
+                              <label
+                                class="form-control-label mb-2"
+                                for="input-last-Account_Type"
+                                >Account_Type
+                                <span class="text-danger">*</span></label
+                              >
+                              <select
+                                id="accountype"
+                                class="form-select form-control-lg rounded-3 shadow-form border-0"
+                                aria-label="Default select example"
+                              >
+                                <option value="">---</option>
+                                <option value="individual">Individual</option>
+                                <option value="company">Company</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col">
+                            <div class="form-group">
+                              <label
+                                class="form-control-label mb-2"
+                                for="input-Agent_Type"
+                                >User_Type
+                                <span class="text-danger">*</span></label
+                              >
+                              <select
+                                id="usertype"
+                                class="form-select form-control-lg rounded-3 shadow-form border-0"
+                                aria-label="Default select example"
+                              >
+                                <option value="">---</option>
+                                <option value="merchant">Merchant</option>
+                                <option value="corporate">Corporate</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label
+                                class="form-control-label mb-2"
+                                for="input-id-type"
+                                >Users Information</label
+                              >
+                              <div
+                                style="
+                                height: 300px;
+                                background-image: url(/assets/images/upload-img.png);
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                "
+                                class="w-100 bg-white shadow-form rounded-5 p-3"
+                              ><img id="front" width="100%" height="100%" /></div>
+                              <div class="mt-3">
+                                <div class="file-upload-wrapper" data-text="Select your file!">
+                                  <input type="file" class="file-upload-field" id="frontImg" onchange="upload()">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 text-end mt-4">
+                          <a
+                            href="javascript:void(0)"
+                            class="btn success text-white rounded-6 fw-bold"
+                            >Submit</a
+                          >
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Footer starts -->
+          <div id="bottomnav"></div>
+          <!-- footer ends  -->
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/plugins/jquery/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+      integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+      integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.2.0/papaparse.min.js"></script>
+    <script>
+
+/* ------------------------- SOCKET FOR BATCH UPLOAD ------------------------ */
+const socket = io("https://adminapi.growsel.com");
+// const socket = io("http://bore.pub:33581");
+
+socket.on('isconnected', function(data){
+ console.log(data);
+});
+
+socket.on('batchresponse', function(data){
+  console.log(data)
+});
+
+// const sendBatch = () => {
+//   socket.emit('batchupload', {name:'The refined Nwanyi'})
+// }
+
+// setTimeout(sendBatch, 4000);
+
+
+
+ 
+//Method to read csv file and convert it into JSON 
+function upload() {
+  var files = document.getElementById('frontImg').files;
+  if(files.length==0){
+    alert("Please choose any file...");
+    return;
+  }
+  var filename = files[0].name;
+  var extension = filename.substring(filename.lastIndexOf(".")).toUpperCase();
+  if (extension == '.CSV') {
+      //Here calling another method to read CSV file into json
+      csvFileToJSON(files[0]);
+  }else{
+      alert("Please select a valid csv file.");
+  /* --------------------------------- cflrd} --------------------------------- */
+}
+}
+ 
+//Method to read csv file and convert it into JSON 
+function csvFileToJSON(file){
+    try {
+        var reader = new FileReader();
+        reader.readAsBinaryString(file);
+        reader.onload = function(e) {
+            var jsonData = [];
+            var rows = e.target.result.split("\n");   
+            var headers = rows[0].split(',');
+            for(let i = 1; i < rows.length; i++) {
+                let data = rows[i].split(',');
+                let obj = {};
+                for(let j = 0; j < data.length; j++) {
+                    obj[headers[j].trim()] = data[j].trim();
+                }
+                jsonData.push(obj);
+            }
+            // send the json converted data to the endpoint
+            // console.log(jsonData);
+            socket.emit('batchupload', JSON.stringify({"userdata":jsonData}))
+        }
+    }catch(e){
+        console.error(e);
+    }
+}
+
+    </script>
+ 
+    <script src="../js/script.js"></script>
+    <script src="/js/admin.js"></script>
+    <script>
+      $("#topnav").load("../component/nav-component.html");
+      $("#sidebarMenu").load("../component/component.html");
+      $("#bottomnav").load("../component/footer.html");
+    </script>
+  </body>
+</html>

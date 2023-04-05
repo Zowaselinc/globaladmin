@@ -61,7 +61,7 @@ const loader = (contentArea = "", colspan = "") => {
 // allows u to make a request
 const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
   const settings = {
-    "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/${URL}`,
+    "url": `https://adminapi.growsel.com/${URL}`,
     "method": METHOD,
     "timeout": 0,
     "headers": {
@@ -401,7 +401,7 @@ const deleteadminRole = (n) => {
       if (willDelete) {
 
         var settings = {
-          "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/roles/delete/" + n,
+          "url": "https://adminapi.growsel.com/api/admin/roles/delete/" + n,
           "method": "POST",
           "timeout": 0,
           "headers": {
@@ -706,7 +706,7 @@ const deleteAdministrator = (id) => {
     .then((willDelete) => {
       if (willDelete) {
         var settings = {
-          "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/deletebyadminid/${id}`,
+          "url": `https://adminapi.growsel.com/api/admin/deletebyadminid/${id}`,
           "method": "POST",
           "timeout": 0,
           "headers": {
@@ -770,7 +770,7 @@ const makeUpdate = () => {
     let roleid =  adminRole.value.split(",")[0];
     console.log(roleid);
     var settings = {
-      "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/editbyadminid",
+      "url": "https://adminapi.growsel.com/api/admin/editbyadminid",
       "method": "POST",
       "timeout": 0,
       "headers": {
@@ -881,7 +881,7 @@ const addAdmin = () => {
   } else {
 
     var settings = {
-      "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/add",
+      "url": "https://adminapi.growsel.com/api/admin/add",
       "method": "POST",
       "timeout": 0,
       "headers": {
@@ -1148,7 +1148,7 @@ function fetchAllErrorlog() {
   loader('#errordata', 14)
 
   var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/errolog/getall",
+    "url": "https://adminapi.growsel.com/api/admin/errolog/getall",
     "method": "GET",
     "timeout": 0,
     "headers": {
@@ -1436,7 +1436,7 @@ const addSupportTickets = () => {
     });
 
     var settings = {
-      "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/ticket/add",
+      "url": "https://adminapi.growsel.com/api/admin/ticket/add",
       "method": "POST",
       "timeout": 0,
       "headers": {
@@ -1469,7 +1469,7 @@ $('#createTicket').click(addSupportTickets)
 
 const allUsers = () => {
   var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/users/getall",
+    "url": "https://adminapi.growsel.com/api/admin/users/getall",
     "method": "GET",
     "timeout": 0,
     "headers": {
@@ -2820,7 +2820,7 @@ const sendMessage = () => {
 function fetchAllcompany() {
 
   var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/company/getall",
+    "url": "https://adminapi.growsel.com/api/admin/company/getall",
     "method": "GET",
     "timeout": 0,
     "headers": {
@@ -4310,7 +4310,6 @@ function cropsAuctioned() {
 /* -------------------------------------------------------------------------- */
 
 /* ---------------------------- Edit page section --------------------------- */
-const pageSections = [];
 const pageSection = () => {
   let btnTxt = $('#btntext').val();
   let btnLink = $('#btnlink').val();
@@ -4865,57 +4864,504 @@ $('#addFooter').click(createFooterLinks);
 /* -------------------------------------------------------------------------- */
 /* ----------------------------- form controller ---------------------------- */
 
-function swapForm(loc = ""){
-  var accountType = $("#accountype").val();
-  var usertype = $("#usertype").val();
-
-  if(!accountType || !usertype){
-    swal("All fields required!");
-  }else{
-    $('.regForms').addClass('d-none');
-    if(accountType == "individual"){
-      
-      $('#individual').removeClass('d-none');
-
-    }else if(accountType=="company"){
-
-      location.assign("/dashboards/company-form.html");
-      
+const checkEmptyField = (formdata) => {
+  let fields = [];
+  for(let i = 0; i < formdata.length; i++){
+    if(formdata[i] == ""){
+      fields.push(true);
     }else{
-      return false;
+      fields.push(false);
     }
-    // check if the current location is registered
-    if(loc != ""){
-      $('.regForms').addClass('d-none');
-      /* -------------------------- show the kyc section -------------------------- */
-      if(loc == "kyc"){
+  }
 
-        $('#kycDoc').removeClass('d-none');
-        
-      } else if (loc == "individual") {
+  return fields;
+}
 
-        $('#individual').removeClass('d-none');
+const swapLocation = (loc = "") => {
+  $('.regForms').addClass('d-none');
+
+  if(loc != ""){
+    // $('.regForms').addClass('d-none');
+    /* -------------------------- show the kyc section -------------------------- */
+    if(loc == "kyc"){
+
+      $('#kycDoc').removeClass('d-none');
       
-      } else if (loc == "stageOne") {
+    } else if (loc == "individual") {
 
-        $('#stageOne').removeClass('d-none');
+      $('#individual').removeClass('d-none');
+    
+    } else if (loc == "stageOne") {
 
-      }
+      $('#stageOne').removeClass('d-none');
+
+    } else if (loc == "company") {
+      
+      $('#company').removeClass('d-none');
+
+    } else if (loc == "kyb") {
+      
+      $('#kybDocs').removeClass('d-none');
+
     }
   }
 }
+
+// validate password
+function checkPassword(str){
+  var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  return re.test(str);
+}
+
+
+function swapFormInd(loc = ""){
+  var accountType = $("#accountype").val();
+  var usertype = $("#usertype").val();
+
+  // if(userAccess == 'ind'){
+  if(!accountType || !usertype){
+    swal("All fields required!");
+  }
+
+  if(accountType == "individual"){
+    if(loc == ""){
+      swapLocation("individual");
+    }else{
+      swapLocation(loc);
+    }
+
+    if(loc == "kyc"){
+      /* -------------- get all variables filled within this section -------------- */
+      let fn = $('#firstname').val();
+      let ln = $('#lastname').val();
+      let em = $('#email').val();
+      let pn = $('#mobilenumber').val();
+      let pw = $('#password').val();
+      let cp = $('#confirmpassword').val();
+
+      if(jQuery.inArray(true, (checkEmptyField([fn, ln, em, pn, pw, cp]))) > -1){
+        swapLocation('individual');
+        swal("All fields required");
+      } else {
+
+        if(checkPassword(pw)){
+          if(pw == cp){
+            swapLocation(loc);
+          }else{
+            swapLocation('individual');
+            swal("ERROR", "Passwords do not match", "error")
+          }
+        }else{
+          swapLocation('individual');
+          swal("ERROR", "Passwords must contain a uppercase, a lowercase, a number, a special character and at least 8 characters long", "warning")
+        }
+      }
+
+    }
+
+
+  }else if (accountType == 'company'){
+    window.location.assign('add-company.html');
+  }
+}
+
+
+function swapFormComp(loc = ""){
+  if(loc == "kyc"){ 
+    /* -------------- get all variables filled within this section -------------- */
+    let fn = $('#firstname').val();
+    let ln = $('#lastname').val();
+    let em = $('#email').val();
+    let pn = $('#mobilenumber').val();
+    let pw = $('#password').val();
+    let cps = $('#confirmpassword').val();
+    let cn = $('#companyname').val();
+    let cc = $('#companycountry').val();
+    let cs = $('#companystate').val();
+    let ca = $('#companyaddress').val();
+    let conp = $('#contactperson').val();
+    let rcn = $('#rcnumber').val();
+    let cw = $('#companywebsite').val();
+    let ce = $('#companyemail').val();
+    let cp = $('#companyphone').val();
+    let at = $('#accountype').val();
+
+
+    if(fn == '' || ln == '' || em == '' || pn == '' || pw == '' || cps == '' || cc == '' || ca == '' || cs == '' || cn == '' || conp == '' || rcn == '' || cw == '' || ce == '' || cp == '' || at == ''){
+      loc = 'company';
+      swapLocation(loc);
+      swal("All fields required");
+    } else {
+
+      if(checkPassword(pw)){
+        if(pw == cps){
+          swapLocation(loc)
+        }else{
+          loc = 'company';
+          swapLocation(loc);
+          swal("ERROR", "Passwords do not match", "error")
+        }
+      }else{
+        loc = 'company';
+        swapLocation(loc);
+        swal("ERROR", "Passwords must contain a uppercase, a lowercase, a number, a special character and at least 8 characters long", "warning")
+      }
+    }
+
+    if(loc == "kyb"){
+      let id = $('#idtype').val();
+      let idno = $('#idnumber').val();
+      let bvn = $('#bvn').val();
+
+      let blob = document.querySelector('#frontImg').files[0];
+      let blo = document.querySelector('#backImg').files[0];
+      if(blob && blo){
+        if(id == "" || idno == "" || bvn == ""){
+          swal("ERROR", "All fields required", "warning");
+        }else{
+          swal("success")
+        }
+      }else{
+        swal("ERROR", "ID front and back image required", "warning");
+      }
+    } else{
+      swapLocation(loc);
+    }
+
+  }else{
+    swapLocation(loc)
+  }
+  // if(accountType == "company"){
+
+
+  // }else if (accountType == 'comp'){
+  //   window.location.assign('add-company.html');
+  // }
+}
+
+function checkKYCDocForBusinessOwner(loc = ""){
+  if(loc == "kyb"){
+    let id = $('#idtype').val();
+    let idno = $('#idnumber').val();
+    let bvn = $('#bvn').val();
+
+    let blob = document.querySelector('#frontImg').files[0];
+    let blo = document.querySelector('#backImg').files[0];
+    if(blob && blo){
+      if(jQuery.inArray(true, (checkEmptyField([id, idno, bvn]))) > -1){
+        swal("ERROR", "All fields required", "warning");
+      }else{
+        swapLocation(loc);
+      }
+    }else{
+      swal("ERROR", "ID front and back image required", "warning");
+    }
+  } else{
+    swapLocation(loc);
+  }
+}
+
 $(".file-upload-field").on("change", function(){ 
   $(this).parent(".file-upload-wrapper").attr("data-text",$(this).val().replace(/.*(\/|\\)/, '') );
 });
 /* -------------------------------- add users ------------------------------- */
 
 // define a variable for holding the data collected
-// let 
+var showUploadedImage = function (event, id) {
+
+  var reader = new FileReader();
+  reader.onload = function () {
+    var output = document.getElementById(id);
+    output.src = reader.result;
+
+  };
+  reader.readAsDataURL(event.target.files[0]);
+  // let fd = new FormData();
+  // fd.append("image", blob);
+}
 
 
+const createNewUserWithBusiness = () => {
+  let mou = document.querySelector('#mou').files[0];
+  let cac = document.querySelector('#cac').files[0];
+  let fis = document.querySelector('#finStat').files[0];
+  if(mou && cac && fis){
+
+    let img3, img4, img5;
+    let fd = new FormData();
+    // img1
+    fd.append("image", blob);
+    fetch('https://filesapi.growsel.com/upload.php', {
+      method: 'POST',
+      body: fd
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(data.error == false){
+        img1 = data.data.imageLink
+        
+        fd = new FormData();
+        fd.append("image", blo);
+        // img 2
+        fetch('https://filesapi.growsel.com/upload.php', {
+          method: 'POST',
+          body: fd
+        })
+        .then(response => response.json())
+        .then(data => {
+          if(data.error == false){
+            img2 = data.data.imageLink;
+            // img3
+            fd = new FormData();
+            fd.append("image", mou);
+            fetch('https://filesapi.growsel.com/upload.php', {
+              method: 'POST',
+              body: fd
+            })
+            .then(response => response.json())
+            .then(data => {
+              if(data.error == false){
+                img3 = data.data.imageLink
+                // img4
+                fd = new FormData();
+                fd.append("image", cac);
+                fetch('https://filesapi.growsel.com/upload.php', {
+                  method: 'POST',
+                  body: fd
+                })
+                .then(response => response.json())
+                .then(data => {
+                  if(data.error == false){
+                    img4 = data.data.imageLink
+                    // img5
+                    fd = new FormData();
+                    fd.append("image", fis);
+                    fetch('https://filesapi.growsel.com/upload.php', {
+                      method: 'POST',
+                      body: fd
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                      if(data.error == false){
+                        img5 = data.data.imageLink
+
+                        /* ---------------------- execute the createkyb command --------------------- */
+
+                      }
+                    })
+                    .catch((e) => console.log(e))
+                  }
+                })
+                .catch((e) => console.log(e))
+            
+            // if(img2 !== "" || img1 !== ""){
+            //   let usrdata = JSON.stringify({
+            //     "first_name": firstn,
+            //     "last_name": lastn,
+            //     "email": email,
+            //     "phone": pno,
+            //     "password": pass,
+            //     "user_type": utype,
+            //     "id_type": id,
+            //     "id_front": img1,
+            //     "id_back": img2,
+            //     "id_number":idno,
+            //     "bvn":bvn
+            //   });
+            //   const settings = {
+            //     "url": `https://adminapi.growsel.com/api/admin/users/register`,
+            //     "method": "POST",
+            //     "timeout": 0,
+            //     "headers": {
+            //       "Authorization": localStorage.getItem('access'),
+            //       "Content-Type": "application/json"
+            //     },
+            //     data: usrdata
+            //   };
+            //   $.ajax(settings).done(function (response) {
+            //     console.log(response);
+            //     if (response.error == true) {
+            //       swal("SUCCESS", "User registered successfully", "success");
+            //       setInterval(() => {
+            //         window.location.reload();
+            //       }, 2000);
+            //     } else {
+            //       swal("ERROR", response.message, "error");
+            //     }
+
+            //   });
+            // }else{
+            //   swal("ERROR", "Request failed, please try again", "error");
+            // }
+              }
+            })
+            .catch((e) => console.log(e))
+
+          }
+        })
+        .catch((e) => console.log(e))
+      }
+    })
+    .catch((e) => console.log(e))
+  }else{
+    swal("ERROR", "ID front and back image required", "warning");
+  }
+}
 
 
+const createNewUser = () => {
+  var atype = $("#accountype").val();
+  var utype = $("#usertype").val();
+  let firstn = $('#firstname').val();
+  let lastn = $('#lastname').val();
+  let email = $('#email').val();
+  let pno = $('#mobilenumber').val();
+  let pass = $('#password').val();
+  let cpass = $('#confirmpassword').val();
+  let id = $('#idtype').val();
+  let idno = $('#idnumber').val();
+  let bvn = $('#bvn').val();
 
+  if(jQuery.inArray(true, (checkEmptyField([atype, utype, firstn, lastn, email, pno, pass, cpass, id, idno, bvn]))) == -1){
+
+    // let blob = event.target.files[0];
+
+    let blob = document.querySelector('#frontImg').files[0];
+    let blo = document.querySelector('#backImg').files[0];
+    if(blob && blo){
+
+      let img1, img2;
+      bvn
+      let fd = new FormData();
+      fd.append("image", blob);
+      fetch('https://filesapi.growsel.com/upload.php', {
+        method: 'POST',
+        body: fd
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.error == false){
+          img1 = data.data.imageLink
+          
+          fd = new FormData();
+          fd.append("image", blo);
+
+          fetch('https://filesapi.growsel.com/upload.php', {
+            method: 'POST',
+            body: fd
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data.error == false){
+              img2 = data.data.imageLink;
+              if(img2 !== "" || img1 !== ""){
+                let usrdata = JSON.stringify({
+                  "first_name": firstn,
+                  "last_name": lastn,
+                  "email": email,
+                  "phone": pno,
+                  "password": pass,
+                  "user_type": utype,
+                  "id_type": id,
+                  "id_front": img1,
+                  "id_back": img2,
+                  "id_number":idno,
+                  "bvn":bvn
+                });
+                const settings = {
+                  "url": `https://adminapi.growsel.com/api/admin/users/register`,
+                  "method": "POST",
+                  "timeout": 0,
+                  "headers": {
+                    "Authorization": localStorage.getItem('access'),
+                    "Content-Type": "application/json"
+                  },
+                  data: usrdata
+                };
+                $.ajax(settings).done(function (response) {
+                  console.log(response);
+                  if (response.error == true) {
+                    swal("SUCCESS", "User registered successfully", "success");
+                    setInterval(() => {
+                      window.location.reload();
+                    }, 2000);
+                  } else {
+                    swal("ERROR", response.message, "error");
+                  }
+  
+                });
+              }else{
+                swal("ERROR", "Request failed, please try again", "error");
+              }
+
+            }
+          })
+          .catch((e) => console.log(e))
+        }
+      })
+      .catch((e) => console.log(e))
+    }else{
+      swal("ERROR", "ID front and back image required", "warning");
+    }
+    // let fd = new FormData();
+    // fd.append("image", blob);
+  }else{
+    swal("ERROR", "Unable to complete the request at the moment", "error");
+  }
+}
 /* -------------------------------------------------------------------------- */
 /*                            END OF USERS SECTION                            */
 /* -------------------------------------------------------------------------- */
+
+
+
+// bvn: "22245678907"
+// ​​​
+// cac: "https://files.jotform.com/jotformapps/employee-of-the-month-…e-template-f457f340a8dd4b2abf46f97264584df7.png?v=1679988231"
+// ​​​
+// company_address: "Kaduna"
+// ​​​
+// company_country: "Nigerian"
+// ​​​
+// company_email: "mentors@gmail.com"
+// ​​​
+// company_name: "Palmplantation"
+// ​​​
+// company_phone: "07099887766"
+// ​​​
+// company_state: "Kaduna"
+// ​​​
+// company_website: "www.greatplaystore.org"
+// ​​​
+// contact_person: "Gideon"
+// ​​​
+// email: "yarmusa3@gmail.com"
+// ​​​
+// financial_statement: "https://files.jotform.com/jotformapps/employee-of-the-month-…e-template-f457f340a8dd4b2abf46f97264584df7.png?v=1679988231"
+// ​​​
+// first_name: "Musa"
+// ​​​
+// has_company: "true"
+// ​​​
+// id_back: "https://graphicsfamily.com/wp-content/uploads/2020/06/Colorful-id-Card-design-presentation-scaled.jpg"
+// ​​​
+// id_front: "https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/91408878852363.5f4eb2fdcb640.jpg"
+// ​​​
+// id_number: "8765lk"
+// ​​​
+// id_type: "identity_card"
+// ​​​
+// last_name: "Yar'adua"
+// ​​​
+// mou: "https://files.jotform.com/jotformapps/employee-of-the-month-…e-template-f457f340a8dd4b2abf46f97264584df7.png?v=1679988231"
+// ​​​
+// password: "Musa@1234"
+// ​​​
+// phone: "09122993340"
+// ​​​
+// rc_number: "rc5647"
+// ​​​
+// tax_id: "ry6734oo"
+// ​​​
+// user_type: "marchant"
+

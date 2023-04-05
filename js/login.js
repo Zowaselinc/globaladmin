@@ -79,7 +79,7 @@ function yourButton(){
     //  ------- if login is successfull go to admin page -----------//
 
     $.ajax(settings).done(function (response) {
-      if(response.error){
+      if(response.error == true){
         toggleSpinner();
         swal("FAILED", response.message, "error");
         return false;
