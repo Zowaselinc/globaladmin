@@ -299,13 +299,24 @@ function csvFileToJSON(file){
             var rows = e.target.result.split("\n");   
             var headers = rows[0].split(',');
             for(let i = 1; i < rows.length; i++) {
-                let data = rows[i].split(',');
-                let obj = {};
-                for(let j = 0; j < data.length; j++) {
-                    obj[headers[j].trim()] = data[j].trim();
-                }
-                jsonData.push(obj);
+              let data = rows[i].split(',');
+              let obj = {};
+              for(let j = 0; j < data.length; j++) {
+                  obj[headers[j].trim()] = data[j].trim();
+              }
+              jsonData.push(obj);
             }
+            
+            for(let i = 0; i < jsonData.length; i++){
+              for (const [key, val] of Object.entries(jsonData[i])) {
+                // console.log(val)
+
+                if(val == ''){
+                  jsonData[i][key] = "null";
+                }
+              }
+            }
+            // console.log(jsonData)
             // send the json converted data to the endpoint
             // console.log(jsonData);
             socket.emit('batchupload', JSON.stringify({"userdata":jsonData}))

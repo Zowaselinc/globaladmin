@@ -5146,28 +5146,34 @@ const createNewUserWithBusiness = () => {
                         img5 = data.data.imageLink
 
                         /* ---------------------- execute the createkyb command --------------------- */
-
-                      }
-                    })
-                    .catch((e) => console.log(e))
-                  }
-                })
-                .catch((e) => console.log(e))
-            
-            // if(img2 !== "" || img1 !== ""){
-            //   let usrdata = JSON.stringify({
-            //     "first_name": firstn,
-            //     "last_name": lastn,
-            //     "email": email,
-            //     "phone": pno,
-            //     "password": pass,
-            //     "user_type": utype,
-            //     "id_type": id,
-            //     "id_front": img1,
-            //     "id_back": img2,
-            //     "id_number":idno,
-            //     "bvn":bvn
-            //   });
+                        if(img2 !== "" && img1 !== "" && img3 !== "" && img4 !== "" && img5 !== ""){
+                          let usrdata = JSON.stringify({
+                          "first_name": fn,
+                          "last_name": ln,
+                          "email": em,
+                          "phone": pn,
+                          "password": pw,
+                          "user_type": at,
+                          "id_type":id,
+                          "id_front":img1,
+                          "id_back":img2,
+                          "id_number":idno,
+                          "bvn":bvn,
+                          "has_company": "true",
+                          "company_name": cn,
+                          "company_address": ca,
+                          "company_state": cs,
+                          "company_country": cc,
+                          "contact_person": conp,
+                          "rc_number": rcn,
+                          "company_website": cw,
+                          "company_email": ce,
+                          "company_phone": cp,
+                          "tax_id":"ry6734oo",
+                          "cac":"https://files.jotform.com/jotformapps/employee-of-the-month-certificate-template-f457f340a8dd4b2abf46f97264584df7.png?v=1679988231",
+                          "financial_statement":"https://files.jotform.com/jotformapps/employee-of-the-month-certificate-template-f457f340a8dd4b2abf46f97264584df7.png?v=1679988231",
+                          "mou":"https://files.jotform.com/jotformapps/employee-of-the-month-certificate-template-f457f340a8dd4b2abf46f97264584df7.png?v=1679988231"
+                        });
             //   const settings = {
             //     "url": `https://adminapi.growsel.com/api/admin/users/register`,
             //     "method": "POST",
@@ -5192,7 +5198,15 @@ const createNewUserWithBusiness = () => {
             //   });
             // }else{
             //   swal("ERROR", "Request failed, please try again", "error");
-            // }
+            }
+                      }
+                    })
+                    .catch((e) => console.log(e))
+                  }
+                })
+                .catch((e) => console.log(e))
+            
+            
               }
             })
             .catch((e) => console.log(e))
@@ -5312,56 +5326,4 @@ const createNewUser = () => {
 /* -------------------------------------------------------------------------- */
 /*                            END OF USERS SECTION                            */
 /* -------------------------------------------------------------------------- */
-
-
-
-// bvn: "22245678907"
-// ​​​
-// cac: "https://files.jotform.com/jotformapps/employee-of-the-month-…e-template-f457f340a8dd4b2abf46f97264584df7.png?v=1679988231"
-// ​​​
-// company_address: "Kaduna"
-// ​​​
-// company_country: "Nigerian"
-// ​​​
-// company_email: "mentors@gmail.com"
-// ​​​
-// company_name: "Palmplantation"
-// ​​​
-// company_phone: "07099887766"
-// ​​​
-// company_state: "Kaduna"
-// ​​​
-// company_website: "www.greatplaystore.org"
-// ​​​
-// contact_person: "Gideon"
-// ​​​
-// email: "yarmusa3@gmail.com"
-// ​​​
-// financial_statement: "https://files.jotform.com/jotformapps/employee-of-the-month-…e-template-f457f340a8dd4b2abf46f97264584df7.png?v=1679988231"
-// ​​​
-// first_name: "Musa"
-// ​​​
-// has_company: "true"
-// ​​​
-// id_back: "https://graphicsfamily.com/wp-content/uploads/2020/06/Colorful-id-Card-design-presentation-scaled.jpg"
-// ​​​
-// id_front: "https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/91408878852363.5f4eb2fdcb640.jpg"
-// ​​​
-// id_number: "8765lk"
-// ​​​
-// id_type: "identity_card"
-// ​​​
-// last_name: "Yar'adua"
-// ​​​
-// mou: "https://files.jotform.com/jotformapps/employee-of-the-month-…e-template-f457f340a8dd4b2abf46f97264584df7.png?v=1679988231"
-// ​​​
-// password: "Musa@1234"
-// ​​​
-// phone: "09122993340"
-// ​​​
-// rc_number: "rc5647"
-// ​​​
-// tax_id: "ry6734oo"
-// ​​​
-// user_type: "marchant"
 
