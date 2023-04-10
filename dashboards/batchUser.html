@@ -193,14 +193,18 @@ socket.on('isconnected', function(data){
 
 socket.on('batchresponse', function(data){
   if(data.status != "pending") {
-    console.log(noofdatasent);
+    // console.log(noofdatasent);
     // calculate the percentage
 
     for(let i = 1; i <= noofdatasent.length; i++) {
       if(i == noofdatasent){
-        swal("SUCCESS","")
+        swal("SUCCESS","Batch Registration Completed Successfully", "success");
+      }else{
+        swal('ERROR', "Unable to process your request at the moment", "warning");
       }
     }
+  }else {
+    swal('ERROR', "Unable to process your request at the moment", "warning");
   }
 });
 
