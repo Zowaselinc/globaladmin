@@ -146,7 +146,7 @@ const landingPage =()=>{
     if (response.error == true) {
     } else {
       let thedata = JSON.parse(JSON.stringify(response.data));
-      console.log(thedata , "ddddddd")
+      // console.log(thedata , "ddddddd")
       if (thedata.length > 0) {
         let rowContent
         $.each(thedata, (index, row) => {
@@ -5264,8 +5264,8 @@ const createNewUserWithBusiness = () => {
   }
 }
 
-
 const createNewUser = () => {
+  toggleSpinner();
   // pageloader('#main-page-wrapper', "loader-wrapper",'true');
 
   var atype = $("#accountype").val();
@@ -5339,34 +5339,39 @@ const createNewUser = () => {
                 $.ajax(settings).done(function (response) {
                   console.log(response);
                   // pageloader('#main-page-wrapper', "loader-wrapper",'false');
-                  if (response.error == true) {
+                  if (response.error == false) {
+                    toggleSpinner();
                     swal("SUCCESS", "User registered successfully", "success");
                     setInterval(() => {
-                      window.location.reload();
+                      window.location.href = '/dashboards/add-users.html';
                     }, 2000);
                   } else {
+                    toggleSpinner();
                     swal("ERROR", response.message, "error");
                   }
   
                 });
               }else{
+                toggleSpinner();
                 // pageloader('#main-page-wrapper', "loader-wrapper",'false');
                 swal("ERROR", "Request failed, please try again", "error");
               }
 
             }
           })
-          .catch((e) => console.log(e))
+          .catch((e) => { toggleSpinner(); console.log(e) })
         }
       })
-      .catch((e) => console.log(e))
+      .catch((e) => {toggleSpinner(); console.log(e)})
     }else{
       // pageloader('#main-page-wrapper', "loader-wrapper",'true');
+      toggleSpinner();
       swal("ERROR", "ID front and back image required", "warning");
     }
     // let fd = new FormData();
     // fd.append("image", blob);
   }else{
+    toggleSpinner();
     // pageloader('#main-page-wrapper', "loader-wrapper",'true');
     swal("ERROR", "Unable to complete the request at the moment", "error");
   }
