@@ -50,7 +50,20 @@ const loader = (contentArea = "", colspan = "") => {
 }
 /* ---------------------------- loader ends here ---------------------------- */
 
-
+/* ------------------------------- pageloader ------------------------------- */
+const pageloader = (contentArea = '', loaderSection = "", processing = 'true') => {
+  if(processing == 'true') {
+    $(loaderSection).html(
+      `<img src="../assets/loader.gif" alt="" width="150px"/>`
+    );
+    document.querySelector(contentArea).classList.toggle('d-none');
+  }else{
+    document.querySelector(contentArea).classList.toggle('block');
+    $(loaderSection).html(
+      ``
+    );
+  }
+}
 
 
 
@@ -1009,13 +1022,14 @@ function fetchAllusers() {
                                   <i class="fas fa-ellipsis-v"></i>
                               </a>
                               <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                  <a class="dropdown-item" href="">Edit</a>
-                                  <a class="dropdown-item" onclick="n ('${row.id}')" href="javascript:void(0)">Delete</a>
+                                  <a class="dropdown-item" href="javascript:void(0)" onclick="verifykyc('${row.id}')">Verify KYC</a>
+                                  
                               </div>
                           </div>
                       </td> 
 
                   </tr>`;
+                  // <a class="dropdown-item" onclick="n ('${row.id}')" href="javascript:void(0)">Delete</a>
           $('#allusers').html(rowContent);
 
           $(document).ready(function () {
@@ -1039,6 +1053,31 @@ function fetchAllusers() {
     }
   });
 
+}
+
+
+
+const verifykyc = (uid) => {
+  const kycData = JSON.stringify({
+    "user_id":uid,
+    "status":"complete",
+    "verified":1
+  });
+  var settings = querySetting("api/admin/users/account/updatekycstatus", "POST", localStorage.getItem('access'), kycData);
+
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+    if (response.error == true) {
+      swal('ERROR','Unable to complete the process at the moment','error');
+    } else {
+      swal('SUCCESS', 'User verified successfully', 'success');
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000)
+    }
+  });
 }
 
 
@@ -5044,11 +5083,12 @@ function checkKYCDocForBusinessOwner(loc = ""){
     let id = $('#idtype').val();
     let idno = $('#idnumber').val();
     let bvn = $('#bvn').val();
+    let txid = $('#taxid').val();
 
     let blob = document.querySelector('#frontImg').files[0];
     let blo = document.querySelector('#backImg').files[0];
     if(blob && blo){
-      if(jQuery.inArray(true, (checkEmptyField([id, idno, bvn]))) > -1){
+      if(jQuery.inArray(true, (checkEmptyField([id, idno, bvn, txid]))) > -1){
         swal("ERROR", "All fields required", "warning");
       }else{
         swapLocation(loc);
@@ -5148,57 +5188,59 @@ const createNewUserWithBusiness = () => {
                         /* ---------------------- execute the createkyb command --------------------- */
                         if(img2 !== "" && img1 !== "" && img3 !== "" && img4 !== "" && img5 !== ""){
                           let usrdata = JSON.stringify({
-                          "first_name": fn,
-                          "last_name": ln,
-                          "email": em,
-                          "phone": pn,
-                          "password": pw,
-                          "user_type": at,
-                          "id_type":id,
-                          "id_front":img1,
-                          "id_back":img2,
-                          "id_number":idno,
-                          "bvn":bvn,
-                          "has_company": "true",
-                          "company_name": cn,
-                          "company_address": ca,
-                          "company_state": cs,
-                          "company_country": cc,
-                          "contact_person": conp,
-                          "rc_number": rcn,
-                          "company_website": cw,
-                          "company_email": ce,
-                          "company_phone": cp,
-                          "tax_id":"ry6734oo",
-                          "cac":"https://files.jotform.com/jotformapps/employee-of-the-month-certificate-template-f457f340a8dd4b2abf46f97264584df7.png?v=1679988231",
-                          "financial_statement":"https://files.jotform.com/jotformapps/employee-of-the-month-certificate-template-f457f340a8dd4b2abf46f97264584df7.png?v=1679988231",
-                          "mou":"https://files.jotform.com/jotformapps/employee-of-the-month-certificate-template-f457f340a8dd4b2abf46f97264584df7.png?v=1679988231"
-                        });
-            //   const settings = {
-            //     "url": `https://adminapi.growsel.com/api/admin/users/register`,
-            //     "method": "POST",
-            //     "timeout": 0,
-            //     "headers": {
-            //       "Authorization": localStorage.getItem('access'),
-            //       "Content-Type": "application/json"
-            //     },
-            //     data: usrdata
-            //   };
-            //   $.ajax(settings).done(function (response) {
-            //     console.log(response);
-            //     if (response.error == true) {
-            //       swal("SUCCESS", "User registered successfully", "success");
-            //       setInterval(() => {
-            //         window.location.reload();
-            //       }, 2000);
-            //     } else {
-            //       swal("ERROR", response.message, "error");
-            //     }
+                            "first_name": fn,
+                            "last_name": ln,
+                            "email": em,
+                            "phone": pn,
+                            "password": pw,
+                            "user_type": at,
+                            "id_type":id,
+                            "id_front":img1,
+                            "id_back":img2,
+                            "id_number":idno,
+                            "bvn":bvn,
+                            "has_company": "true",
+                            "company_name": cn,
+                            "company_address": ca,
+                            "company_state": cs,
+                            "company_country": cc,
+                            "contact_person": conp,
+                            "rc_number": rcn,
+                            "company_website": cw,
+                            "company_email": ce,
+                            "company_phone": cp,
+                            "tax_id":txid,
+                            "cac":img4,
+                            "financial_statement":img5,
+                            "mou":img3
+                          });
 
-            //   });
-            // }else{
-            //   swal("ERROR", "Request failed, please try again", "error");
-            }
+                          const settings = {
+                            "url": `https://adminapi.growsel.com/api/admin/users/register`,
+                            "method": "POST",
+                            "timeout": 0,
+                            "headers": {
+                              "Authorization": localStorage.getItem('access'),
+                              "Content-Type": "application/json"
+                            },
+                            data: usrdata
+                          };
+
+                          $.ajax(settings).done(function (response) {
+                            console.log(response);
+                            if (response.error == true) {
+                              swal("SUCCESS", "User registered successfully", "success");
+                              setInterval(() => {
+                                window.location.reload();
+                              }, 2000);
+                            } else {
+                              swal("ERROR", response.message, "error");
+                            }
+
+                          });
+                        }else{
+                          swal("ERROR", "Request failed, please try again", "error");
+                        }
                       }
                     })
                     .catch((e) => console.log(e))
@@ -5224,6 +5266,8 @@ const createNewUserWithBusiness = () => {
 
 
 const createNewUser = () => {
+  // pageloader('#main-page-wrapper', "loader-wrapper",'true');
+
   var atype = $("#accountype").val();
   var utype = $("#usertype").val();
   let firstn = $('#firstname').val();
@@ -5294,6 +5338,7 @@ const createNewUser = () => {
                 };
                 $.ajax(settings).done(function (response) {
                   console.log(response);
+                  // pageloader('#main-page-wrapper', "loader-wrapper",'false');
                   if (response.error == true) {
                     swal("SUCCESS", "User registered successfully", "success");
                     setInterval(() => {
@@ -5305,6 +5350,7 @@ const createNewUser = () => {
   
                 });
               }else{
+                // pageloader('#main-page-wrapper', "loader-wrapper",'false');
                 swal("ERROR", "Request failed, please try again", "error");
               }
 
@@ -5315,11 +5361,13 @@ const createNewUser = () => {
       })
       .catch((e) => console.log(e))
     }else{
+      // pageloader('#main-page-wrapper', "loader-wrapper",'true');
       swal("ERROR", "ID front and back image required", "warning");
     }
     // let fd = new FormData();
     // fd.append("image", blob);
   }else{
+    // pageloader('#main-page-wrapper', "loader-wrapper",'true');
     swal("ERROR", "Unable to complete the request at the moment", "error");
   }
 }
