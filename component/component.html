@@ -12,7 +12,7 @@
                 adminRoleID = JSON.stringify(JSON.parse(localStorage.getItem('admin')).role_id);
                 adminRoleID = JSON.parse(adminRoleID);
             }
-            console.log(sections)
+
             let roleidd = querySetting(`api/admin/roles/getbyroleid/${adminRoleID}`, "GET", localStorage.getItem('access'));
             $.get(roleidd).done(function(data){
                 roleSections = JSON.parse(JSON.stringify(data.data));

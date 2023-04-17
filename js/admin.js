@@ -38,8 +38,6 @@ const splittingDate = (data) => {
 /* ---------------------------- Spliting end here --------------------------- */
 
 
-
-
 /* ----------------------------- activate loader ---------------------------- */
 const loader = (contentArea = "", colspan = "") => {
   document.querySelector(contentArea).innerHTML = `<tr>
@@ -80,6 +78,12 @@ const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
     "headers": {
       "Authorization": AUTHKEY,
       "Content-Type": "application/json"
+    },
+    error: function(jqXHR) {
+      if(jqXHR.status == 403) {
+        localStorage.clear();
+        window.location.href = '../index.html';
+      }
     },
     data: DATA
   }
@@ -5266,6 +5270,7 @@ const createNewUserWithBusiness = () => {
 
 const createNewUser = () => {
   toggleSpinner();
+  $('.overlay-allcontent').css('display', 'block')
   // pageloader('#main-page-wrapper', "loader-wrapper",'true');
 
   var atype = $("#accountype").val();
@@ -5334,37 +5339,45 @@ const createNewUser = () => {
                     "Authorization": localStorage.getItem('access'),
                     "Content-Type": "application/json"
                   },
+                  error: function(jqXHR) {
+                    toggleSpinner();
+                    $('.overlay-allcontent').css('display', 'none');
+                    if(jqXHR.status == 400) {
+                      swal('ERROR', 'User already exists', 'warning');
+                    }else{
+                      swal('ERROR', "Unable to complete the request at the moment", 'error')
+                    }
+                  },
                   data: usrdata
                 };
                 $.ajax(settings).done(function (response) {
                   console.log(response);
-                  // pageloader('#main-page-wrapper', "loader-wrapper",'false');
+                  toggleSpinner();
+                  $('.overlay-allcontent').css('display', 'none')
                   if (response.error == false) {
-                    toggleSpinner();
                     swal("SUCCESS", "User registered successfully", "success");
                     setInterval(() => {
                       window.location.href = '/dashboards/add-users.html';
                     }, 2000);
                   } else {
-                    toggleSpinner();
                     swal("ERROR", response.message, "error");
                   }
   
                 });
               }else{
                 toggleSpinner();
-                // pageloader('#main-page-wrapper', "loader-wrapper",'false');
+                $('.overlay-allcontent').css('display', 'none')
                 swal("ERROR", "Request failed, please try again", "error");
               }
 
             }
           })
-          .catch((e) => { toggleSpinner(); console.log(e) })
+          .catch((e) => { $('.overlay-allcontent').css('display', 'none'); toggleSpinner(); console.log(e) })
         }
       })
-      .catch((e) => {toggleSpinner(); console.log(e)})
+      .catch((e) => {$('.overlay-allcontent').css('display', 'none'); toggleSpinner(); console.log(e)})
     }else{
-      // pageloader('#main-page-wrapper', "loader-wrapper",'true');
+      $('.overlay-allcontent').css('display', 'none')
       toggleSpinner();
       swal("ERROR", "ID front and back image required", "warning");
     }
@@ -5372,7 +5385,7 @@ const createNewUser = () => {
     // fd.append("image", blob);
   }else{
     toggleSpinner();
-    // pageloader('#main-page-wrapper', "loader-wrapper",'true');
+    $('.overlay-allcontent').css('display', 'none')
     swal("ERROR", "Unable to complete the request at the moment", "error");
   }
 }
