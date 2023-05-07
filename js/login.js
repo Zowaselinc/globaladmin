@@ -57,7 +57,7 @@ function yourButton(){
         return false;
     }else {
       var settings = {
-        "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/auth/login",
+        "url": "https://adminapi.growsel.com/api/admin/auth/login",
         "method": "POST",
         "timeout": 0,
         "headers": {

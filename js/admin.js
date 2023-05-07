@@ -5393,3 +5393,118 @@ const createNewUser = () => {
 /*                            END OF USERS SECTION                            */
 /* -------------------------------------------------------------------------- */
 
+/* -------------------------------------------------------------------------- */
+/*                              SEND MAIL MESSAGE                             */
+/* -------------------------------------------------------------------------- */
+
+/* --------------------------- single mail message -------------------------- */
+const sendMailMessage = () => {
+  let mailSubject = $("#subject").val();
+  let mailReceiver = $("#email").val();
+  let mailMessage = $("#message").val();
+  // Displaying the value 
+
+  if (mailMessage == "" || mailReceiver == "" || mailSubject == "") {
+    swal("Please fill all fields to send mail");
+  } else {
+    const mailJSON = JSON.stringify({
+      "email": mailReceiver,
+      "subject": mailSubject,
+      "html": mailMessage
+    });
+
+    var settings = querySetting("api/admin/email/send/singlemail", "POST", localStorage.getItem('access'), mailJSON);
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        swal("FAILED", response.message, "error");
+      } else {
+        swal("SUCCESS", response.message, "success");
+        $("#subject").val("");
+        $("#email").val("");
+        $("#message_ifr html").html("");
+      }
+    });
+
+  }
+}
+
+$("#sendmsg").click(sendMailMessage);
+
+
+/* -------------------------- bulk mail recipients -------------------------- */
+/* ----------------------- validate csv file submitted ---------------------- */
+const readCSV = () => {
+  //Method to read csv file and convert it into JSON
+  var files = document.querySelector(".mailContents").files;
+  if (files.length == 0) {
+    swal("ERROR", "Please upload a csv file", "warning");
+	document.querySelector('.file-upload-field').value = "";
+	document.querySelector('.file-upload-wrapper').setAttribute("data-text", "Select a csv file");
+  }
+  var filename = files[0].name;
+  var extension = filename
+    .substring(filename.lastIndexOf("."))
+    .toUpperCase();
+  if (extension == ".CSV") {
+    csvFileToJSON(files[0]);
+  } else {
+    swal("ERROR", "Please select a valid csv file.", "warning");
+	document.querySelector('.file-upload-field').value = "";
+	document.querySelector('.file-upload-wrapper').setAttribute("data-text", "Select a valid csv file");
+  }
+}
+
+$("#sendbmsg").on('click', readCSV);
+
+/* ------------------ read csv file and convert it to json ------------------ */
+const csvFileToJSON = (file) => {
+	// console.log(file);
+	var reader = new FileReader();
+	reader.readAsBinaryString(file);
+	reader.onload = function (e) {
+		var jsonData = [];
+		var rows = e.target.result.split("\n");
+		var headers = rows[0].split(",");
+		for (let i = 1; i < rows.length; i++) {
+			let data = rows[i].match(/("[^"]+"|[^,]+)(?!\s*\")/g);
+  if (!data) continue; // skip empty lines
+  data[0] = data[0].replace(/"/g, "'");
+  let obj = {};
+			for (let j = 0; j < data.length; j++) {
+				obj[headers[j]] = data[j];
+			}
+			jsonData.push(obj);
+		}
+
+		jsonData.pop();
+		console.log(jsonData)
+		const emailAddresses = [];
+		for (let i = 0; i < jsonData.length; i++) {
+			emailAddresses.push({email: jsonData[i].email});
+		}
+
+		const recipients = jsonData.filter(data => data.email !== '').map(data => ({ email: data.email }));
+		const subject = jsonData[0].subject;
+		const message = jsonData[0]["message\r"].replace(/\r/g, '');
+
+		const mailJSON = JSON.stringify({
+			recipients,
+			subject,
+			html: message.replace(/^"(.*)"$/, '$1')
+		});
+		console.log(mailJSON);
+		var settings = querySetting("api/admin/email/send/bulkmail", "POST", localStorage.getItem('access'), mailJSON);
+
+		$.ajax(settings).done(function (response) {
+			if (response.error == true) {
+				swal("FAILED", response.message, "error");
+			} else {
+				swal("SUCCESS", response.message, "success");
+				document.querySelector('.file-upload-field').value = "";
+				document.querySelector('.file-upload-wrapper').setAttribute("data-text", "Select your file!");
+			}
+		});
+	}
+}

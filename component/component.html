@@ -192,11 +192,20 @@
                 </a>
             </li>
             <!-- Messages  -->
-            <li class="nav-item mb-2 mb-xxl-2" id="Messages">
-                <a href="../dashboards/chat.html" class="nav-link align-middle text-white">
-                <i class="far fa-comments"></i>
-                <span class="ms-1 ps-3 spacing-4">Messages</span>
+            <li class="btn-toggle nav-item collapsed mb-2 mb-xxl-2" id="Messages">
+                <a href="javascript:void(0)" class="btnn nav-link text-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#roles-collapse" aria-expanded="false"> 
+                    <div>
+                        <i class="far fa-comments"></i>
+                        <span class="ms-1 ps-3 spacing-4">Messages</span>
+                    </div>
                 </a>
+
+                <div class="collapse" id="roles-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal small mt-2 spacing-4">
+                        <a href="./chat.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('chat.html')">Chat</a>
+                        <a href="./email.html" class="text-white nav-link spacing-4 ps-5 ms-1" onclick="location.assign('email.html')">Send Email</a>
+                    </ul>
+                </div>
             </li>
              <!-- Contact us  -->
              <li class="nav-item mb-2 mb-xxl-2" id="Contact">
