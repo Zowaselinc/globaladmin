@@ -5399,12 +5399,12 @@ const createNewUser = () => {
 
 /* --------------------------- single mail message -------------------------- */
 const sendMailMessage = () => {
-  let mailSubject = $("#subject").val();
-  let mailReceiver = $("#email").val();
-  let mailMessage = $("#message").val();
+  let mailSubject = document.querySelector("#subject").value;
+  let mailReceiver = document.querySelector("#email").value;
+  let mailMessage = document.querySelector("#message").value;
   // Displaying the value 
 
-  if (mailMessage == "" || mailReceiver == "" || mailSubject == "") {
+  if (tinymce.get('message').getContent() == "" || mailReceiver == "" || mailSubject == "") {
     swal("Please fill all fields to send mail");
   } else {
     const mailJSON = JSON.stringify({
@@ -5478,7 +5478,6 @@ const csvFileToJSON = (file) => {
 		}
 
 		jsonData.pop();
-		console.log(jsonData)
 		const emailAddresses = [];
 		for (let i = 0; i < jsonData.length; i++) {
 			emailAddresses.push({email: jsonData[i].email});
