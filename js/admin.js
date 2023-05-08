@@ -5416,7 +5416,6 @@ const sendMailMessage = () => {
     var settings = querySetting("api/admin/email/send/singlemail", "POST", localStorage.getItem('access'), mailJSON);
 
     $.ajax(settings).done(function (response) {
-      console.log(response);
       if (response.error == true) {
         swal("FAILED", response.message, "error");
       } else {
@@ -5469,9 +5468,9 @@ const csvFileToJSON = (file) => {
 		var headers = rows[0].split(",");
 		for (let i = 1; i < rows.length; i++) {
 			let data = rows[i].match(/("[^"]+"|[^,]+)(?!\s*\")/g);
-  if (!data) continue; // skip empty lines
-  data[0] = data[0].replace(/"/g, "'");
-  let obj = {};
+			if (!data) continue; // skip empty lines
+			data[0] = data[0].replace(/"/g, "'");
+			let obj = {};
 			for (let j = 0; j < data.length; j++) {
 				obj[headers[j]] = data[j];
 			}
@@ -5494,7 +5493,6 @@ const csvFileToJSON = (file) => {
 			subject,
 			html: message.replace(/^"(.*)"$/, '$1')
 		});
-		console.log(mailJSON);
 		var settings = querySetting("api/admin/email/send/bulkmail", "POST", localStorage.getItem('access'), mailJSON);
 
 		$.ajax(settings).done(function (response) {
