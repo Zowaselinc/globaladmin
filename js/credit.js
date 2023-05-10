@@ -128,7 +128,7 @@ const fetchAllFarmers=()=> {
 };
 
 const viewFarmerScore = () =>{
-  alert("thanks")
+  // alert("thanks")
   window.location.href="credit-score-result.html "
 }
 
