@@ -38,11 +38,6 @@ const splittingDate = (data) => {
 /* ---------------------------- Spliting end here --------------------------- */
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin
 /* ----------------------------- activate loader ---------------------------- */
 const loader = (contentArea = "", colspan = "") => {
   document.querySelector(contentArea).innerHTML = `<tr>
@@ -4397,10 +4392,6 @@ function cropsAuctioned() {
 /* -------------------------------------------------------------------------- */
 
 /* ---------------------------- Edit page section --------------------------- */
-<<<<<<< HEAD
-=======
-const pageSections = [];
->>>>>>> origin
 const pageSection = () => {
   let btnTxt = $('#btntext').val();
   let btnLink = $('#btnlink').val();
@@ -4955,7 +4946,6 @@ $('#addFooter').click(createFooterLinks);
 /* -------------------------------------------------------------------------- */
 /* ----------------------------- form controller ---------------------------- */
 
-<<<<<<< HEAD
 const checkEmptyField = (formdata) => {
   let fields = [];
   for(let i = 0; i < formdata.length; i++){
@@ -5154,54 +5144,12 @@ function checkKYCDocForBusinessOwner(loc = ""){
   }
 }
 
-=======
-function swapForm(loc = ""){
-  var accountType = $("#accountype").val();
-  var usertype = $("#usertype").val();
-
-  if(!accountType || !usertype){
-    swal("All fields required!");
-  }else{
-    $('.regForms').addClass('d-none');
-    if(accountType == "individual"){
-      
-      $('#individual').removeClass('d-none');
-
-    }else if(accountType=="company"){
-
-      location.assign("/dashboards/company-form.html");
-      
-    }else{
-      return false;
-    }
-    // check if the current location is registered
-    if(loc != ""){
-      $('.regForms').addClass('d-none');
-      /* -------------------------- show the kyc section -------------------------- */
-      if(loc == "kyc"){
-
-        $('#kycDoc').removeClass('d-none');
-        
-      } else if (loc == "individual") {
-
-        $('#individual').removeClass('d-none');
-      
-      } else if (loc == "stageOne") {
-
-        $('#stageOne').removeClass('d-none');
-
-      }
-    }
-  }
-}
->>>>>>> origin
 $(".file-upload-field").on("change", function(){ 
   $(this).parent(".file-upload-wrapper").attr("data-text",$(this).val().replace(/.*(\/|\\)/, '') );
 });
 /* -------------------------------- add users ------------------------------- */
 
 // define a variable for holding the data collected
-<<<<<<< HEAD
 var showUploadedImage = function (event, id) {
 
   var reader = new FileReader();
@@ -5483,16 +5431,10 @@ const createNewUser = () => {
 /* -------------------------------------------------------------------------- */
 /*                            END OF USERS SECTION                            */
 /* -------------------------------------------------------------------------- */
-=======
-// let 
-
-
->>>>>>> origin
 
 
 
 /* -------------------------------------------------------------------------- */
-<<<<<<< HEAD
 /*                               Wallet Section   begins                             */
 /* -------------------------------------------------------------------------- */
 
@@ -5515,7 +5457,3 @@ function toggle() {
   }
 }
 
-=======
-/*                            END OF USERS SECTION                            */
-/* -------------------------------------------------------------------------- */
->>>>>>> origin
