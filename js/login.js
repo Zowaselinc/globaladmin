@@ -57,7 +57,7 @@ function yourButton(){
         return false;
     }else {
       var settings = {
-        "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/auth/login",
+        "url": "https://adminapi.growsel.com/api/admin/auth/login",
         "method": "POST",
         "timeout": 0,
         "headers": {
@@ -79,7 +79,7 @@ function yourButton(){
     //  ------- if login is successfull go to admin page -----------//
 
     $.ajax(settings).done(function (response) {
-      if(response.error){
+      if(response.error == true){
         toggleSpinner();
         swal("FAILED", response.message, "error");
         return false;

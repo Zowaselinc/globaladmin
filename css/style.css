@@ -22,6 +22,7 @@
     --bg-pending: #FFF8E6;
     --bg-past:#F9E9E9;
     --bc-past: #C32021;
+    --inner-btn:#262c3f;
 }
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&display=swap');
 
@@ -199,6 +200,7 @@ select {
     /* background-color: white; */
 }
 
+
 input:focus, select:focus {
     outline: none !important;
     box-shadow: unset !important;
@@ -214,6 +216,8 @@ input:focus, select:focus {
     float: left;
     margin-left: -1.5em;
   }
+
+  
 
   /* -------------------------------------------------------------------------- */
   /*                           Negotiation Background                           */
@@ -705,14 +709,14 @@ button.success:hover,.btn-second:hover, .success:hover{
     border-color: var(--bg-dot) !important;
 }
 .active, .border-secondary:hover{
-    background-color: var(--btn-dashboard) !important;
+    background-color: var(--bs-default) !important;
     color: white !important;
-    border-color: var(--btn-dashboard) !important;
+    border-color: var(--bs-default) !important;
 }
 .border-active{
-    background-color: var(--btn-dashboard) !important;
+    background-color: var(--inner-btn) !important;
     color: white !important;
-    border-color: var(--btn-dashboard) !important;
+    border-color: var(--inner-btn) !important;
 }
 
 .show-pass {
@@ -745,8 +749,8 @@ button.success:hover,.btn-second:hover, .success:hover{
 }
 
 .conic-gradient {
-background-image: url('../assets/mix\ color/color.png'), url('../assets/mix\ color/black.png');
-background-position:
+    background-image: url('../assets/mix\ color/color.png'), url('../assets/mix\ color/black.png');
+    background-position:
      top right , /* this positions the first image */
      bottom right !important; /*this positions the second image*/
      background-repeat: no-repeat;
@@ -925,23 +929,15 @@ background-position:
     font-size: 13px !important;
 }
 
-
-
-.table{
-   
-    border-top: 1px solid #dee2e6 !important;
+table{
     margin-bottom: 70px;   
     font-family: var(--universal-font);
+    border-collapse: collapse;
+    border-spacing: 0;   
 }
 
 .lineheight-0 {
   line-height: 0px !important;
-}
-th{
-  background-color: var(--bg-main) !important;
-  font-size: 12px !important;
-  line-height: 16px !important;
-
 }
 
 .th-btn {
@@ -953,18 +949,16 @@ th{
 .t-padding tr td {
   padding: 1rem 1rem !important;
 }
-.table td {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.144);
-  
-}
-tr {
-  border-style: none !important;
+.tablespace tr {
+  /* box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1); */
+  background-color: white !important;
+  border-bottom: 1.5em solid var(--bg-main) !important;;
+
 }
 
 .borderlesstable{
   border-top: 0px !important;
-  
-}
+  }
 .borderlesstable td {
   border: none;
 }
@@ -987,20 +981,6 @@ tr {
 .tablenego {
   font-size: 14px !important;
  letter-spacing: 0.2px;
-}
-
-.table-ul td {
-  border-radius: 3px !important;
-  padding: 20px 25px !important;
-
-}
-.table-space{
-  border-collapse:separate !important;
-  border-spacing:0 15px !important;
-}
-.table-ul  {
-  background-color: #ffffff !important;
-  /* box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1) !important; */
 }
 
  /* -------------------------------------------------------------------------- */
@@ -1056,7 +1036,9 @@ tr {
 .rounded-6{
     border-radius: 5px !important;
 }
-
+.dis-none{
+  display: none;
+}
 .filter{
     border: 1px solid #02b502;
     border-radius: 5px;
@@ -2274,9 +2256,7 @@ input:checked + .switch:active::before {
 }
 .farmer-pic{
   /* padding: 100px 0px; */
-  /* position: relative; */
-  width: 80%;
-  height: auto;
+  width: 90%;
   /* background-size: contain; */
   /* border-radius: ; */
   border: 10px solid #F8F8F8;
@@ -2286,8 +2266,7 @@ input:checked + .switch:active::before {
 }
 
 .farmer-pic img {
-  width: 95%;
-  /* position: absolute; */
+  width: 100%;
   /* margin-left: 50px; */
   /* border: 10px solid #F8F8F8;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1); */
@@ -2304,4 +2283,127 @@ input:checked + .switch:active::before {
   font-size: 13px !important;
 }
 
+/* ----------------------------------- -- ----------------------------------- */
+/* ------------------------- Create Credit Variables ------------------------ */
+/* ----------------------------------- -- ----------------------------------- */
+.Creditvariables:hover{
+  background-color: rgba(2, 181, 2, 0.164);
+  cursor: pointer;
+}
+.creditVarActive{
+  background-color: rgba(2, 181, 2, 0.164);
+  border-left: 3px solid #2dbe60;
+}
+#tab2{
+  display: none;
+}
+/* ---------------------------------- input --------------------------------- */
+.search-form {
+	right: 200px;
+	top: 200px;
+}
 
+ .search-field {
+	background-color: transparent;
+	background-image: url(https://wp-themes.com/wp-content/themes/twentythirteen/images/search-icon.png);
+	background-position: 5px  center;
+	background-repeat: no-repeat;
+	background-size: 20px 20px;
+	border: none;
+	cursor: pointer;
+	height: 30px;
+	padding: 0 0 0 30px;
+	position: relative;
+	-webkit-transition: width 400ms ease, background 400ms ease;
+	transition:         width 400ms ease, background 400ms ease;
+	width:0px;
+   cursor: pointer;
+}
+
+.search-field:focus {
+	border: 2px solid #c3c0ab;
+	cursor: text;
+	outline: 0;
+	width: 250px;
+}
+.search-form
+.search-submit { 
+display:none;
+}
+/* ---------------------------------- Table --------------------------------- */
+.creditTable{
+  width: 200%;
+  background-color: #fff;
+}
+
+/* ----------------------------------- -- ----------------------------------- */
+/* ------------------------- Create Credit Variables ------------------------ */
+/* ----------------------------------- -- ----------------------------------- */ 
+
+/* -------------------------------------------------------------------------- */
+/*                              Crop images view                              */
+/* -------------------------------------------------------------------------- */
+.bigimg{
+  /* border: 2px solid purple; */
+  width: 700px;
+  border-radius: 10px;
+  /* height: 600px; */
+}
+.bigimg img{
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+  display: block;
+}
+.midimag{
+  border: 2px solid purple;
+  width: 420px;
+  border-radius: 10px;
+  /* height: 65vh; */
+}
+.midimag img{
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+  display: block;
+  object-fit: cover;
+}
+
+.imgSlide{
+  width: 200px;
+  height: 170px;
+
+}
+.imgSlide img{
+  max-width:100%;
+  max-height:100%;
+  display: block;
+}
+/* Accordion  */
+.accordborder{
+  border: 1px solid var(--bg-dot);
+  border-radius: 5px !important;
+}
+.accordion-button {
+  background-color: white !important;
+}
+.accord-body{
+  background-color: var(--bg-main);
+  border-top: 1px solid var(--bg-dot);
+}
+.accordion-button::after {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: auto;
+  content: "";
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-size: 1rem;
+  transition: transform 0.2s ease-in-out;
+}
+.shadow-accord{
+  box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%);
+  border: 0;
+  transition: box-shadow .15s ease;
+}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zowasel - Credit - Wallet</title>
+  <link rel="icon" href="../assets/logo/zowaselICO.png">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="../assets/font awesome/css/all.css" />
+  <link rel="stylesheet" href="../assets/font awesome/css/fontawesome.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="../assets/bootstrap-5.1.3-dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+
+ 
+</head>
+
+<body>
+  <!------------------------------ Top Nav Bar begins  -------------------------------->
+	<div id="topnav" class="sticky-top shadow"></div>
+
+  <!------------------------------ Top Nav BarEnds  -------------------------------->
+
+	<div class="container-fluid">
+		<div class="row">
+			<!-------------------------------- Left side Nav Starts -------------------------->
+		<nav id="sidebarMenu" class="col-12 col-lg-auto d-lg-block bg-light leftfixedside collapse bd-links"></nav>
+			<!-- ------------------------------ Left side nav Ends----------------------------->
+		<div class="dash ms-sm-auto ms-0 col pt-3 col-12 col-lg-10  rightscrollableside">
+			<div class="main-content row d-flex justify-content-center align-items-center">
+			<!-- Card Header -->
+				
+				<div class="container-fluid">
+					<!-- search and button  -->
+					<div class="container">
+						<div class="px-lg-4 pt-3 pb-2">
+							<h1 class="welcome">Wallet Details</h1>
+						</div>
+						<div class="px-lg-4 d-flex justify-content-between align-items-center py-3">
+							<div class="d-flex" style="width: 30.8%;">
+								<span class="py-2" style="background: rgba(187, 187, 187, 0.5); padding: 0px 2px;border-radius: 10px; width: 100%;">
+									<a href="javascript:void(0)" class="border-active border-secondary rounded-5 fw-bold welcome" style="font-size: 15px !important;padding: 11px 50px;">Wallets</a>
+									<span class="welcome me-1" style="font-size: 16px !important;">|</span>
+									<a href="recent-transactions.html" class="border-secondary rounded-5  fw-bold welcome" style="font-size: 15px !important; padding: 11px 25px;">Recent Transaction</a>
+								</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Wallet balance Details section  -->
+					<div class="container">
+						<div class="ps-4 pe-5 mt-4">
+							<div class="row d-flex justify-content-between mb-5 ">
+								<div class="row d-flex conic-gradient col-12 ms-0 ms-md-2 mb-3 mb-md-0 py-3" style="border-radius: 10px;">
+									<div class="col-7 px-5" style="border-right: 2px solid white;">
+										<div class="mt-2 me-3 ms-3 d-flex justify-content-between align-items-center">
+											<h2 class="mb-0 text-white">Account Balance</h2>
+										</div>
+										<div class="d-flex align-items-center px-4 pt-2 mt-2 mb-4">
+											<span class="balances fs-1 fw-bold text-white me-5">NGN 4,879,496</span>
+											<span class="text-white" onclick="toggle()"><i class="fs-2 far fa-eye" id="eyetoggle" onclick="myFunction(this)"></i></span>
+										</div>
+										<div class="mb-3 me-3 text-end">
+											<a href="../dashboards/fund-wallet.html"><button class="btn dot text-white fs-5 fw-bold" style="border-radius: 5px !important;">Fund Wallet</button></a>
+										</div>
+									</div>
+									<div class="col-5">
+										<div class="mt-3 me-3 ms-3 d-flex justify-content-between align-items-center">
+											<h2 class="mb-0 text-white">Account Number</h2>
+										</div>
+										<div class="d-flex px-5 pt-2 mt-2 align-items-center" id="balances" >
+											<span id="balance" class="fs-1 fw-bold text-white me-3 px-3">1800099298</span>
+											<span class="text-white" onclick="toggle()"><i class="fs-2 fa fa-copy" id="copynumber" onclick="myFunction(this)"></i></span>
+											
+										</div>
+										<div class="px-5">
+											<span class="text-white px-4 fs-6 fw-bold">Ikechukwu Adekunle Chiroma</span>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- main detils section for inflow and outflow  -->
+					<div class="container">
+						<div class="row ps-3 ps-lg-4 pe-4 mt-4">
+							<div class="col-12 mb-5 mb-xl-0">
+								<div class="card-body bg-white rounded-5 shadow-sm">
+									<div class="px-3 py-3">
+										<div class="row col-12">
+											<div class="col-12 col-md-4 py-5 px-5" style="border-bottom: 3px dashed gainsboro; border-right: 3px dashed gainsboro;">
+												<div class="row">
+													<span class="fw-bold fs-6 welcome mb-4">Account Name</span>
+													<span type="text" id="acctname" class="fs-6 text-muted">Ikechukwu Adekunle Chiroma</span>
+												</div>
+											</div>
+											<div class="col-12 col-md-3 py-5 px-5" style="border-bottom: 3px dashed gainsboro; border-right: 3px dashed gainsboro;">
+												<div class="row">
+													<span class="fw-bold fs-6 welcome mb-4">Account Number</span>
+													<span type="text" id="accntNumber" class="fs-6 text-muted">1800099298  </span>
+												</div>
+											</div>
+											<div class="col-12 col-md-3 py-5 px-5" style="border-bottom: 3px dashed gainsboro; border-right: 3px dashed gainsboro;">
+												<div class="row">
+													<span class="fw-bold fs-6 welcome mb-4">Date Creation </span>
+													<span type="text" id="dateCreation" class="fs-6 text-muted">08 April 2022</span>
+												</div>
+											</div>
+											<div class="col-12 col-md-2 py-5 px-5" style="border-bottom: 3px dashed gainsboro ">
+											<div class="row">
+													<span class="fw-bold fs-6 welcome mb-4"></span>
+													<span type="text" id="acctname" class="fs-6 text-muted"> </span>
+												</div>
+											</div>
+
+											<div class="col-12 col-md-4 py-5 px-5">
+												<div class="row">
+													<span class="fw-bold fs-6 welcome mb-4">Total Deposit</span>
+													<span type="text" id="acctname" class="fs-6 text-muted">NGN 48,000,000</span>
+												</div>
+											</div>
+											<div class="col-12 col-md-3 py-5 px-5" style="border-left: 3px dashed gainsboro; border-right: 3px dashed gainsboro;">
+												<div class="row">
+													<span class="fw-bold fs-6 text-success mb-4">Inflow</span>
+													<span type="text" id="inflow" class="fs-6 text-success">NGN 879, 496</span>
+												</div>
+											</div>
+											<div class="col-12 col-md-3 py-5 px-5" style="border-right: 3px dashed gainsboro;">
+												<div class="row">
+													<span class="fw-bold fs-6  mb-4 text-danger">Outflow </span>
+													<span type="text" id="outflow" class="fs-6 text-danger">NGN 898, 776, 778</span>
+												</div>
+											</div> 
+											<div class="col-12 col-md-2 py-5 px-5">
+												<div class="row">
+													<span class="fw-bold fs-6 welcome mb-4">Transactions</span>
+													<span type="text" id="transactions" class="fs-6 text-muted">87</span>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									
+								</div>
+							
+							</div>
+							
+						</div>
+					</div>
+					
+
+				</div>
+			</div>
+			<!-- Footer starts -->
+			<div id="bottomnav" class="footer"></div>
+			<!-- footer ends  -->
+		</div>
+		</div>
+	</div>
+
+  
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+	integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+	crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript" src="../assets/DataTables/datatables.min.js"></script>
+	
+	
+	<script>
+		$('#topnav').load("../component/nav-component.html");
+		$('#sidebarMenu').load("../component/component.html");
+		$('#bottomnav').load("../component/footer.html");;
+	</script>
+
+	<script src="../js/admin.js"></script>
+</body>
+
+</html>

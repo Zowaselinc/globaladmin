@@ -40,161 +40,107 @@
 			<!-- Card Header -->
 				
 				<div class="container-fluid">
+					<!-- search and button  -->
 					<div class="container">
-						<div class="row ps-3 ps-lg-4 pe-4 mt-4">
-							<div class="col-12 col-lg-8  mb-5 mb-xl-0">
-								<div class="row d-flex justify-content-between mb-5 ">
-									<div class="conic-gradient col-12 col-md-7 ms-0 ms-md-2 mb-3 mb-md-0" style="border-radius: 10px;">
-										
-										<div class="mt-4 pt-2 me-3 ms-3 d-flex justify-content-between align-items-center">
-											<h2 class="mb-0 text-white">Wallet Balance</h2>
-											<img src="../assets/mix color/signal.png" alt="">
-											<!-- <i class="fa fa-rss text-white"></i> -->
-										</div>
-										<div class="text-center mt-3 mb-4">
-											<h1 class="fs-1 text-white">NGN 4,879,496</h1>
-										</div>
-										<div class="mb-4 me-3 text-end">
-											<a href="../dashboards/fund-wallet.html"><button class="btn dot text-white fs-5 fw-bold" style="border-radius: 5px !important;">Fund Wallet</button></a>
-										</div>
-									
-									</div>
-									<div class="row col-12 col-md-5">
-										<div class="col-md-10 bg-white rounded-2 ms-3 mb-3 ">
-											<h3 class="welcome mt-3  align-items-center">Income</h3>
-											<h2 class="text-primary">NGN 6, 554, 443</h1>
-										</div>
-										<div class="col-md-10 bg-white rounded-2 ms-3  ">
-											<h3 class="welcome mt-3  align-items-center">Expenditure</h3>
-											<h2 class="text-primary">NGN 554, 443</h2>
-										</div>
-										
-	
-	
+						<div class="px-lg-4 d-flex justify-content-between align-items-center py-3">
+							<div class="d-flex" style="width: 30.8%;">
+								<span class="py-2" style="background: rgba(187, 187, 187, 0.5); padding: 0px 2px;border-radius: 10px; width: 100%;">
+									<a href="javascript:void(0)" class="border-active border-secondary rounded-5 fw-bold welcome" style="font-size: 15px !important;padding: 11px 50px;">Wallets</a>
+									<span class="welcome me-1" style="font-size: 16px !important;">|</span>
+									<a href="recent-transactions.html" class="border-secondary rounded-5  fw-bold welcome" style="font-size: 15px !important; padding: 11px 25px;">Recent Transaction</a>
+								</span>
+							</div>
+							<div class="position-relative">
+								<input class="px-3 py-2 search-bar form-control rounded-2" type="text" placeholder="search">
+								<i style="margin: -28px 193px;" class="fa fa-search position-absolute text-muted fs-6"></i>
+							</div>
+						</div>
+					</div>
+
+					<!-- filter section  -->
+					<div class="container mt-3">
+						<div class="">
+							<div class="px-lg-4">
+								<!-- Accordion  -->
+								<div class="accordion-item shadow-accord">
+									<h6 class="accordion-header my-0 py-0" id="headingOne">
+									  <button class="accordion-button collapsed py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+										  <span class="welcome mb-0 fw-bold fs-6">Filter By</span>
+									  </button>
+									</h6>
+									<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+									  <div class="accordion-body">
+										<!-- Description  -->
+										  <div class="">
+											<h2 style="text-align:justify; font-size: 14px !important;" class="welcome" id="description"></h2>
+										  </div>
+									  </div>
 									</div>
 								</div>
-	
-								<div class="card-body bg-white rounded-2">
-									<h3 class="welcome fs-6 mb-3">Recent Transactions</h3>
+							</div>
+
+						</div>
+					</div>
+					<div class="container">
+						<div class="row ps-3 ps-lg-4 pe-4 mt-4">
+							<div class="col-12 mb-5 mb-xl-0">
+								<div class="card-body bg-white rounded-5 shadow-sm">
+									<!-- <h3 class="welcome fs-6 mb-3">Recent Transactions</h3> -->
 									<div class=" table-responsive bg-white">
-										<table class="table table-hover t-padding">
-											<thead class="welcome">
-											  <tr class="border-bottom t-border">
-												<th style="min-width: 150px;">Transaction ID</th>
-												<th style="min-width: 150px;">Receiver</th>
-												<th style="min-width: 150px;">Date</th>
-												<th style="min-width: 150px;">Amount</th>
-											  </tr>
+										<table class="table">
+											<thead class="welcome fw-bold" style="font-size: 14px;">
+												<tr class="border-bottom t-border">
+													<th style="min-width: 200px; padding: 1rem 0rem !important;">S/N</th>
+													<th style="min-width: 200px; padding: 1rem 0rem !important;">Username</th>
+													<th style="min-width: 200px; padding: 1rem 0rem !important;">Account ID</th>
+													<th style="min-width: 200px; padding: 1rem 0rem !important;">Balance</th>
+													<th style="min-width: 200px;"></th>
+												</tr>
 											</thead>
-											<tbody style="border-top: none;" >
-											  <tr class="">
-												<td class="text-secondary">54R939940494303fjf9fj9ffk9</td>
-												<td class="text-secondary">5903i3O3Op400</td>
-												<td class="text-secondary">Nov 26 2022</td>
-												<td class="fw-bold">NGN 714,334</td>
-											  </tr>
-	
-											  <tr>
-												<td class="text-secondary">54R939940494303fjf9fj9ffk9</td>
-												<td class="text-secondary">5903i3O3Op400</td>
-												<td class="text-secondary">Nov 26 2022</td>
-												<td class="fw-bold">NGN 714,334</td>
-											  </tr>
-	
-											  <tr>
-												<td class="text-secondary">54R939940494303fjf9fj9ffk9</td>
-												<td class="text-secondary">5903i3O3Op400</td>
-												<td class="text-secondary">Nov 26 2022</td>
-												<td class="fw-bold">NGN 714,334</td>
-											  </tr>
-	
-											  <tr>
-												<td class="text-secondary">54R939940494303fjf9fj9ffk9</td>
-												<td class="text-secondary">5903i3O3Op400</td>
-												<td class="text-secondary">Nov 26 2022</td>
-												<td class="fw-bold">NGN 714,334</td>
-											  </tr>
-	
-											  <tr>
-												<td class="text-secondary">54R939940494303fjf9fj9ffk9</td>
-												<td class="text-secondary">5903i3O3Op400</td>
-												<td class="text-secondary">Nov 26 2022</td>
-												<td class="fw-bold">NGN 714,334</td>
-											  </tr>
-	
-											  <tr>
-												<td class="text-secondary">54R939940494303fjf9fj9ffk9</td>
-												<td class="text-secondary">5903i3O3Op400</td>
-												<td class="text-secondary">Nov 26 2022</td>
-												<td class="fw-bold">NGN 714,334</td>
-											  </tr>
-	
-											  <tr>
-												<td class="text-secondary">54R939940494303fjf9fj9ffk9</td>
-												<td class="text-secondary">5903i3O3Op400</td>
-												<td class="text-secondary">Nov 26 2022</td>
-												<td class="fw-bold">NGN 714,334</td>
-											  </tr>
-											 
-											</tbody>
+											<tbody style="border-top: none;">
+												<tr class="align-items-middle">
+												  <td class="text-secondary" style="padding: 1rem 0.8rem !important;">1</td>
+												  <td class="text-secondary"  style="padding: 1rem 0rem !important;">Cassim Erik</td>
+												  <td class="text-secondary"  style="padding: 1rem 0rem !important;">30303993</td>
+												  <td class="welcome fw-bold"  style="padding: 1rem 0rem !important;">NGN 1,714,334</td>
+												  <td class=""> <a href="wallet-detail.html"><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn btn1 th-btn px-3 fw-bold">Details</span></a></td>
+												</tr>
+												<tr class="align-items-middle">
+												  <td class="text-secondary" style="padding: 1rem 0.8rem !important;">1</td>
+												  <td class="text-secondary"  style="padding: 1rem 0rem !important;">Cassim Erik</td>
+												  <td class="text-secondary"  style="padding: 1rem 0rem !important;">30303993</td>
+												  <td class="welcome fw-bold"  style="padding: 1rem 0rem !important;">NGN 1,714,334</td>
+												  <td class=""> <a><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn btn1 th-btn px-3 fw-bold">Details</span></a></td>
+												</tr>
+												<tr class="align-items-middle">
+												  <td class="text-secondary" style="padding: 1rem 0.8rem !important;">2</td>
+												  <td class="text-secondary"  style="padding: 1rem 0rem !important;">Cassim Erik</td>
+												  <td class="text-secondary"  style="padding: 1rem 0rem !important;">30303993</td>
+												  <td class="welcome fw-bold"  style="padding: 1rem 0rem !important;">NGN 1,714,334</td>
+												  <td class=""> <a><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn btn1 th-btn px-3 fw-bold">Details</span></a></td>
+												</tr>
+												<tr class="align-items-middle">
+												  <td class="text-secondary" style="padding: 1rem 0.8rem !important;">3</td>
+												  <td class="text-secondary"  style="padding: 1rem 0rem !important;">Cassim Erik</td>
+												  <td class="text-secondary"  style="padding: 1rem 0rem !important;">30303993</td>
+												  <td class="welcome fw-bold"  style="padding: 1rem 0rem !important;">NGN 1,714,334</td>
+												  <td class=""> <a><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn btn1 th-btn px-3 fw-bold">Details</span></a></td>
+												</tr>
+												<tr class="align-items-middle">
+												  <td class="text-secondary" style="padding: 1rem 0.8rem !important;">4</td>
+												  <td class="text-secondary"  style="padding: 1rem 0rem !important;">Cassim Erik</td>
+												  <td class="text-secondary"  style="padding: 1rem 0rem !important;">30303993</td>
+												  <td class="welcome fw-bold"  style="padding: 1rem 0rem !important;">NGN 1,714,334</td>
+												  <td class=""> <a><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn btn1 th-btn px-3 fw-bold">Details</span></a></td>
+												</tr>
+											   
+											  </tbody>
 										</table>
 									</div>
 								</div>
 							
 							</div>
-							<div class="col-12 col-lg-4 ">
-								<img src="../assets/chatt.svg" style="width: 100%;" class="mb-4" alt="">
-								<div class="card-body bg-white rounded-2">
-									<h3 class="welcome fs-6 mb-3">Funding History</h3>
-									<div class=" table-responsive bg-white">
-										<table class="table table-hover t-padding">
-											<thead class="welcome">
-											  <tr class="border-bottom t-border">
-												<th style="min-width: 150px;">Date</th>
-												<th style="min-width: 150px;">Amount</th>
-											  </tr>
-											</thead>
-											<tbody style="border-top: none;" >
-											  <tr class="">
-												<td class="text-secondary">Nov 26 2022</td>
-												<td class="fw-bold">NGN 714,334</td>
-											  </tr>
-	
-											  <tr>
-												<td class="text-secondary">Nov 26 2022</td>
-												<td class="fw-bold">NGN 714,334</td>
-											  </tr>
-	
-											  <tr>
-												<td class="text-secondary">Nov 26 2022</td>
-												<td class="fw-bold">NGN 714,334</td>
-											  </tr>
-	
-											  <tr>
-												<td class="text-secondary">Nov 26 2022</td>
-												<td class="fw-bold">NGN 714,334</td>
-											  </tr>
-	
-											  <tr>
-												<td class="text-secondary">Nov 26 2022</td>
-												<td class="fw-bold">NGN 714,334</td>
-											  </tr>
-	
-											  <tr>
-												<td class="text-secondary">Nov 26 2022</td>
-												<td class="fw-bold">NGN 714,334</td>
-											  </tr>
-	
-											  <tr>
-												<td class="text-secondary">Nov 26 2022</td>
-												<td class="fw-bold">NGN 714,334</td>
-											  </tr>
-											 
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
+							
 						</div>
 					</div>
 					

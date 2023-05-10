@@ -38,9 +38,6 @@ const splittingDate = (data) => {
 /* ---------------------------- Spliting end here --------------------------- */
 
 
-
-
-
 /* ----------------------------- activate loader ---------------------------- */
 const loader = (contentArea = "", colspan = "") => {
   document.querySelector(contentArea).innerHTML = `<tr>
@@ -51,7 +48,20 @@ const loader = (contentArea = "", colspan = "") => {
 }
 /* ---------------------------- loader ends here ---------------------------- */
 
-
+/* ------------------------------- pageloader ------------------------------- */
+const pageloader = (contentArea = '', loaderSection = "", processing = 'true') => {
+  if(processing == 'true') {
+    $(loaderSection).html(
+      `<img src="../assets/loader.gif" alt="" width="150px"/>`
+    );
+    document.querySelector(contentArea).classList.toggle('d-none');
+  }else{
+    document.querySelector(contentArea).classList.toggle('block');
+    $(loaderSection).html(
+      ``
+    );
+  }
+}
 
 
 
@@ -62,12 +72,19 @@ const loader = (contentArea = "", colspan = "") => {
 // allows u to make a request
 const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
   const settings = {
-    "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/${URL}`,
+    "url": `https://adminapi.growsel.com/${URL}`,
+    // "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/${URL}`,
     "method": METHOD,
     "timeout": 0,
     "headers": {
       "Authorization": AUTHKEY,
       "Content-Type": "application/json"
+    },
+    error: function(jqXHR) {
+      if(jqXHR.status == 403) {
+        localStorage.clear();
+        window.location.href = '../index.html';
+      }
     },
     data: DATA
   }
@@ -77,6 +94,38 @@ const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
 
 // end //
 
+
+// for landing
+const urlSetup = (URL, METHOD, DATA = {}) => {
+  const settings = {
+    "url": `https://api.studioxcreative.ng/api/${URL}`,
+    "method": METHOD,
+    "timeout": 0,
+    "headers": {
+      "Authorization": "Bearer 30fb714e913879f2f6b0f3d7b3be13aa64366669ad8b1e20937b49a28619e0db097017fe01280c9489e02cfe493687e6646e3bd013adeadb8390adaff6630a590e90e2225eb6b067cb0a7ead4c84d328b24f8303b9c809d9f6af3dd359d4065b2872f4dc9a710d473c8dd7d3868117533051212c69805b76212856c8e8c57ee6",
+      "Content-Type": "application/json"
+    },
+    data: DATA
+  }
+
+  return settings;
+}
+
+// for data image
+const dataImage = (DATA = {}) => {
+  const settings = {
+    "url": `https://filesapi.growsel.com/upload.php`,
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "processData": false,
+      "contentType": false,
+    },
+    data: DATA
+  }
+
+  return settings;
+}
 
 /* -------------------------------------------------------------------------- */
 /*                     EDITITNG THE LANDING PAGE VIA ADMIN STARTS                   */
@@ -102,7 +151,7 @@ const landingPage =()=>{
     if (response.error == true) {
     } else {
       let thedata = JSON.parse(JSON.stringify(response.data));
-      console.log(thedata , "ddddddd")
+      // console.log(thedata , "ddddddd")
       if (thedata.length > 0) {
         let rowContent
         $.each(thedata, (index, row) => {
@@ -370,7 +419,7 @@ const deleteadminRole = (n) => {
       if (willDelete) {
 
         var settings = {
-          "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/roles/delete/" + n,
+          "url": "https://adminapi.growsel.com/api/admin/roles/delete/" + n,
           "method": "POST",
           "timeout": 0,
           "headers": {
@@ -674,14 +723,16 @@ const deleteAdministrator = (id) => {
   })
     .then((willDelete) => {
       if (willDelete) {
-        var settings = {
-          "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/deletebyadminid/${id}`,
-          "method": "POST",
-          "timeout": 0,
-          "headers": {
-            "Authorization": localStorage.getItem('access')
-          },
-        };
+
+        var settings = querySetting(`api/admin/deletebyadminid/${id}`, "POST", localStorage.getItem('access'));
+        // var settings = {
+        //   "url": `https://adminapi.growsel.com/api/admin/deletebyadminid/${id}`,
+        //   "method": "POST",
+        //   "timeout": 0,
+        //   "headers": {
+        //     "Authorization": localStorage.getItem('access')
+        //   },
+        // };
 
         $.ajax(settings).done(function (response) {
           console.log(response);
@@ -739,7 +790,7 @@ const makeUpdate = () => {
     let roleid =  adminRole.value.split(",")[0];
     console.log(roleid);
     var settings = {
-      "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/editbyadminid",
+      "url": "https://adminapi.growsel.com/api/admin/editbyadminid",
       "method": "POST",
       "timeout": 0,
       "headers": {
@@ -850,7 +901,7 @@ const addAdmin = () => {
   } else {
 
     var settings = {
-      "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/add",
+      "url": "https://adminapi.growsel.com/api/admin/add",
       "method": "POST",
       "timeout": 0,
       "headers": {
@@ -936,9 +987,10 @@ function fetchAllusers() {
       let thedata = response.data;
       if (thedata.length > 0) {
         let rowContent
+        let user;
         $.each(thedata, (index, row) => {
+          console.log(thedata);
 
-          let user;
           if(!row.user){
             // user=`<td>in complete data</td>`
           }else{
@@ -971,20 +1023,20 @@ function fetchAllusers() {
                       <td style="min-width: 80px;">${userStatus}</td>
                       <td style="min-width: 120px;">${(row.created_at).split("T")[0]}</td>
                       <td style="min-width: 120px;">${(row.updated_at).split("T")[0]}</td>
-                      <!--
                       <td class="text-end" style="min-width: 50px;">
                           <div class="dropdown shadow-dot text-center">
                               <a class="btn btn-sm a-class text-secondary" href="" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                   <i class="fas fa-ellipsis-v"></i>
                               </a>
                               <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                  <a class="dropdown-item" href="">Edit</a>
-                                  <a class="dropdown-item" onclick="n ('${row.id}')" href="javascript:void(0)">Delete</a>
+                                  <a class="dropdown-item" href="javascript:void(0)" onclick="verifykyc('${row.id}')">Verify KYC</a>
+                                  
                               </div>
                           </div>
-                      </td> -->
+                      </td> 
 
                   </tr>`;
+                  // <a class="dropdown-item" onclick="n ('${row.id}')" href="javascript:void(0)">Delete</a>
           $('#allusers').html(rowContent);
 
           $(document).ready(function () {
@@ -1008,6 +1060,31 @@ function fetchAllusers() {
     }
   });
 
+}
+
+
+
+const verifykyc = (uid) => {
+  const kycData = JSON.stringify({
+    "user_id":uid,
+    "status":"complete",
+    "verified":1
+  });
+  var settings = querySetting("api/admin/users/account/updatekycstatus", "POST", localStorage.getItem('access'), kycData);
+
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+    if (response.error == true) {
+      swal('ERROR','Unable to complete the process at the moment','error');
+    } else {
+      swal('SUCCESS', 'User verified successfully', 'success');
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000)
+    }
+  });
 }
 
 
@@ -1117,7 +1194,7 @@ function fetchAllErrorlog() {
   loader('#errordata', 14)
 
   var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/errolog/getall",
+    "url": "https://adminapi.growsel.com/api/admin/errolog/getall",
     "method": "GET",
     "timeout": 0,
     "headers": {
@@ -1405,7 +1482,7 @@ const addSupportTickets = () => {
     });
 
     var settings = {
-      "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/ticket/add",
+      "url": "https://adminapi.growsel.com/api/admin/ticket/add",
       "method": "POST",
       "timeout": 0,
       "headers": {
@@ -1438,7 +1515,7 @@ $('#createTicket').click(addSupportTickets)
 
 const allUsers = () => {
   var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/users/getall",
+    "url": "https://adminapi.growsel.com/api/admin/users/getall",
     "method": "GET",
     "timeout": 0,
     "headers": {
@@ -2789,7 +2866,7 @@ const sendMessage = () => {
 function fetchAllcompany() {
 
   var settings = {
-    "url": "https://vgsvbgpmm2.us-east-1.awsapprunner.com/api/admin/company/getall",
+    "url": "https://adminapi.growsel.com/api/admin/company/getall",
     "method": "GET",
     "timeout": 0,
     "headers": {
@@ -3879,19 +3956,17 @@ function cropsWanted() {
           index = index + 1;
           rowContent += `
               <tr class="">
-              <td>${index}</td>
-              <td><strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
-                <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
-              </td>
-              <td class="text-primary">${row.user.email}</td>
-              <td><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
-              <td>${crop_status}</td>
-              <td style="cursor:pointer;" class="text-center">
-                <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')"> <i class="fa fa-eye"></i> View</a>
-              </td>
-              
-
-            </tr>
+                <!-- <td>${index}</td> -->
+                <td style="padding: 0.8rem 1.5rem !important;"><span class="text-secondary" style="font-size:14px !important;">${row.subcategory.name} - ${row.specification.color}</span> </td>
+                <td><span class="text-secondary" style="font-size:14px !important;">${splittingDate(row.created_at)}</span></td>
+                <td><strong class="text-secondary" style="font-size:14px !important;">${row.category.name}</strong></td>
+                <td><span class="text-seconday" style="font-size:14px !important;">${row.user.first_name}</span></td>
+                <td><strong class:"text-secondary" style="font-size:14px !important;">NGN${row.specification.price}/bag</strong></td>
+                <td><span class="text-secondary" style="font-size:14px !important;">${row.user.state}</span></td>
+                <td style="cursor:pointer;" class="text-center">
+                  <a href="javascript:void(0)"onclick="viewMoreCrop('${row.id}')"><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn th-btn px-4  fw-bold">View</span></a>
+                </td>
+              </tr>
               `;
         });
         $('#cropdata').html(rowContent);
@@ -3959,6 +4034,11 @@ const viewMore = () => {
       } else{
         $('#firstName').text(response.data.user.first_name);
         $('#lastName').text(response.data.user.last_name);
+        $('#userType').text(response.data.user.type);
+        $('#Quantities').text(response.data.specification.qty);
+        $('#Currency').text(response.data.currency);
+        $('#priceTag').text(response.data.specification.price);
+        $('#measure').text(response.data.specification.test_weight);
       }
  
 
@@ -4020,13 +4100,37 @@ const viewMore = () => {
       // $('#deliveryDate').text(count.delivery_date);
       // // crop request end
 
-      var photo = JSON.parse(response.data.images);
-        console.log(photo, "ssss")
+      var image = JSON.parse(response.data.images);
+        console.log(image, "ssss")
+        let img1,img2,img3,img4,img5;
+
+        var slideimg1 = document.getElementById('slideimg1');
+        var slideimg2 = document.getElementById('slideimg2');
+        var slideimg3 = document.getElementById('slideimg3');
+        var slideimg4 = document.getElementById('slideimg4');
+        var slideimg5 = document.getElementById('slideimg5');
+
+        if(image.length < 1){
+          alert("No image");
+      }else if(image.length == 1){
+          img1 = image[0];
+          slideimg1.src = img1;
+      }else if(image.length == 2){
+          img1 = image[0];    img2 = image[1];
+          slideimg1.src = img1;   slideimg2.src = img2;
+      }else if(image.length == 3){
+          img1 = image[0];    img2 = image[1];   img3 = image[2];
+          slideimg1.src = img1;   slideimg2.src = img2;   slideimg3.src = img3;
+      }else if(image.length == 4){
+          img1 = image[0];    img2 = image[1];   img3 = image[2]; img4 = image[3];
+          slideimg1.src = img1;   slideimg2.src = img2;   slideimg3.src = img3;   slideimg4.src = img4;
+      }else if(image.length > 4){
+        img1 = image[0];    img2 = image[1];   img3 = image[2]; img4 = image[3]; img5 = image[4];
+        slideimg1.src = img1;   slideimg2.src = img2;   slideimg3.src = img3;   slideimg4.src = img4; slideimg5.src = img5;
+      }
         // $("#images").append('<img src='+photo+' />');
       // $('#images').append(JSON.parse(response.data.images))
-      console.log(JSON.parse(response.data.images),"bambam")
-
-     
+      // console.log(JSON.parse(response.data.images),"bambam")
     
      }
     
@@ -4034,6 +4138,18 @@ const viewMore = () => {
     // $('#tbdata').html(rowContent);
   });
 }
+$(document).ready(function() {
+
+  $('.cards').click(function(){
+    // alert("bluee")
+
+    $imgsrc = $(this).find('.img-src').attr('src');
+    $("#imagechange").attr("src",$imgsrc).fadeIn(1000);
+   
+  });
+
+});
+
 const watchVideo = () => {
 
   var settings = querySetting("api/admin/crop/getbyid/" + localStorage.getItem('singlecropdata'), "GET", localStorage.getItem('access'));
@@ -4144,19 +4260,18 @@ function cropsOffered() {
 
           index = index + 1;
           rowContent +=
-            `<tr class=" align-items-center">
-                <td>${index}</td>
-                <td><strong class="text-secondary">${user.first_name} ${user.last_name}</strong><br/>
-                  <small class="text-primary fw-bold text-uppercase">${user.type}</small>
-                </td>
-                <td class="text-primary">${user.email}</td>
-                <td><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
-                <td>${crop_status}</td>
+            `<tr class="">
+                <!-- <td>${index}</td> -->
+                <td style="padding: 0.8rem 1.5rem !important;"><span class="text-secondary" style="font-size:14px !important;">${row.subcategory.name} - ${row.specification.color}</span> </td>
+                <td><span class="text-secondary" style="font-size:14px !important;">${splittingDate(row.created_at)}</span></td>
+                <td><strong class="text-secondary" style="font-size:14px !important;">${row.category.name}</strong></td>
+                <td><span class="text-seconday" style="font-size:14px !important;">${row.user.first_name}</span></td>
+                <td><strong class:"text-secondary" style="font-size:14px !important;">NGN${row.specification.price}/bag</strong></td>
+                <td><span class="text-secondary" style="font-size:14px !important;">${row.user.state}</span></td>
                 <td style="cursor:pointer;" class="text-center">
-                  <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')"> <i class="fa fa-eye"></i> View</a>
+                  <a href="javascript:void(0)"onclick="viewMoreCrop('${row.id}')"><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn th-btn px-4  fw-bold">View</span></a>
                 </td>
-                
-  
+          
               </tr>`;
         });
      
@@ -4228,22 +4343,20 @@ function cropsAuctioned() {
           }
 
           index = index + 1;
-          rowContent += `
-                <tr class="">
-                <td>${index}</td>
-                <td><strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
-                  <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
-                </td>
-                <td class="text-primary">${row.user.email}</td>
-                <td><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
-                <td>${crop_status}</td>
-                <td style="cursor:pointer;" class="text-center">
-                  <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')"> <i class="fa fa-eye"></i> View</a>
-                </td>
-                
-  
-              </tr>
-                `;
+          rowContent += 
+          `<tr class="">
+              <!-- <td>${index}</td> -->
+              <td style="padding: 0.8rem 1.5rem !important;"><span class="text-secondary" style="font-size:14px !important;">${row.subcategory.name} - ${row.specification.color}</span> </td>
+              <td><span class="text-secondary" style="font-size:14px !important;">${splittingDate(row.created_at)}</span></td>
+              <td><strong class="text-secondary" style="font-size:14px !important;">${row.category.name}</strong></td>
+              <td><span class="text-seconday" style="font-size:14px !important;">${row.user.first_name}</span></td>
+              <td><strong class:"text-secondary" style="font-size:14px !important;">NGN${row.specification.price}/bag</strong></td>
+              <td><span class="text-secondary" style="font-size:14px !important;">${row.user.state}</span></td>
+              <td style="cursor:pointer;" class="text-center">
+                <a href="javascript:void(0)"onclick="viewMoreCrop('${row.id}')"><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn th-btn px-4  fw-bold">View</span></a>
+              </td>
+    
+          </tr>`;
         });
         $('#cropauctiondata').html(rowContent);
         $(document).ready(function () {
@@ -4271,3 +4384,1076 @@ function cropsAuctioned() {
 /* -------------------------------------------------------------------------- */
 /*                             CROP DATA ENDS HERE                            */
 /* -------------------------------------------------------------------------- */
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                               LANDING SECTION                              */
+/* -------------------------------------------------------------------------- */
+
+/* ---------------------------- Edit page section --------------------------- */
+const pageSection = () => {
+  let btnTxt = $('#btntext').val();
+  let btnLink = $('#btnlink').val();
+  let desc = $('#ctadesc').val();
+
+  if(btnTxt !== "" || btnLink !== ""){
+    let createPageSection = {
+      "buttontext":btnTxt,
+      "buttonlink":btnLink,
+      "description":desc,
+    };
+
+    var stn = urlSetup("components/1", "GET");
+
+      $.ajax(stn).done(function (data) {
+
+
+
+        let response = data;
+
+        let mycalltoaction= JSON.parse(response.data.attributes.componentcontent).calltoaction;
+        // console.log(mycalltoaction)
+     
+        let mybuttons= mycalltoaction;
+        
+        mybuttons.push(createPageSection);
+        // console.log(mybuttons)
+        let companyLogoURL = JSON.parse(response.data.attributes.componentcontent).logourl;
+        let companyLogoID = JSON.parse(response.data.attributes.componentcontent).logoid;
+        
+        const settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://api.studioxcreative.ng/api/components/1",
+          "method": "PUT",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer 30fb714e913879f2f6b0f3d7b3be13aa64366669ad8b1e20937b49a28619e0db097017fe01280c9489e02cfe493687e6646e3bd013adeadb8390adaff6630a590e90e2225eb6b067cb0a7ead4c84d328b24f8303b9c809d9f6af3dd359d4065b2872f4dc9a710d473c8dd7d3868117533051212c69805b76212856c8e8c57ee6",
+            "Content-Type": "application/json"
+          },
+          "processData": false,
+          "data": JSON.stringify({
+            "data": {
+              "title": "navbar",
+              "componentcontent": JSON.stringify({
+                  "logourl": companyLogoURL,
+                  "logoid": companyLogoID,
+                  "calltoaction": mybuttons
+              }),
+              "componentjs": ""
+            }
+          })
+        };
+  
+        $.ajax(settings).done(function (response) {
+          listNavBarSections();
+        });
+      });
+  }else{
+    swal("ERROR", "Button text and button link required", "error");
+  }
+}
+/* ------------------------------ button click ------------------------------ */
+$('#addPage').click(pageSection);
+
+
+
+// componentcontent: '{\n"logourl":"",\n"logoid":"",\n"calltoaction":[\n{"buttontext":"",\n "buttonlink":"",\n "description":"",\n}\n\n]\n\n\n\n\n\n}'
+
+// list the navbar contents
+const listNavBarSections = () => {
+  var settings = urlSetup("components/1", "GET");
+  
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+    
+    document.querySelector('#output').setAttribute('src', JSON.parse(response.data.attributes.componentcontent).logourl);
+    
+    let mycalltoaction= JSON.parse(response.data.attributes.componentcontent).calltoaction;
+    console.log(mycalltoaction)
+    let rowContent;
+    if(mycalltoaction.length > 0){
+      $.each(mycalltoaction, (index, row) => {
+        index = index + 1;
+        rowContent += `
+          <tr class="align-items-middle">
+            <td style="min-width: 50px">
+              <span class="align-items-center">${index}</span>
+            </td>
+            <td style="min-width: 100px">
+              <strong class="welcome"
+                >${row.buttontext}</strong
+              >
+            </td>
+            <td style="min-width: 100px">
+              <strong class="welcome"
+                >${row.buttonlink}</strong
+              >
+            </td>
+            <td style="min-width: 100px">
+              <a href="javascript:void" onclick="swal('${row.description}')" class="welcome text-warning">View Text</a>
+            </td>
+          </tr>`;
+      });
+    }else{
+      rowContent = `<tr class="align-items-middle">
+        <td colspan="5" class="text-center"><h3 class="py-4">No CALLS TO ACTION</h3></td>
+      </tr>`
+    }
+    $('#homeLanding').html(rowContent);
+  });
+}
+
+/* ---------------------------- show Zowasel Logo --------------------------- */
+var loadFile = function (event) {
+  var reader = new FileReader();
+  reader.onload = function () {
+    var output = document.getElementById("output");
+    output.src = reader.result;
+
+  };
+  reader.readAsDataURL(event.target.files[0]);
+
+  let blob = event.target.files[0];
+  let fd = new FormData();
+  fd.append("image", blob);
+
+  // 
+  fetch('https://filesapi.growsel.com/upload.php', {
+    method: 'POST',
+    body: fd
+  })
+  .then(response => response.json())
+  .then(data => {
+    if(data.error == false){
+      let companyLogoURL = data.data.imageLink;
+      let companyLogoID = data.data.documentid;
+      var stn = urlSetup("components/1", "GET");
+
+      $.ajax(stn).done(function (data) {
+        let response = data;
+        // console.log(response);
+        let landingCTAs = JSON.parse(response.data.attributes.componentcontent).calltoaction;
+        // console.log(JSON.parse(landingCTAs))
+        const settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://api.studioxcreative.ng/api/components/1",
+          "method": "PUT",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer 30fb714e913879f2f6b0f3d7b3be13aa64366669ad8b1e20937b49a28619e0db097017fe01280c9489e02cfe493687e6646e3bd013adeadb8390adaff6630a590e90e2225eb6b067cb0a7ead4c84d328b24f8303b9c809d9f6af3dd359d4065b2872f4dc9a710d473c8dd7d3868117533051212c69805b76212856c8e8c57ee6",
+            "Content-Type": "application/json"
+          },
+          "processData": false,
+          "data": JSON.stringify({
+            "data": {
+              "title": "navbar",
+              "componentcontent": JSON.stringify({
+                  "logourl": companyLogoURL,
+                  "logoid": companyLogoID,
+                  "calltoaction": landingCTAs
+              }),
+              "componentjs": ""
+            }
+          })
+        };
+  
+        $.ajax(settings).done(function (response) {
+          // console.log(response);
+          listNavBarSections()
+        });
+
+      });
+
+    }else{
+      swal("ERROR",data.message,"ERROR")
+    }
+  })
+  .catch((e) => console.log(e))
+  
+};
+
+
+
+
+/* ------------------------------ page sections ----------------------------- */
+const AddPageSection = () => {
+  let pn = $('#pagename').val();
+  let pd = $('#pagedesc').val();
+  let hl = $('#route').val();
+
+  if(pn !== "" || hl !== ""){
+    let createPageSection = JSON.stringify({
+      data: {
+        "pagename":pn,
+        "pagedescription":pd,
+        "hashroute":hl,
+      }
+    });
+
+    console.log(createPageSection)
+        
+    const settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "https://api.studioxcreative.ng/api/pages",
+      "method": "POST",
+      "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer 30fb714e913879f2f6b0f3d7b3be13aa64366669ad8b1e20937b49a28619e0db097017fe01280c9489e02cfe493687e6646e3bd013adeadb8390adaff6630a590e90e2225eb6b067cb0a7ead4c84d328b24f8303b9c809d9f6af3dd359d4065b2872f4dc9a710d473c8dd7d3868117533051212c69805b76212856c8e8c57ee6",
+        "Content-Type": "application/json"
+      },
+      "processData": false,
+      "data": createPageSection
+    };
+
+    $.ajax(settings).done(function (response) {
+      allPageSections();
+      swal("SUCCESS", "Page Route Added Successfully", "success");
+    });
+    
+  }else{
+    swal("ERROR", "Page text and page route required", "error");
+  }
+}
+/* ------------------------------ button click ------------------------------ */
+$('#addPageSections').click(AddPageSection);
+
+
+const allPageSections = () => {
+  var settings = urlSetup("pages", "GET");
+  
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    let allps = response.data;
+    
+    let rowContent;
+    if(allps.length > 0){
+
+        $.each(allps, (index, row) => {
+          index = index + 1;
+          rowContent += `
+            <tr class="align-items-middle">
+              <td style="min-width: 50px">
+                <span class="align-items-center">${index}</span>
+              </td>
+              <td style="min-width: 100px">
+                <strong class="welcome"
+                  >${row.attributes.pagename}</strong
+                >
+              </td>
+              <td style="min-width: 100px">
+                <strong class="welcome"
+                  >${row.attributes.hashroute}</strong
+                >
+              </td>
+              <td style="min-width: 100px">
+                <a href="javascript:void(0)" onclick="swal('${row.attributes.pagedescription}')" class="welcome text-warning">View Text</a>
+              </td>
+              <td style="min-width: 100px">
+                <a href="javascript:void(0)" class="welcome text-info">
+                  <small class="fa fa-pencil"></small>
+                </a>
+              </td>
+              <td style="min-width: 100px">
+                <a href="javascript:void(0)" onclick="delPageSections('${row.id}')" class="welcome text-danger">
+                  <small class="fa fa-trash"></small>
+                </a>
+              </td>
+            </tr>`;
+        });
+    }else{
+      rowContent = `<tr class="align-items-middle">
+        <td colspan="6" class="text-center"><h3 class="py-4">No PAGES CREATED YET</h3></td>
+      </tr>`;
+    }
+
+    $('#homeLanding').html(rowContent);
+  });
+}
+
+/* --------------------------- delete page section -------------------------- */
+const delPageSections = (id) => {
+  const settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `https://api.studioxcreative.ng/api/pages/${id}`,
+    "method": "DELETE",
+    "headers": {
+      "accept": "application/json",
+      "Authorization": "Bearer 30fb714e913879f2f6b0f3d7b3be13aa64366669ad8b1e20937b49a28619e0db097017fe01280c9489e02cfe493687e6646e3bd013adeadb8390adaff6630a590e90e2225eb6b067cb0a7ead4c84d328b24f8303b9c809d9f6af3dd359d4065b2872f4dc9a710d473c8dd7d3868117533051212c69805b76212856c8e8c57ee6",
+      "Content-Type": "application/json"
+    },
+    "processData": false
+  };
+
+  $.ajax(settings).done(function (response) {
+    allPageSections();
+    swal("SUCCESS", "Page Route Deleted Successfully", "success");
+  });
+}
+
+
+
+/* ----------------------------- footer section ----------------------------- */
+  /* ---------------------------- show Zowasel Logo --------------------------- */
+var loadFooterLogo = function (event) {
+  var reader = new FileReader();
+  reader.onload = function () {
+    var output = document.getElementById("output");
+    output.src = reader.result;
+
+  };
+  reader.readAsDataURL(event.target.files[0]);
+
+  let blob = event.target.files[0];
+  let fd = new FormData();
+  fd.append("image", blob);
+
+  // 
+  fetch('https://filesapi.growsel.com/upload.php', {
+    method: 'POST',
+    body: fd
+  })
+  .then(response => response.json())
+  .then(data => {
+    if(data.error == false){
+      let companyLogoURL = data.data.imageLink;
+      let companyLogoID = data.data.documentid;
+      var stn = urlSetup("components/2", "GET");
+
+      $.ajax(stn).done(function (data) {
+        let response = data;
+        // console.log(response);
+        let footerLinks = JSON.parse(response.data.attributes.componentcontent);
+        console.log(footerLinks)
+        formInfo = JSON.stringify({
+          "logourl":companyLogoURL,
+          "logoid":companyLogoID,
+          "companyaddress": footerLinks.companyaddress,
+          "companyemail": footerLinks.companyemail,
+          "companymobile": footerLinks.companymobile,
+          "googleplaylink": footerLinks.googleplaylink,
+          "appstorelink": footerLinks.appstorelink,
+          "copyrighttext":footerLinks.copyrighttext,
+          "facebookpagelink":footerLinks.facebookpagelink,
+          "instagrampagelink":footerLinks.instagrampagelink,
+          "linkedinpagelink":footerLinks.linkedinpagelink,
+          "twitterpagelink":footerLinks.twitterpagelink
+        })
+        const settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://api.studioxcreative.ng/api/components/2",
+          "method": "PUT",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer 30fb714e913879f2f6b0f3d7b3be13aa64366669ad8b1e20937b49a28619e0db097017fe01280c9489e02cfe493687e6646e3bd013adeadb8390adaff6630a590e90e2225eb6b067cb0a7ead4c84d328b24f8303b9c809d9f6af3dd359d4065b2872f4dc9a710d473c8dd7d3868117533051212c69805b76212856c8e8c57ee6",
+            "Content-Type": "application/json"
+          },
+          "processData": false,
+          "data": JSON.stringify({
+            "data": {
+              "title": "footer",
+              "componentcontent": formInfo,
+              "componentjs": ""
+            }
+          })
+        };
+  
+        $.ajax(settings).done(function (response) {
+          // console.log(response);
+          listFooterSections()
+        });
+
+      });
+
+    }else{
+      swal("ERROR",data.message,"error")
+    }
+  })
+  .catch((e) => console.log(e))
+  
+};
+
+const listFooterSections = () => {
+  var settings = urlSetup("components/2", "GET");
+  
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+    let footerLinks = JSON.parse(response.data.attributes.componentcontent);
+    document.querySelector('#output').setAttribute('src', footerLinks.logourl);
+    // console.log(footerLinks.logoid);
+    
+    let rowContent;
+    if(footerLinks){
+      rowContent += `
+        <tr class="align-items-middle">
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.companyaddress}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.companyemail}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.companymobile}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.googleplaylink}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.appstorelink}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.copyrighttext}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.facebookpagelink}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.instagrampagelink}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.linkedinpagelink}</strong
+            >
+          </td>
+          <td style="min-width: 100px">
+            <strong class="welcome"
+              >${footerLinks.twitterpagelink}</strong
+            >
+          </td>
+        </tr>`;
+    }else{
+      rowContent = `<tr class="align-items-middle">
+        <td colspan="5" class="text-center"><h3 class="py-4">No CALLS TO ACTION</h3></td>
+      </tr>`
+    }
+    $('#homeLanding').html(rowContent);
+  });
+}
+
+const createFooterLinks = () => {
+
+  let compaddr = $('#companyaddr').val();
+  let compmail = $('#companymail').val();
+  let compfone = $('#companyfone').val();
+  let gplay = $('#gplay').val();
+  let apple = $('#applelink').val();
+  let cright = $('#copyrighttext').val();
+  let fb = $('#fblink').val();
+  let insta = $('#instalink').val();
+  let linked = $('#linkedinlink').val();
+  let tweet = $('#twitlink').val();
+
+  var settings = urlSetup("components/2", "GET");
+  
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+    let footerLinks = JSON.parse(response.data.attributes.componentcontent);
+    
+    
+    if(compaddr !== "" || compmail !== "" || compfone !== "" || gplay !== "" || apple !== "" || cright !== "" || fb !== "" || insta !== "" || linked !== "" || tweet !== ""){
+      // let createPageSection = JSON.stringify({
+        // data: {
+        //   "pagename":pn,
+        //   "pagedescription":pd,
+        //   "hashroute":hl,
+        // }
+      formInfo = JSON.stringify({
+        "logourl": footerLinks.logourl,
+        "logoid": footerLinks.logoid,
+        "companyaddress": compaddr,
+        "companyemail": compmail,
+        "companymobile": compfone,
+        "googleplaylink": gplay,
+        "appstorelink": apple,
+        "copyrighttext":cright,
+        "facebookpagelink":fb,
+        "instagrampagelink":insta,
+        "linkedinpagelink":linked,
+        "twitterpagelink":tweet
+      })
+  
+      const settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://api.studioxcreative.ng/api/components/2",
+        "method": "PUT",
+        "headers": {
+          "accept": "application/json",
+          "Authorization": "Bearer 30fb714e913879f2f6b0f3d7b3be13aa64366669ad8b1e20937b49a28619e0db097017fe01280c9489e02cfe493687e6646e3bd013adeadb8390adaff6630a590e90e2225eb6b067cb0a7ead4c84d328b24f8303b9c809d9f6af3dd359d4065b2872f4dc9a710d473c8dd7d3868117533051212c69805b76212856c8e8c57ee6",
+          "Content-Type": "application/json"
+        },
+        "processData": false,
+        "data": JSON.stringify({
+          "data": {
+            "title": "footer",
+            "componentcontent": formInfo,
+            "componentjs": ""
+          }
+        })
+      };
+  
+      $.ajax(settings).done(function (response) {
+        // console.log(response);
+        swal("SUCCESS", "Footer links added successfully", "success");
+        listFooterSections()
+      });
+      
+    } else {
+      swal("ERROR", "All footer links required" ,"error")
+    }
+  });
+
+}
+
+/* ------------------------------ button click ------------------------------ */
+$('#addFooter').click(createFooterLinks);
+/* -------------------------------------------------------------------------- */
+/*                           END OF LANDING SECTION                           */
+/* -------------------------------------------------------------------------- */
+
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                                USERS SECTION                               */
+/* -------------------------------------------------------------------------- */
+/* ----------------------------- form controller ---------------------------- */
+
+const checkEmptyField = (formdata) => {
+  let fields = [];
+  for(let i = 0; i < formdata.length; i++){
+    if(formdata[i] == ""){
+      fields.push(true);
+    }else{
+      fields.push(false);
+    }
+  }
+
+  return fields;
+}
+
+const swapLocation = (loc = "") => {
+  $('.regForms').addClass('d-none');
+
+  if(loc != ""){
+    // $('.regForms').addClass('d-none');
+    /* -------------------------- show the kyc section -------------------------- */
+    if(loc == "kyc"){
+
+      $('#kycDoc').removeClass('d-none');
+      
+    } else if (loc == "individual") {
+
+      $('#individual').removeClass('d-none');
+    
+    } else if (loc == "stageOne") {
+
+      $('#stageOne').removeClass('d-none');
+
+    } else if (loc == "company") {
+      
+      $('#company').removeClass('d-none');
+
+    } else if (loc == "kyb") {
+      
+      $('#kybDocs').removeClass('d-none');
+
+    }
+  }
+}
+
+// validate password
+function checkPassword(str){
+  var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  return re.test(str);
+}
+
+
+function swapFormInd(loc = ""){
+  var accountType = $("#accountype").val();
+  var usertype = $("#usertype").val();
+
+  // if(userAccess == 'ind'){
+  if(!accountType || !usertype){
+    swal("All fields required!");
+  }
+
+  if(accountType == "individual"){
+    if(loc == ""){
+      swapLocation("individual");
+    }else{
+      swapLocation(loc);
+    }
+
+    if(loc == "kyc"){
+      /* -------------- get all variables filled within this section -------------- */
+      let fn = $('#firstname').val();
+      let ln = $('#lastname').val();
+      let em = $('#email').val();
+      let pn = $('#mobilenumber').val();
+      let pw = $('#password').val();
+      let cp = $('#confirmpassword').val();
+
+      if(jQuery.inArray(true, (checkEmptyField([fn, ln, em, pn, pw, cp]))) > -1){
+        swapLocation('individual');
+        swal("All fields required");
+      } else {
+
+        if(checkPassword(pw)){
+          if(pw == cp){
+            swapLocation(loc);
+          }else{
+            swapLocation('individual');
+            swal("ERROR", "Passwords do not match", "error")
+          }
+        }else{
+          swapLocation('individual');
+          swal("ERROR", "Passwords must contain a uppercase, a lowercase, a number, a special character and at least 8 characters long", "warning")
+        }
+      }
+
+    }
+
+
+  }else if (accountType == 'company'){
+    window.location.assign('add-company.html');
+  }
+}
+
+
+function swapFormComp(loc = ""){
+  if(loc == "kyc"){ 
+    /* -------------- get all variables filled within this section -------------- */
+    let fn = $('#firstname').val();
+    let ln = $('#lastname').val();
+    let em = $('#email').val();
+    let pn = $('#mobilenumber').val();
+    let pw = $('#password').val();
+    let cps = $('#confirmpassword').val();
+    let cn = $('#companyname').val();
+    let cc = $('#companycountry').val();
+    let cs = $('#companystate').val();
+    let ca = $('#companyaddress').val();
+    let conp = $('#contactperson').val();
+    let rcn = $('#rcnumber').val();
+    let cw = $('#companywebsite').val();
+    let ce = $('#companyemail').val();
+    let cp = $('#companyphone').val();
+    let at = $('#accountype').val();
+
+
+    if(fn == '' || ln == '' || em == '' || pn == '' || pw == '' || cps == '' || cc == '' || ca == '' || cs == '' || cn == '' || conp == '' || rcn == '' || cw == '' || ce == '' || cp == '' || at == ''){
+      loc = 'company';
+      swapLocation(loc);
+      swal("All fields required");
+    } else {
+
+      if(checkPassword(pw)){
+        if(pw == cps){
+          swapLocation(loc)
+        }else{
+          loc = 'company';
+          swapLocation(loc);
+          swal("ERROR", "Passwords do not match", "error")
+        }
+      }else{
+        loc = 'company';
+        swapLocation(loc);
+        swal("ERROR", "Passwords must contain a uppercase, a lowercase, a number, a special character and at least 8 characters long", "warning")
+      }
+    }
+
+    if(loc == "kyb"){
+      let id = $('#idtype').val();
+      let idno = $('#idnumber').val();
+      let bvn = $('#bvn').val();
+
+      let blob = document.querySelector('#frontImg').files[0];
+      let blo = document.querySelector('#backImg').files[0];
+      if(blob && blo){
+        if(id == "" || idno == "" || bvn == ""){
+          swal("ERROR", "All fields required", "warning");
+        }else{
+          swal("success")
+        }
+      }else{
+        swal("ERROR", "ID front and back image required", "warning");
+      }
+    } else{
+      swapLocation(loc);
+    }
+
+  }else{
+    swapLocation(loc)
+  }
+  // if(accountType == "company"){
+
+
+  // }else if (accountType == 'comp'){
+  //   window.location.assign('add-company.html');
+  // }
+}
+
+function checkKYCDocForBusinessOwner(loc = ""){
+  if(loc == "kyb"){
+    let id = $('#idtype').val();
+    let idno = $('#idnumber').val();
+    let bvn = $('#bvn').val();
+    let txid = $('#taxid').val();
+
+    let blob = document.querySelector('#frontImg').files[0];
+    let blo = document.querySelector('#backImg').files[0];
+    if(blob && blo){
+      if(jQuery.inArray(true, (checkEmptyField([id, idno, bvn, txid]))) > -1){
+        swal("ERROR", "All fields required", "warning");
+      }else{
+        swapLocation(loc);
+      }
+    }else{
+      swal("ERROR", "ID front and back image required", "warning");
+    }
+  } else{
+    swapLocation(loc);
+  }
+}
+
+$(".file-upload-field").on("change", function(){ 
+  $(this).parent(".file-upload-wrapper").attr("data-text",$(this).val().replace(/.*(\/|\\)/, '') );
+});
+/* -------------------------------- add users ------------------------------- */
+
+// define a variable for holding the data collected
+var showUploadedImage = function (event, id) {
+
+  var reader = new FileReader();
+  reader.onload = function () {
+    var output = document.getElementById(id);
+    output.src = reader.result;
+
+  };
+  reader.readAsDataURL(event.target.files[0]);
+  // let fd = new FormData();
+  // fd.append("image", blob);
+}
+
+
+const createNewUserWithBusiness = () => {
+  let mou = document.querySelector('#mou').files[0];
+  let cac = document.querySelector('#cac').files[0];
+  let fis = document.querySelector('#finStat').files[0];
+  if(mou && cac && fis){
+
+    let img3, img4, img5;
+    let fd = new FormData();
+    // img1
+    fd.append("image", blob);
+    fetch('https://filesapi.growsel.com/upload.php', {
+      method: 'POST',
+      body: fd
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(data.error == false){
+        img1 = data.data.imageLink
+        
+        fd = new FormData();
+        fd.append("image", blo);
+        // img 2
+        fetch('https://filesapi.growsel.com/upload.php', {
+          method: 'POST',
+          body: fd
+        })
+        .then(response => response.json())
+        .then(data => {
+          if(data.error == false){
+            img2 = data.data.imageLink;
+            // img3
+            fd = new FormData();
+            fd.append("image", mou);
+            fetch('https://filesapi.growsel.com/upload.php', {
+              method: 'POST',
+              body: fd
+            })
+            .then(response => response.json())
+            .then(data => {
+              if(data.error == false){
+                img3 = data.data.imageLink
+                // img4
+                fd = new FormData();
+                fd.append("image", cac);
+                fetch('https://filesapi.growsel.com/upload.php', {
+                  method: 'POST',
+                  body: fd
+                })
+                .then(response => response.json())
+                .then(data => {
+                  if(data.error == false){
+                    img4 = data.data.imageLink
+                    // img5
+                    fd = new FormData();
+                    fd.append("image", fis);
+                    fetch('https://filesapi.growsel.com/upload.php', {
+                      method: 'POST',
+                      body: fd
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                      if(data.error == false){
+                        img5 = data.data.imageLink
+
+                        /* ---------------------- execute the createkyb command --------------------- */
+                        if(img2 !== "" && img1 !== "" && img3 !== "" && img4 !== "" && img5 !== ""){
+                          let usrdata = JSON.stringify({
+                            "first_name": fn,
+                            "last_name": ln,
+                            "email": em,
+                            "phone": pn,
+                            "password": pw,
+                            "user_type": at,
+                            "id_type":id,
+                            "id_front":img1,
+                            "id_back":img2,
+                            "id_number":idno,
+                            "bvn":bvn,
+                            "has_company": "true",
+                            "company_name": cn,
+                            "company_address": ca,
+                            "company_state": cs,
+                            "company_country": cc,
+                            "contact_person": conp,
+                            "rc_number": rcn,
+                            "company_website": cw,
+                            "company_email": ce,
+                            "company_phone": cp,
+                            "tax_id":txid,
+                            "cac":img4,
+                            "financial_statement":img5,
+                            "mou":img3
+                          });
+
+                          const settings = {
+                            "url": `https://adminapi.growsel.com/api/admin/users/register`,
+                            "method": "POST",
+                            "timeout": 0,
+                            "headers": {
+                              "Authorization": localStorage.getItem('access'),
+                              "Content-Type": "application/json"
+                            },
+                            data: usrdata
+                          };
+
+                          $.ajax(settings).done(function (response) {
+                            console.log(response);
+                            if (response.error == true) {
+                              swal("SUCCESS", "User registered successfully", "success");
+                              setInterval(() => {
+                                window.location.reload();
+                              }, 2000);
+                            } else {
+                              swal("ERROR", response.message, "error");
+                            }
+
+                          });
+                        }else{
+                          swal("ERROR", "Request failed, please try again", "error");
+                        }
+                      }
+                    })
+                    .catch((e) => console.log(e))
+                  }
+                })
+                .catch((e) => console.log(e))
+            
+            
+              }
+            })
+            .catch((e) => console.log(e))
+
+          }
+        })
+        .catch((e) => console.log(e))
+      }
+    })
+    .catch((e) => console.log(e))
+  }else{
+    swal("ERROR", "ID front and back image required", "warning");
+  }
+}
+
+const createNewUser = () => {
+  toggleSpinner();
+  $('.overlay-allcontent').css('display', 'block')
+  // pageloader('#main-page-wrapper', "loader-wrapper",'true');
+
+  var atype = $("#accountype").val();
+  var utype = $("#usertype").val();
+  let firstn = $('#firstname').val();
+  let lastn = $('#lastname').val();
+  let email = $('#email').val();
+  let pno = $('#mobilenumber').val();
+  let pass = $('#password').val();
+  let cpass = $('#confirmpassword').val();
+  let id = $('#idtype').val();
+  let idno = $('#idnumber').val();
+  let bvn = $('#bvn').val();
+
+  if(jQuery.inArray(true, (checkEmptyField([atype, utype, firstn, lastn, email, pno, pass, cpass, id, idno, bvn]))) == -1){
+
+    // let blob = event.target.files[0];
+
+    let blob = document.querySelector('#frontImg').files[0];
+    let blo = document.querySelector('#backImg').files[0];
+    if(blob && blo){
+
+      let img1, img2;
+      bvn
+      let fd = new FormData();
+      fd.append("image", blob);
+      fetch('https://filesapi.growsel.com/upload.php', {
+        method: 'POST',
+        body: fd
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.error == false){
+          img1 = data.data.imageLink
+          
+          fd = new FormData();
+          fd.append("image", blo);
+
+          fetch('https://filesapi.growsel.com/upload.php', {
+            method: 'POST',
+            body: fd
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data.error == false){
+              img2 = data.data.imageLink;
+              if(img2 !== "" || img1 !== ""){
+                let usrdata = JSON.stringify({
+                  "first_name": firstn,
+                  "last_name": lastn,
+                  "email": email,
+                  "phone": pno,
+                  "password": pass,
+                  "user_type": utype,
+                  "id_type": id,
+                  "id_front": img1,
+                  "id_back": img2,
+                  "id_number":idno,
+                  "bvn":bvn
+                });
+                const settings = {
+                  "url": `https://adminapi.growsel.com/api/admin/users/register`,
+                  "method": "POST",
+                  "timeout": 0,
+                  "headers": {
+                    "Authorization": localStorage.getItem('access'),
+                    "Content-Type": "application/json"
+                  },
+                  error: function(jqXHR) {
+                    toggleSpinner();
+                    $('.overlay-allcontent').css('display', 'none');
+                    if(jqXHR.status == 400) {
+                      swal('ERROR', 'User already exists', 'warning');
+                    }else{
+                      swal('ERROR', "Unable to complete the request at the moment", 'error')
+                    }
+                  },
+                  data: usrdata
+                };
+                $.ajax(settings).done(function (response) {
+                  console.log(response);
+                  toggleSpinner();
+                  $('.overlay-allcontent').css('display', 'none')
+                  if (response.error == false) {
+                    swal("SUCCESS", "User registered successfully", "success");
+                    setInterval(() => {
+                      window.location.href = '/dashboards/add-users.html';
+                    }, 2000);
+                  } else {
+                    swal("ERROR", response.message, "error");
+                  }
+  
+                });
+              }else{
+                toggleSpinner();
+                $('.overlay-allcontent').css('display', 'none')
+                swal("ERROR", "Request failed, please try again", "error");
+              }
+
+            }
+          })
+          .catch((e) => { $('.overlay-allcontent').css('display', 'none'); toggleSpinner(); console.log(e) })
+        }
+      })
+      .catch((e) => {$('.overlay-allcontent').css('display', 'none'); toggleSpinner(); console.log(e)})
+    }else{
+      $('.overlay-allcontent').css('display', 'none')
+      toggleSpinner();
+      swal("ERROR", "ID front and back image required", "warning");
+    }
+    // let fd = new FormData();
+    // fd.append("image", blob);
+  }else{
+    toggleSpinner();
+    $('.overlay-allcontent').css('display', 'none')
+    swal("ERROR", "Unable to complete the request at the moment", "error");
+  }
+}
+/* -------------------------------------------------------------------------- */
+/*                            END OF USERS SECTION                            */
+/* -------------------------------------------------------------------------- */
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                               Wallet Section   begins                             */
+/* -------------------------------------------------------------------------- */
+
+let state = false;
+
+function myFunction(show) {
+  // show.classList.toggle('fa-eye');
+  let eyes = document.getElementById("eyetoggle");
+  eyes.classList.toggle("fa-eye-slash");
+  eyes.classList.toggle("fa-eye");
+}
+
+function toggle() {
+  if (state) {
+    balances.setAttribute("class", "password");
+    state = false;
+  } else {
+    password.setAttribute("type", "type");
+    state = true;
+  }
+}
+
