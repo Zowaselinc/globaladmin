@@ -39,497 +39,624 @@
 				
 				
 				<!-- View more begins  -->
-			<div class="container-fluid gx-0 gl-md-0 gx-lg-3">
-				<div class="container pe-0 ps-0">
-					<div class="nego-top shadow-form mt-0 pt-0 ps-5 mx-0 d-flex justify-content-between align-items-center">
-						<div class="col"><a class="" href="#" onclick="backButton()"><i class="fs-4 fa fa-arrow-left text-white mt-3"></i></a></div>
-						<div class="col-12"><h4 class="text-white text-center mt-3 fw-bold">Farmer Details</h4></div>
-					</div>
-					<div class="pb-3">
-							<!-- LEft side information 	 -->
-						<div class="col-12 px-1 mb-5 pb-3 shadow-sm bg-light ">
-							<div class="px-2 pt-4 mb-4">
-								<!-- basic Information  -->
-								
-								<h4 class="welcome mb-4 py-2 fw-bold"style="border-bottom: 1px solid lightgrey;">Basic Information</h4>
-								<form>
-									<div>
-										<div class="row row-cols-1  row-cols-lg-2">
-											<!-- <div class="col-12 col-lg-4">
-												<div id="images" class="farmer-pic"></div>
-												<div id="imagePics" class="row farmer-pics">
-													<img src="data:image/jpeg;base64,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" w-25 alt="">
-													<span>No Photo uploaded Yet </span> <br> 
-													<span>Add Kyf to upload photo</span>
-												</div>
-											</div> -->
-											<div class="row col-12 col-lg-12 mt-4 mt-lg-0">
-												<div class="col-12 col-lg-6 mb-2">
-													<div class="form-group">
-													<label class="form-control-label mb-2" for="farmer-details">First Name</label>
-													<span type="text" id="first_name" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
-													</div>
-												</div>
-	
-												<div class="col-12 col-lg-6 mb-2">
-													<div class="form-group">
-														<label class="form-control-label mb-2" for="farmer-detail">Last Name</label>
-														<span type="text" id="last_name" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
-													</div>
-												</div>
-	
-												<div class="col-12 col-lg-6 mb-2">
-													<div class="form-group">
-														<label class="form-control-label mb-2" for="farmer-detail">Middle Name</label>
-														<span type="text" id="middle_name" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
-													</div>
-												</div>
-	
-												<div class="col-12 col-lg-6 mb-2">
-													<div class="form-group">
-														<label class="form-control-label mb-2" for="farmer-detail">Email Address</label>
-														<span type="text" id="email" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
-													</div>
-												</div>
-
-												<div class="col-12 col-lg-6 mb-4">
-													<div class="form-group">
-														<label class="form-control-label mb-2" for="farmer detail">Mobile Number</label>
-														<span type="text" id="mobile" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
-													</div>
-												</div>
-	
-												<div class="col-12 col-lg-6 mb-4">
-													<div class="form-group">
-														<label class="form-control-label mb-2" for="farmer-detail">Gender</label>
-														<span type="text" id="gender" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6 text-capitalize"></span>
-													</div>
-												</div>
-
-												<div class="col-12 col-lg-6 mb-4">
-													<div class="form-group">
-													  <label class="form-control-label mb-2" for="farmer-detail">Marital Status</label>
-													  <span type="text" id="marital_status" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6 text-capitalize"></span>
-													</div>
-												</div>
-	
-												<div class="col-12 col-lg-6 mb-4">
-													<div class="form-group">
-													  <label class="form-control-label mb-2" for="farmer-detail">Date of Birth</label>
-													  <span type="text" id="dob" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
-													</div>
+				<div class="container-fluid gx-0 gl-md-0 gx-lg-3">
+					<div class="container">
+						<!-- Farmer details and button  -->
+						<div class="d-block d-md-flex justify-content-between align-items-center mt-5 px-3">
+							<span class="welcome fw-bold fs-4">Farmer Information</span>
+							<a href="./farmers.html" class="btn btn-lg th-btn text-white mb-4 fw-bold" style="border-radius: 5px !important; font-size: 14px !important;">All Farmers</a>
+						</div>
+						<div class="pb-3">
+								<!-- LEft side information 	 -->
+							<div class="col-12 px-1 mb-5 pb-3">
+								<div class="px-2 pt-4 mb-4">
+									<!-- Accordion Dropdown information  -->
+									
+										<!-- Biodata  -->
+										<div class="accordion-item mb-4">
+											<div class="accordion-header accordion-button collapsed  my-0 py-2 pe-5 border-bottom" id="headingOne" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+												<div class="col-12 d-flex justify-content-between me-3">
+													<span class="welcome mb-0 fw-bold fs-6">Biodata</span>
+													<span class="text-primary mb-0 fw-bold fs-6">% Completed</span>
 												</div>
 											</div>
-												<!-- ddddddddd -->
-											
+											<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+												<div class="accordion-body">
+													<!-- Description  -->
+													<div class="row col-12 col-lg-12 mt-4 mt-lg-0">
 
-										
-
-											
-										</div>
-									</div>
-							  	</form>
-								  <div class="col mb-4">
-									<div class="form-group">
-									  <label class="form-control-label mb-2" for="farmer-detail">Languages Spoken</label>
-									  <span type="text" id="language" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
-									</div>
-								</div>
-							
-								<!-- Address information  -->
-								<h4 class="welcome mb-3 py-3 mt-5 fw-bold" style="border-bottom: 1px solid lightgrey; border-top: 1px solid lightgreygrey;">Address Information</h4>
-
-								<form>
-									<div>
-										<div class="row d-flex justify-content-between">
-											<div class="col-6 mb-4">
-												<div class="form-group">
-												<label class="form-control-label mb-2" for="farmer-details">Country</label>
-												<span type="text" id="country" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
-												</div>
-											</div>
-
-											<div class="col-6 mb-4">
-												<div class="form-group">
-													<label class="form-control-label mb-2" for="farmer-detail">State</label>
-													<span type="text" id="state" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
-												</div>
-											</div>
-
-											<div class="col-12 mb-4">
-												<div class="form-group">
-													<label class="form-control-label mb-2" for="farmer-detail">City</label>
-													<span type="text" id="city" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6 text-capitalize"></span>
-												</div>
-											</div>
-
-											<div class="col-12 mb-4">
-												<div class="form-group">
-													<label class="form-control-label mb-2" for="farmer-detail">Address</label>
-													<span type="text" id="address" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
-												</div>
-											</div>
-
-											<div class="col-12 mb-4">
-												<div class="form-group">
-													<label class="form-control-label mb-2" for="farmer detail">Landmark</label>
-													<span type="text" id="landmark" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6"></span>
-												</div>
-											</div>
-
-										</div>
-									</div>
-							  	</form>
-								<br>
-								<!-- Accordion Dropdown information  -->
-
-								<div class="accordion" id="accordionExample">
-									<!-- bank details  -->
-									<div class="accordion-item shadow-sm rounded-3 border-0">
-									  <h2 class="accordion-header" id="headingOne">
-										<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-											<h4 class="welcome mb-0 fw-bold">Bank Information</h4>
-										</button>
-									  </h2>
-									  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-										<div class="accordion-body">
-											<!-- bank details  -->
-											<div>
-												<!-- Button trigger modal -->
-												<button type="button" id="addBank" class="btn th-btn text-white mb-3" style="border-radius: 3px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-													Add Bank Details
-												</button>
-												<button type="button" id="editBank" class="btn btn-warning text-white mb-3" style="border-radius: 3px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-													Edit Bank Details
-												</button>
-												
-												<!-- Modal -->
-												<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-													<div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down">
-														<div class="modal-content bg-light">
-															<div class="modal-header border-0">
-																<h4 class="modal-title" id="exampleModalLabel">Bank Details</h4>
-																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Full Name</span>
+															<div>
+																<span id="first_name"class="fs-6 text-muted"></span>
+																<span id="middle_name" class="fs-6 text-muted"></span> 
+																<span id="last_name" class="fs-6 text-muted"></span>
 															</div>
-															<div class="modal-body">
-																<form class="">
-																	<div class="">
-																		<div class="row">
-																			<div class="col-12 mb-4">
-																				<div class="form-group">
-																					<label class="form-control-label mb-2" for="farmer-details">Bank name</label>
-																					<input type="text" id="bankName" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6 border" placeholder="Enter name of bank" required="yes">
-																				</div>
-																			</div>
-																			<div class="col-12 mb-4">
-																				<div class="form-group">
-																					<label class="form-control-label mb-2" for="farmer-detail">Account name</label>
-																					<input type="text" id="accountName" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter account holder name" required="yes"> 
-																				</div>
-																			</div>
-																			<div class="col-12 mb-4">
-																				<div class="form-group">
-																					<label class="form-control-label mb-2" for="farmer-detail">Account number</label>
-																					<input type="text" id="accountNumber" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter your account number" required="yes"> 
-																				</div>
-																			</div>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Phone Number</span>
+																<span type="text" id="mobile" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Email</span>
+																<span type="text" id="email" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Gender</span>
+															<span type="text" id="gender" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Marital Status</span>
+																<span type="text" id="marital_status" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Country</span>
+																<span type="text" id="country" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Address</span>
+															<span type="text" id="address" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Landmark</span>
+																<span type="text" id="landmark" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Spoken Language</span>
+																<span type="text" id="language" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">State</span>
+																<span type="text" id="state" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">City</span>
+																<span type="text" id="city" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Date of Birth</span>
+																<span type="text" id="dob" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<!-- Button for eiit and view -->
+														<div class="text-end mt-2">
+															<!-- <a href="javascript:void(0)" onclick="addBiodata()" id="" class="btn th-btn text-white mb-3 btn-lg" style="border-radius: 5px !important;">Add Data</a> -->
+															<a href="javascript:void(0)" onclick="editBiodata()" id="" class="btn btn-warning text-white mb-3 btn-lg" style="border-radius: 5px !important;">Edit Data</a>
+														</div>
+														
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Next of Kin data  -->
+										<div class="accordion-item mb-4">
+											<div class="accordion-header accordion-button collapsed  my-0 py-2 pe-5 border-bottom" id="headingTwo" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+												<div class="col-12 d-flex justify-content-between me-3">
+													<span class="welcome mb-0 fw-bold fs-6">Next of Kin Data</span>
+													<span class="text-primary mb-0 fw-bold fs-6">% Completed</span>
+												</div>
+											</div>
+											<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+												<div class="accordion-body">
+													<!-- Description  -->
+													<div class="row col-12 col-lg-12 mt-4 mt-lg-3">
+
+														<div class="col-12 col-lg-3 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Next of Kin Name</span>
+															<div>
+																<span id="nokName"class="fs-6 text-muted"></span>
+															</div>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-3 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Relationship</span>
+																<span type="text" id="nokRelationship" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-3 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Next of Kin Occupation</span>
+																<span type="text" id="nokOccupation" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-3 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Next of Kin Mobile No</span>
+															<span type="text" id="nokMobile" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<!-- <div class="text-end mt-2">
+															<button type="button" id="addNok" class="btn-lg th-btn text-white mb-3 fw-bold" style="border-radius: 3px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+																Add Data
+															</button>
+															<button type="button" id="editNok" class="btn-lg btn-warning text-white mb-3 fw-bold" style="border-radius: 3px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+																Edit Data
+															</button>
+														</div> -->
+
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Farmer KYF Data  -->
+										<div class="accordion-item mb-4">
+											<div class="accordion-header accordion-button collapsed  my-0 py-2 pe-5 border-bottom" id="headingThree" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+												<div class="col-12 d-flex justify-content-between me-3">
+													<span class="welcome mb-0 fw-bold fs-6">Farmer KYF Data</span>
+													<span class="text-primary mb-0 fw-bold fs-6">% Completed</span>
+												</div>
+											</div>
+											<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+												<div class="accordion-body">
+													<!-- Description  -->
+													<div class="row col-12 col-lg-12 mt-4 mt-lg-3">
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">BVN</span>
+																<span id="farmBvn"class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Level of Education:</span>
+																<span type="text" id="eduStatus" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Professional Farming Training:</span>
+																<span type="text" id="training" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Years of Farming Experience:</span>
+															<span type="text" id="experience" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Identification Type:</span>
+															<span type="text" id="idCard" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Identification Number:</span>
+															<span type="text" id="idNumber" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Identification Issuance Date:</span>
+															<span type="text" id="idIssuDate" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Identification Expiry Date:</span>
+															<span type="text" id="idExpdate" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">In a Corporative or Group:</span>
+															<span type="text" id="corStatus" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Corporative Name:</span>
+															<span type="text" id="corName" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														
+														<!-- add and edit data button  -->
+														<div class="text-end mt-2">
+															<a href="javascript:void(0)" id="farmerKYF" class="btn-lg th-btn text-white mb-3 btn-lg" style="border-radius: 3px !important;">Add Data</a>
+															<a href="javascript:void(0)" id="editfarmerKYF" class="btn-lg btn-warning text-white mb-3 btn-lg" style="border-radius: 3px !important;">Edit Data</a>
+														</div>
+
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Bank Data  -->
+										<div class="accordion-item mb-4">
+											<div class="accordion-header accordion-button collapsed  my-0 py-2 pe-5 border-bottom" id="headingFour" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+												<div class="col-12 d-flex justify-content-between me-3">
+													<span class="welcome mb-0 fw-bold fs-6">Bank Data</span>
+													<span class="text-primary mb-0 fw-bold fs-6">% Completed</span>
+												</div>
+											</div>
+											<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+												<div class="accordion-body">
+													<!-- Description  -->
+													<div class="row col-12 col-lg-12 mt-4 mt-lg-3">
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Bank Name:</span>
+																<span id="bank"class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Account Name:</span>
+																<span type="text" id="acctName" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Account Number:</span>
+																<span type="text" id="acctNumber" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														
+
+														
+														<!-- add and edit data button  -->
+														<div class="text-end mt-2">
+															<button type="button" id="addBank" class="btn-lg th-btn text-white mb-3 fw-bold" style="border-radius: 3px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+																Add Data
+															</button>
+															<button type="button" id="editBank" class="btn-lg btn-warning text-white mb-3 fw-bold" style="border-radius: 3px !important;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+																Edit Data
+															</button>
+																<!-- Modal -->
+															<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+																<div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down">
+																	<div class="modal-content bg-light">
+																		<div class="modal-header border-0">
+																			<h4 class="modal-title" id="exampleModalLabel">Bank Details</h4>
+																			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 																		</div>
+																		<div class="modal-body">
+																			<form class="">
+																				<div class="">
+																					<div class="row">
+																						<div class="col-12 mb-4">
+																							<div class="form-group">
+																								<label class="form-control-label mb-2" for="farmer-details">Bank name</label>
+																								<input type="text" id="bankName" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6 border" placeholder="Enter name of bank" required="yes">
+																							</div>
+																						</div>
+																						<div class="col-12 mb-4">
+																							<div class="form-group">
+																								<label class="form-control-label mb-2" for="farmer-detail">Account name</label>
+																								<input type="text" id="accountName" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter account holder name" required="yes"> 
+																							</div>
+																						</div>
+																						<div class="col-12 mb-4">
+																							<div class="form-group">
+																								<label class="form-control-label mb-2" for="farmer-detail">Account number</label>
+																								<input type="text" id="accountNumber" class="form-control form-control-lg rounded-3 shadow-form border-0 welcome fs-6" placeholder="Enter your account number" required="yes"> 
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</form>
+																		</div>
+																	<div class="modal-footer border-0">
+																		<!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+																		<button type="button" onclick="addBankInfo()" class="btn th-btn text-white">Submit</button>
 																	</div>
-																</form>
+																	</div>
+																</div>
 															</div>
-														<div class="modal-footer border-0">
-															<!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-															<button type="button" onclick="addBankInfo()" class="btn th-btn text-white">Submit</button>
 														</div>
-														</div>
+
 													</div>
 												</div>
-  
-												<div class="d-flex justify-content-between pb-2">
-													<span class="welcome fw-bold fs-6">Bank Name:</span>
-													<span id="bank" class="text-secondary fs-6"></span>
+											</div>
+										</div>
+										<!-- Farm information Data  -->
+										<div class="accordion-item mb-4">
+											<div class="accordion-header accordion-button collapsed  my-0 py-2 pe-5 border-bottom" id="headingFive" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+												<div class="col-12 d-flex justify-content-between me-3">
+													<span class="welcome mb-0 fw-bold fs-6">Farm Information</span>
+													<span class="text-primary mb-0 fw-bold fs-6">% Completed</span>
 												</div>
-												<div class="d-flex justify-content-between pb-2">
-													<span class="welcome fw-bold fs-6">Account Name:</span>
-													<span id="acctName" class="text-secondary fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-2">
-													<span class="welcome fw-bold fs-6">Account Number:</span>
-													<span id="acctNumber" class="text-secondary fs-6"></span>
+											</div>
+											<div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+												<div class="accordion-body">
+													<!-- Farm Information Table  -->
+													<div>
+														<div class="table-responsive">
+															<table class="align-middle table table-borderless table-hover default-color mb-1">
+																<thead>
+																	<th style="min-width: 10px;">ID</th>
+																	<th style="min-width: 150px;">Loaction / Size</th>
+																	<th style="min-width: 110px;">Practice</th>
+																	<th style="min-width: 150px;">(Est) Income Per Year</th>
+																	<th style="min-width: 50px;">Ownership</th>
+																	<th style="min-width: 80px;">View</th>
+																</thead>
+																<tbody id="farmData">
+																</tbody>
+															</table>
+														</div>
+													</div>
+													<!-- add and edit data button  -->
+													<div class="text-end mt-2">
+														<a href="javascript:void(0)" id="addFarms" class="btn th-btn text-white mb-3 btn-lg fw-bold" style="border-radius: 3px !important;">Add Data</a>
+													</div>
 												</div>
 											</div>
 										</div>
-									  </div>
-									</div>
-									<!-- Loan History  -->
-									<div class="accordion-item mt-2 shadow-sm rounded-3 border-0">
-									  <h2 class="accordion-header" id="headingTwo">
-										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-											<h4 class="welcome mb-0 fw-bold">Loan history</h4>
-										</button>
-									  </h2>
-									  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-										<div class="accordion-body">
-										  <!-- Loan History  -->
-											<div>
-												<a href="javascript:void(0)" onclick="addLoanHist()" id="loanHistory" class="btn th-btn text-white mb-3 btn-lg" style="border-radius: 5px !important;">Add Loan History</a>
-												<a href="javascript:void(0)" onclick="editLoanHistory()" id="editloanHistory" class="btn btn-warning text-white mb-3 btn-lg" style="border-radius: 5px !important;">Edit Loan History</a>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Taken Loan Before:</span>
-													<span id="lonee" class="text-secondary fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Previous Loan Amount:</span>
-													<span class="text-secondary fs-6">NGN <span id="loanAmount" class="text-secondary fs-6"></span></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Season of Loan:</span>
-													<span id="loanSeason" class="text-secondary fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Repayment Status:</span>
-													<span id="repayment" class="text-secondary fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Difficulty in Repaying Loan:</span>
-													<span id="repayDifficult" class="text-secondary fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Mode of Repayment:</span>
-													<span id="modeOfPayment" class="text-secondary fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Cost of Cultivation:</span>
-													<span id="costCultivation" class="text-secondary fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Cost of Cultivation Per Plant Season:</span>
-													<span id="costPerseason" class="text-secondary fs-6"></span>
+										<!-- Farm Machine Data  -->
+										<div class="accordion-item mb-4">
+											<div class="accordion-header accordion-button collapsed  my-0 py-2 pe-5 border-bottom" id="headingSix" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+												<div class="col-12 d-flex justify-content-between me-3">
+													<span class="welcome mb-0 fw-bold fs-6">Farm Machines</span>
+													<span class="text-primary mb-0 fw-bold fs-6">% Completed</span>
 												</div>
 											</div>
-										</div>
-									  </div>
-									</div>
-									<!-- Farmers KYF information  -->
-									<div class="accordion-item mt-2 shadow-sm rounded-3 border-0">
-									  <h2 class="accordion-header" id="headingThree">
-										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-											<h4 class="welcome mb-0 fw-bold">Farmer KYF (Know Your Farmer) Information</h4>
-										</button>
-									  </h2>
-									  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-										<div class="accordion-body">
-										  <!-- farmer kyf information  -->
-											<div>
-												<a href="javascript:void(0)" id="farmerKYF" class="btn th-btn text-white mb-3 btn-lg" style="border-radius: 3px !important;">Add KYF</a>
-												<a href="javascript:void(0)" id="editFarmerKYF" class="btn btn-warning text-white mb-3 btn-lg" style="border-radius: 3px !important;">Edit KYF</a>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Name of Corporative:</span>
-													<span id="corName" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Corporative Status:</span>
-													<span id="corStatus" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Educational Level:</span>
-													<span id="eduStatus" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Mode of Identification:</span>
-													<span id="idCard" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Identification No.:</span>
-													<span id="idNumber" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Professional Farm Training:</span>
-													<span id="training" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Farming Experiecne:</span>
-													<span class="text-secondary text-capitalize fs-6"><span id="experience" class="text-secondary text-capitalize fs-6"></span> Years</span>
-												</div>
-											</div>
-										</div>
-									  </div>
-									</div>
-									<!-- Next of KIn  -->
-									<div class="accordion-item mt-2 shadow-sm rounded-3 border-0">
-										<h2 class="accordion-header" id="headingFour">
-										  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-											  <h4 class="welcome mb-0 fw-bold">NOK (Next of Kin) Information</h4>
-										  </button>
-										</h2>
-										<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-										  <div class="accordion-body">
-											<!-- Farmers Next of Kin Information  -->
-											<div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">NOK Name:</span>
-													<span id="nokName"  class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Relationship:</span>
-													<span id="nokRelationship"  class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">NOK Occupation:</span>
-													<span id="nokOccupation"  class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">NOK Mobile No.:</span>
-													<span id="nokMobile"  class="text-secondary text-capitalize fs-6"></span>
-												</div>
-											</div>
-										  </div>
-										</div>
-									</div>
-									<!-- Farm Practice Information  -->
-									<div class="accordion-item mt-2 shadow-sm rounded-3 border-0">
-										<h2 class="accordion-header" id="headingFive">
-										  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-											  <h4 class="welcome mb-0 fw-bold">Farm Practice Information</h4>
-										  </button>
-										</h2>
-										<div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-										  <div class="accordion-body">
-											<!-- Farm Practice information  -->
-											<div>
-												<a href="javascript:void(0)" id="farmPractice" class="btn th-btn text-white mb-3 btn-lg" style="border-radius: 3px !important;">Add Farm Practice</a>
-												<a href="javascript:void(0)" id="editFarmPractice" class="btn btn-warning text-white mb-3 btn-lg" style="border-radius: 3px !important;">Edit Farm Practice</a>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Fertilizer Used:</span>
-													<span id="fertilizerName" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Fungi Used:</span>
-													<span id="fungiName" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">SQKM Cultivated:</span>
-													<span class="text-secondary text-capitalize fs-6"><span id="sqmCultivated" class="text-secondary text-capitalize fs-6"></span> SQM</span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Most Viable Crop:</span>
-													<span id="viableCrop" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Crop Applied:</span>
-													<span id="intendedCrop" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Fertilizer Per Crop Application:</span>
-													<span id="perCropApply" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Fertilizer Applied Per Season:</span>
-													<span id="perCropSeason" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Crop Rotation Practice:</span>
-													<span id="cropControlPractice" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Weed Control Practice:</span>
-													<span id="controlPractice" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-												<div class="d-flex justify-content-between pb-3">
-													<span class="welcome fw-bold fs-6">Average Income Per Harvest:</span>
-													<span id="averageIncome" class="text-secondary text-capitalize fs-6"></span>
-												</div>
-											</div>
-										  </div>
-										</div>
-									</div>
-									<!-- Farm Information   -->
-									<div class="accordion-item mt-2 shadow-sm rounded-3 border-0">
-										<h2 class="accordion-header" id="headingSix">
-										  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-											  <h4 class="welcome mb-0 fw-bold">Farming Information</h4>
-										  </button>
-										</h2>
-										<div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
-										  <div class="accordion-body">
-											<!-- Farm Information Table  -->
-											<div>
-												<a href="javascript:void(0)" id="addFarms" class="btn th-btn text-white mb-3 btn-lg" style="border-radius: 3px !important;">Add Farm</a>
-												<h3 class="mb-2">Farm</h3>
-												<div class="table-responsive">
-													<table class="align-middle table table-borderless table-hover default-color mb-1">
-														<thead>
-															<th style="min-width: 10px;">ID</th>
-															<th style="min-width: 150px;">Loaction / Size</th>
-															<th style="min-width: 110px;">Practice</th>
-															<th style="min-width: 150px;">(Est) Income Per Year</th>
-															<th style="min-width: 50px;">Ownership</th>
-															<th style="min-width: 80px;">View</th>
-														</thead>
-														<tbody id="farmData">
-															
+											<div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+												<div class="accordion-body">
+													<!-- Farm Information Table  -->
+													<div>
+														<div class="table-responsive">
+															<table class="align-middle table table-borderless table-hover default-color mb-1">
+																<thead>
+																	<th style="min-width: 10px;">ID</th>
+																	<th style="min-width: 90px;">Type</th>
+																	<th style="min-width: 90px;">No. Possed</th>
+																	<th style="min-width: 190px;">(Avg) Maintanace Cost</th>
+																	<th style="min-width: 100px;">Years Used</th>
+																	<th style="min-width: 100px;">Active Units</th>
+																	<th style="min-width: 120px;">Defective Units</th>
+																</thead>
+																<tbody id="farMMechanization">
+																	
+						
+																</tbody>
 				
-														</tbody>
+																
+												
+															</table>
+														</div>
+													</div>
+													<!-- add and edit data button  -->
+													<div class="text-end mt-2">
+														<a href="javascript:void(0)" id="addFarmsMachine" class="btn th-btn text-white mb-3 btn-lg fw-bold" style="border-radius: 3px !important;">Add Data</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Farm Practice Data  -->
+										<div class="accordion-item mb-4">
+											<div class="accordion-header accordion-button collapsed  my-0 py-2 pe-5 border-bottom" id="headingSeven" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">
+												<div class="col-12 d-flex justify-content-between me-3">
+													<span class="welcome mb-0 fw-bold fs-6">Farm Practice</span>
+													<span class="text-primary mb-0 fw-bold fs-6">% Completed</span>
+												</div>
+											</div>
+											<div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+												<div class="accordion-body">
+													<!-- Description  -->
+													<div class="row col-12 col-lg-12 mt-4 mt-lg-0">
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Fertilizer Used:</span>
+																<span id="fertilizerName"class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Fungi Used:</span>
+																<span type="text" id="fungiName" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">SQKM Cultivated:</span>
+																<span type="text" id="sqmCultivated" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Most Viable Crop:</span>
+															<span type="text" id="viableCrop" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Crop Applied:</span>
+																<span type="text" id="intendedCrop" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Fertilizer Per Crop Application:</span>
+																<span type="text" id="perCropApply" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Fertilizer Applied Per Season:</span>
+															<span type="text" id="perCropSeason" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Crop Rotation Practice:</span>
+																<span type="text" id="cropControlPractice" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details"> Weed Control Practice:</span>
+																<span type="text" id="controlPractice" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Average Income Per Harvest:</span>
+																<span type="text" id="averageIncome" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
 
 														
-										
-													</table>
-												</div>
-											</div>
-											
-										  </div>
-										</div>
-									</div>
-									<!-- Farm mechanization   -->
-									<div class="accordion-item mt-2 shadow-sm rounded-3 border-0">
-										<h2 class="accordion-header" id="headingSeven">
-										  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-											  <h4 class="welcome mb-0 fw-bold">Farm Mechanization</h4>
-										  </button>
-										</h2>
-										<div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
-										  <div class="accordion-body">
-											<!-- Farm Information Table  -->
-											<div>
-												<a href="javascript:void(0)" id="addFarmsMachine" class="btn th-btn text-white mb-3 btn-lg" style="border-radius: 3px !important;">Add Machine</a>
-												<h3 class="mb-2">Machine</h3>
-												<div class="table-responsive">
-													<table class="align-middle table table-borderless table-hover default-color mb-1">
-														<thead>
-															<th style="min-width: 10px;">ID</th>
-															<th style="min-width: 90px;">Type</th>
-															<th style="min-width: 90px;">No. Possed</th>
-															<th style="min-width: 190px;">(Avg) Maintanace Cost</th>
-															<th style="min-width: 100px;">Years Used</th>
-															<th style="min-width: 100px;">Active Units</th>
-															<th style="min-width: 120px;">Defective Units</th>
-														</thead>
-														<tbody id="farMMechanization">
-															
-				
-														</tbody>
-		
+														<!-- Button for eiit and view -->
+														<div class="text-end mt-2">
+															<a href="javascript:void(0)" id="farmPractice" class="btn th-btn text-white mb-3 btn-lg" style="border-radius: 3px !important;">Add Data</a>
+															<a href="javascript:void(0)" id="editFarmPractice" class="btn btn-warning text-white mb-3 btn-lg" style="border-radius: 3px !important;">Edit Data</a>
+														</div>
 														
-										
-													</table>
+													</div>
 												</div>
 											</div>
-											
-										  </div>
 										</div>
-									</div>
+										<!-- Loan History Data  -->
+										<div class="accordion-item mb-4">
+											<div class="accordion-header accordion-button collapsed  my-0 py-2 pe-5 border-bottom" id="headingEight" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="true" aria-controls="collapseEight">
+												<div class="col-12 d-flex justify-content-between me-3">
+													<span class="welcome mb-0 fw-bold fs-6">Loan History</span>
+													<span class="text-primary mb-0 fw-bold fs-6">% Completed</span>
+												</div>
+											</div>
+											<div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+												<div class="accordion-body">
+													<!-- Description  -->
+													<div class="row col-12 col-lg-12 mt-4 mt-lg-0">
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Taken Loan Before:</span>
+																<span id="lonee"class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Previous Loan Amount:</span>
+																<span type="text" id="loanAmount" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Season of Loan:</span>
+																<span type="text" id="loanSeason" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Repayment Status:</span>
+															<span type="text" id="repayment" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Difficulty in Repaying Loan:</span>
+																<span type="text" id="repayDifficult" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Mode of Repayment:</span>
+																<span type="text" id="modeOfPayment" class="fs-6 text-muted"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+															<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Cost of Cultivation:</span>
+															<span type="text" id="costCultivation" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<div class="col-12 col-lg-4 mb-4">
+															<div class="row">
+																<span class="fw-bold fs-6 welcome mb-1" for="farmer-details">Cost of Cultivation Per Plant Season:</span>
+																<span type="text" id="costPerseason" class="fs-6 text-muted text-capitalize"></span>
+															</div>
+														</div>
+
+														<!-- Button for eiit and view -->
+														<div class="text-end mt-2">
+															<a href="javascript:void(0)" onclick="addLoanHist()" id="loanHistory" class="btn th-btn text-white mb-3 btn-lg" style="border-radius: 5px !important;">Add Data</a>
+															<a href="javascript:void(0)" onclick="editLoanHistory()" id="editloanHistory" class="btn btn-warning text-white mb-3 btn-lg" style="border-radius: 5px !important;">Edit Data</a>
+														</div>
+														
+													</div>
+												</div>
+											</div>
+										</div>
 								</div>
-
-
-
-							
-								
 							</div>
 						</div>
-						
 					</div>
 				</div>
-			</div>
 				
 				<!-- View more End  -->
 

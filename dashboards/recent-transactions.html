@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zowasel - Credit - Wallet</title>
+  <link rel="icon" href="../assets/logo/zowaselICO.png">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="../assets/font awesome/css/all.css" />
+  <link rel="stylesheet" href="../assets/font awesome/css/fontawesome.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="../assets/bootstrap-5.1.3-dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+
+ 
+</head>
+
+<body>
+  <!------------------------------ Top Nav Bar begins  -------------------------------->
+	<div id="topnav" class="sticky-top shadow"></div>
+
+  <!------------------------------ Top Nav BarEnds  -------------------------------->
+
+	<div class="container-fluid">
+		<div class="row">
+			<!-------------------------------- Left side Nav Starts -------------------------->
+		<nav id="sidebarMenu" class="col-12 col-lg-auto d-lg-block bg-light leftfixedside collapse bd-links"></nav>
+			<!-- ------------------------------ Left side nav Ends----------------------------->
+		<div class="dash ms-sm-auto ms-0 col pt-3 col-12 col-lg-10  rightscrollableside">
+			<div class="main-content row d-flex justify-content-center align-items-center">
+			<!-- Card Header -->
+				
+				<div class="container-fluid">
+					<!-- search and button  -->
+					<div class="container">
+						<div class="px-lg-4 d-flex justify-content-between align-items-center py-3">
+							<div class="d-flex" style="width: 30.8%;">
+								<span class="py-2" style="background: rgba(187, 187, 187, 0.5); padding: 0px 2px;border-radius: 10px; width: 100%;">
+									<a href="credit-wallet.html" class=" border-secondary rounded-5 fw-bold welcome" style="font-size: 15px !important;padding: 11px 50px;">Wallets</a>
+									<span class="welcome me-1" style="font-size: 16px !important;">|</span>
+									<a href="javascript:void(0)" class="border-active border-secondary rounded-5  fw-bold welcome" style="font-size: 15px !important; padding: 11px 25px;">Recent Transaction</a>
+								</span>
+							</div>
+							<div class="position-relative">
+								<input class="px-3 py-2 search-bar form-control rounded-2" type="text" placeholder="search">
+								<i style="margin: -28px 193px;" class="fa fa-search position-absolute text-muted fs-6"></i>
+							</div>
+						</div>
+					</div>
+
+					<!-- filter section  -->
+					<div class="container mt-3">
+						<div class="">
+							<div class="px-lg-4">
+								<!-- Accordion  -->
+								<div class="accordion-item shadow-accord">
+									<h6 class="accordion-header my-0 py-0" id="headingOne">
+									  <button class="accordion-button collapsed py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+										  <span class="welcome mb-0 fw-bold fs-6">Filter By</span>
+									  </button>
+									</h6>
+									<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+									  <div class="accordion-body">
+										<!-- Description  -->
+										  <div class="">
+											<h2 style="text-align:justify; font-size: 14px !important;" class="welcome" id="description"></h2>
+										  </div>
+									  </div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="container">
+						<div class="row ps-3 ps-lg-4 pe-4 mt-4">
+							<div class="col-12 mb-5 mb-xl-0">
+								<div class="card-body bg-white rounded-5 shadow-sm">
+									<!-- <h3 class="welcome fs-6 mb-3">Recent Transactions</h3> -->
+									<div class=" table-responsive bg-white">
+										<table class="table">
+											<thead class="welcome fw-bold" style="font-size: 14px;">
+											  <tr class="">
+												<th style="min-width: 180px;">Transaction ID</th>
+												<th style="min-width: 180px;">Date</th>
+												<th style="min-width: 180px;">From</th>
+												<th style="min-width: 180px;">Receipiant</th>
+												<th style="min-width: 180px;">Reason</th>
+												<th style="min-width: 180px;">Amount</th>
+												<th style="min-width: 50px;"></th>
+											  </tr>
+											</thead>
+											<tbody style="border-top: none; vertical-align: unset !important;">
+											  <tr class="align-items-middle">
+												<td class="text-muted">8291ji2290R92922</td>
+												<td class="text-muted">May 2, 2023 12:30AM </td>
+												<td class="text-muted">Ahmed Dupree</td>
+												<td class="text-muted">Matt Ross</td>
+												<td class="text-primary">Sales</td>
+												<td class="welcome fw-bold">NGN 1,714, 335</td>
+												<td class="text-right">
+													<div class="dropdown shadow-dot text-center">
+														<a class="btn btn-sm a-class text-secondary" href=""
+															role="button" data-bs-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-ellipsis-v"></i>
+														</a>
+														<div
+															class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+															<a class="dropdown-item" href="">Remove</a>
+															<a class="dropdown-item" href="">Edit</a>
+															<a class="dropdown-item" href="">Block</a>
+
+														</div>
+													</div>
+												</td>
+											  </tr>
+
+											  <tr class="align-items-middle">
+												<td class="text-muted">8291ji2290R92922</td>
+												<td class="text-muted">May 2, 2023 12:30AM </td>
+												<td class="text-muted">Ahmed Dupree</td>
+												<td class="text-muted">Matt Ross</td>
+												<td class="text-primary">Sales</td>
+												<td class="welcome fw-bold">NGN 1,714, 335</td>
+												<td class="text-right">
+													<div class="dropdown shadow-dot text-center">
+														<a class="btn btn-sm a-class text-secondary" href=""
+															role="button" data-bs-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-ellipsis-v"></i>
+														</a>
+														<div
+															class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+															<a class="dropdown-item" href="">Remove</a>
+															<a class="dropdown-item" href="">Edit</a>
+															<a class="dropdown-item" href="">Block</a>
+
+														</div>
+													</div>
+												</td>
+											  </tr>
+
+											  <tr class="align-items-middle">
+												<td class="text-muted">8291ji2290R92922</td>
+												<td class="text-muted">May 2, 2023 12:30AM </td>
+												<td class="text-muted">Ahmed Dupree</td>
+												<td class="text-muted">Matt Ross</td>
+												<td class="text-primary">Sales</td>
+												<td class="welcome fw-bold">NGN 1,714, 335</td>
+												<td class="text-right">
+													<div class="dropdown shadow-dot text-center">
+														<a class="btn btn-sm a-class text-secondary" href=""
+															role="button" data-bs-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-ellipsis-v"></i>
+														</a>
+														<div
+															class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+															<a class="dropdown-item" href="">Remove</a>
+															<a class="dropdown-item" href="">Edit</a>
+															<a class="dropdown-item" href="">Block</a>
+
+														</div>
+													</div>
+												</td>
+											  </tr>
+
+											  <tr class="align-items-middle">
+												<td class="text-muted">8291ji2290R92922</td>
+												<td class="text-muted">May 2, 2023 12:30AM </td>
+												<td class="text-muted">Ahmed Dupree</td>
+												<td class="text-muted">Matt Ross</td>
+												<td class="text-primary">Sales</td>
+												<td class="welcome fw-bold">NGN 1,714, 335</td>
+												<td class="text-right">
+													<div class="dropdown shadow-dot text-center">
+														<a class="btn btn-sm a-class text-secondary" href=""
+															role="button" data-bs-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-ellipsis-v"></i>
+														</a>
+														<div
+															class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+															<a class="dropdown-item" href="">Remove</a>
+															<a class="dropdown-item" href="">Edit</a>
+															<a class="dropdown-item" href="">Block</a>
+
+														</div>
+													</div>
+												</td>
+											  </tr>
+
+											  <tr class="align-items-middle">
+												<td class="text-muted">8291ji2290R92922</td>
+												<td class="text-muted">May 2, 2023 12:30AM </td>
+												<td class="text-muted">Ahmed Dupree</td>
+												<td class="text-muted">Matt Ross</td>
+												<td class="text-primary">Sales</td>
+												<td class="welcome fw-bold">NGN 1,714, 335</td>
+												<td class="text-right">
+													<div class="dropdown shadow-dot text-center">
+														<a class="btn btn-sm a-class text-secondary" href=""
+															role="button" data-bs-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-ellipsis-v"></i>
+														</a>
+														<div
+															class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+															<a class="dropdown-item" href="">Remove</a>
+															<a class="dropdown-item" href="">Edit</a>
+															<a class="dropdown-item" href="">Block</a>
+
+														</div>
+													</div>
+												</td>
+											  </tr>
+
+											  <tr class="align-items-middle">
+												<td class="text-muted">8291ji2290R92922</td>
+												<td class="text-muted">May 2, 2023 12:30AM </td>
+												<td class="text-muted">Ahmed Dupree</td>
+												<td class="text-muted">Matt Ross</td>
+												<td class="text-primary">Sales</td>
+												<td class="welcome fw-bold">NGN 1,714, 335</td>
+												<td class="text-right">
+													<div class="dropdown shadow-dot text-center">
+														<a class="btn btn-sm a-class text-secondary" href=""
+															role="button" data-bs-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-ellipsis-v"></i>
+														</a>
+														<div
+															class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+															<a class="dropdown-item" href="">Remove</a>
+															<a class="dropdown-item" href="">Edit</a>
+															<a class="dropdown-item" href="">Block</a>
+
+														</div>
+													</div>
+												</td>
+											  </tr>
+
+											  <tr class="align-items-middle">
+												<td class="text-muted">8291ji2290R92922</td>
+												<td class="text-muted">May 2, 2023 12:30AM </td>
+												<td class="text-muted">Ahmed Dupree</td>
+												<td class="text-muted">Matt Ross</td>
+												<td class="text-primary">Sales</td>
+												<td class="welcome fw-bold">NGN 1,714, 335</td>
+												<td class="text-right">
+													<div class="dropdown shadow-dot text-center">
+														<a class="btn btn-sm a-class text-secondary" href=""
+															role="button" data-bs-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-ellipsis-v"></i>
+														</a>
+														<div
+															class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+															<a class="dropdown-item" href="">Remove</a>
+															<a class="dropdown-item" href="">Edit</a>
+															<a class="dropdown-item" href="">Block</a>
+
+														</div>
+													</div>
+												</td>
+											  </tr>
+
+											  <tr class="align-items-middle">
+												<td class="text-muted">8291ji2290R92922</td>
+												<td class="text-muted">May 2, 2023 12:30AM </td>
+												<td class="text-muted">Ahmed Dupree</td>
+												<td class="text-muted">Matt Ross</td>
+												<td class="text-primary">Sales</td>
+												<td class="welcome fw-bold">NGN 1,714, 335</td>
+												<td class="text-right">
+													<div class="dropdown shadow-dot text-center">
+														<a class="btn btn-sm a-class text-secondary" href=""
+															role="button" data-bs-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-ellipsis-v"></i>
+														</a>
+														<div
+															class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+															<a class="dropdown-item" href="">Remove</a>
+															<a class="dropdown-item" href="">Edit</a>
+															<a class="dropdown-item" href="">Block</a>
+
+														</div>
+													</div>
+												</td>
+											  </tr>
+
+											  <tr class="align-items-middle">
+												<td class="text-muted">8291ji2290R92922</td>
+												<td class="text-muted">May 2, 2023 12:30AM </td>
+												<td class="text-muted">Ahmed Dupree</td>
+												<td class="text-muted">Matt Ross</td>
+												<td class="text-primary">Sales</td>
+												<td class="welcome fw-bold">NGN 1,714, 335</td>
+												<td class="text-right">
+													<div class="dropdown shadow-dot text-center">
+														<a class="btn btn-sm a-class text-secondary" href=""
+															role="button" data-bs-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-ellipsis-v"></i>
+														</a>
+														<div
+															class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+															<a class="dropdown-item" href="">Remove</a>
+															<a class="dropdown-item" href="">Edit</a>
+															<a class="dropdown-item" href="">Block</a>
+
+														</div>
+													</div>
+												</td>
+											  </tr>
+
+											  <tr class="align-items-middle">
+												<td class="text-muted">8291ji2290R92922</td>
+												<td class="text-muted">May 2, 2023 12:30AM </td>
+												<td class="text-muted">Ahmed Dupree</td>
+												<td class="text-muted">Matt Ross</td>
+												<td class="text-primary">Sales</td>
+												<td class="welcome fw-bold">NGN 1,714, 335</td>
+												<td class="text-right">
+													<div class="dropdown shadow-dot text-center">
+														<a class="btn btn-sm a-class text-secondary" href=""
+															role="button" data-bs-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-ellipsis-v"></i>
+														</a>
+														<div
+															class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+															<a class="dropdown-item" href="">Remove</a>
+															<a class="dropdown-item" href="">Edit</a>
+															<a class="dropdown-item" href="">Block</a>
+
+														</div>
+													</div>
+												</td>
+											  </tr>
+
+											  <tr class="align-items-middle">
+												<td class="text-muted">8291ji2290R92922</td>
+												<td class="text-muted">May 2, 2023 12:30AM </td>
+												<td class="text-muted">Ahmed Dupree</td>
+												<td class="text-muted">Matt Ross</td>
+												<td class="text-primary">Sales</td>
+												<td class="welcome fw-bold">NGN 1,714, 335</td>
+												<td class="text-right">
+													<div class="dropdown shadow-dot text-center">
+														<a class="btn btn-sm a-class text-secondary" href=""
+															role="button" data-bs-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-ellipsis-v"></i>
+														</a>
+														<div
+															class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+															<a class="dropdown-item" href="">Remove</a>
+															<a class="dropdown-item" href="">Edit</a>
+															<a class="dropdown-item" href="">Block</a>
+
+														</div>
+													</div>
+												</td>
+											  </tr>
+
+											  <tr class="align-items-middle">
+												<td class="text-muted">8291ji2290R92922</td>
+												<td class="text-muted">May 2, 2023 12:30AM </td>
+												<td class="text-muted">Ahmed Dupree</td>
+												<td class="text-muted">Matt Ross</td>
+												<td class="text-primary">Sales</td>
+												<td class="welcome fw-bold">NGN 1,714, 335</td>
+												<td class="text-right">
+													<div class="dropdown shadow-dot text-center">
+														<a class="btn btn-sm a-class text-secondary" href=""
+															role="button" data-bs-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-ellipsis-v"></i>
+														</a>
+														<div
+															class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+															<a class="dropdown-item" href="">Remove</a>
+															<a class="dropdown-item" href="">Edit</a>
+															<a class="dropdown-item" href="">Block</a>
+
+														</div>
+													</div>
+												</td>
+											  </tr>
+
+											  <tr class="align-items-middle">
+												<td class="text-muted">8291ji2290R92922</td>
+												<td class="text-muted">May 2, 2023 12:30AM </td>
+												<td class="text-muted">Ahmed Dupree</td>
+												<td class="text-muted">Matt Ross</td>
+												<td class="text-primary">Sales</td>
+												<td class="welcome fw-bold">NGN 1,714, 335</td>
+												<td class="text-right">
+													<div class="dropdown shadow-dot text-center">
+														<a class="btn btn-sm a-class text-secondary" href=""
+															role="button" data-bs-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-ellipsis-v"></i>
+														</a>
+														<div
+															class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+															<a class="dropdown-item" href="">Remove</a>
+															<a class="dropdown-item" href="">Edit</a>
+															<a class="dropdown-item" href="">Block</a>
+
+														</div>
+													</div>
+												</td>
+											  </tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							
+							</div>
+							
+						</div>
+					</div>
+					
+
+				</div>
+			</div>
+			<!-- Footer starts -->
+			<div id="bottomnav" class="footer"></div>
+			<!-- footer ends  -->
+		</div>
+		</div>
+	</div>
+
+  <script src="../js/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+	integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+	crossorigin="anonymous"></script>
+	
+	<script>
+		$('#topnav').load("../component/nav-component.html");
+		$('#sidebarMenu').load("../component/component.html");
+		$('#bottomnav').load("../component/footer.html");
+	</script>
+</body>
+
+</html>

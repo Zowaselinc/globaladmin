@@ -274,8 +274,11 @@ table.dataTable {
 	width: 100%;
 	margin: 0 auto;
 	clear: both;
-	/* border-collapse: separate; */
-	/* border-spacing: 0; */
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+.table-row {
+
 }
 table.dataTable thead th,
 table.dataTable tfoot th {
@@ -284,7 +287,7 @@ table.dataTable tfoot th {
 table.dataTable thead th,
 table.dataTable thead td {
 	padding: 10px;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+	/* border-bottom: 1px solid rgba(206, 206, 206, 0.3); */
 }
 table.dataTable thead th:active,
 table.dataTable thead td:active {
@@ -298,16 +301,16 @@ table.dataTable tfoot td {
 table.dataTable tbody tr {
 	background-color: transparent;
 }
-table.dataTable tbody tr.selected > * {
+/* table.dataTable tbody tr.selected > * {
 	box-shadow: inset 0 0 0 9999px rgba(13, 110, 253, 0.9);
 	color: white;
-}
+} */
 table.dataTable tbody tr.selected a {
 	color: #090a0b;
 }
 table.dataTable tbody th,
 table.dataTable tbody td {
-	padding: 8px 10px;
+	/* padding: 8px 10px; */
 }
 table.dataTable.row-border tbody th,
 table.dataTable.row-border tbody td,
@@ -447,7 +450,7 @@ table.dataTable.compact tfoot th,
 table.dataTable.compact tfoot td,
 table.dataTable.compact tbody th,
 table.dataTable.compact tbody td {
-	padding: 4px;
+	/* padding: 4px; */
 }
 table.dataTable th,
 table.dataTable td {
@@ -459,6 +462,7 @@ table.dataTable td {
 }
 .dataTables_wrapper .dataTables_length {
 	float: left;
+	display: none;
 }
 .dataTables_wrapper .dataTables_length select {
 	border: 1px solid #aaa;
@@ -468,6 +472,9 @@ table.dataTable td {
 	padding: 4px;
 }
 .dataTables_wrapper .dataTables_filter {
+	/* position: absolute;
+	top: -88px;
+	right: -8px; */
 	float: right;
 	text-align: right;
 	margin-bottom: 20px;
@@ -580,9 +587,9 @@ table.dataTable td {
 	margin: 0 !important;
 	padding: 0 !important;
 }
-.dataTables_wrapper.no-footer .dataTables_scrollBody {
+/* .dataTables_wrapper.no-footer .dataTables_scrollBody {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-}
+} */
 .dataTables_wrapper.no-footer div.dataTables_scrollHead table.dataTable,
 .dataTables_wrapper.no-footer div.dataTables_scrollBody > table {
 	border-bottom: none;

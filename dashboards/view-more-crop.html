@@ -40,319 +40,290 @@
 				<!-- View more begins  -->
 			<div class="container-fluid gx-0 gl-md-0 gx-lg-3">
 				<div class="container pe-0 ps-0">
-					<div class="col-12">
-						<div class=" d-flex cursor-pointer mb-3 ">
-							<a href="#" onclick="backButton()"><i class="fa fa-arrow-left fs-4 mb-0 success-color cursor-pointer"></i></a>
-							<h2 class="ms-2 ms-md-3 fs-4 welcome">Crop :<span id="croptype" class="fs-4 welcome text-capitalize ms-2"></span></h2>
-						</div>
-
-						<!-- Content Section 1 -->
-						<div class="container mb-2">
-							<div class="company-detail">
-								<div class="detail-content">
-									<div class="flex-1 d-flex align-items-center justify-content-">
-										<h1 class="welcome text-uppercase text-muted me-3">USER :</h1>
-										<h1 class="welcome text-uppercase text-primary me-2 names" id="firstName"></h1>
-										<h1 class="welcome text-uppercase text-primary names" id="lastName"></h1>
+					<!-- Content Section 1 -->
+					<div class="card rounded-3 border-0 shadow-sm px-4 mb-4">
+						<div class="card-body bg-white">
+							<div class="d-block d-md-flex">
+								<div class="col-12 col-md-6 mt-3 mb-3">
+									<div class="d-flex mb-2">
+										<a href="#" onclick="backButton()"><i class="me-2 fa fa-arrow-left fs-2 success-color cursor-pointer"></i></a>
+										<h1 class="welcome fs-2" id="Subcategory_name"></h1>
 									</div>
-
-									<!-- <div class="flex-1 d-flex align-items-center justify-content-">
-										<h2 class="welcome text-uppercase text-muted me-3">USER ID:</h1>
-										<h2 class="welcome text-uppercase text-muted" id="user_id"></h2>
-									</div> -->
+									<div class="ms-4 mb-2">
+										<span class="welcome text-capitalize fs-5 names" id="firstName"></span>
+										<span class="welcome text-capitalize fs-5 names me-3" id="lastName"></span>
+										<span class="welcome text-capitalize fs-5 names" id="very">Verified</span>
+										<span class="welcome text-capitalize fs-5 names" id="userType"></span>
+									</div>
+									<div class="ms-4">
+										<span class="welcome fw-bold fs-5">Quantity: <span id="Quantities" class="welcome fw-bold fs-5"></span></span>
+									</div>
 								</div>
+								<div class="col-12 col-md-6 text-md-center mt-5">
+									<div class="welcome fw-bold fs-2">
+										<span id="Currency" class="welcome fw-bold fs-2"></span>
+										<span id="priceTag" class="welcome fw-bold fs-2"></span>/
+										<span id="measure" class="welcome fw-bold fs-2 text-uppercase"></span></div>
+									</div>
 							</div>
 						</div>
-            			<!-- Content Section 1 -->
+					</div>
+					<!-- Content Section ends1 -->
 
-            			<!-- Content Section 2 -->
-						<div class="container">
-							<div class="company-detail">
-								<div class="d-block d-md-flex justify-content-md-between align-items-md-center">
-									<div class="col-12 col-md-6">
-										<div class="flex-1 col-md-8 mt-4 pe-3 pe-md-0">
-											<h2 class="welcome">Application</h2>
-											<div><h5 style="text-align:justify ;" class="text-muted" id="application"></h5></div>
-										</div>
-										<div class="flex-1 col-md-8 pe-3 pe-md-0">
-											<h2 class="welcome">Description</h2>
-											<div><h5 style="text-align:justify ;" class="text-muted" id="description"></h5></div>
-										</div>
-										
-									</div>
-									<div class="col-12 col-md-6 text-md-end mt-3 mt-md-0">
-										<div class="">
-											<!-- <img src="" width="65%" class="rounded-2" alt="" id="images"> -->
-											<div id="images" class="rounded-2" width="65%"></div>
-											<div class="d-flex justify-content-end">
-												<h2 class="welcome mt-2 me-3" id="category_name"></h2>
-												<h2 class="welcome mt-2" id="Subcategory_name"></h2>
-											</div>
-										</div>
-										
-									</div>
+					<!-- Card carousel begins  -->
+
+					<div class="card-body rounded-3 bg-white px-5">
+						<span class="text-secondary fw-bold fs-3">Product Image</span>
+
+						<div class="mt-3">
+							<div class="d-flex justify-content-md-between">
+								<div  class="bigimg">
+									<img id="imagechange" src="https://filesapi.growsel.com/files/ZOWADOC64465ebd3aadc85ba456206a4fb36f0660a42a9216d64.jpeg" alt="">
+								</div>
+								<!-- <div class="midimag" >
+									<img id="imagechange" src="" alt="">
+								</div> -->
+							</div>
+							<!-- small images  -->
+							<div class="col-12 small-images d-flex justify-content-md-between align-items-md-center mt-4 mb-3">
+								<div class="imgSlide cards">
+									<img id='slideimg1' class="img-src"/>
+								</div>
+								<div class="imgSlide cards">
+									<img id='slideimg2' class="img-src"/>
+								</div>
+								<div class="imgSlide cards">
+									<img id='slideimg3' class="img-src"/>
+								</div>
+								<div class="imgSlide cards">
+									<img id='slideimg4' class="img-src"/>
+								</div>
+								<div class="imgSlide cards">
+									<img id='slideimg5' class="img-src"/>
 								</div>
 							</div>
+							
 						</div>
-						<!-- Content Section 2 -->
+					</div>
 
-						<!-- Content Section 3 -->
-						<div class="container pe-2 pe-md-0">
-							<div class="d-block d-md-flex justify-content-md-between   mt-3 pb-1 rounded-1">
-								
-								<div class="col-12 col-md-3">
-									<h2 class="welcome text-muted" >Crop Request :</h2>
-									<table class="table "id="cropRequest">
-										<tbody>
-											<tr>
-												<td>
-													<div class="boldtableContent">Country</div>
-													<div id="country" class="text-primary welcome text-secondary"></div>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="boldtableContent">State</div>
-													<div id="state" class="text-primary welcome text-secondary"></div>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="boldtableContent">Address</div>
-													<div id="address" class="text-primary welcome text-secondary"></div>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="boldtableContent">Zip Code</div>
-													<div id="zipCode" class="text-primary welcome text-secondary"></div>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="boldtableContent">Crop ID</div>
-													<div id="cropId" class="text-primary welcome text-secondary"></div>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="boldtableContent">Last Updated</div>
-													<div id="lastUpdate" class="text-primary welcome text-secondary"></div>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="boldtableContent">Method of Delivery</div>
-													<div id="deliveryMethod" class="text-primary welcome text-secondary"></div>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="boldtableContent">Delivery Window</div>
-													<div id="deliveryWindow" class="text-primary welcome fw-bold">
-														From <span id="from" class="text-primary"></span> To <span id="to" class="text-primary"></span>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="boldtableContent">Delivery Date</div>
-													<div id="deliveryDate" class="text-primary welcome text-secondary"></div>
-												</td>
-											</tr>
-											
-										</tbody>
-									</table>
-									<h2 class="welcome text-muted mt-5 pt-5" id="requestAvail">No Crop Request data available</h2>
-
-
-								</div>
-								<!-- table -->
-								<div class="col-12 col-md-8 bg-white ps-3 pt-3 pb-1 shadow-sm" style="border-radius: 10px !important;">
-									<h2 class="welcome text-muted">Specifications</h2>
+					<!-- Accordion specification description  -->
+					<!-- Description  -->
+					<div class="card-body px-4 bg-white mt-4 rounded-3 shadow-sm">
+						<div class="accordion-item accordborder">
+							<h2 class="accordion-header" id="headingOne">
+							  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+								  <h1 class="welcome mb-0 fw-bold fs-3">Description</h1>
+							  </button>
+							</h2>
+							<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+							  <div class="accordion-body accord-body">
+								<!-- Description  -->
+								  <div class="">
+									<h2 style="text-align:justify; font-size: 14px !important;" class="welcome" id="description"></h2>
+								  </div>
+							  </div>
+							</div>
+						</div>
+					</div> 
+					<!-- specifications  -->
+					<div class="card-body px-4 bg-white mt-4 rounded-3 shadow-sm">
+						<div class="accordion-item accordborder">
+							<h2 class="accordion-header" id="headingTwo">
+							  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+								  <h1 class="welcome mb-0 fw-bold fs-3">Specifications</h1>
+							  </button>
+							</h2>
+							<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+							  <div class="accordion-body accord-body">
+								<!-- Specification -->
+								 <div>
 									<table class="table borderlesstable">
 										<tbody class="">
 											<tr>
 												<td>
-													<div class="boldtableContent">Price</div>
-													<div id="price" class="tableinfo welcome text-secondary">Abia</div>
+													<span class="boldtableContent">Price :</span>
+													<span id="price" class="tableinfo welcome text-secondary">Abia</span>
 												</td>
 												<td>
-													<div class="boldtableContent">Quantity</div>
-													<div id="quantity" class="tableinfo welcome text-secondary">Nigeria</div>
-												</td>
-											</tr>	
-											<tr>
-												<td>
-													<div class="boldtableContent">Grain Size</div>
-													<div id="grainSize" class="tableinfo welcome text-secondary">Abia</div>
-												</td>
-												<td>
-													<div class="boldtableContent">Hardness</div>
-													<div id="hardness" class="tableinfo welcome text-secondary">Nigeria</div>
+													<span class="boldtableContent">Quantispaspan</span>
+													<span id="quantity" class="tableinfo welcome text-secondary">Nigeria</span>
 												</td>
 											</tr>	
 											<tr>
 												<td>
-													<div class="boldtableContent">Acid Ash</div>
-													<div id="acid" class="tableinfo welcome text-secondary">Chemicals</div>
+													<span class="boldtableContent">Grain Size :</span>
+													<span id="grainSize" class="tableinfo welcome text-secondary">Abia</span>
 												</td>
 												<td>
-													<div class="boldtableContent">Color</div>
-													<div id="color" class="tableinfo welcome text-secondary">Insecticide</div>
+													<span class="boldtableContent">Hardness :</span>
+													<span id="hardness" class="tableinfo welcome text-secondary">Nigeria</span>
+												</td>
+											</tr>	
+											<tr>
+												<td>
+													<span class="boldtableContent">Acid Ash :</span>
+													<span id="acid" class="tableinfo welcome text-secondary">Chemicals</span>
+												</td>
+												<td>
+													<span class="boldtableContent">Color :</span>
+													<span id="color" class="tableinfo welcome text-secondary">Insecticide</span>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<span class="boldtableContent">Curcumin Content :</span>
+													<span id="curcumin_content" class="tableinfo welcome text-secondary">Plastic</span>
+												</td>
+												<td>
+													<span class="boldtableContent">Rotten Shtiveled :</span>
+													<span id="rotten_shriveled" class="tableinfo welcome text-secondary">NGN</span>
 												</td>
 											</tr>
 	
 											<tr>
 												<td>
-													<div class="boldtableContent">Curcumin Content</div>
-													<div id="curcumin_content" class="tableinfo welcome text-secondary">Plastic</div>
+													<span class="boldtableContent">Infestation :</span>
+													<span id="infestation" class="tableinfo welcome text-secondary">Dangoted</span>
 												</td>
 												<td>
-													<div class="boldtableContent">Rotten Shtiveled</div>
-													<div id="rotten_shriveled" class="tableinfo welcome text-secondary">NGN</div>
-												</td>
-											</tr>
-	
-											
-	
-											<tr>
-												<td>
-													<div class="boldtableContent">Infestation</div>
-													<div id="infestation" class="tableinfo welcome text-secondary">Dangoted</div>
-												</td>
-												<td>
-													<div class="boldtableContent">Splits</div>
-													<div id="splits" class="tableinfo welcome text-secondary">20-October-2022</div>
+													<span class="boldtableContent">Splits :</span>
+													<span id="splits" class="tableinfo welcome text-secondary">20-October-2022</span>
 												</td>
 											</tr>
 	
 											<tr>
 												<td>
-													<div class="boldtableContent">Dead Insects</div>
-													<div id="insect" class="tableinfo welcome text-secondary">25KG</div>
+													<span class="boldtableContent">Dead Insects :</span>
+													<span id="insect" class="tableinfo welcome text-secondary">25KG</span>
 												</td>
 												<td>
-													<div class="boldtableContent">Mammalian</div>
-													<div id="mammalian" class="tableinfo welcome text-secondary">20-October-2023</div>
-												</td>
-											</tr>
-	
-											<tr>
-												<td>
-													<div class="boldtableContent">Test Weight</div>
-													<div id="testweight" class="tableinfo welcome text-secondary">4L</div>
-												</td>
-												<td>
-													<div class="boldtableContent">Model Type</div>
-													<div id="modeltype" class="tableinfo welcome text-secondary">Road</div>
+													<span class="boldtableContent">Mammalian :</span>
+													<span id="mammalian" class="tableinfo welcome text-secondary">20-October-2023</span>
 												</td>
 											</tr>
 	
 											<tr>
 												<td>
-													<div class="boldtableContent">Defect</div>
-													<div id="defects" class="tableinfo welcome text-secondary">Abia</div>
+													<span class="boldtableContent">Test Weight :</span>
+													<span id="testweight" class="tableinfo welcome text-secondary">4L</span>
 												</td>
 												<td>
-													<div class="boldtableContent">DK</div>
-													<div id="dk" class="tableinfo welcome text-secondary">Nigeria</div>
+													<span class="boldtableContent">Model Type :</span>
+													<span id="modeltype" class="tableinfo welcome text-secondary">Road</span>
+												</td>
+											</tr>
+	
+											<tr>
+												<td>
+													<span class="boldtableContent">Defect :</span>
+													<span id="defects" class="tableinfo welcome text-secondary">Abia</span>
+												</td>
+												<td>
+													<span class="boldtableContent">DK :</span>
+													<span id="dk" class="tableinfo welcome text-secondary">Nigeria</span>
 												</td>
 											</tr>	
 											<tr>
 												<td>
-													<div class="boldtableContent">Moisture</div>
-													<div id="moist" class="tableinfo welcome text-secondary">Abia</div>
+													<span class="boldtableContent">Moisture :</span>
+													<span id="moist" class="tableinfo welcome text-secondary">Abia</span>
 												</td>
 												<td>
-													<div class="boldtableContent">Dockage</div>
-													<div id="dock" class="tableinfo welcome text-secondary">Nigeria</div>
-												</td>
-											</tr>	
-											<tr>
-												<td>
-													<div class="boldtableContent">Mold</div>
-													<div id="mold" class="tableinfo welcome text-secondary">Abia</div>
-												</td>
-												<td>
-													<div class="boldtableContent">Unit</div>
-													<div id="unit" class="tableinfo welcome text-secondary">Nigeria</div>
+													<span class="boldtableContent">Dockage :</span>
+													<span id="dock" class="tableinfo welcome text-secondary">Nigeria</span>
 												</td>
 											</tr>	
 											<tr>
 												<td>
-													<div class="boldtableContent">Drying Process</div>
-													<div id="drying" class="tableinfo welcome text-secondary">Abia</div>
+													<span class="boldtableContent">Mold :</span>
+													<span id="mold" class="tableinfo welcome text-secondary">Abia</span>
 												</td>
 												<td>
-													<div class="boldtableContent">Oil Content</div>
-													<div id="oil" class="tableinfo welcome text-secondary">Nigeria</div>
+													<span class="boldtableContent">Unit :</span>
+													<span id="unit" class="tableinfo welcome text-secondary">Nigeria</span>
 												</td>
 											</tr>	
 											<tr>
 												<td>
-													<div class="boldtableContent">Extraneous</div>
-													<div id="extranous" class="tableinfo welcome text-secondary">Abia</div>
+													<span class="boldtableContent">Drying Process :</span>
+													<span id="drying" class="tableinfo welcome text-secondary">Abia</span>
 												</td>
 												<td>
-													<div class="boldtableContent">Volatile</div>
-													<div id="Volatile" class="tableinfo welcome text-secondary">Nigeria</div>
+													<span class="boldtableContent">Oil Content :</span>
+													<span id="oil" class="tableinfo welcome text-secondary">Nigeria</span>
+												</td>
+											</tr>	
+											<tr>
+												<td>
+													<span class="boldtableContent">Extraneous :</span>
+													<span id="extranous" class="tableinfo welcome text-secondary">Abia</span>
+												</td>
+												<td>
+													<span class="boldtableContent">Volatile :</span>
+													<span id="Volatile" class="tableinfo welcome text-secondary">Nigeria</span>
 												</td>
 											</tr>
-											<tr style="border-bottom: 1px solid grey;">
+											<tr>
 												<td>
-													<div class="boldtableContent">Weevil</div>
-													<div id="weevil" class="tableinfo welcome text-secondary">Abia</div>
+													<span class="boldtableContent">Weevil :</span>
+													<span id="weevil" class="tableinfo welcome text-secondary">Abia</span>
+												</td>
+												<td>
+													<span class="boldtableContent">Negotiable :</span>
+													<span id="negotiate" class="tableinfo welcome text-secondary">NGN,250</span>
 												</td>
 												
 											</tr>
-											<hr>	
 											
 											<tr>
 												<td>
-													<div class="boldtableContent">Video</div>
-													<div class="tableinfo welcome text-secondary">
+													<span class="boldtableContent">Video :</span>
+													<span class="tableinfo welcome text-secondary">
 														<a  href="javascript:void(0)"  onclick="watchVideo()" class="success-color watch-more">Click to Watch Video</a> 
-															<div id="videoModal" class="videoModal"></div>
-																<div class="video-popup">
-																	<a class="close">&times;</a>
-																	
-																	<div class="video-wrapper">
-																		<div class="video-container">
-																			<iframe width="560" height="315" id="vidFeed" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-																		</div>
-																	</div>
+														<div id="videoModal" class="videoModal"></div>
+															<div class="video-popup">
+															<a class="close">&times;</a>
+															
+															<div class="video-wrapper">
+																<div class="video-container">
+																	<iframe width="560" height="315" id="vidFeed" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 																</div>
 															</div>
+														</div>
+													</span>
 												</td>
 												<td>
-													<div class="boldtableContent">Packaging</div>
-													<div id="package" class="tableinfo welcome text-secondary">NGN,250</div>
-												</td>
-												
-											</tr>
-											<tr>
-												<td>
-													<div class="boldtableContent">Currency</div>
-													<div id="currency" class="tableinfo welcome text-secondary">NGN,250</div>
-												</td>
-												<td>
-													<div class="boldtableContent">Negotiable</div>
-													<div id="negotiate" class="tableinfo welcome text-secondary">NGN,250</div>
+													<span class="boldtableContent">Packaging :</span>
+													<span id="package" class="tableinfo welcome text-secondary">NGN,250</span>
 												</td>
 												
 											</tr>
 										
 										</tbody>
 									</table>
-								</div>
-								<!-- table -->
-
+								 </div>
+							  </div>
 							</div>
-							
 						</div>
-						<!-- Content Section 3 -->
-						
+					</div>
+					<!-- Merchants location  -->
+					<div class="card-body px-4 bg-white mt-4 rounded-3 shadow-sm">
+						<div class="accordion-item accordborder">
+							<h2 class="accordion-header" id="headingThree">
+							  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								  <h1 class="welcome mb-0 fw-bold fs-3">Merchants Location</h1>
+							  </button>
+							</h2>
+							<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+							  <div class="accordion-body accord-body">
+								<!-- Merchant Location  -->
+								<img src="../assets/potato/Basemap image.png" alt="" width="100%">
+								<div>
+								</div>
+								  
+							  </div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -93,26 +93,31 @@ const fetchAllFarmers=()=> {
           += `
           <tr>
           <td>${index}</td>
-          <td><strong class="welcome">${row.firstname}</strong>, <strong class="welcome">${row.lastname}</strong>
-          <br/><small class="text-primary">${row.email}</small></td>
-          <td><strong class="text-primary">${row.mobile}</strong></td>
-          <td><strong class="welcome text-uppercase">${row.gender}</strong></td>
-          <td><a href="javascript:void(0)" class="text-white btn-md py-2 px-4 th-btn rounded-pill" onclick="viewFarmer('${row.farmerid}')">VIEW</a></td>
+          <td><strong class="text-muted">${row.firstname}</strong>, <strong class="text-muted">${row.lastname}</strong></td>
+          <td><strong class="text-muted">${row.email}</strong></td>
+          <td><strong class="text-muted">${row.languagesspoken}</strong></td>
+          <td style="cursor:pointer;" class="">
+            <a href="javascript:void(0)" onclick="viewFarmer('${row.farmerid}')"><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn th-btn px-4 fw-bold">Details</span></a>
+          </td>
+          <td style="cursor:pointer;" class="">
+            <a href="javascript:void(0)" onclick="viewFarmerScore('')"><span style="border-radius:5px !important; font-size:14px !important;" class="text-primary btn border-primary px-4 fw-bold">View Score</span></a>
+          </td>
           </tr>`;
       });
       // alert(response.data.length);
       $('#farmersData').html(rowContent);
       $(document).ready(function () {
         $('#allTable').DataTable({
-          scrollY: 300,
+          scrollY: 600,
           scrollX: true,
           scrollCollapse: true,
           retrieve: true,
           paging: true,
-          "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+          searching: false,
+          "lengthMenu": [[10, 25, 50, -1], [5, 25, 50, "All"]],
           fixedHeader: {
             header: true,
-            footer: true
+            footer: true,
           }
         });
       });
@@ -121,6 +126,11 @@ const fetchAllFarmers=()=> {
     }
   });
 };
+
+const viewFarmerScore = () =>{
+  // alert("thanks")
+  window.location.href="credit-score-result.html "
+}
 
 const viewFarmer = (farmerid)=>{
   // alert(farmerid)
@@ -184,24 +194,27 @@ const farmerDetails =()=>{
       let corporativeStatus;
       if (kyf.corporativemembershipstatus == 1) {
         corporativeStatus =
-          `<span class="text-primary fs-6">Active</span>`;
+          `<span class="text-muted fs-6">Yes</span>`;
       } else {
         corporativeStatus =
-          `<span class="text-danger fs-6">In Active</span>`;
+          `<span class="text-muted fs-6">No</span>`;
       }
 
       let farmTraining;
       if (kyf.professionalfarmingtraining == 1){
-        farmTraining =  `<span class="text-primary fs-6">Yes</span>`
+        farmTraining =  `<span class="text-muted fs-6">Yes</span>`
       } else{
-        farmTraining =  `<span class="text-danger fs-6">No</span>`
+        farmTraining =  `<span class="text-muted fs-6">No</span>`
       }
 
+      $('#farmBvn').text(kyf.bvn);
       $('#corName').text(kyf.corporatename);
       $('#corStatus').html(corporativeStatus);
       $('#eduStatus').text(kyf.levelofeducation);
       $('#idCard').text(kyf.meansofidentification);
       $('#idNumber').text(kyf.identificationno);
+      $('#idIssuDate').text(kyf.issuedate);
+      $('#idExpdate').text(kyf.expirydate);
       $('#training').html(farmTraining);
       $('#experience').text(kyf.yearsoffarmingexperience);
    
@@ -223,6 +236,7 @@ const farmerDetails =()=>{
       }
     
 
+      // let farmInfor = resposne.farminformation 
     }
 
       // Farmer Farm Information 
@@ -257,7 +271,7 @@ const farmerDetails =()=>{
               </td>
               <td>${landOwner}</td>
               <td >
-                <button type="button" class="btn btn-sm th-btn text-white rounded-6 fs-9 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
+                <button type="button" class="btn btn-lg th-btn text-white rounded-6 fs-9 text-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop${index}">
                   VIEW
                 </button>
           

@@ -73,6 +73,7 @@ const pageloader = (contentArea = '', loaderSection = "", processing = 'true') =
 const querySetting = (URL, METHOD, AUTHKEY, DATA = {}) => {
   const settings = {
     "url": `https://adminapi.growsel.com/${URL}`,
+    // "url": `https://vgsvbgpmm2.us-east-1.awsapprunner.com/${URL}`,
     "method": METHOD,
     "timeout": 0,
     "headers": {
@@ -722,14 +723,16 @@ const deleteAdministrator = (id) => {
   })
     .then((willDelete) => {
       if (willDelete) {
-        var settings = {
-          "url": `https://adminapi.growsel.com/api/admin/deletebyadminid/${id}`,
-          "method": "POST",
-          "timeout": 0,
-          "headers": {
-            "Authorization": localStorage.getItem('access')
-          },
-        };
+
+        var settings = querySetting(`api/admin/deletebyadminid/${id}`, "POST", localStorage.getItem('access'));
+        // var settings = {
+        //   "url": `https://adminapi.growsel.com/api/admin/deletebyadminid/${id}`,
+        //   "method": "POST",
+        //   "timeout": 0,
+        //   "headers": {
+        //     "Authorization": localStorage.getItem('access')
+        //   },
+        // };
 
         $.ajax(settings).done(function (response) {
           console.log(response);
@@ -3953,19 +3956,17 @@ function cropsWanted() {
           index = index + 1;
           rowContent += `
               <tr class="">
-              <td>${index}</td>
-              <td><strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
-                <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
-              </td>
-              <td class="text-primary">${row.user.email}</td>
-              <td><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
-              <td>${crop_status}</td>
-              <td style="cursor:pointer;" class="text-center">
-                <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')"> <i class="fa fa-eye"></i> View</a>
-              </td>
-              
-
-            </tr>
+                <!-- <td>${index}</td> -->
+                <td style="padding: 0.8rem 1.5rem !important;"><span class="text-secondary" style="font-size:14px !important;">${row.subcategory.name} - ${row.specification.color}</span> </td>
+                <td><span class="text-secondary" style="font-size:14px !important;">${splittingDate(row.created_at)}</span></td>
+                <td><strong class="text-secondary" style="font-size:14px !important;">${row.category.name}</strong></td>
+                <td><span class="text-seconday" style="font-size:14px !important;">${row.user.first_name}</span></td>
+                <td><strong class:"text-secondary" style="font-size:14px !important;">NGN${row.specification.price}/bag</strong></td>
+                <td><span class="text-secondary" style="font-size:14px !important;">${row.user.state}</span></td>
+                <td style="cursor:pointer;" class="text-center">
+                  <a href="javascript:void(0)"onclick="viewMoreCrop('${row.id}')"><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn th-btn px-4  fw-bold">View</span></a>
+                </td>
+              </tr>
               `;
         });
         $('#cropdata').html(rowContent);
@@ -4033,6 +4034,11 @@ const viewMore = () => {
       } else{
         $('#firstName').text(response.data.user.first_name);
         $('#lastName').text(response.data.user.last_name);
+        $('#userType').text(response.data.user.type);
+        $('#Quantities').text(response.data.specification.qty);
+        $('#Currency').text(response.data.currency);
+        $('#priceTag').text(response.data.specification.price);
+        $('#measure').text(response.data.specification.test_weight);
       }
  
 
@@ -4094,13 +4100,37 @@ const viewMore = () => {
       // $('#deliveryDate').text(count.delivery_date);
       // // crop request end
 
-      var photo = JSON.parse(response.data.images);
-        console.log(photo, "ssss")
+      var image = JSON.parse(response.data.images);
+        console.log(image, "ssss")
+        let img1,img2,img3,img4,img5;
+
+        var slideimg1 = document.getElementById('slideimg1');
+        var slideimg2 = document.getElementById('slideimg2');
+        var slideimg3 = document.getElementById('slideimg3');
+        var slideimg4 = document.getElementById('slideimg4');
+        var slideimg5 = document.getElementById('slideimg5');
+
+        if(image.length < 1){
+          alert("No image");
+      }else if(image.length == 1){
+          img1 = image[0];
+          slideimg1.src = img1;
+      }else if(image.length == 2){
+          img1 = image[0];    img2 = image[1];
+          slideimg1.src = img1;   slideimg2.src = img2;
+      }else if(image.length == 3){
+          img1 = image[0];    img2 = image[1];   img3 = image[2];
+          slideimg1.src = img1;   slideimg2.src = img2;   slideimg3.src = img3;
+      }else if(image.length == 4){
+          img1 = image[0];    img2 = image[1];   img3 = image[2]; img4 = image[3];
+          slideimg1.src = img1;   slideimg2.src = img2;   slideimg3.src = img3;   slideimg4.src = img4;
+      }else if(image.length > 4){
+        img1 = image[0];    img2 = image[1];   img3 = image[2]; img4 = image[3]; img5 = image[4];
+        slideimg1.src = img1;   slideimg2.src = img2;   slideimg3.src = img3;   slideimg4.src = img4; slideimg5.src = img5;
+      }
         // $("#images").append('<img src='+photo+' />');
       // $('#images').append(JSON.parse(response.data.images))
-      console.log(JSON.parse(response.data.images),"bambam")
-
-     
+      // console.log(JSON.parse(response.data.images),"bambam")
     
      }
     
@@ -4108,6 +4138,18 @@ const viewMore = () => {
     // $('#tbdata').html(rowContent);
   });
 }
+$(document).ready(function() {
+
+  $('.cards').click(function(){
+    // alert("bluee")
+
+    $imgsrc = $(this).find('.img-src').attr('src');
+    $("#imagechange").attr("src",$imgsrc).fadeIn(1000);
+   
+  });
+
+});
+
 const watchVideo = () => {
 
   var settings = querySetting("api/admin/crop/getbyid/" + localStorage.getItem('singlecropdata'), "GET", localStorage.getItem('access'));
@@ -4218,19 +4260,18 @@ function cropsOffered() {
 
           index = index + 1;
           rowContent +=
-            `<tr class=" align-items-center">
-                <td>${index}</td>
-                <td><strong class="text-secondary">${user.first_name} ${user.last_name}</strong><br/>
-                  <small class="text-primary fw-bold text-uppercase">${user.type}</small>
-                </td>
-                <td class="text-primary">${user.email}</td>
-                <td><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
-                <td>${crop_status}</td>
+            `<tr class="">
+                <!-- <td>${index}</td> -->
+                <td style="padding: 0.8rem 1.5rem !important;"><span class="text-secondary" style="font-size:14px !important;">${row.subcategory.name} - ${row.specification.color}</span> </td>
+                <td><span class="text-secondary" style="font-size:14px !important;">${splittingDate(row.created_at)}</span></td>
+                <td><strong class="text-secondary" style="font-size:14px !important;">${row.category.name}</strong></td>
+                <td><span class="text-seconday" style="font-size:14px !important;">${row.user.first_name}</span></td>
+                <td><strong class:"text-secondary" style="font-size:14px !important;">NGN${row.specification.price}/bag</strong></td>
+                <td><span class="text-secondary" style="font-size:14px !important;">${row.user.state}</span></td>
                 <td style="cursor:pointer;" class="text-center">
-                  <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')"> <i class="fa fa-eye"></i> View</a>
+                  <a href="javascript:void(0)"onclick="viewMoreCrop('${row.id}')"><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn th-btn px-4  fw-bold">View</span></a>
                 </td>
-                
-  
+          
               </tr>`;
         });
      
@@ -4302,22 +4343,20 @@ function cropsAuctioned() {
           }
 
           index = index + 1;
-          rowContent += `
-                <tr class="">
-                <td>${index}</td>
-                <td><strong class="text-secondary">${row.user.first_name} ${row.user.last_name}</strong><br/>
-                  <small class="text-primary fw-bold text-uppercase">${row.user.type}</small>
-                </td>
-                <td class="text-primary">${row.user.email}</td>
-                <td><strong class="text-capitalize">${row.category.name}</strong> <br> <small class="text-primary fw-bold text-uppercase">${row.subcategory.name}</small> </td>
-                <td>${crop_status}</td>
-                <td style="cursor:pointer;" class="text-center">
-                  <a href="javascript:void(0)" class="success-color" onclick="viewMoreCrop('${row.id}')"> <i class="fa fa-eye"></i> View</a>
-                </td>
-                
-  
-              </tr>
-                `;
+          rowContent += 
+          `<tr class="">
+              <!-- <td>${index}</td> -->
+              <td style="padding: 0.8rem 1.5rem !important;"><span class="text-secondary" style="font-size:14px !important;">${row.subcategory.name} - ${row.specification.color}</span> </td>
+              <td><span class="text-secondary" style="font-size:14px !important;">${splittingDate(row.created_at)}</span></td>
+              <td><strong class="text-secondary" style="font-size:14px !important;">${row.category.name}</strong></td>
+              <td><span class="text-seconday" style="font-size:14px !important;">${row.user.first_name}</span></td>
+              <td><strong class:"text-secondary" style="font-size:14px !important;">NGN${row.specification.price}/bag</strong></td>
+              <td><span class="text-secondary" style="font-size:14px !important;">${row.user.state}</span></td>
+              <td style="cursor:pointer;" class="text-center">
+                <a href="javascript:void(0)"onclick="viewMoreCrop('${row.id}')"><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn th-btn px-4  fw-bold">View</span></a>
+              </td>
+    
+          </tr>`;
         });
         $('#cropauctiondata').html(rowContent);
         $(document).ready(function () {
@@ -5393,115 +5432,28 @@ const createNewUser = () => {
 /*                            END OF USERS SECTION                            */
 /* -------------------------------------------------------------------------- */
 
+
+
 /* -------------------------------------------------------------------------- */
-/*                              SEND MAIL MESSAGE                             */
+/*                               Wallet Section   begins                             */
 /* -------------------------------------------------------------------------- */
 
-/* --------------------------- single mail message -------------------------- */
-const sendMailMessage = () => {
-  let mailSubject = document.querySelector("#subject").value;
-  let mailReceiver = document.querySelector("#email").value;
-  let mailMessage = document.querySelector("#message").value;
-  // Displaying the value 
+let state = false;
 
-  if (tinymce.get('message').getContent() == "" || mailReceiver == "" || mailSubject == "") {
-    swal("Please fill all fields to send mail");
+function myFunction(show) {
+  // show.classList.toggle('fa-eye');
+  let eyes = document.getElementById("eyetoggle");
+  eyes.classList.toggle("fa-eye-slash");
+  eyes.classList.toggle("fa-eye");
+}
+
+function toggle() {
+  if (state) {
+    balances.setAttribute("class", "password");
+    state = false;
   } else {
-    const mailJSON = JSON.stringify({
-      "email": mailReceiver,
-      "subject": mailSubject,
-      "html": mailMessage
-    });
-
-    var settings = querySetting("api/admin/email/send/singlemail", "POST", localStorage.getItem('access'), mailJSON);
-
-    $.ajax(settings).done(function (response) {
-      if (response.error == true) {
-        swal("FAILED", response.message, "error");
-      } else {
-        swal("SUCCESS", response.message, "success");
-        $("#subject").val("");
-        $("#email").val("");
-        $("#message_ifr html").html("");
-      }
-    });
-
+    password.setAttribute("type", "type");
+    state = true;
   }
 }
 
-$("#sendmsg").click(sendMailMessage);
-
-
-/* -------------------------- bulk mail recipients -------------------------- */
-/* ----------------------- validate csv file submitted ---------------------- */
-const readCSV = () => {
-  //Method to read csv file and convert it into JSON
-  var files = document.querySelector(".mailContents").files;
-  if (files.length == 0) {
-    swal("ERROR", "Please upload a csv file", "warning");
-	document.querySelector('.file-upload-field').value = "";
-	document.querySelector('.file-upload-wrapper').setAttribute("data-text", "Select a csv file");
-  }
-  var filename = files[0].name;
-  var extension = filename
-    .substring(filename.lastIndexOf("."))
-    .toUpperCase();
-  if (extension == ".CSV") {
-    csvFileToJSON(files[0]);
-  } else {
-    swal("ERROR", "Please select a valid csv file.", "warning");
-	document.querySelector('.file-upload-field').value = "";
-	document.querySelector('.file-upload-wrapper').setAttribute("data-text", "Select a valid csv file");
-  }
-}
-
-$("#sendbmsg").on('click', readCSV);
-
-/* ------------------ read csv file and convert it to json ------------------ */
-const csvFileToJSON = (file) => {
-	// console.log(file);
-	var reader = new FileReader();
-	reader.readAsBinaryString(file);
-	reader.onload = function (e) {
-		var jsonData = [];
-		var rows = e.target.result.split("\n");
-		var headers = rows[0].split(",");
-		for (let i = 1; i < rows.length; i++) {
-			let data = rows[i].match(/("[^"]+"|[^,]+)(?!\s*\")/g);
-			if (!data) continue; // skip empty lines
-			data[0] = data[0].replace(/"/g, "'");
-			let obj = {};
-			for (let j = 0; j < data.length; j++) {
-				obj[headers[j]] = data[j];
-			}
-			jsonData.push(obj);
-		}
-
-		jsonData.pop();
-		const emailAddresses = [];
-		for (let i = 0; i < jsonData.length; i++) {
-			emailAddresses.push({email: jsonData[i].email});
-		}
-
-		const recipients = jsonData.filter(data => data.email !== '').map(data => ({ email: data.email }));
-		const subject = jsonData[0].subject;
-		const message = jsonData[0]["message\r"].replace(/\r/g, '');
-
-		const mailJSON = JSON.stringify({
-			recipients,
-			subject,
-			html: message.replace(/^"(.*)"$/, '$1')
-		});
-		var settings = querySetting("api/admin/email/send/bulkmail", "POST", localStorage.getItem('access'), mailJSON);
-
-		$.ajax(settings).done(function (response) {
-			if (response.error == true) {
-				swal("FAILED", response.message, "error");
-			} else {
-				swal("SUCCESS", response.message, "success");
-				document.querySelector('.file-upload-field').value = "";
-				document.querySelector('.file-upload-wrapper').setAttribute("data-text", "Select your file!");
-			}
-		});
-	}
-}

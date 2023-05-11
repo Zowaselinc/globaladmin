@@ -42,21 +42,35 @@
 					<div class="container">
 						<div class="col-12 col-lg-12 mb-5 mb-xl-0">
 							<div class="d-block d-md-flex justify-content-between align-items-center mb-3">
-								<h2 class="welcome fs-5">All Farmers</h2>
+								<h2 class="welcome fs-4">Farmers</h2>
 								<a href="./addfarmers.html" class="btn btn-lg th-btn text-white" style="border-radius: 5px !important;">Add Farmer</a>
 							</div>
+
+							<div class="d-flex justify-content-between align-items-center mb-4">
+								<div class="d-flex" style="width: 31.2%;">
+									<span class="py-2" style="background: rgba(187, 187, 187, 0.5); padding: 0px 2px;border-radius: 10px; width: 100%;">
+										<a href="javascript:void(0)" class="border-active border-secondary rounded-5 fw-bold welcome" style="font-size: 15px !important;padding: 11px 50px;">All Farmers</a>
+										<span class="welcome me-1" style="font-size: 16px !important;">|</span>
+										<a href="" class="border-secondary rounded-5  fw-bold welcome" style="font-size: 15px !important; padding: 11px 50px;">My Farmers</a>
+									</span>
+								</div>
+								<div class="form-group mb-4">
+									<input id="search" type="search" placeholder="Search" aria-describedby="button-addon" class="form-control border-muted rounded-2">
+								</div>
+							</div>
+
 							<div class="card border-0 shadow-sm bg-white" style="border-radius: 5px !important;">
-								
 								<div class="card-body bg-white mt-2 ">
-									<div class=" table-responsive-lg">
+									<div class="table-responsive-lg">
 										<table id="allTable" class="pt-3 table table-hover table-lg align-middle table-borderless default-color" cellspacing="0" width="100%">
 											<thead class="t-border">
-												<tr class="border-bottom t-border text-uppercase">
-													<th>ID</th>
-													<th>NAME</th>
-													<th>PHONE</th>
-													<th>GENDER</th>
-													<th>DETAILS</th>
+												<tr class="border-bottom t-border text-capitalize">
+													<th>S/N</th>
+													<th>Name</th>
+													<th>Email</th>
+													<th>Language</th>
+													<th></th>
+													<th>Credit Score</th>
 												</tr>
 											</thead>
 											
@@ -105,6 +119,15 @@
 
 	<script>
 		fetchAllFarmers();
+	</script>
+
+	<script>
+		$("#search").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		$("#farmersData tr").filter(function() {
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+		});
 	</script>
 </body>
 
