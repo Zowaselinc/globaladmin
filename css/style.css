@@ -936,6 +936,10 @@ table{
     border-spacing: 0;   
 }
 
+table tr {
+  border-bottom: 1px solid gainsboro;
+}
+
 .lineheight-0 {
   line-height: 0px !important;
 }
