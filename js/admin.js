@@ -3977,11 +3977,12 @@ function cropsWanted() {
             scrollCollapse: true,
             retrieve: true,
             paging: true,
+            searching: false,
             "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
             fixedHeader: {
               header: true,
               footer: true
-            }
+            }  
           });
         });
       }
@@ -4322,6 +4323,7 @@ function cropsAuctioned() {
     } else {
       console.log(response.data)
       let thedata = response.data;
+      // console.log(thedata,"jjjjjjj")
       thedata = thedata.rows
       if (thedata.length > 0) {
         let rowContent
@@ -4968,7 +4970,7 @@ const swapLocation = (loc = "") => {
     if(loc == "kyc"){
 
       $('#kycDoc').removeClass('d-none');
-      
+       
     } else if (loc == "individual") {
 
       $('#individual').removeClass('d-none');
@@ -5432,6 +5434,469 @@ const createNewUser = () => {
 /*                            END OF USERS SECTION                            */
 /* -------------------------------------------------------------------------- */
 
+/* -------------------------------------------------------------------------- */
+/*                              SEND MAIL MESSAGE                             */
+/* -------------------------------------------------------------------------- */
+
+/* --------------------------- single mail message -------------------------- */
+const sendMailMessage = () => {
+  let mailSubject = document.querySelector("#subject").value;
+  let mailReceiver = document.querySelector("#email").value;
+  let mailMessage = tinymce.get('message').getContent();
+  // Displaying the value 
+
+  if (mailMessage == "" || mailReceiver == "" || mailSubject == "") {
+    swal("Please fill all fields to send mail");
+  } else {
+    const mailJSON = JSON.stringify({
+      "email": mailReceiver,
+      "subject": mailSubject,
+      "html": mailMessage
+    });
+
+    var settings = querySetting("api/admin/email/send/singlemail", "POST", localStorage.getItem('access'), mailJSON);
+
+    $.ajax(settings).done(function (response) {
+      if (response.error == true) {
+        swal("FAILED", response.message, "error");
+      } else {
+        swal("SUCCESS", response.message, "success");
+        $("#subject").val("");
+        $("#email").val("");
+        $("#message_ifr html").html("");
+      }
+    });
+
+  }
+}
+
+$("#sendmsg").click(sendMailMessage);
+
+
+/* -------------------------- bulk mail recipients -------------------------- */
+/* ----------------------- validate csv file submitted ---------------------- */
+const readCSV = () => {
+  //Method to read csv file and convert it into JSON
+  var files = document.querySelector(".mailContents").files;
+  if (files.length == 0) {
+    swal("ERROR", "Please upload a csv file", "warning");
+	document.querySelector('.file-upload-field').value = "";
+	document.querySelector('.file-upload-wrapper').setAttribute("data-text", "Select a csv file");
+  }
+  var filename = files[0].name;
+  var extension = filename
+    .substring(filename.lastIndexOf("."))
+    .toUpperCase();
+  if (extension == ".CSV") {
+    csvFileToJSON(files[0]);
+  } else {
+    swal("ERROR", "Please select a valid csv file.", "warning");
+	document.querySelector('.file-upload-field').value = "";
+	document.querySelector('.file-upload-wrapper').setAttribute("data-text", "Select a valid csv file");
+  }
+}
+
+$("#sendbmsg").on('click', readCSV);
+
+/* ------------------ read csv file and convert it to json ------------------ */
+const csvFileToJSON = (file) => {
+	// console.log(file);
+	var reader = new FileReader();
+	reader.readAsBinaryString(file);
+	reader.onload = function (e) {
+		var jsonData = [];
+		var rows = e.target.result.split("\n");
+		var headers = rows[0].split(",");
+		for (let i = 1; i < rows.length; i++) {
+			let data = rows[i].match(/("[^"]+"|[^,]+)(?!\s*\")/g);
+			if (!data) continue; // skip empty lines
+			data[0] = data[0].replace(/"/g, "'");
+			let obj = {};
+			for (let j = 0; j < data.length; j++) {
+				obj[headers[j]] = data[j];
+			}
+			jsonData.push(obj);
+		}
+
+		jsonData.pop();
+		const emailAddresses = [];
+		for (let i = 0; i < jsonData.length; i++) {
+			emailAddresses.push({email: jsonData[i].email});
+		}
+
+		const recipients = jsonData.filter(data => data.email !== '').map(data => ({ email: data.email }));
+		const subject = jsonData[0].subject;
+		const message = jsonData[0]["message\r"].replace(/\r/g, '');
+
+		const mailJSON = JSON.stringify({
+			recipients,
+			subject,
+			html: message.replace(/^"(.*)"$/, '$1')
+		});
+		var settings = querySetting("api/admin/email/send/bulkmail", "POST", localStorage.getItem('access'), mailJSON);
+
+		$.ajax(settings).done(function (response) {
+			if (response.error == true) {
+				swal("FAILED", response.message, "error");
+			} else {
+				swal("SUCCESS", response.message, "success");
+				document.querySelector('.file-upload-field').value = "";
+				document.querySelector('.file-upload-wrapper').setAttribute("data-text", "Select your file!");
+			}
+		});
+	}
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                               KNOWLEDGE BASE                               */
+/* -------------------------------------------------------------------------- */
+
+
+/* ------------------------------- KB Category ------------------------------ */
+const addkbCate = () => {
+  // selecting the input element and get its value
+  let ctName = document.getElementById("kb_title");
+  let ctDescription = document.getElementById("kb_description");
+
+  // Displaying the value 
+
+  if (!ctName.value) {
+    swal("Enter name!");
+    ctName.focus();
+    return false;
+  } else if (!ctDescription.value) {
+    swal("Enter description!");
+    ctDescription.focus();
+    return false;
+  } else {
+
+    const kBContent = JSON.stringify({
+      "category_name": ctName.value,
+      "category_description": ctDescription.value,
+    });
+
+
+    var settings = querySetting("api/admin/kbcategory/add", "POST", localStorage.getItem('access'), kBContent);
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        swal("FAILED", response.message, "error");
+      } else {
+        swal("SUCCESS", response.message, "success");
+        showKnowledgeBaseCategory();
+      }
+    });
+  }
+};
+
+/* -------------------------- fetch all categories -------------------------- */
+function showKnowledgeBaseCategory() {
+  loader('#tbdata', 6);
+
+
+  var settings = querySetting("api/admin/kbcategory/getall", "GET", localStorage.getItem('access'));
+
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+    if (response.error == true) {
+      console.log(response.message);
+      $('#tbdata').html("<tr>" + response.message + "</tr>");
+    } else {
+
+      var rowContent;
+      let thedata = (response.data).reverse();
+      $.each(thedata, (index, row) => {
+
+        index = index + 1;
+        rowContent
+          += `<tr class="align-items-center">
+                <td style="min-width: 10px !important;"><span>${index}</span></td>
+                <td style="min-width: 100px !important;"><span>${row.category_name}</span></td>
+                <td style="min-width: 130px !important;"><span>${row.category_description}</span></td>
+                <td style="min-width: 100px !important;"><span>${splittingDate(row.updated_at)}</span></td>
+                <td class="text-center" style="min-width: 140px;">
+                <button class="btn btn-sm th-btn fs-9 text-white rounded-6 text-end me-3" onclick="editKBC('${row.id}', '${row.category_name}', '${row.category_description}')">Update</button>
+                <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deleteKBCategory('${row.id}')">Delete</button>
+                </td>
+              </tr>`;
+      });
+      // alert(response.data.length);
+      $('#tbdata').html(rowContent);
+      $(document).ready(function () {
+        $('#allTable').DataTable({
+          scrollY: 300,
+          scrollX: true,
+          scrollCollapse: true,
+          retrieve: true,
+          paging: true,
+          "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+          fixedHeader: {
+            header: true,
+            footer: true
+          }
+        });
+      });
+
+
+    }
+  });
+};
+
+
+/* --------------------- delete knowledge base category --------------------- */
+const deleteKBCategory = (n) => {
+  swal({
+    title: "Are you sure you want to delete this Category?",
+    text: "Once deleted, you will not be able to recover this data!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+    .then((willDelete) => {
+      if (willDelete) {
+        loader('#tbdata', 6);
+        var settings = {
+          "url": "https://adminapi.growsel.com/api/admin/kbcategory/delete/" + n,
+          "method": "POST",
+          "timeout": 0,
+          "headers": {
+            "Authorization": localStorage.getItem('access')
+          },
+          "Content-Type": "application/json",
+        };
+
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if (response.error == true) {
+            console.log(response.message);
+            showKnowledgeBaseCategory();
+            swal("FAILED", response.message, "error");
+          } else {
+            console.log(response.message);
+            swal("SUCCESS", response.message, "success");
+            location.reload();
+          }
+
+        });
+      }
+    });
+}
+
+const editKBC = (id, title, desc) => {
+  document.querySelector('.ukbc').classList.remove('d-none');
+  document.querySelector('.akbc').classList.add('d-none');
+  document.querySelector('#ukbc').setAttribute('data-cat-id', id);
+
+  document.querySelector('#kb_title').value = title;
+  document.querySelector('#kb_description').value = desc;
+}
+/* ------------------- cancel edit knowledge base category ------------------ */
+const cancelkbCateUpdate = () => {
+  document.querySelector('.ukbc').classList.add('d-none');
+  document.querySelector('.akbc').classList.remove('d-none');
+  document.querySelector('#ukbc').setAttribute('data-cat-id', "");
+
+  document.querySelector('#kb_title').value = "";
+  document.querySelector('#kb_description').value = "";
+}
+
+/* ----------------------- update knowledge base data ----------------------- */
+const updateKnowledgeBaseCategory = () => {
+  
+  // selecting the input element and get its value
+  let id = document.querySelector("#ukbc").getAttribute('data-cat-id');
+  let ctName = document.getElementById("kb_title");
+  let ctDescription = document.getElementById("kb_description");
+  
+  if (!ctName.value) {
+    swal("Title required!");
+    ctName.focus();
+    return false;
+  } else if (!ctDescription.value) {
+    swal("Description required!");
+    ctDescription.focus();
+    return false;
+  } else {
+    loader('#tbdata', 6);
+    const editCategoryKB = JSON.stringify({
+      "id": id,
+      "category_name": ctName.value,
+      "category_description": ctDescription.value
+    });
+
+    var settings = querySetting("api/admin/kbcategory/edit", "POST", localStorage.getItem('access'), editCategoryKB);
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        swal("FAILED", response.message, "error");
+      } else {
+        swal("SUCCESS", response.message, "success");
+        cancelkbCateUpdate();
+        location.reload();
+      }
+    });
+  }
+};
+/* ----------------------------------- end ---------------------------------- */
+
+
+/* ------------------------------- KB Article ------------------------------- */
+
+/* -------------------------- fetch all categories -------------------------- */
+function showKnowledgeBaseArticles() {
+  loader('#tbdata', 6);
+
+
+  var settings = querySetting("api/admin/article/getall", "GET", localStorage.getItem('access'));
+
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+    if (response.error == true) {
+      console.log(response.message);
+      $('#tbdata').html("<tr>" + response.message + "</tr>");
+    } else {
+
+      var rowContent;
+      let thedata = (response.data).reverse();
+      $.each(thedata, (index, row) => {
+
+        index = index + 1;
+        rowContent
+          += `<tr class="align-items-center">
+                <td style="min-width: 10px !important;"><span>${index}</span></td>
+                <td style="min-width: 100px !important;"><span>${row.title}</span></td>
+                <td style="min-width: 130px !important;"><span class="btn btn-sm btn-info rounded-6 text-white" onclick="swal('${row.body}')">View Content</span></td>
+                <td style="min-width: 100px !important;"><span>${splittingDate(row.updated_at)}</span></td>
+                <td class="text-center" style="min-width: 140px;">
+                <button class="btn btn-sm th-btn fs-9 text-white rounded-6 text-end me-3" onclick="editKBC('${row.article_id}')">Update</button>
+                <button class="btn btn-sm btn-danger fs-9 rounded-6" onclick="deleteKBArticle('${row.id}')">Delete</button>
+                </td>
+              </tr>`;
+      });
+      // alert(response.data.length);
+      $('#tbdata').html(rowContent);
+      $(document).ready(function () {
+        $('#allTable').DataTable({
+          scrollY: 300,
+          scrollX: true,
+          scrollCollapse: true,
+          retrieve: true,
+          paging: true,
+          "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+          fixedHeader: {
+            header: true,
+            footer: true
+          }
+        });
+      });
+
+
+    }
+  });
+};
+
+
+/* ---------- populate the article category select with categories ---------- */
+const populateArticleCategories = () => {
+
+  var settings = querySetting("api/admin/kbcategory/getall", "GET", localStorage.getItem('access'));
+  
+  $.ajax(settings).done(function (data) {
+    let response = data.data;
+    for (let i = 0; i < response.length; i++) {
+      $('#a_cate').append(`<option value='${response[i].category_id}'>${response[i].category_name}</option>`);
+    }
+  });
+}
+
+
+/* ----------------------------- add new article ---------------------------- */
+const addkbArticle = () => {
+  // selecting the input element and get its value
+  let aName = document.getElementById("a_title");
+  let aDescription = document.getElementById("a_content");
+  let aCategory = document.getElementById("a_cate");
+
+  // Displaying the value 
+
+  if (!aName.value) {
+    swal("Enter name!");
+    aName.focus();kBContent
+    return false;
+  } else if (!aDescription.value) {
+    swal("Enter description!");
+    aDescription.focus();
+    return false;
+  } else if(!aCategory.value) {
+    swal("Select Article Category!");
+    aCategory.focus();
+    return false;
+  } else {
+
+    const kBContent = JSON.stringify({
+      "title": aName.value,
+      "body": aDescription.value,
+      "category_id": aCategory.value
+    });
+
+
+    var settings = querySetting("api/admin/article/add", "POST", localStorage.getItem('access'), kBContent);
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      if (response.error == true) {
+        swal("FAILED", response.message, "error");
+      } else {
+        swal("SUCCESS", response.message, "success");
+        $('input').val('');
+        $('select').val('');
+        $('textarea').val('');
+      }
+    });
+  }
+};
+
+/* -------------------------- delete article by id -------------------------- */
+/* --------------------- delete knowledge base category --------------------- */
+const deleteKBArticle = (n) => {
+  swal({
+    title: "Are you sure you want to delete this Article?",
+    text: "Once deleted, you will not be able to recover this data!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+    .then((willDelete) => {
+      if (willDelete) {
+        loader('#tbdata', 6);
+        var settings = {
+          "url": "https://adminapi.growsel.com/api/admin/article/delete/" + n,
+          "method": "POST",
+          "timeout": 0,
+          "headers": {
+            "Authorization": localStorage.getItem('access')
+          },
+          "Content-Type": "application/json",
+        };
+
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if (response.error == true) {
+            swal("FAILED", response.message, "error");
+          } else {
+            swal("SUCCESS", response.message, "success");
+            location.reload();
+          }
+
+        });
+      }
+    });
+}
 
 
 /* -------------------------------------------------------------------------- */

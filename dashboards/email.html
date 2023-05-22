@@ -110,8 +110,8 @@
 								<div class="d-flex justify-content-between my-4 align-items-end">
 									<h1 class="welcome">Send Email(s)</h1>
 									<div class="active-section">
-										<button class="btn bg-info text-white py-3 px-5" onclick="activeSection(this, 'single')">Single Recipient</button>
-										<button class="btn bg-white py-3 px-5" onclick="activeSection(this, 'bulk')">Bulk Recipients</button>
+										<button style="border-radius: 5px !important; font-size: 14px !important;" class="btn border-active text-white py-3 px-5 fw-bold" onclick="activeSection(this, 'single')">Single Recipient</button>
+										<button style="border-radius: 5px !important; font-size: 14px !important;" class="btn bg-white py-3 px-5 fw-bold" onclick="activeSection(this, 'bulk')">Bulk Recipients</button>
 									</div>
 								</div>
 								
@@ -239,13 +239,13 @@
 		const activeSection = (e, type) => {
 			let mailtype = document.querySelectorAll(".active-section button");
 			for(let i = 0; i < mailtype.length; i++){
-				mailtype[i].classList.remove('bg-info');
+				mailtype[i].classList.remove('border-active');
 				mailtype[i].classList.add('bg-white');
 				mailtype[i].classList.remove('text-white');
 			}
 
 			e.classList.toggle('text-white');
-			e.classList.toggle('bg-info');
+			e.classList.toggle('border-active');
 			e.classList.toggle('bg-white');
 
 			document.querySelector('#sendSingle').classList.add('d-none')
