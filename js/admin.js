@@ -520,7 +520,7 @@ const updateAdminRole = () => {
       console.log(response);
       if (response.error == true) {
         console.log(response.message);
-        swal("FAILED", response.message, "error");
+        swal("FAILED", response.message, "error"); 
       } else {
 
         console.log(response.message);
@@ -987,24 +987,24 @@ function fetchAllusers() {
       let thedata = response.data;
       if (thedata.length > 0) {
         let rowContent
-        let user;
+        // let user;
         $.each(thedata, (index, row) => {
           console.log(thedata);
 
-          if(!row.user){
-            // user=`<td>in complete data</td>`
-          }else{
-           user = row.user
-          }
+          // if(!row.user){
+          //   user=`<td>in complete data</td>`
+          // }else{
+          //  user = row.user
+          // }
 
           let userStatus, verificationStatus;
-          if (user.status == 1) {
+          if (row.status == 1) {
             userStatus = `<span class="text-success">Active</span>`;
           } else {
             userStatus = `<span class="text-danger">Inactive</span>`;
           }
 
-          if (user.is_verified == 0) {
+          if (row.is_verified == 0) {
             verificationStatus = `<span class="text-danger">Not Verified</span>`;
           } else {
             verificationStatus = `<span class="text-success">Verified</span>`;
@@ -1014,11 +1014,11 @@ function fetchAllusers() {
           rowContent += `<tr class="align-items-center">
                       <td style="min-width: 50px;"><span>${index}</span></td>
                       <td style="min-width: 170px;">
-                          <strong class="text-secondary">${user.first_name} ${user.last_name}</strong><br/>
-                          <small class="text-primary fw-bold text-uppercase">${user.type}</small>
+                          <strong class="text-secondary">${row.first_name} ${row.last_name}</strong><br/>
+                          <small class="text-primary fw-bold text-uppercase">${row.type}</small>
                       </td>
-                      <td style="min-width: 150px;" class="text-primary">${user.email}</td>
-                      <td style="min-width: 120px;">${user.phone}</td>
+                      <td style="min-width: 150px;" class="text-primary">${row.email}</td>
+                      <td style="min-width: 120px;">${row.phone}</td>
                       <td style="min-width: 170px;">${verificationStatus}</td>
                       <td style="min-width: 80px;">${userStatus}</td>
                       <td style="min-width: 120px;">${(row.created_at).split("T")[0]}</td>
@@ -3915,6 +3915,87 @@ const viewInput = () => {
 /*                           CROPS DATA STARTS HERE                           */
 /* -------------------------------------------------------------------------- */
 
+// -------------------------- Get all crops ------------------------------------//
+
+function AllCrops() {
+
+  loader('#allCrops', 10)
+
+  var settings = querySetting("api/admin/crop/getall", "GET", localStorage.getItem('access'));
+
+  $.ajax(settings).done(function (data) {
+    let response = data;
+    console.log(response);
+
+    if (response.error == true) {
+      $('#cropofferdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop Wanted Availble Yet</h3></td></tr>");
+      // console.log(response.message);
+
+    } else {
+      console.log(response.data)
+      let thedata = response.data;
+      thedata = thedata
+
+      if (thedata.length > 0) {
+        let rowContent
+        $.each(thedata, (index, row) => {
+
+          let crop_status;
+          if (row.user.status == 1) {
+            crop_status =
+              `<div class="py-1 text-center rounded-pill successalert">
+                    <span class="rounded-circle p-1 dot d-inline-block"></span>
+                    <strong class="text-success" style="font-size:12px;">ACTIVE</strong>
+                  </div>`;
+          } else {
+            crop_status =
+              `<div class="py-1 text-center rounded-pill past-due">
+                    <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
+                    <strong class="text-past"  style="font-size:12px;">IN ACTIVE</strong>
+                  </div>`;
+          }
+          // console.log(row.category.type)
+          index = index + 1;
+          rowContent += `
+              <tr class="">
+                <!-- <td>${index}</td> -->
+                <td style="padding: 0.8rem 1.5rem !important;"><span class="text-secondary" style="font-size:14px !important;">${row.subcategory.name} - ${row.specification.color}</span>
+                <br> <strong class="text-secondary text-uppercase" style="font-size:14px !important;">${row.type}</strong></td>
+                <td><span class="text-secondary" style="font-size:14px !important;">${splittingDate(row.created_at)}</span></td>
+                <td><strong class="text-secondary" style="font-size:14px !important;">${row.category.name}</strong></td>
+                <td><span class="text-seconday" style="font-size:14px !important;">${row.user.first_name}</span></td>
+                <td><strong class:"text-secondary" style="font-size:14px !important;">NGN${row.specification.price}/bag</strong></td>
+                <td><span class="text-secondary" style="font-size:14px !important;">${row.user.state}</span></td>
+                <td style="cursor:pointer;" class="text-center">
+                  <a href="javascript:void(0)"onclick="viewMoreCrop('${row.id}')"><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn th-btn px-4  fw-bold">View</span></a>
+                </td>
+              </tr>
+              `;
+        });
+        $('#allCrops').html(rowContent);
+        $(document).ready(function () {
+          $('#allTable').DataTable({
+            scrollY: 900,
+            scrollX: true,
+            scrollCollapse: true,
+            retrieve: true,
+            paging: true,
+            searching: false,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            fixedHeader: {
+              header: true,
+              footer: true
+            }  
+          });
+        });
+      }
+    }
+  });
+
+};
+
+
+
 function cropsWanted() {
 
   loader('#cropdata', 10)
@@ -3927,12 +4008,12 @@ function cropsWanted() {
 
     if (response.error == true) {
       $('#cropofferdata').html("<tr><td colspan='9' class='text-center'><h3 class='pt-2'>No Crop Wanted Availble Yet</h3></td></tr>");
-      console.log(response.message);
+      // console.log(response.message);
 
     } else {
       console.log(response.data)
       let thedata = response.data;
-      thedata = thedata.rows
+      thedata = thedata
 
       if (thedata.length > 0) {
         let rowContent
@@ -3972,13 +4053,13 @@ function cropsWanted() {
         $('#cropdata').html(rowContent);
         $(document).ready(function () {
           $('#allTable').DataTable({
-            scrollY: 300,
+            scrollY: 800,
             scrollX: true,
             scrollCollapse: true,
             retrieve: true,
             paging: true,
             searching: false,
-            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             fixedHeader: {
               header: true,
               footer: true
@@ -4279,12 +4360,13 @@ function cropsOffered() {
         $('#cropofferdata').html(rowContent);
         $(document).ready(function () {
           $('#allTable').DataTable({
-            scrollY: 300,
+            scrollY: 800,
             scrollX: true,
             scrollCollapse: true,
             retrieve: true,
             paging: true,
-            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            searching: false,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             fixedHeader: {
               header: true,
               footer: true
@@ -4324,7 +4406,7 @@ function cropsAuctioned() {
       console.log(response.data)
       let thedata = response.data;
       // console.log(thedata,"jjjjjjj")
-      thedata = thedata.rows
+      thedata = thedata
       if (thedata.length > 0) {
         let rowContent
         $.each(thedata, (index, row) => {
@@ -4363,12 +4445,13 @@ function cropsAuctioned() {
         $('#cropauctiondata').html(rowContent);
         $(document).ready(function () {
           $('#allTable').DataTable({
-            scrollY: 300,
+            scrollY: 800,
             scrollX: true,
             scrollCollapse: true,
             retrieve: true,
             paging: true,
-            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            searching: false,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             fixedHeader: {
               header: true,
               footer: true

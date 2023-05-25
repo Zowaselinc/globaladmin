@@ -39,14 +39,22 @@
 				<div class="main-content row d-flex justify-content-center align-items-center">
 					<!-- Card Header -->
 					<div class="container-fluid header mb-2 mt-1 pt-md-8  ">
-						<div class="container">
+						<div class="container gx-0 gx-md-2 gx-lg-4">
 							<div class="header-body">
-								<div class="d-block d-md-flex justify-content-md-between  mb-1 mt-4">
-									<h2 class="fs-3 mb-3 welcome">All Crops</h2>
-									<div>
-										<a href="./crops.html"><span class="border border-secondary bg-white ps-3 pe-3 pt-2 pb-2 me-2 rounded-3  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Wanted</span></a>
-										<a href="./crop-offered.html"><span class="border border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-3  fw-bold text-secondary" style="letter-spacing: 0.05rem;">For Sale</span></a>
-										<a href="#"><span class="border  border-active border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-3  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Auctioned</span></a>
+								<div class="d-block mb-1 mt-4">
+									<div class="d-block d-md-flex align-items-center justify-content-md-between mb-3">
+										<h2 class="fs-3 mb-3 welcome">Crops for Auction</h2>
+										<a href="crops.html" class="align-items-center"><span class="btn th-btn ps-3 pe-3 pt-2 pb-2 me-2 rounded-3 fw-bold text-white" style="letter-spacing: 0.05rem; font-size: 14px !important; border-radius: 5px !important;"> All Crops</span></a>
+									</div>
+									<div class="d-block d-md-flex align-items-center justify-content-md-between">
+										<div class="d-block d-md-flex">
+											<a href="./crop-wanted.html"><span class="border border-secondary bg-white ps-3 pe-3 pt-2 pb-2 me-2 rounded-3  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Wanted</span></a>
+											<a href="./crop-offered.html"><span class="border border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-3  fw-bold text-secondary" style="letter-spacing: 0.05rem;">For Sale</span></a>
+											<a href="./crop-auctioned.html"><span class="border border-active border-secondary bg-white ps-4 pe-4 pt-2 pb-2 me-2 rounded-3  fw-bold text-secondary" style="letter-spacing: 0.05rem;">Auctioned</span></a>
+										</div>
+										<div class="form-group mb-4">
+											<input id="search" type="search" placeholder="Search" aria-describedby="button-addon" class="form-control border-muted rounded-2">
+										</div>
 									</div>
 								</div>
 							</div>
@@ -124,6 +132,14 @@
 	<script>
 		cropsAuctioned();
 	</script>
+	<script>
+		$("#search").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		$("#cropauctiondata tr").filter(function(){
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+		});
+	</script> 
 </body>
 
 </html>
