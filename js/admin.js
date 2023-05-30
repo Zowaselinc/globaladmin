@@ -3938,33 +3938,28 @@ function AllCrops() {
 
       if (thedata.length > 0) {
         let rowContent
+        let thedata = (response.data).reverse()
         $.each(thedata, (index, row) => {
 
-          let crop_status;
-          if (row.user.status == 1) {
-            crop_status =
-              `<div class="py-1 text-center rounded-pill successalert">
-                    <span class="rounded-circle p-1 dot d-inline-block"></span>
-                    <strong class="text-success" style="font-size:12px;">ACTIVE</strong>
-                  </div>`;
+          console.log(row.specification)
+          
+          let specification ;
+          if (!row.specification) {
+            specification = `<strong class:"text-secondary" style="font-size:14px !important;">Null</strong>`;
           } else {
-            crop_status =
-              `<div class="py-1 text-center rounded-pill past-due">
-                    <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
-                    <strong class="text-past"  style="font-size:12px;">IN ACTIVE</strong>
-                  </div>`;
-          }
+            specification = row.specification;
+          };
           // console.log(row.category.type)
           index = index + 1;
           rowContent += `
               <tr class="">
                 <!-- <td>${index}</td> -->
-                <td style="padding: 0.8rem 1.5rem !important;"><span class="text-secondary" style="font-size:14px !important;">${row.subcategory.name} - ${row.specification.color}</span>
+                <td style="padding: 0.8rem 1.5rem !important;"><span class="text-secondary" style="font-size:14px !important;">${row.subcategory.name} - ${specification.color}</span>
                 <br> <strong class="text-secondary text-uppercase" style="font-size:14px !important;">${row.type}</strong></td>
                 <td><span class="text-secondary" style="font-size:14px !important;">${splittingDate(row.created_at)}</span></td>
                 <td><strong class="text-secondary" style="font-size:14px !important;">${row.category.name}</strong></td>
                 <td><span class="text-seconday" style="font-size:14px !important;">${row.user.first_name}</span></td>
-                <td><strong class:"text-secondary" style="font-size:14px !important;">NGN${row.specification.price}/bag</strong></td>
+                <td><strong class:"text-secondary" style="font-size:14px !important;">NGN${specification.price}/bag</strong></td>
                 <td><span class="text-secondary" style="font-size:14px !important;">${row.user.state}</span></td>
                 <td style="cursor:pointer;" class="text-center">
                   <a href="javascript:void(0)"onclick="viewMoreCrop('${row.id}')"><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn th-btn px-4  fw-bold">View</span></a>
@@ -4019,30 +4014,23 @@ function cropsWanted() {
         let rowContent
         $.each(thedata, (index, row) => {
 
-          let crop_status;
-          if (row.user.status == 1) {
-            crop_status =
-              `<div class="py-1 text-center rounded-pill successalert">
-                    <span class="rounded-circle p-1 dot d-inline-block"></span>
-                    <strong class="text-success" style="font-size:12px;">ACTIVE</strong>
-                  </div>`;
+          let specification ;
+          if (!row.specification) {
+            specification = `<strong class:"text-secondary" style="font-size:14px !important;">Null</strong>`;
           } else {
-            crop_status =
-              `<div class="py-1 text-center rounded-pill past-due">
-                    <span class="rounded-circle p-1 past  d-inline-block me-1"></span>
-                    <strong class="text-past"  style="font-size:12px;">IN ACTIVE</strong>
-                  </div>`;
-          }
+            specification = row.specification;
+          };
+          
           // console.log(row.category.type)
           index = index + 1;
           rowContent += `
               <tr class="">
                 <!-- <td>${index}</td> -->
-                <td style="padding: 0.8rem 1.5rem !important;"><span class="text-secondary" style="font-size:14px !important;">${row.subcategory.name} - ${row.specification.color}</span> </td>
+                <td style="padding: 0.8rem 1.5rem !important;"><span class="text-secondary" style="font-size:14px !important;">${row.subcategory.name} - ${specification.color}</span> </td>
                 <td><span class="text-secondary" style="font-size:14px !important;">${splittingDate(row.created_at)}</span></td>
                 <td><strong class="text-secondary" style="font-size:14px !important;">${row.category.name}</strong></td>
                 <td><span class="text-seconday" style="font-size:14px !important;">${row.user.first_name}</span></td>
-                <td><strong class:"text-secondary" style="font-size:14px !important;">NGN${row.specification.price}/bag</strong></td>
+                <td><strong class:"text-secondary" style="font-size:14px !important;">NGN${specification.price}/bag</strong></td>
                 <td><span class="text-secondary" style="font-size:14px !important;">${row.user.state}</span></td>
                 <td style="cursor:pointer;" class="text-center">
                   <a href="javascript:void(0)"onclick="viewMoreCrop('${row.id}')"><span style="border-radius:5px !important; font-size:14px !important;" class="text-white btn th-btn px-4  fw-bold">View</span></a>
